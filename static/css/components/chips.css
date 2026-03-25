@@ -1,0 +1,93 @@
+/* Chip editor (highlights) */
+.chip-editor {
+  display: flex;
+  flex-direction: column;
+  gap: .375rem;
+  padding: .625rem;
+  background: #112036;
+  border: 1px solid #1e3350;
+  border-radius: .5rem;
+  min-height: 42px;
+  cursor: text;
+  transition: border-color .15s
+}
+
+.chip-editor:focus-within {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, .18)
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  padding: .2rem .55rem;
+  border-radius: 99px;
+  font-size: .75rem;
+  font-weight: 500;
+  white-space: nowrap
+}
+
+.chip-editor .chip {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  border-radius: .375rem;
+  white-space: normal;
+  word-break: break-word;
+  padding: .3rem .6rem;
+  cursor: text
+}
+
+.chip-editor .chip [contenteditable]:focus {
+  background: rgba(255, 255, 255, .08);
+  border-radius: .2rem
+}
+
+.chip-teal {
+  background: #022c16;
+  border: 1px solid #15803d;
+  color: #86efac
+}
+
+.chip-del {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: .6;
+  font-size: .85rem;
+  padding: 0
+}
+
+.chip-del:hover {
+  opacity: 1
+}
+
+.chip-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #94a3b8;
+  font-size: .78rem;
+  min-width: 120px;
+  flex: 1;
+  width: 100%
+}
+
+.chip-input::placeholder {
+  color: #334155
+}
+
+/* Keyword chips */
+.kw-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  padding: .2rem .6rem;
+  background: #052e16;
+  border: 1px solid #14532d;
+  border-radius: 99px;
+  font-size: .72rem;
+  color: #86efac
+}

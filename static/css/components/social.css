@@ -1,0 +1,38 @@
+.social-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .55rem .75rem;
+  border-radius: .5rem;
+  background: #112036;
+  border: 1px solid #1e3350;
+  transition: border-color .15s
+}
+
+.social-row:hover {
+  border-color: #2a4a68
+}
+
+.social-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0
+}
+
+.social-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor
+}
+
+.social-name {
+  font-size: .75rem;
+  font-weight: 600;
+  width: 88px;
+  flex-shrink: 0;
+  color: #94a3b8
+}

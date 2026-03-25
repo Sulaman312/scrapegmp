@@ -1,0 +1,76 @@
+<div id="panel-footer" class="panel hidden p-6 w-full">
+  <div class="panel-head">
+    <div class="flex items-center gap-3 mb-1">
+      <div class="ph-icon"><svg viewBox="0 0 24 24">
+        <rect x="2" y="3" width="20" height="14" rx="2" />
+        <path d="M8 21h8M12 17v4" />
+      </svg></div>
+      <h2>Footer</h2>
+    </div>
+    <p>Everything that appears in the footer of your generated website.</p>
+  </div>
+
+  <div class="space-y-4">
+    <!-- Business name (read-only mirror) -->
+    <div class="card">
+      <div class="sdiv">Business Name <span class="si si-g">→ Footer left column heading</span></div>
+      <p class="text-xs text-slate-500 mb-2">Pulled from <b class="text-slate-400">Contact &amp; Hours → Business Name</b>. Edit it there.</p>
+      <p id="fp-name-display" class="fi text-slate-400 cursor-not-allowed select-none py-2" style="opacity:.6"></p>
+    </div>
+
+    <!-- Footer tagline -->
+    <div class="card">
+      <div class="sdiv">Footer Tagline <span class="si si-g">→ Short text under the business name</span></div>
+      <p class="text-xs text-slate-500 mb-2">Pre-filled from your About paragraph. Edit freely — changes only affect the footer.</p>
+      <textarea id="ai-footer_tagline" class="fi" rows="2" placeholder="e.g. Serving you since 1999…" oninput="liveFooterPreview()"></textarea>
+    </div>
+
+    <!-- Social links preview -->
+    <div class="card">
+      <div class="sdiv">Social Links <span class="si si-g">→ Icons beside the tagline</span></div>
+      <p class="text-xs text-slate-500 mb-2">Managed in <b class="text-slate-400">Contact &amp; Hours → Social Links</b>. Edit them there.</p>
+      <div id="fp-social-preview" class="flex flex-wrap gap-2 mt-1"></div>
+    </div>
+
+    <!-- Contact column (editable mirror) -->
+    <div class="card">
+      <div class="sdiv">Contact Column <span class="si si-g">→ Footer right column</span></div>
+      <p class="text-xs text-slate-500 mb-3">Editable here — changes also update the Contact &amp; Hours section.</p>
+      <div class="space-y-3">
+        <div><label class="fl">Address</label><textarea id="foot-address" class="fi" rows="2" oninput="syncField('foot-address','f-address')"></textarea></div>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label class="fl">Phone</label><input type="text" id="foot-phone" class="fi" oninput="syncField('foot-phone','f-phone')" /></div>
+          <div><label class="fl">Email</label><input type="email" id="foot-email" class="fi" oninput="syncField('foot-email','f-email')" /></div>
+        </div>
+        <div><label class="fl">Website URL</label><input type="url" id="foot-website" class="fi" oninput="syncField('foot-website','f-website')" /></div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="card">
+      <div class="sdiv">Copyright Text <span class="si si-g">→ Bottom bar of the footer</span></div>
+      <p class="text-xs text-slate-500 mb-2">Pre-filled with the auto-generated value. Edit freely.</p>
+      <input type="text" id="ai-footer_copyright" class="fi" placeholder="© 2026 My Business. All rights reserved." oninput="liveFooterPreview()" />
+    </div>
+
+    <!-- Live preview -->
+    <div class="card">
+      <div class="sdiv">Live Preview</div>
+      <div class="footer-preview rounded-xl p-5" style="background:#0a0a18;border:1px solid #1e293b">
+        <div class="flex items-start justify-between gap-4 mb-4">
+          <div class="min-w-0 flex-1">
+            <p id="fp-name" class="text-sm font-bold text-white truncate"></p>
+            <p id="fp-tagline" class="text-xs text-slate-400 mt-1 leading-relaxed"></p>
+            <div id="fp-social" class="flex gap-2 mt-3 shrink-0"></div>
+          </div>
+          <div class="text-xs text-slate-600 space-y-1 text-right shrink-0">
+            <p id="fp-prev-addr" class="text-white/30"></p>
+            <p id="fp-prev-phone" class="text-white/30"></p>
+            <p id="fp-prev-email" class="text-white/30"></p>
+          </div>
+        </div>
+        <p id="fp-copyright" class="text-xs text-slate-600 border-t border-white/5 pt-3"></p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+.fi {
+  width: 100%;
+  background: #112036;
+  border: 1px solid #1e3350;
+  border-radius: .5rem;
+  padding: .5rem .825rem;
+  color: #e2e8f0;
+  font-size: .875rem;
+  outline: none;
+  transition: border-color .18s, box-shadow .18s
+}
+
+.fi:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, .18)
+}
+
+.fi::placeholder {
+  color: #3d5470
+}
+
+textarea.fi {
+  resize: vertical;
+  line-height: 1.6
+}
+
+/* Where-shown badges */
+.si {
+  display: none !important;
+  font-size: .62rem;
+  font-weight: 600;
+  padding: .1rem .4rem;
+  border-radius: 99px;
+  margin-left: .3rem;
+  vertical-align: middle;
+  letter-spacing: .02em;
+  white-space: nowrap
+}
+
+.si-g {
+  background: #0c2a1e;
+  border: 1px solid #065f46;
+  color: #6ee7b7
+}
+
+.si-y {
+  background: #2d1e07;
+  border: 1px solid #92400e;
+  color: #fcd34d
+}
+
+.si-b {
+  background: #052e16;
+  border: 1px solid #14532d;
+  color: #86efac
+}
+
+.fl {
+  display: block;
+  font-size: .7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: #5a7a9a;
+  margin-bottom: .45rem
+}
+
+.sdiv {
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+  gap: .625rem;
+  margin-bottom: 1.125rem
+}
+
+.sdiv::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #1a2e45
+}

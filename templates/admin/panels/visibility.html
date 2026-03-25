@@ -1,0 +1,316 @@
+<style>
+  /* ════════════════════════════════════════════════════
+     TOGGLE SWITCH
+  ════════════════════════════════════════════════════ */
+  .vis-toggle {
+    width: 48px; height: 26px;
+    background: #2d3f55;
+    border: 1px solid #3d5270;
+    border-radius: 13px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.22s ease, border-color 0.22s ease;
+    flex-shrink: 0;
+  }
+  .vis-toggle.vis-on { background: #16a34a; border-color: #16a34a; }
+  .vis-thumb {
+    width: 20px; height: 20px;
+    background: #64748b;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px; left: 2px;
+    transition: transform 0.22s ease, background 0.22s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+  .vis-toggle.vis-on .vis-thumb { transform: translateX(22px); background: #fff; }
+
+  /* ════════════════════════════════════════════════════
+     SECTION ROWS (adapts to light/dark)
+  ════════════════════════════════════════════════════ */
+  .vis-sec-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.055);
+    transition: background 0.14s;
+    gap: 12px;
+    background: #0d1e35;
+  }
+  .vis-sec-row:last-child { border-bottom: none; }
+  .vis-sec-row:hover { background: #0f2440; }
+  .vis-sec-row.vis-hidden-row { opacity: 0.5; }
+
+  .vis-always-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    gap: 12px;
+    background: #0a1a2e;
+  }
+
+  /* Icon wrapper */
+  .vis-icon-wrap {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .vis-icon-wrap.vis-icon-on  { background: rgba(22,163,74,0.15); }
+  .vis-icon-wrap.vis-icon-off { background: rgba(255,255,255,0.05); }
+  .vis-icon-wrap.vis-icon-on  svg { stroke: #4ade80; }
+  .vis-icon-wrap.vis-icon-off svg { stroke: #4b5563; }
+
+  /* Text */
+  .vis-name {
+    font-size: 13.5px; font-weight: 700;
+    color: #f1f5f9;
+    line-height: 1.3;
+    transition: color 0.2s;
+  }
+  .vis-name.vis-off { color: #475569; }
+  .vis-desc {
+    font-size: 11.5px;
+    color: #4a6280;
+    margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* Status badge */
+  .vis-badge {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .vis-badge.on  { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.22); }
+  .vis-badge.off { background: rgba(71,85,105,0.12);  color: #64748b;  border: 1px solid rgba(71,85,105,0.18); }
+  .vis-badge.no-content {
+    background: rgba(245,158,11,0.1); color: #f59e0b;
+    border: 1px solid rgba(245,158,11,0.22);
+  }
+
+  /* No-data state helpers */
+  .vis-no-data-note {
+    font-size: 10.5px;
+    color: #3d5270;
+    margin-top: 3px;
+    font-style: italic;
+  }
+  .vis-toggle.vis-toggle-disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  /* Slightly stronger dim for no-content rows */
+  .vis-no-content-row { opacity: 0.48 !important; }
+
+  .vis-always-badge {
+    font-size: 11px; font-weight: 600;
+    color: #4a6280;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(71,85,105,0.1);
+    border: 1px solid rgba(71,85,105,0.16);
+    white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* ════════════════════════════════════════════════════
+     WEBSITE PREVIEW — always dark (matches real site)
+  ════════════════════════════════════════════════════ */
+  .vis-preview-nav {
+    background: #06060f;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 0 20px; height: 52px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .vis-preview-logo {
+    font-weight: 900; font-size: 15px; color: #fff;
+    letter-spacing: -0.02em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px;
+  }
+  .vis-preview-navlinks {
+    display: flex; align-items: center; gap: 16px;
+    flex: 1; justify-content: center; overflow: hidden;
+  }
+  .vis-nav-link {
+    font-size: 11.5px; font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    white-space: nowrap;
+  }
+  .vis-preview-cta {
+    font-size: 11.5px; font-weight: 700; color: #fff;
+    padding: 6px 14px; border-radius: 8px;
+    white-space: nowrap; flex-shrink: 0;
+    background: linear-gradient(135deg,#4f7df5,#7c3aed);
+  }
+  .vis-preview-footer {
+    background: #06060f;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 20px 12px;
+  }
+  .vis-footer-top {
+    display: flex; align-items: flex-start; gap: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    margin-bottom: 9px;
+  }
+  .vis-footer-logo {
+    font-weight: 900; font-size: 15px;
+    background: linear-gradient(135deg,#4f7df5,#7c3aed,#06c9d4);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 3px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px;
+  }
+  .vis-footer-tagline {
+    font-size: 11px;
+    color: rgba(255,255,255,0.28);
+    line-height: 1.6;
+    margin-top: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 260px;
+  }
+  .vis-footer-social { display: flex; gap: 6px; margin-top: 10px; }
+  .vis-footer-social-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.05);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4);
+    flex-shrink: 0;
+  }
+  .vis-footer-contact-lbl {
+    font-size: 9px; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 6px;
+  }
+  .vis-footer-contact-item {
+    font-size: 11px; color: rgba(255,255,255,0.3);
+    margin-bottom: 3px;
+    max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .vis-footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .vis-footer-copy, .vis-footer-maps { font-size: 10px; color: rgba(255,255,255,0.16); }
+
+  /* ════════════════════════════════════════════════════
+     LIGHT MODE OVERRIDES
+  ════════════════════════════════════════════════════ */
+  body.light .vis-sec-row           { background: #fff; border-bottom-color: #e9eef5; }
+  body.light .vis-sec-row:hover     { background: #f5f8ff; }
+  body.light .vis-sec-row.vis-hidden-row { opacity: 0.55; }
+  body.light .vis-always-row        { background: #f0f4ff; border-bottom-color: #e2e8f0; }
+
+  body.light .vis-icon-wrap.vis-icon-on  { background: rgba(22,163,74,0.1); }
+  body.light .vis-icon-wrap.vis-icon-off { background: #f1f5f9; }
+  body.light .vis-icon-wrap.vis-icon-on  svg { stroke: #16a34a; }
+  body.light .vis-icon-wrap.vis-icon-off svg { stroke: #94a3b8; }
+
+  body.light .vis-name              { color: #0f172a; }
+  body.light .vis-name.vis-off      { color: #94a3b8; }
+  body.light .vis-desc              { color: #94a3b8; }
+
+  body.light .vis-badge.on  { background: #dcfce7; color: #16a34a; border-color: #86efac; }
+  body.light .vis-badge.off { background: #f1f5f9; color: #94a3b8; border-color: #e2e8f0; }
+  body.light .vis-badge.no-content { background: #fefce8; color: #a16207; border-color: #fde68a; }
+  body.light .vis-no-data-note { color: #94a3b8; }
+  body.light .vis-always-badge { background: #f1f5f9; color: #94a3b8; border-color: #e2e8f0; }
+
+  body.light .vis-toggle            { background: #e2e8f0; border-color: #cbd5e1; }
+  body.light .vis-toggle .vis-thumb { background: #94a3b8; }
+  body.light .vis-toggle.vis-on     { background: #16a34a; border-color: #16a34a; }
+  body.light .vis-toggle.vis-on .vis-thumb { background: #fff; }
+
+  /* The website preview sections always stay dark — intentional */
+  body.light .vis-browser-chrome,
+  body.light .vis-preview-nav,
+  body.light .vis-preview-footer { /* no overrides — keep dark */ }
+</style>
+
+<div id="panel-visibility" class="panel hidden p-6 w-full">
+  <div class="panel-head">
+    <div class="flex items-center gap-3 mb-1">
+      <div class="ph-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+      <h2>Website Sections</h2>
+    </div>
+    <p>Show or hide sections on your generated website. <span class="si si-b">→ Toggle on/off · Regenerate to apply</span></p>
+  </div>
+
+  <div class="space-y-5">
+    <div class="card" style="padding:0;overflow:hidden">
+
+      <!-- Real website NAV -->
+      <div class="vis-preview-nav">
+        <div class="vis-preview-logo" id="visNavName">Business Name</div>
+        <div class="vis-preview-navlinks" id="visNavLinks"></div>
+        <div class="vis-preview-cta" id="visNavCta">Get Started →</div>
+      </div>
+
+      <!-- Hero row — always visible -->
+      <div class="vis-always-row">
+        <div class="flex items-center gap-3">
+          <div class="vis-icon-wrap vis-icon-on">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/>
+              <path d="M9 21V12h6v9"/>
+            </svg>
+          </div>
+          <div>
+            <div class="vis-name">Hero</div>
+            <div class="vis-desc">Main banner with tagline, stats and CTA buttons</div>
+          </div>
+        </div>
+        <span class="vis-always-badge">Always Visible</span>
+      </div>
+
+      <!-- Dynamic section rows (rendered by JS) -->
+      <div id="sectionToggles"></div>
+
+      <!-- Real website FOOTER -->
+      <div class="vis-preview-footer">
+        <div class="vis-footer-top">
+          <!-- Left col: name + tagline + social icons -->
+          <div style="flex:2;min-width:0;margin-right:24px">
+            <div class="vis-footer-logo" id="visFooterName">Business Name</div>
+            <div class="vis-footer-tagline" id="visFooterTagline">Serving you with excellence</div>
+            <!-- Social icons populated by JS from real social_links -->
+            <div class="vis-footer-social" id="visFooterSocial"></div>
+          </div>
+          <!-- Right col: contact info -->
+          <div style="flex:1;min-width:0">
+            <div class="vis-footer-contact-lbl">Contact</div>
+            <div class="vis-footer-contact-item" id="visFooterAddr">—</div>
+            <div class="vis-footer-contact-item" id="visFooterPhone">—</div>
+            <div class="vis-footer-contact-item" id="visFooterEmail">—</div>
+            <div class="vis-footer-contact-item" id="visFooterWeb">—</div>
+          </div>
+        </div>
+        <div class="vis-footer-bottom">
+          <span class="vis-footer-copy" id="visFooterCopy">© 2025 Business Name. All rights reserved.</span>
+          <span class="vis-footer-maps" id="visFooterMaps" style="display:inline-flex;align-items:center;gap:3px">View on Google Maps <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+        </div>
+      </div>
+
+    </div><!-- end card -->
+
+    <!-- Info note -->
+    <div class="warn-note flex items-start gap-2.5">
+      <svg style="width:14px;height:14px;flex-shrink:0;margin-top:1px;stroke:#fcd34d;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span>Hidden sections are fully removed from the generated HTML. Click
+        <strong>Generate Website</strong> in the toolbar to apply your changes.
+      </span>
+    </div>
+
+  </div>
+</div>

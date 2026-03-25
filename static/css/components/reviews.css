@@ -1,0 +1,28 @@
+.review-card {
+  background: #112036;
+  border: 1px solid #1e3350;
+  border-radius: .625rem;
+  overflow: hidden
+}
+
+.review-card-head {
+  background: #0d1e35;
+  border-bottom: 1px solid #1e3350;
+  padding: .55rem .875rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0 .1rem;
+  transition: transform .1s
+}
+
+.star-btn:hover {
+  transform: scale(1.2)
+}

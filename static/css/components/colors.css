@@ -1,0 +1,41 @@
+.color-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem
+}
+
+.color-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: .5rem;
+  border: 2px solid #2a4a68;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  flex-shrink: 0
+}
+
+.color-swatch input[type="color"] {
+  width: 200%;
+  height: 200%;
+  margin: -50%;
+  border: none;
+  cursor: pointer
+}
+
+.color-hex {
+  width: 90px;
+  background: #112036;
+  border: 1px solid #1e3350;
+  border-radius: .375rem;
+  padding: .3rem .5rem;
+  color: #e2e8f0;
+  font-size: .78rem;
+  font-family: monospace;
+  outline: none;
+  text-transform: uppercase
+}
+
+.color-hex:focus {
+  border-color: #16a34a
+}

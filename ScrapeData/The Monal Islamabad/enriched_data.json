@@ -1,0 +1,120 @@
+{
+  "business": {
+    "name": "The Monal Islamabad",
+    "place_type": "Restaurant",
+    "address": "5, Capital Enclave, Main Islamabad Expressway, near PWD Interchange, Islamabad, 44000, Pakistan",
+    "phone": "+92 51 2898066",
+    "website": "taplink.cc",
+    "email": "lilapadrona@yahoo.com",
+    "rating": 4.4,
+    "reviews_count": null,
+    "price_range": "",
+    "plus_code": "H5C5+8P Islamabad, Pakistan",
+    "latitude": "33.5707786",
+    "longitude": "73.1593502",
+    "google_maps_url": "https://www.google.com/maps/place/The+Monal+Islamabad/@33.5707786,73.1593502,17z/data=!3m1!4b1!4m6!3m5!1s0x38dfbf49c71bac3b:0x440c38883a64cd51!8m2!3d33.5707786!4d73.1593502!16s%2Fg%2F1th55c94?entry=ttu&g_ep=EgoyMDI2MDMyMi4wIKXMDSoASAFQAw%3D%3D",
+    "description": "Taplink helps you create a high-converting landing page for your business on Instagram in 10 minutes. Use numerous marketing features to increase your sales",
+    "hours": {
+      "monday": "Not available",
+      "tuesday": "Not available",
+      "wednesday": "12 PM–12 AM",
+      "thursday": "Not available",
+      "friday": "Not available",
+      "saturday": "Not available",
+      "sunday": "Not available"
+    }
+  },
+  "website_data": {
+    "title": "Taplink - landing page that drives your sales on Instagram",
+    "meta_description": "Taplink helps you create a high-converting landing page for your business on Instagram in 10 minutes. Use numerous marketing features to increase your sales",
+    "headings": [
+      "Drive more leads and sales on Instagram",
+      "Multiple links",
+      "Online messaging",
+      "Social networks",
+      "Micro landing page",
+      "Application forms",
+      "Online store"
+    ],
+    "paragraphs": [],
+    "services": [],
+    "team": [],
+    "pricing_hints": [],
+    "raw_text": "Taplink - landing page that drives your sales on Instagram Drive more leads and sales on Instagram Taplink is a convenient way to manage your links and drive your sales directly on Instagram Get started for free Multiple links Add multiple links in Instagram instead of just one Instagram allows users to place only one clickable link in the profile description, but this is often not enough. Using Taplink, you can place any number of links to pages of your products and services, special offers, instant messengers for communication in one click, accounts in social networks and more. Online messaging Allow your clients to connect with you with one click Online messaging is the most convenient, modern and common method of communication. Create smart links to online messaging apps that allow you to start conversations with clients with one click, and get more hits and requests from followers. Social networks Create right links to your accounts in social networks The correct link is opened in the application rather than in the browser! People who followed regular links will not be able to subscribe or write to you because they are not authorized in other social networks in the Instagram browser! The links created in Taplink will open the application of the required social network, where your page will be displayed. People will be able to contact you, subscribe and like without any further actions. Micro landing page Create a page that will sell Create offers that are difficult to refuse, launch promotions and motivate the audience to leave requests and place orders. Add high-converting text, engaging photos and videos to encourage your customers. Use the answer block to address frequently asked questions, start a time-limited offer with a countdown timer. Application forms Capture leads and accept payments online Do not waste time accepting requests and payments from clients manually, let Taplink do it. Receive notifications about new requests in messengers and via e-mail. Export the collected requests to external CRM or use our order management system. Online store Everything you need to start selling on Instagram Allow clients to view and pay for goods directly on the Instagram app. With Taplink, you can create your online store in 10 minutes without a designer and programmer. Support Report violation We use cookies. By continuing to use our website, you agree to our privacy policy Got it Info Content Rules and Requirements Content Generation Terms Terms of service Trademarks Affiliate program Pricing Support Ask a question Feedback Report violation Help Detailed tutorials FAQ Blog English Taplink, 2017-2026"
+  },
+  "ai": {
+    "tagline": "Elevate Your Dining Experience at The Monal",
+    "hero_subtitle": "Indulge in exquisite cuisine with breathtaking views in Islamabad.",
+    "about_paragraph": "The Monal Islamabad offers a unique dining experience that combines gourmet cuisine with stunning panoramic views of the city. Our restaurant is dedicated to providing exceptional service and a memorable atmosphere for all our guests.",
+    "cta_primary": "Reserve Your Table Now",
+    "cta_secondary": "Explore Our Menu",
+    "features": [
+      {
+        "icon": "🍽️",
+        "title": "Gourmet Cuisine",
+        "description": "Savor a diverse menu featuring traditional and contemporary dishes crafted by top chefs."
+      },
+      {
+        "icon": "🌅",
+        "title": "Breathtaking Views",
+        "description": "Dine while enjoying panoramic views of Islamabad, creating the perfect backdrop for any occasion."
+      },
+      {
+        "icon": "🍷",
+        "title": "Extensive Wine Selection",
+        "description": "Pair your meal with our curated selection of fine wines from around the world."
+      },
+      {
+        "icon": "🎉",
+        "title": "Event Hosting",
+        "description": "Host your special events, weddings, and corporate gatherings in our beautifully designed spaces."
+      },
+      {
+        "icon": "👨‍🍳",
+        "title": "Expert Chefs",
+        "description": "Our skilled chefs ensure each dish is made with the freshest ingredients and culinary expertise."
+      },
+      {
+        "icon": "🚗",
+        "title": "Convenient Location",
+        "description": "Easily accessible from the main Islamabad expressway, making your visit hassle-free."
+      }
+    ],
+    "seo_title": "The Monal Islamabad - Fine Dining with a View",
+    "seo_description": "Experience the best of Islamabad's dining at The Monal. Reserve your table today for exquisite food and stunning views."
+  },
+  "images": [
+    "images/All/0001.webp",
+    "images/All/0002.webp"
+  ],
+  "reviews": [],
+  "review_keywords": [
+    "Nearby restaurants",
+    "Hotels",
+    "Things to do",
+    "Bars",
+    "Coffee",
+    "Takeout",
+    "Groceries",
+    "See photos",
+    "Restaurant",
+    "Directions",
+    "Save",
+    "Nearby",
+    "Send to phone",
+    "Share",
+    "+92 51 2898066",
+    "H5C5+8P Islamabad, Pakistan",
+    "Suggest an edit",
+    "Write a review",
+    "Learn more"
+  ],
+  "qa": [],
+  "updates": [],
+  "popular_times": {},
+  "about": {},
+  "about_attrs": [],
+  "social_links": [],
+  "web_results": [],
+  "related_places": []
+}

@@ -1,0 +1,59 @@
+<div id="panel-contact" class="panel hidden p-6 w-full">
+  <div class="panel-head">
+    <div class="flex items-center gap-3 mb-1">
+      <div class="ph-icon"><svg viewBox="0 0 24 24">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.85 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+      </svg></div>
+      <h2>Contact &amp; Hours</h2>
+    </div>
+    <p>Phone, email, address, hours, map and social links.</p>
+  </div>
+
+  <div class="space-y-4">
+    <!-- Contact Details -->
+    <div class="card">
+      <div class="sdiv">Contact Details</div>
+      <div class="grid grid-cols-2 gap-x-4 gap-y-3">
+        <div><label class="fl">Phone <span class="si si-g">→ Contact &amp; Footer</span></label><input type="text" id="f-phone" class="fi" /></div>
+        <div><label class="fl">Email <span class="si si-g">→ Contact &amp; Footer</span></label><input type="email" id="f-email" class="fi" /></div>
+        <div><label class="fl">Website URL <span class="si si-b">→ Contact · CTA buttons · Footer</span></label><input type="url" id="f-website" class="fi" /></div>
+        <div><label class="fl">Price Range <span class="si si-g">→ Hero stats bar</span></label><input type="text" id="f-price_range" class="fi" placeholder="e.g. $$" /></div>
+      </div>
+      <div class="mt-3"><label class="fl">Address <span class="si si-g">→ Contact &amp; Footer</span></label><textarea id="f-address" class="fi" rows="2"></textarea></div>
+    </div>
+
+    <!-- Business Info -->
+    <div class="card">
+      <div class="sdiv">Business Info</div>
+      <div class="grid grid-cols-2 gap-x-4 gap-y-3">
+        <div><label class="fl">Business Name <span class="si si-b">→ Nav · Hero · About · Footer…</span></label><input type="text" id="f-name" class="fi" /></div>
+        <div><label class="fl">Category <span class="si si-g">→ Hero stats bar</span></label><input type="text" id="f-place_type" class="fi" placeholder="e.g. Restaurant" /></div>
+        <div><label class="fl">Rating (0–5) <span class="si si-g">→ Hero stats bar</span></label><input type="number" id="f-rating" class="fi" step="0.1" min="0" max="5" /></div>
+        <div><label class="fl">Reviews Count <span class="si si-g">→ Hero stats bar</span></label><input type="number" id="f-reviews_count" class="fi" /></div>
+      </div>
+    </div>
+
+    <!-- Opening Hours -->
+    <div class="card">
+      <div class="sdiv">Opening Hours <span class="si si-g">→ Contact section</span></div>
+      <div id="hoursTable" class="space-y-2"></div>
+    </div>
+
+    <!-- Location / Map -->
+    <div class="card">
+      <div class="sdiv">Location — for embedded map <span class="si si-g">→ Contact section map</span></div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="fl">Latitude</label><input type="number" id="f-latitude" class="fi" step="any" /></div>
+        <div><label class="fl">Longitude</label><input type="number" id="f-longitude" class="fi" step="any" /></div>
+      </div>
+      <div class="mt-3"><label class="fl">Google Maps URL <span class="si si-g">→ Footer Google Maps link</span></label><input type="url" id="f-google_maps_url" class="fi" /></div>
+    </div>
+
+    <!-- Social Links -->
+    <div class="card">
+      <div class="sdiv">Social Links <span class="si si-g">→ Footer icons</span></div>
+      <p class="text-xs text-slate-500 mb-3">Enter the full profile URL for each platform you use. Leave blank to hide.</p>
+      <div id="socialPlatforms" class="space-y-2"></div>
+    </div>
+  </div>
+</div>

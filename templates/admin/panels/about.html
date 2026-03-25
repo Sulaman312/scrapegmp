@@ -1,0 +1,43 @@
+<div id="panel-about" class="panel hidden p-6 w-full">
+  <div class="panel-head">
+    <div class="flex items-center gap-3 mb-1">
+      <div class="ph-icon"><svg viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg></div>
+      <h2>About</h2>
+    </div>
+    <p>The About Us section: story, bullet highlights and attributes.</p>
+  </div>
+
+  <div class="space-y-4">
+    <div class="card">
+      <div class="sdiv">About Paragraph <span class="si si-g">→ About section (main text)</span></div>
+      <textarea id="ai-about_paragraph" class="fi" rows="8" placeholder="History, mission, expertise…"></textarea>
+    </div>
+
+    <div class="card">
+      <div class="sdiv">Business Description <span class="si si-y">→ Fallback subtitle if Hero Subtitle is blank</span></div>
+      <div class="warn-note">Only shown on the website when the <b>Hero Subtitle</b> field is empty.</div>
+      <textarea id="f-description" class="fi" rows="3" placeholder="Short one-liner from Google Maps…"></textarea>
+    </div>
+
+    <div class="card">
+      <div class="sdiv">Highlights <span class="si si-g">→ About section (checkmark bullet points)</span></div>
+      <p class="text-xs text-slate-500 mb-2">Each chip = one bullet point on the website. Add, edit or remove them below.</p>
+      <div class="chip-editor" id="highlightsEditor"
+        onclick="if(event.target===this||event.target.classList.contains('chip-input'))document.getElementById('hl-input').focus()">
+        <input type="text" id="hl-input" class="chip-input" placeholder="Type a highlight and press Enter…"
+          onkeydown="if(event.key==='Enter'){event.preventDefault();addHighlight();}" />
+      </div>
+      <button class="btn-add" onclick="addHighlight()">+ Add Highlight</button>
+    </div>
+
+    <div class="card">
+      <div class="sdiv">Attributes &amp; Labels <span class="si si-y">→ Features grid only if Features section is empty</span></div>
+      <div class="warn-note">These are only shown when the  Features section has no cards.</div>
+      <div id="aboutAttrsList" class="space-y-2"></div>
+      <button class="btn-add" onclick="addListItem('aboutAttrsList','text','attr')">+ Add Attribute</button>
+    </div>
+  </div>
+</div>

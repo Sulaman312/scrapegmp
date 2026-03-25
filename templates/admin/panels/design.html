@@ -1,0 +1,79 @@
+<div id="panel-design" class="panel hidden p-6 w-full">
+  <div class="panel-head">
+    <div class="flex items-center gap-3 mb-1">
+      <div class="ph-icon"><svg viewBox="0 0 24 24">
+        <circle cx="13.5" cy="6.5" r="1.5" />
+        <circle cx="17.5" cy="10.5" r="1.5" />
+        <circle cx="8.5" cy="7.5" r="1.5" />
+        <circle cx="6.5" cy="12.5" r="1.5" />
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.926 0 1.648-.746 1.648-1.667 0-.437-.18-.835-.437-1.125-.29-.289-.47-.692-.47-1.125A1.64 1.64 0 0114.389 16h1.962C19.55 16 22 13.55 22 10.389 22 5.74 17.523 2 12 2z" />
+      </svg></div>
+      <h2>Design &amp; Colors</h2>
+    </div>
+    <p>Brand colors used throughout the website. <span class="si si-b">→ Gradients · CTA buttons · Feature cards · Accents</span></p>
+  </div>
+
+  <div class="space-y-5">
+    <!-- Live preview -->
+    <div class="card">
+      <div class="sdiv">Live Preview</div>
+      <div id="gradientPreview" class="grad-bar mb-3"></div>
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-slate-500">CTA button:</span>
+        <div id="ctaBtnPreview" class="px-4 py-2 rounded-lg text-white text-sm font-semibold" style="background:#15803d">Book Now</div>
+      </div>
+    </div>
+
+    <!-- Brand Colors -->
+    <div class="card">
+      <div class="sdiv">Brand Colors</div>
+      <p class="text-xs text-slate-500 mb-3">Drive all gradients — tagline, feature cards, contact section and accents.</p>
+      <div class="space-y-3">
+        <div class="color-row">
+          <div class="color-swatch"><input type="color" id="cp-color1" value="#4f7df5" oninput="onColorChange()" /></div>
+          <input type="text" id="ch-color1" class="color-hex" value="#4F7DF5" maxlength="7" oninput="onHexInput('color1')" onfocus="this.select()" />
+          <span class="text-xs text-slate-400 flex-1">Color 1 — Primary</span>
+        </div>
+        <div class="color-row">
+          <div class="color-swatch"><input type="color" id="cp-color2" value="#7c3aed" oninput="onColorChange()" /></div>
+          <input type="text" id="ch-color2" class="color-hex" value="#7C3AED" maxlength="7" oninput="onHexInput('color2')" onfocus="this.select()" />
+          <span class="text-xs text-slate-400 flex-1">Color 2 — Secondary</span>
+        </div>
+        <div class="color-row">
+          <div class="color-swatch"><input type="color" id="cp-color3" value="#06c9d4" oninput="onColorChange()" /></div>
+          <input type="text" id="ch-color3" class="color-hex" value="#06C9D4" maxlength="7" oninput="onHexInput('color3')" onfocus="this.select()" />
+          <span class="text-xs text-slate-400 flex-1">Color 3 — Accent</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Button Color -->
+    <div class="card">
+      <div class="sdiv">CTA Button Color <span class="si si-b">→ All CTA buttons across the site</span></div>
+      <div class="color-row">
+        <div class="color-swatch"><input type="color" id="cp-cta" value="#15803d" oninput="onColorChange()" /></div>
+        <input type="text" id="ch-cta" class="color-hex" value="#4F46E5" maxlength="7" oninput="onHexInput('cta')" onfocus="this.select()" />
+        <span class="text-xs text-slate-400 flex-1">Button background</span>
+        <button onclick="resetCtaColor()" class="btn-dx text-slate-500 border-slate-700">Reset</button>
+      </div>
+      <p class="text-xs text-slate-500 mt-2">Save Draft to see in preview; Generate Website to publish.</p>
+    </div>
+
+    <!-- Hero Background Color -->
+    <div class="card">
+      <div class="sdiv">Hero Background Color <span class="si si-g">→ Hero section background</span></div>
+      <div class="color-row">
+        <div class="color-swatch"><input type="color" id="cp-hero_dark" value="#06060f" oninput="onColorChange()" /></div>
+        <input type="text" id="ch-hero_dark" class="color-hex" value="#06060F" maxlength="7" oninput="onHexInput('hero_dark')" onfocus="this.select()" />
+        <span class="text-xs text-slate-400 flex-1">Keep very dark for contrast</span>
+        <button onclick="resetHeroColor()" class="btn-dx text-slate-500 border-slate-700">Reset</button>
+      </div>
+    </div>
+
+    <!-- Quick Presets -->
+    <div class="card">
+      <div class="sdiv">Quick Presets</div>
+      <div class="grid grid-cols-3 gap-2" id="presetsGrid"></div>
+    </div>
+  </div>
+</div>

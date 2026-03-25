@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #0a1628 !important
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px
+}
+
+::-webkit-scrollbar-track {
+  background: #0a1628
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a3f58;
+  border-radius: 99px
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a5270
+}

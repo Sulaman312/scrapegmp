@@ -1,0 +1,182 @@
+// ── Populate form from data ───────────────────────────────────────────────
+function populateForm(data) {
+  const biz   = data.business || {};
+  const ai    = data.ai       || {};
+  const theme = data.theme    || {};
+
+  // Hero
+  setf('ai-brand_short_name', ai.brand_short_name || biz.name || '');
+  setf('ai-tagline',        ai.tagline);
+  setf('ai-hero_subtitle',  ai.hero_subtitle);
+  setf('ai-cta_primary',    ai.cta_primary);
+  setf('ai-cta_secondary',  ai.cta_secondary);
+  setf('ai-cta_primary_url',  ai.cta_primary_url  || ai.cta_link || biz.website || '');
+  setf('ai-cta_secondary_url', ai.cta_secondary_url || ai.cta_link || biz.website || '');
+
+  // Features
+  renderFeatures(ai.features || []);
+
+  // Gallery
+  renderImageManager(data.images || [], theme.hero_image || '');
+  renderHeroImgPicker(data.images || [], theme.hero_image || '');
+
+  // Videos
+  renderVideoManager(data._video_list || data.videos || []);
+  // Make sure we always hydrate from the latest API data if the
+  // videos module is loaded, so any existing files on disk show up
+  // in the Library tab even on first load.
+  if (typeof _ensureVideosLoaded === 'function') {
+    _ensureVideosLoaded().then(() => {
+      if (typeof _refreshVideoGrid === 'function') _refreshVideoGrid();
+    });
+  }
+
+  // About
+  setf('ai-about_paragraph', ai.about_paragraph);
+  setf('f-description',      biz.description);
+  const saved = (data.about || {}).highlights || [];
+  if (saved.length) {
+    highlights = [...saved];
+  } else {
+    const ap = (ai.about_paragraph || '').trim();
+    highlights = (data.website_data || {}).paragraphs || [];
+    highlights = highlights.filter(p => p && p.trim().length > 40 && p.trim() !== ap).slice(0, 4);
+  }
+  renderHighlights();
+  renderSimpleList('aboutAttrsList', data.about_attrs || [], 'text', 'attr');
+
+  // Reviews
+  reviewKeywords = [...(data.review_keywords || [])];
+  renderKeywords();
+  renderReviews(data.reviews || []);
+
+  // Contact
+  ['name', 'place_type', 'phone', 'email', 'website', 'price_range', 'rating', 'reviews_count',
+    'address', 'latitude', 'longitude', 'google_maps_url'].forEach(k => setf('f-' + k, biz[k]));
+  renderHours(biz.hours || {});
+  renderSocialLinks(data.social_links || []);
+
+  // CTA
+  const ctaHeadingFallback = ((data.website_data || {}).headings || []).filter(h => h && h.length > 5)[8] || ai.tagline || '';
+  setf('ai-cta_heading',   ai.cta_heading   || ctaHeadingFallback);
+  setf('ai-cta_subtitle',  ai.cta_subtitle  || ai.hero_subtitle || '');
+  setf('ai-cta_btn_label', ai.cta_btn_label || ai.cta_primary   || '');
+  setf('ai-cta_link',      ai.cta_link      || biz.website      || '');
+  setf('ai-cta_banner_btn_label', ai.cta_banner_btn_label || '');
+  setf('ai-cta_banner_btn_link',  ai.cta_banner_btn_link  || '');
+
+  // Footer
+  const footerTaglineFallback = ai.about_paragraph || ai.hero_subtitle || '';
+  setf('ai-footer_tagline',   ai.footer_tagline  || footerTaglineFallback);
+  const autoCopyright = `© ${new Date().getFullYear()} ${biz.name || ''}. All rights reserved.`;
+  setf('ai-footer_copyright', ai.footer_copyright || autoCopyright);
+  updateFooterPreview(biz, data.social_links || []);
+
+  // SEO
+  setf('ai-seo_title',       ai.seo_title);
+  setf('ai-seo_description', ai.seo_description);
+  ['ai-seo_title', 'ai-seo_description'].forEach(id =>
+    document.getElementById(id).dispatchEvent(new Event('input'))
+  );
+
+  // Colors
+  setColorPair('color1',    theme.color1    || DEF.color1);
+  setColorPair('color2',    theme.color2    || DEF.color2);
+  setColorPair('color3',    theme.color3    || DEF.color3);
+  setColorPair('cta',       theme.cta_color || DEF.color1);
+  setColorPair('hero_dark', theme.hero_dark || DEF.hero_dark);
+  updateColorPreviews();
+  syncAllCtaControls();
+
+  document.getElementById('btnPreview').style.display = (data.has_website !== false) ? '' : 'none';
+
+  // Section visibility
+  renderVisibilityToggles();
+}
+
+// ── Collect form data ─────────────────────────────────────────────────────
+function collectFormData() {
+  const hours = {};
+  document.querySelectorAll('[data-hours]').forEach(el => {
+    const v = el.value.trim();
+    if (v) hours[el.dataset.hours] = v;
+  });
+
+  const theme = {
+    color1:    getColorVal('color1')   || DEF.color1,
+    color2:    getColorVal('color2')   || DEF.color2,
+    color3:    getColorVal('color3')   || DEF.color3,
+    cta_color: getColorVal('cta')      || getColorVal('color1') || DEF.color1,
+    hero_dark: getColorVal('hero_dark')|| DEF.hero_dark,
+    hero_image: getHeroImage(),
+  };
+
+  const payload = {
+    business: {
+      name:          getf('f-name'),
+      place_type:    getf('f-place_type'),
+      phone:         getf('f-phone'),
+      email:         getf('f-email'),
+      website:       getf('f-website'),
+      price_range:   getf('f-price_range'),
+      rating:        toFloat(getf('f-rating')),
+      reviews_count: toInt(getf('f-reviews_count')),
+      address:       getf('f-address'),
+      description:   getf('f-description'),
+      latitude:      getf('f-latitude')  || (currentData.business || {}).latitude,
+      longitude:     getf('f-longitude') || (currentData.business || {}).longitude,
+      google_maps_url: getf('f-google_maps_url'),
+      plus_code:     (currentData.business || {}).plus_code || '',
+      hours,
+    },
+    ai: {
+      brand_short_name:  getf('ai-brand_short_name'),
+      tagline:          getf('ai-tagline'),
+      hero_subtitle:    getf('ai-hero_subtitle'),
+      cta_primary:      getf('ai-cta_primary'),
+      cta_primary_url:  getf('ai-cta_primary_url'),
+      cta_secondary:    getf('ai-cta_secondary'),
+      cta_secondary_url: getf('ai-cta_secondary_url'),
+      about_paragraph:  getf('ai-about_paragraph'),
+      seo_title:        getf('ai-seo_title'),
+      seo_description:  getf('ai-seo_description'),
+      features:         collectFeatures(),
+      cta_heading:      getf('ai-cta_heading'),
+      cta_subtitle:     getf('ai-cta_subtitle'),
+      cta_btn_label:    getf('ai-cta_btn_label'),
+      cta_link:         getf('ai-cta_link'),
+      cta_banner_btn_label: getf('ai-cta_banner_btn_label'),
+      cta_banner_btn_link:  getf('ai-cta_banner_btn_link'),
+      footer_tagline:   getf('ai-footer_tagline'),
+      footer_copyright: getf('ai-footer_copyright'),
+    },
+    website_data:    currentData.website_data    || {},
+    theme,
+    images:          collectImages(),
+    reviews:         collectReviews(),
+    review_keywords: reviewKeywords,
+    qa:              currentData.qa              || [],
+    updates:         currentData.updates         || [],
+    popular_times:   currentData.popular_times   || {},
+    about:           { ...((currentData.about) || {}), highlights },
+    about_attrs:     getListValues('aboutAttrsList', 'attr'),
+    social_links:    collectSocialLinks(),
+    web_results:        currentData.web_results        || [],
+    related_places:     currentData.related_places     || [],
+    section_visibility: currentData.section_visibility || {},
+  };
+
+  // Preserve video helper fields so section visibility logic keeps
+  // treating the Videos section as having content after autosaves.
+  if (currentData && typeof currentData._has_videos !== 'undefined') {
+    payload._has_videos = currentData._has_videos;
+  }
+  if (currentData && Array.isArray(currentData._video_list)) {
+    payload._video_list = currentData._video_list.slice();
+  }
+  if (currentData && Array.isArray(currentData.videos)) {
+    payload.videos = currentData.videos.slice();
+  }
+
+  return payload;
+}

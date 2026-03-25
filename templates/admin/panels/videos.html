@@ -1,0 +1,185 @@
+<style>
+  /* ── Video panel ─────────────────────────────────────── */
+  .vid-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 20px;
+  }
+  .vid-card {
+    background: #0d1e35;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+  .vid-card:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-2px); }
+  .vid-thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: #000;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .vid-thumb video { width:100%; height:100%; object-fit:cover; display:block; }
+  .vid-play-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.35);
+    opacity: 0; transition: opacity 0.15s;
+    pointer-events: none; /* clicks pass through to vid-thumb → play/pause */
+  }
+  .vid-card:hover .vid-play-overlay { opacity: 1; }
+  .vid-play-overlay svg { filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)); }
+  .vid-info {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .vid-filename {
+    flex: 1; font-size: 12px; font-weight: 600;
+    color: #94a3b8;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .vid-del-btn {
+    padding: 5px 6px; border-radius: 6px;
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.18);
+    color: #f87171; cursor: pointer; flex-shrink: 0;
+    transition: background 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .vid-del-btn:hover { background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.35); }
+
+  .vid-empty {
+    padding: 56px 20px; text-align: center;
+  }
+
+  /* ── Tab styles ──────────────────────────────────────── */
+  .vid-tab-group { display: flex; gap: 4px; }
+  .vid-tab {
+    font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer; transition: all .15s;
+    background: transparent; color: #64748b;
+  }
+  .vid-tab:hover { color: #94a3b8; background: rgba(255,255,255,0.04); }
+  .vid-tab.active {
+    background: rgba(255,255,255,0.07);
+    color: #f1f5f9;
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  /* ── Toolbar ─────────────────────────────────────────── */
+  .vid-toolbar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    flex-wrap: wrap;
+  }
+
+  /* ── Dropzone ────────────────────────────────────────── */
+  .vid-dropzone {
+    border: 2px dashed #334155; border-radius: 10px;
+    padding: 2.5rem; text-align: center; cursor: pointer;
+    transition: border-color .15s;
+  }
+  .vid-dropzone:hover, .vid-dropzone.drag-over { border-color: #16a34a; }
+
+  /* ── Light mode overrides ────────────────────────────── */
+  body.light .vid-card           { background: #fff; border-color: #e9eef5; }
+  body.light .vid-card:hover     { border-color: #c7d5e8; }
+  body.light .vid-info           { border-top-color: #f1f5f9; }
+  body.light .vid-filename       { color: #475569; }
+  body.light .vid-del-btn        { background: #fef2f2; border-color: #fecaca; color: #ef4444; }
+  body.light .vid-del-btn:hover  { background: #fee2e2; }
+  body.light .vid-tab            { color: #94a3b8; }
+  body.light .vid-tab:hover      { color: #475569; background: #f8fafc; }
+  body.light .vid-tab.active     { background: #f1f5f9; color: #1e293b; border-color: #e2e8f0; }
+  body.light .vid-toolbar        { border-bottom-color: #e9eef5; }
+  body.light .vid-dropzone       { border-color: #cbd5e1; }
+  body.light .vid-dropzone:hover { border-color: #16a34a; }
+</style>
+
+<div id="panel-videos" class="panel hidden p-6 w-full">
+  <div class="panel-head">
+    <div class="flex items-start justify-between gap-4 mb-1">
+      <div>
+        <div class="flex items-center gap-3 mb-1">
+          <div class="ph-icon">
+            <svg viewBox="0 0 24 24">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
+          <h2>Videos</h2>
+        </div>
+        <p>Upload and manage video files for your website. <span class="si si-b">→ Shown in the Videos section · Up to 6 displayed</span></p>
+      </div>
+      <button onclick="document.getElementById('vidFileInput').click()"
+        style="display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;
+               background:#16a34a;border:1px solid #16a34a;color:#fff;font-size:12px;
+               font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:background .15s"
+        onmouseover="this.style.background='#15803d'" onmouseout="this.style.background='#16a34a'">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
+        </svg>
+        Upload
+      </button>
+    </div>
+  </div>
+
+  <div class="card p-0 overflow-hidden">
+
+    <!-- Toolbar -->
+    <div class="vid-toolbar">
+      <div class="vid-tab-group">
+        <button class="vid-tab" id="vtab-upload" onclick="switchVideoTab('upload', this)" style="display:inline-flex;align-items:center;gap:5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>Upload</button>
+        <button class="vid-tab active" id="vtab-library" onclick="switchVideoTab('library', this)">Library</button>
+      </div>
+      <span id="vidTotalCount" class="text-xs text-slate-500 ml-auto"></span>
+    </div>
+
+    <!-- Upload Tab (hidden by default — library shown first) -->
+    <div id="vidTab-upload" class="p-4 hidden">
+      <div class="vid-dropzone" id="vidDropzone"
+        onclick="document.getElementById('vidFileInput').click()"
+        ondragover="event.preventDefault();this.classList.add('drag-over')"
+        ondragleave="this.classList.remove('drag-over')"
+        ondrop="handleVideoDrop(event)">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 mx-auto mb-3 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+        </svg>
+        <p class="text-sm text-slate-300 font-semibold mb-1">Click to browse or drag &amp; drop</p>
+        <p class="text-xs text-slate-500">MP4, MOV, WebM &nbsp;·&nbsp; Max 6 videos shown on the site</p>
+        <input type="file" id="vidFileInput" class="hidden" multiple accept=".mp4,.mov,.webm,.avi,video/*" onchange="handleVideoSelect(this)" />
+      </div>
+      <div id="vidUploadProgress" class="hidden mt-3"></div>
+    </div>
+
+    <!-- Library Tab (visible by default) -->
+    <div id="vidTab-library">
+      <div id="videoGrid" class="vid-grid">
+        <div class="vid-empty">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="color:#475569;margin:0 auto 12px;display:block">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          <div style="font-size:13px;color:#64748b;margin-bottom:4px">No videos yet</div>
+          <div style="font-size:12px;color:#475569">Upload videos using the Upload tab above.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end card -->
+
+  <!-- Info note -->
+  <div class="warn-note flex items-start gap-2.5 mt-4">
+    <svg style="width:14px;height:14px;flex-shrink:0;margin-top:1px;stroke:#fcd34d;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <span>Videos are saved directly to the <code>videos/</code> folder. Click
+      <strong>Generate Website</strong> in the toolbar to publish the updated site.
+    </span>
+  </div>
+</div>

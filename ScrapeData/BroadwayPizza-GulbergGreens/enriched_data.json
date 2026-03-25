@@ -1,0 +1,259 @@
+{
+  "business": {
+    "name": "Broadway Pizza - Gulberg Greens",
+    "place_type": "Restaurant",
+    "phone": "+92 51 111 339 339",
+    "email": "",
+    "website": "https://broadwaypizza.com.pk",
+    "price_range": "",
+    "rating": 4.6,
+    "reviews_count": 1036,
+    "address": "Service Rd S, Gulberg Greens Block B, Islamabad, Pakistan",
+    "description": "Broadway Pizza - Gulberg Greens is a popular pizza restaurant in Islamabad known for its signature large slices, specialty toppings, and late-night service. With a vibrant dine-in atmosphere and reliable home delivery, it’s a go-to spot for families, friends, and pizza lovers craving bold flavors.",
+    "latitude": "33.6027361",
+    "longitude": "73.1595333",
+    "google_maps_url": "https://www.google.com/maps/place/Broadway+Pizza+-+Gulberg+Greens/@33.6027361,73.1569584,17z/data=!3m1!4b1!4m6!3m5!1s0x38dfed9f16b282a7:0x53ee2107f992fff2!8m2!3d33.6027361!4d73.1595333!16s%2Fg%2F11vr0s3s0l",
+    "plus_code": "J535+3R Islamabad, Pakistan",
+    "hours": {
+      "monday": "2:30 PM – 5:00 AM",
+      "tuesday": "2:30 PM – 5:00 AM",
+      "wednesday": "2:30 PM – 5:00 AM",
+      "thursday": "2:30 PM – 5:00 AM",
+      "friday": "2:30 PM – 5:00 AM",
+      "saturday": "2:30 PM – 5:00 AM",
+      "sunday": "2:30 PM – 5:00 AM"
+    }
+  },
+  "ai": {
+    "brand_short_name": "Broadway Pizza - Gulberg Greens",
+    "tagline": "Islamabad’s Home of Big Slice Pizza",
+    "hero_subtitle": "Enjoy signature Broadway Pizza flavors in Gulberg Greens with dine-in comfort and fast home delivery. Big slices, bold toppings, and late-night service.",
+    "cta_primary": "Order Now",
+    "cta_primary_url": "https://broadwaypizza.com.pk",
+    "cta_secondary": "View Menu",
+    "cta_secondary_url": "https://broadwaypizza.com.pk",
+    "about_paragraph": "Broadway Pizza - Gulberg Greens is one of Islamabad’s favorite pizza destinations, known for its generous portions and vibrant ambiance. Whether you’re dining in with friends or ordering for a family night at home, Broadway delivers consistent quality and flavor in every slice.",
+    "seo_title": "Broadway Pizza Gulberg Greens Islamabad",
+    "seo_description": "Visit Broadway Pizza Gulberg Greens for dine-in, takeaway, and fast delivery. Enjoy big slices, combo deals, and late-night service in Islamabad.",
+    "features": [
+      {
+        "icon": "🍕",
+        "title": "Signature Large Slices",
+        "description": "Enjoy generously sized slices loaded with premium toppings and rich, melted cheese."
+      },
+      {
+        "icon": "delivery_dining",
+        "title": "Fast Home Delivery",
+        "description": "Quick and reliable delivery service across Gulberg Greens and surrounding areas."
+      },
+      {
+        "icon": "local_fire_department",
+        "title": "Late-Night Service",
+        "description": "Open till early morning to satisfy your midnight pizza cravings."
+      },
+      {
+        "icon": "dinner_dining",
+        "title": "Gluten-Free Options",
+        "description": "Special gluten-free pizza choices available for health-conscious customers."
+      },
+      {
+        "icon": "🍟",
+        "title": "Combo Platters",
+        "description": "Complete meals with fries, chicken bites, dips, and half-and-half pizzas."
+      },
+      {
+        "icon": "👨‍👩‍👧‍👦",
+        "title": "Family-Friendly Atmosphere",
+        "description": "Comfortable dine-in seating with a vibrant interior perfect for gatherings."
+      }
+    ],
+    "cta_heading": "Islamabad’s Home of Big Slice Pizza",
+    "cta_subtitle": "Enjoy signature Broadway Pizza flavors in Gulberg Greens with dine-in comfort and fast home delivery. Big slices, bold toppings, and late-night service.",
+    "cta_btn_label": "Order Now",
+    "cta_link": "https://broadwaypizza.com.pk",
+    "footer_tagline": "Broadway Pizza - Gulberg Greens is one of Islamabad’s favorite pizza destinations, known for its generous portions and vibrant ambiance. Whether you’re dining in with friends or ordering for a family night at home, Broadway delivers consistent quality and flavor in every slice.",
+    "footer_copyright": "© 2026 Broadway Pizza - Gulberg Greens. All rights reserved."
+  },
+  "website_data": {
+    "headings": [
+      "Big Flavor. Bigger Slices.",
+      "Freshly Baked, Always Loaded",
+      "Dine In or Order Online",
+      "Signature & Specialty Pizzas",
+      "Late Night Cravings Covered",
+      "Gluten-Free Options Available"
+    ],
+    "meta_description": "Order Broadway Pizza in Gulberg Greens, Islamabad. Enjoy dine-in, takeaway, and fast home delivery with signature flavors and specialty toppings.",
+    "paragraphs": [
+      "Broadway Pizza brings bold flavors and generous portions to Gulberg Greens, Islamabad.",
+      "From classic pepperoni to loaded specialty pizzas, every slice is crafted with premium ingredients and baked fresh to order.",
+      "Enjoy a vibrant dine-in experience or order online for quick and reliable delivery straight to your doorstep.",
+      "Perfect for family dinners, hangouts with friends, and late-night cravings.",
+      "",
+      ""
+    ],
+    "pricing_hints": [
+      "Affordable combo deals",
+      "Mid-range pricing ()",
+      "Family platters available",
+      "Special discounts & seasonal offers"
+    ],
+    "raw_text": "Broadway Pizza Gulberg Greens Islamabad. Order online at broadwaypizza.com.pk or call 111 339 339. Dine-in, takeaway, and home delivery available. Known for large slices, specialty toppings, gluten-free options, and late-night service.",
+    "services": [
+      "Online ordering",
+      "Home delivery",
+      "Dine-in seating",
+      "Takeaway service",
+      "Gluten-free pizza options",
+      "Combo deals & platters"
+    ],
+    "team": [],
+    "title": "Broadway Pizza Gulberg Greens | Order Online"
+  },
+  "theme": {
+    "color1": "#F5DA51",
+    "color2": "#EEC73A",
+    "color3": "#D56307",
+    "cta_color": "#B58503",
+    "hero_dark": "#06060F",
+    "hero_image": "images/All/0001.jpg"
+  },
+  "images": [
+    "images/All/0002.jpg",
+    "images/All/0001.jpg",
+    "images/All/0003.jpg",
+    "images/All/0004.jpg"
+  ],
+  "reviews": [
+    {
+      "author_name": "Atif Javed",
+      "text": "Piza is very basic! Matlab nothing special. Taste is also very very basic. But the fires are like home made fries. Seems like koi ghar me bheth k bna k kha rai. Kahi se b restaurant Wali feel Ni ai. Broadway needs to improve the taste. When we have competition here, local guys are making taste why don't they? They must work on taste instead of promotions and marketing.!",
+      "rating": 3,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "Anas Ali",
+      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet soft—and the ingredients tasted fresh.\n\nThe only reason I’m giving it 4 stars instead of 5 is that there’s just a little room for improvement, but overall it was a delicious and satisfying pizza. I’d definitely order it again and recommend it to anyone who enjoys bold, creamy flavors!",
+      "rating": 4,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "RAJA ADNAN",
+      "text": "Their pizza and items are very high quality amazing behavior of staff and interior is amazing amazing deals at reasonable prices very satisfied",
+      "rating": 5,
+      "date": "a month ago"
+    },
+    {
+      "author_name": "Saad Mehmood",
+      "text": "Great food, delicious with plenty of options especially the simple cheese slice",
+      "rating": 5,
+      "date": "Edited a month ago"
+    },
+    {
+      "author_name": "Mohsan Hassan",
+      "text": "Ordered sharing box and it was sufficient for 2 people..quality of the pizza was good.. baked fries were tasty with the 2 dips",
+      "rating": 5,
+      "date": "11 months ago"
+    },
+    {
+      "author_name": "Hammad Khan",
+      "text": "Food is good here. The service was very quick, though they forgot to give the drink, that i reminded again, but it was all okay. The seating arrangement is okay as well. I ordered the Smokey Joe's Pasta with some potato wedges. The food quality is good.",
+      "rating": 4,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Bilal Ahmad",
+      "text": "Really good experience. Pizzas were on point,   fresh and high quality ingredients. Service was top notch and prices were very affordable. The ambiance was also pretty lively\nThe only thing they can improve on is keeping the washroom a bit cleaner 😊",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Ahsan Shoukat",
+      "text": "I came to pick up my takeaway order, and I was told it would be ready in 15 minutes. However, it has now been over 30 minutes and I'm still waiting. I had clearly informed the staff that I couldn't wait longer than 15 minutes, but unfortunately, they didn't seem to care. Despite the delay, no one even apologized or showed any concern. Extremely disappointed with their service today. I expected better from Broadway Pizza.\n\n20 may 2025\nVery disappointing experience. It’s been 40 minutes and I still haven’t received my order. I chose takeaway and they said it would only take 20 minutes. If they can’t deliver on time, they should at least be honest about the wait. The service is really slow.",
+      "rating": 3,
+      "date": "Edited 9 months ago"
+    },
+    {
+      "author_name": "Sidra Saleem",
+      "text": "I ordered the trio box the delivery was late and the pizza was mid. The pasta and pizza rolls also wasn't very good. They need alot of improvement in taste. Overall Everything was quite bland and im disappointed since I've heard great things about this brand.",
+      "rating": 3,
+      "date": "a month ago"
+    },
+    {
+      "author_name": "Salman Jan",
+      "text": "I ordered two unique flavours. Tarzan tikka and the west side, both were superbly amazing and their sauces were really tangy and tasty. Would highly recommend this branch. The staff is very friendly and cooperative and the taste is very excellent.",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Ahmad Bin Azad",
+      "text": "I have orders 13 orders from their App. Amazing service! And very convenient for me. On their app there are loyalty points and i have gotten free molten lava and garlic bread. Would highly recommend",
+      "rating": 5,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "Kamran Mukhtar",
+      "text": "Visited BroadwayPizza today with a friend for some good food and a great time. We ordered the Arabian Ranch pizza and the Appetizer box—both were served hot and tasted amazing. As the saying goes, 'a picture is worth a thousand words,' so check out the photos and see for yourself!\nIt's a cozy spot with delicious food. Highly recommend!",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Noor Ul ain",
+      "text": "Yesterday evening, when I visited the Broadway branch, I specifically asked for a thin-crust pizza and requested that it be juicy because I was with my guest and didn’t want anything to go wrong. However, they still served me a thick crust that was hard, and the pizza wasn’t juicy either.\n\nMoreover, the manager was shouting at the staff in front of customers, which was totally unprofessional and inappropriate.",
+      "rating": 1,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "AZ Productions",
+      "text": "Broadway Pizza, Gulberg Greens Branch Open's Recently.\nOver All Ambiance Was Appreciatable\nInside Very Neat And Clean,Hygienic Place\nSeats Were Very UnComfortable.Plz Put Some foam Or Something else So People Sit Easily.\nFood Quality Was Good Like Other Branches\nService Was Little Slow Than Other Branches But The Staff Were Very Professional.\nAmbiance 85%\nFood 90%\nService 80%",
+      "rating": 4,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Four Stars",
+      "text": "Very disappointing pizza. The crust was hard and dry, the sauce tasted bland, and the cheese felt cheap and rubbery. Toppings were sparse and not fresh at all. It arrived cold and greasy, which completely ruined the experience. Definitely not worth the money. I won’t be ordering again.",
+      "rating": 1,
+      "date": "a month ago"
+    }
+  ],
+  "review_keywords": [
+    "Pizza",
+    "Late night food",
+    "Family dine-in",
+    "Home delivery",
+    "Gluten free options",
+    "Combo deals",
+    "Large slices",
+    "Islamabad restaurant",
+    "Gulberg Greens dining"
+  ],
+  "qa": [],
+  "updates": [],
+  "popular_times": {},
+  "about": {
+    "highlights": [
+      "Known for oversized pizza slices",
+      "Open till 5 AM",
+      "Offers gluten-free pizzas",
+      "Highly rated (4.6 stars)"
+    ]
+  },
+  "about_attrs": [
+    "Casual dining",
+    "Good for groups",
+    "Takeout friendly",
+    "Delivery available"
+  ],
+  "social_links": [],
+  "web_results": [],
+  "related_places": [],
+  "section_visibility": {
+    "about": false,
+    "contact": true,
+    "cta": true,
+    "features": true,
+    "gallery": false,
+    "keywords": true,
+    "reviews": false
+  }
+}

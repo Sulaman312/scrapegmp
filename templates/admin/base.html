@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>GMP Admin Panel</title>
+
+  <!-- External -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <!-- Base -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+
+  <!-- Components -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/layout.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/dropdown.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/forms.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/cards.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/buttons.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/autosave.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/theme_toggle.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/toast.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/features.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/reviews.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/chips.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/colors.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/social.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/hero_picker.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/media.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/modal.css') }}" />
+
+  <!-- Live preview drawer -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components/preview.css') }}" />
+
+  <!-- Light theme overrides (loaded last so they win) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/themes/light.css') }}" />
+</head>
+
+<body class="bg-slate-950 text-slate-100 h-screen flex flex-col overflow-hidden">
+
+  {% include 'admin/partials/header.html' %}
+
+  <div class="flex flex-1 overflow-hidden">
+
+    {% include 'admin/partials/sidebar.html' %}
+
+    <main class="flex-1 overflow-y-auto bg-slate-950">
+
+      <!-- Empty state -->
+      <div id="emptyState" class="h-full flex flex-col items-center justify-center text-slate-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 mb-4 opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+        <p class="font-medium mb-1">No business selected</p>
+        <p class="text-sm">Use the dropdown at the top to choose a business</p>
+      </div>
+
+      <!-- Section panels -->
+      {% include 'admin/panels/hero.html' %}
+      {% include 'admin/panels/features.html' %}
+      {% include 'admin/panels/gallery.html' %}
+      {% include 'admin/panels/videos.html' %}
+      {% include 'admin/panels/about.html' %}
+      {% include 'admin/panels/reviews.html' %}
+      {% include 'admin/panels/contact.html' %}
+      {% include 'admin/panels/cta.html' %}
+      {% include 'admin/panels/footer_panel.html' %}
+      {% include 'admin/panels/design.html' %}
+      {% include 'admin/panels/seo.html' %}
+      {% include 'admin/panels/visibility.html' %}
+
+    </main>
+
+    <!-- ── Live Preview Drawer ─────────────────────────────────────────── -->
+    <div id="previewDrawer" class="preview-drawer">
+
+      <!-- Header bar -->
+      <div class="pv-head">
+        <div class="pv-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          Live Preview
+        </div>
+        <div class="pv-controls">
+          <!-- Desktop -->
+          <button class="pv-icon-btn active" id="pvBtnDesktop" onclick="_pvSetDevice('desktop')" title="Desktop view">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+            </svg>
+          </button>
+          <!-- Mobile -->
+          <button class="pv-icon-btn" id="pvBtnMobile" onclick="_pvSetDevice('mobile')" title="Mobile view">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/>
+            </svg>
+          </button>
+          <div class="pv-sep"></div>
+          <!-- Refresh -->
+          <button class="pv-icon-btn" onclick="_pvRefresh()" title="Refresh preview">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"/>
+              <polyline points="1 20 1 14 7 14"/>
+              <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+            </svg>
+          </button>
+          <!-- Open in new tab -->
+          <button class="pv-icon-btn" onclick="_pvOpenNewTab()" title="Open in new tab">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+              <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </button>
+          <div class="pv-sep"></div>
+          <!-- Close -->
+          <button class="pv-icon-btn pv-close" onclick="togglePreview()" title="Close preview">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Viewing-section badge -->
+      <div class="pv-section-bar">
+        <span class="pv-section-label">Viewing</span>
+        <span class="pv-section-badge" id="pvSectionBadge">Hero</span>
+      </div>
+
+      <!-- No-business empty state (visible by default until a business loads) -->
+      <div id="pvEmpty" class="pv-empty" style="display:flex">
+        <svg class="pv-empty-icon" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <div class="pv-empty-title">No business selected</div>
+        <div class="pv-empty-sub">Pick a business from the dropdown to see the live preview</div>
+      </div>
+
+      <!-- iframe + loading overlay (hidden until a business is picked) -->
+      <div id="pvWrapper" class="pv-wrapper" style="display:none">
+        <div id="pvLoading" class="pv-loading" style="display:none">
+          <div class="spinner"></div>
+          <div class="pv-loading-text">Rendering preview…</div>
+        </div>
+        <iframe id="pvIframe" class="pv-iframe" src="about:blank"
+                onload="_pvIframeLoaded()"></iframe>
+      </div>
+
+    </div>
+    <!-- ── End Preview Drawer ───────────────────────────────────────────── -->
+
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastContainer" class="fixed bottom-4 right-4 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- Add Business Modal -->
+  <div id="addBusinessModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add New Business</h3>
+        <button class="modal-close" id="modalCloseBtn" onclick="hideAddBusinessModal()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Input Form (shown initially) -->
+      <div class="modal-body" id="modalInputForm">
+        <p class="modal-description">Enter the Google Maps URL of the business you want to scrape:</p>
+        <input
+          type="text"
+          id="businessUrlInput"
+          class="modal-input"
+          placeholder="https://www.google.com/maps/place/YourBusiness/..."
+        />
+        <p class="modal-hint">The system will automatically scrape the business data and enrich it with AI-generated content.</p>
+      </div>
+
+      <!-- Progress View (shown during scraping) -->
+      <div class="modal-body hidden" id="modalProgressView">
+        <div class="progress-container">
+          <div class="progress-step" id="progressStep1">
+            <div class="progress-icon">
+              <div class="spinner-small"><span class="dot-middle"></span></div>
+            </div>
+            <div class="progress-text">
+              <div class="progress-title">Scraping Business Data</div>
+              <div class="progress-subtitle">Extracting information from Google Maps...</div>
+            </div>
+          </div>
+
+          <div class="progress-step" id="progressStep2">
+            <div class="progress-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="progress-text">
+              <div class="progress-title">AI Content Generation</div>
+              <div class="progress-subtitle">Creating website copy with OpenAI...</div>
+            </div>
+          </div>
+
+          <div class="progress-step" id="progressStep3">
+            <div class="progress-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="progress-text">
+              <div class="progress-title">Finalizing</div>
+              <div class="progress-subtitle">Saving enriched data...</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="modalProgressBar"></div>
+        </div>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div class="modal-footer" id="modalFooter">
+        <button class="btn btn-outline" id="modalCancelBtn" onclick="hideAddBusinessModal()">Cancel</button>
+        <button class="btn btn-success" id="modalSubmitBtn" onclick="submitAddBusiness()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+          Add Business
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript modules (order matters: dependencies first) -->
+  <script src="{{ url_for('static', filename='js/globals.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sections/social.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sections/hours.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sections/highlights.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sections/reviews.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sections/features.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sections/media.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sections/videos.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sections/colors.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sections/footer.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sections/visibility.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/form.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/preview.js') }}"></script>
+
+</body>
+
+</html>

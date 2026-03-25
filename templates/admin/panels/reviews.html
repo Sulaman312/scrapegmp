@@ -1,0 +1,30 @@
+<div id="panel-reviews" class="panel hidden p-6 w-full">
+  <div class="panel-head">
+    <div class="flex items-center gap-3 mb-1">
+      <div class="ph-icon"><svg viewBox="0 0 24 24">
+        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+      </svg></div>
+      <h2>Client Reviews</h2>
+    </div>
+    <p>Reviews pulled from Google. First 8 shown on website. <span class="si si-g">→ Testimonials section (only shown if at least 1 review exists)</span></p>
+  </div>
+
+  <div class="space-y-4">
+    <div class="card">
+      <div class="sdiv">Reviews <span id="reviewsCountLabel" class="normal-case font-normal text-slate-500 ml-1"></span></div>
+      <p class="text-xs text-slate-500 mb-3">Showing up to 15 reviews for reference. First 8 appear on the generated website.</p>
+      <div id="reviewsList" class="space-y-3 max-h-[600px] overflow-y-auto pr-1"></div>
+    </div>
+
+    <div class="card">
+      <div class="sdiv">Keyword Marquee Strip <span class="si si-g">→ Scrolling banner below Hero</span></div>
+      <p class="text-xs text-slate-500 mb-3">Keywords scroll across the page as a social-proof ribbon.</p>
+      <div id="keywordsContainer" class="flex flex-wrap gap-2 mb-3 min-h-[2rem]"></div>
+      <div class="flex gap-2">
+        <input type="text" id="newKeywordInput" class="fi" style="max-width:260px" placeholder="Type and press Enter…"
+          onkeydown="if(event.key==='Enter'){event.preventDefault();addKeyword();}" />
+        <button onclick="addKeyword()" class="btn btn-outline">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

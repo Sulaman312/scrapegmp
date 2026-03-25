@@ -1,0 +1,61 @@
+<div id="panel-hero" class="panel hidden p-6 w-full">
+  <div class="panel-head">
+    <div class="flex items-center gap-3 mb-1">
+      <div class="ph-icon"><svg viewBox="0 0 24 24">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z" />
+        <path d="M9 21V12h6v9" />
+      </svg></div>
+      <h2>Hero Section</h2>
+    </div>
+    <p>The very first thing visitors see — headline, subtitle and CTA buttons.</p>
+  </div>
+
+  <div class="space-y-4">
+    <!-- Headline & Subtitle -->
+    <div class="card">
+      <div class="sdiv">Headline &amp; Subtitle</div>
+      <div class="space-y-3">
+        <div>
+          <label class="fl">Short Brand Name <span class="si si-b">→ Top navbar label (optional)</span></label>
+          <input type="text" id="ai-brand_short_name" class="fi" placeholder="Short name for the navbar (defaults to Business Name)" />
+        </div>
+        <div>
+          <label class="fl">Tagline — main bold headline <span class="si si-b">→ Hero · About · CTA banner</span></label>
+          <input type="text" id="ai-tagline" class="fi" placeholder="Your powerful tagline…" />
+        </div>
+        <div>
+          <label class="fl">Hero Subtitle <span class="si si-b">→ Hero · CTA banner · Footer</span></label>
+          <textarea id="ai-hero_subtitle" class="fi" rows="3" placeholder="Value proposition in 1–2 sentences…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="card">
+      <div class="sdiv">Call-to-Action Buttons</div>
+      <div class="grid grid-cols-2 gap-x-4 gap-y-3">
+        <div><label class="fl">Primary Button Label</label><input type="text" id="ai-cta_primary" class="fi" placeholder="Book Now" /></div>
+        <div><label class="fl">Secondary Button Label</label><input type="text" id="ai-cta_secondary" class="fi" placeholder="Learn More" /></div>
+        <div><label class="fl">Primary Button Link</label><input type="url" id="ai-cta_primary_url" class="fi" placeholder="https://… or tel:+123456789" /></div>
+        <div><label class="fl">Secondary Button Link</label><input type="url" id="ai-cta_secondary_url" class="fi" placeholder="https://… or #section-id" /></div>
+      </div>
+      <div class="mt-4 pt-3 border-t border-slate-800">
+        <label class="fl mb-2">Button Color</label>
+        <div class="color-row">
+          <div class="color-swatch"><input type="color" id="cp-cta-h" value="#15803d" oninput="onHeroCtaColorPick(this.value)" /></div>
+          <input type="text" id="ch-cta-h" class="color-hex" value="#15803D" maxlength="7" oninput="onHeroCtaHexInput(this.value)" onfocus="this.select()" />
+          <span class="text-xs text-slate-400 flex-1">Applies to all CTA buttons site-wide</span>
+          <button onclick="resetCtaColor();syncHeroCtaControls()" class="btn-dx text-slate-500 border-slate-700">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Background Image -->
+    <div class="card">
+      <div class="sdiv">Hero Background Image <span class="si si-g">→ Full-screen hero background</span></div>
+      <p class="text-xs text-slate-500 mb-3">Click any image to set it as the hero background.</p>
+      <div id="heroImgPicker"></div>
+      <p class="text-xs text-slate-600 mt-3">Add or reorder images in the Gallery section.</p>
+    </div>
+  </div>
+</div>

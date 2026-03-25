@@ -1,0 +1,63 @@
+<header class="border-b h-16 flex items-center shrink-0">
+  <!-- Left column: matches sidebar w-64 -->
+  <div class="w-64 shrink-0 flex items-center px-4 border-r border-white/10">
+    <div class="relative w-full" id="companyDropdown">
+      <div class="company-btn" onclick="toggleCompanyMenu()">
+        <span class="dot bg-slate-600" id="companyDot"></span>
+        <span id="companyBtnLabel" class="flex-1">Select a business…</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 shrink-0" style="opacity:.6" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div id="companyMenu" class="company-menu hidden"></div>
+    </div>
+  </div>
+  <!-- Right column: action buttons -->
+  <div class="flex-1 flex items-center justify-end gap-3 px-5">
+    <!-- Autosave indicator -->
+    <div id="autosaveIndicator" class="autosave-indicator hidden">
+      <svg viewBox="0 0 12 12"><polyline points="1.5,6 5,9.5 10.5,2.5" /></svg>
+      <span id="autosaveLabel">Saved</span>
+    </div>
+    <div class="h-6 w-px bg-white/10 mx-1"></div>
+    <!-- Theme toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggleBtn" title="Toggle light / dark mode">
+      <svg id="iconMoon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" /></svg>
+      <svg id="iconSun" viewBox="0 0 24 24" style="display:none">
+        <circle cx="12" cy="12" r="5" />
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+      </svg>
+      <div class="tt-track" id="themeTrack"><div class="tt-thumb"></div></div>
+    </button>
+    <div class="h-6 w-px bg-white/10 mx-1"></div>
+    <!-- Live preview toggle -->
+    <button id="btnTogglePreview" onclick="togglePreview()" class="btn btn-outline pv-toggle-btn" title="Toggle live preview panel">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+      Preview
+    </button>
+    <!-- Actions -->
+    <button id="btnPreview" onclick="previewWebsite()" class="btn btn-outline" style="display:none" title="Open the last generated site in a new tab">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+        <polyline stroke-linecap="round" stroke-linejoin="round" points="15 3 21 3 21 9"/>
+        <line stroke-linecap="round" x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
+      Open Site
+    </button>
+    <button id="btnSave" onclick="saveChanges()" class="btn btn-outline" disabled>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+      </svg>
+      Save Draft
+    </button>
+    <button id="btnGenerate" onclick="generateWebsite()" class="btn btn-success" disabled>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+      Generate Website
+    </button>
+  </div>
+</header>

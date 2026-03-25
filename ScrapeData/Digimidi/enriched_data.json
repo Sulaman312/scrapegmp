@@ -1,0 +1,221 @@
+{
+  "business": {
+    "name": "Digimidi",
+    "place_type": "Software company",
+    "phone": "+41 78 850 18 33",
+    "email": "",
+    "website": "digimidi.ch",
+    "price_range": "",
+    "rating": null,
+    "reviews_count": null,
+    "address": "Quai du Suchet 1, 1162 Saint-Prex, Switzerland",
+    "description": "Digimidi offre une solution complète pour les cliniques vétérinaires avec gestion des dossiers médicaux, communication client et tableaux de bord en temps réel pour les KPI",
+    "latitude": "46.4804633",
+    "longitude": "6.4555465",
+    "google_maps_url": "https://www.google.com/maps/place/Digimidi/@46.4804633,6.4555465,17z/data=!3m1!4b1!4m6!3m5!1s0x6975d1c62a901b9d:0x4963eb1c690d28ac!8m2!3d46.4804634!4d6.4604174!16s%2Fg%2F11wr99_920?entry=ttu&g_ep=EgoyMDI2MDIyNC4wIKXMDSoASAFQAw%3D%3D",
+    "plus_code": "FFJ6+55 Saint-Prex, Switzerland",
+    "hours": {
+      "monday": "8 AM–12 PM 2–6 PM",
+      "tuesday": "8 AM–12 PM 2–6 PM",
+      "wednesday": "8 AM–12 PM 2–6 PM",
+      "thursday": "8 AM–12 PM 2–6 PM",
+      "friday": "8 AM–12 PM 2–6 PM",
+      "saturday": "Closed",
+      "sunday": "Closed"
+    }
+  },
+  "ai": {
+    "brand_short_name": "Digimidi 2",
+    "tagline": "Votre solution tout-en-un pour la gestion des cliniques vétérinaires",
+    "hero_subtitle": "Améliorez l'efficacité de votre clinique, engagez vos clients et simplifiez la gestion des dossiers médicaux avec Digimidi — le logiciel conçu pour les pratiques vétérinaires modernes.",
+    "cta_primary": "Demandez une démo",
+    "cta_primary_url": "digimidi.ch",
+    "cta_secondary": "Découvrir les fonctionnalités",
+    "cta_secondary_url": "digimidi.ch",
+    "about_paragraph": "Fondée en 1995 par le Dr Antoine Adam, vétérinaire passionné par les technologies de l'information, Digimidi développe depuis plus de 30 ans des solutions logicielles innovantes pour les cliniques vétérinaires. Notre plateforme tout-en-un intègre la gestion électronique des dossiers médicaux, la communication client automatisée via WhatsApp et SMS, la signature électronique, ainsi que des tableaux de bord KPI en temps réel. Enrichie par l'intelligence artificielle et la reconnaissance vocale, Digimidi permet à vos équipes de gagner un temps précieux sur les tâches administratives pour se concentrer sur l'essentiel : les soins aux animaux.",
+    "seo_title": "Digimidi | Logiciel de gestion vétérinaire tout-en-un",
+    "seo_description": "Digimidi simplifie la gestion des cliniques vétérinaires : dossiers médicaux numériques, rappels WhatsApp automatiques, IA intégrée et tableaux de bord en temps réel.",
+    "features": [
+      {
+        "icon": "fitness_center",
+        "title": "Dossiers médicaux numériques",
+        "description": "Accédez en un clic à des résumés complets et notes médicales pour une vue d'ensemble précise de chaque patient, avec historique complet et accès rapide."
+      },
+      {
+        "icon": "🤖",
+        "title": "IA & Reconnaissance vocale",
+        "description": "Notre IA avancée combinée à la reconnaissance vocale génère des rapports cliniques précis en quelques clics, libérant vos vétérinaires des tâches administratives chronophages."
+      },
+      {
+        "icon": "💬",
+        "title": "Rappels automatiques WhatsApp",
+        "description": "Informez vos clients automatiquement via WhatsApp ou SMS pour les rendez-vous à venir, les bilans annuels et les rappels de vaccination."
+      },
+      {
+        "icon": "✍️",
+        "title": "E-signature & Formulaires",
+        "description": "Simplifiez les formalités administratives grâce aux formulaires de consentement numériques et aux signatures électroniques PDF intégrées."
+      },
+      {
+        "icon": "📊",
+        "title": "Tableaux de bord en temps réel",
+        "description": "Pilotez votre clinique avec des tableaux de bord affichant vos KPI essentiels en direct : revenus, taux de rendez-vous, satisfaction client et bien plus."
+      },
+      {
+        "icon": "bar_chart",
+        "title": "Support multilingue",
+        "description": "Servez vos clients dans leur langue préférée grâce au support multilingue intégré pour une expérience accessible, inclusive et personnalisée."
+      }
+    ],
+    "cta_heading": "Prêt à transformer votre clinique ?",
+    "cta_subtitle": "Améliorez l'efficacité de votre clinique, engagez vos clients et simplifiez la gestion des dossiers médicaux avec Digimidi — le logiciel conçu pour les pratiques vétérinaires modernes.",
+    "cta_btn_label": "",
+    "cta_link": "",
+    "cta_banner_btn_label": "",
+    "cta_banner_btn_link": "",
+    "footer_tagline": "Fondée en 1995 par le Dr Antoine Adam, vétérinaire passionné par les technologies de l'information, Digimidi développe depuis plus de 30 ans des solutions logicielles innovantes pour les cliniques vétérinaires. Notre plateforme tout-en-un intègre la gestion électronique des dossiers médicaux, la communication client automatisée via WhatsApp et SMS, la signature électronique, ainsi que des tableaux de bord KPI en temps réel. Enrichie par l'intelligence artificielle et la reconnaissance vocale, Digimidi permet à vos équipes de gagner un temps précieux sur les tâches administratives pour se concentrer sur l'essentiel : les soins aux animaux.",
+    "footer_copyright": "hafneir tjvicguthn  uhirgwj"
+  },
+  "website_data": {
+    "headings": [
+      "Votre solution tout-en-un pour la gestion des cliniques vétérinaires",
+      "Obtenez -20% de réduction* en offre de lancement ! Voir conditions",
+      "Ils nous font confiance",
+      "Gérez votre clinique vétérinaire en toute simplicité",
+      "L’IA décuple les fonctions Digimidi",
+      "Les avantages de Digimidi",
+      "Digimidi, une équipe à votre service",
+      "Vos précieux témoignages",
+      "Prêt à transformer votre clinique ?",
+      "Gestion des dossiers médicaux",
+      "En un clic, accédez à des résumés complets et notes médicales pour une vue d'ensemble précise de chaque patient.",
+      "Capacités multilingues",
+      "Servez vos clients dans leur langue préférée grâce au support multilingue intégré pour offrir une expérience accessible et personnalisée.",
+      "Intégration d'un visionneur radiologique (DICOM)",
+      "Visualisez et analysez les images radiologiques directement dans l'application pour des examens et des diagnostics précis.",
+      "Communication client & rappels automatiques",
+      "Informez vos clients avec des rappels automatiques via WhatsApp (ou sms) pour les rendez-vous à venir, les bilans annuels et les vaccinations.",
+      "Formulaires de consentement avec signature électronique",
+      "Simplifiez les formalités grâce aux formulaires numériques et aux signatures électroniques, pour une préparation des rendez-vous et une gestion des documents facilitée.",
+      "Enquêtes de satisfaction client"
+    ],
+    "meta_description": "Digimidi offre une solution complète pour les cliniques vétérinaires avec gestion des dossiers médicaux, communication client et tableaux de bord en temps réel pour les KPI",
+    "paragraphs": [
+      "Améliorez l’efficacité de votre clinique, engagez vos clients et simplifiez la gestion des dossiers médicaux avec Digimidi, le logiciel conçu pour les pratiques vétérinaires modernes.",
+      "Des dossiers patients à la communication client, simplifiez vos processus avec les fonctionnalités puissantes de Digimidi.",
+      "Notre logiciel intègre désormais une intelligence artificielle avancée, combinée à la reconnaissance vocale, pour transformer la manière dont les vétérinaires gèrent la documentation clinique. Cette innovation permet de générer des rapports précis en quelques clics, améliorant ainsi l’efficacité et la qualité des soins prodigués.",
+      "Fondée en 1995 par le Dr Antoine Adam, vétérinaire passionné par les technologies de l’information, Digimidi développe des solutions logicielles innovantes pour les cliniques vétérinaires.",
+      "Notre mission est de fournir des outils performants et adaptés aux besoins spécifiques des professionnels de la santé animale. En intégrant des fonctionnalités avancées telles que l’intelligence artificielle et la reconnaissance vocale, nous visons à optimiser la gestion des cliniques et à améliorer l’expérience utilisateur, tout en restant à la pointe des évolutions technologiques.",
+      "Une solution complète de gestion pour les cliniques vétérinaires.",
+      "© Copyright –2026 – Digimidi. Tous droits réservés par www.cOOmmunication.com & www.pme-kmu.com . Politique de cookies | nLPD",
+      "Pour une démonstration, des fonctionnalités sur mesure ou tout autre demande pour votre clinique vétérinaire, contactez-nous.",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "pricing_hints": [
+      "Obtenez -20% de réduction* en offre de lancement ! Voir conditions Accueil Fonctionnalités Tarifs Qui sommes-nous ? Actualités Contact Accueil Fonctionnalités Tarifs Qui sommes-nous ? Actualités Contact Demandez une démo Démo"
+    ],
+    "raw_text": "Rendez-vous et gestion vétérinaire en ligne | Digimidi Aller au contenu Obtenez -20% de réduction* en offre de lancement ! Voir conditions Accueil Fonctionnalités Tarifs Qui sommes-nous ? Actualités Contact Accueil Fonctionnalités Tarifs Qui sommes-nous ? Actualités Contact Demandez une démo Démo CRM - IA - Vétérinaire Votre solution tout-en-un pour la gestion des cliniques vétérinaires Améliorez l’efficacité de votre clinique, engagez vos clients et simplifiez la gestion des dossiers médicaux avec Digimidi, le logiciel conçu pour les pratiques vétérinaires modernes. Demandez une démo Découvrir nos fonctionnalités Ils nous font confiance Gérez votre clinique vétérinaire en toute simplicité Des dossiers patients à la communication client, simplifiez vos processus avec les fonctionnalités puissantes de Digimidi. Gestion des dossiers médicaux En un clic, accédez à des résumés complets et notes médicales pour une vue d'ensemble précise de chaque patient. Capacités multilingues Servez vos clients dans leur langue préférée grâce au support multilingue intégré pour offrir une expérience accessible et personnalisée. Intégration d'un visionneur radiologique (DICOM) Visualisez et analysez les images radiologiques directement dans l'application pour des examens et des diagnostics précis. Communication client & rappels automatiques Informez vos clients avec des rappels automatiques via WhatsApp (ou sms) pour les rendez-vous à venir, les bilans annuels et les vaccinations. Formulaires de consentement avec signature électronique Simplifiez les formalités grâce aux formulaires numériques et aux signatures électroniques, pour une préparation des rendez-vous et une gestion des documents facilitée. Enquêtes de satisfaction client Recueillez des retours en temps réel grâce au système NPS (Net Promoter Score) intégré, vous aidant à améliorer la qualité de service et à augmenter la satisfaction client. Tableaux de bord en direct Suivez la performance de votre clinique avec des tableaux de bord en temps réel montrant les KPI essentiels. Gérez les revenus, les rendez-vous et plus encore. Fonctionnalités boostées par l'IA Grâce à l'Intelligence Artificielle, gagnez du temps et boostez votre gestion en lui déléguant les tâches chronophages. Découvrir nos fonctionnalités Nouveauté L’IA décuple les fonctions Digimidi Notre logiciel intègre désormais une intelligence artificielle avancée, combinée à la reconnaissance vocale, pour transformer la manière dont les vétérinaires gèrent la documentation clinique. Cette innovation permet de générer des rapports précis en quelques clics, améliorant ainsi l’efficacité et la qualité des soins prodigués. Demandez une démo Solutions professionnelles Les avantages de Digimidi Efficacité augmentée : passez moins de temps sur les tâches administratives et concentrez-vous sur les soins. Amélioration des soins aux patients : avec des dossiers complets et un accès facile aux historiques médicaux, votre équipe peut offrir des traitements de q",
+    "services": [
+      "Accueil",
+      "Fonctionnalités",
+      "Tarifs",
+      "Qui sommes-nous ?",
+      "Actualités",
+      "Contact",
+      "WhatsApp & SMS pour la communication avec les familles.",
+      "E-signature PDF pour une gestion administrative dématérialisée.",
+      "Web App et Mobile App dédiées aux familles.",
+      "NPS (Net Promoter Score) pour mesurer la satisfaction client.",
+      "Connexion pour les rendez-vous en ligne.",
+      "DIGIMIDI SÀRL Quai du Suchet 1 1162 SAINT-PREX",
+      "antoine@digimidi.ch",
+      "078 850 18 33"
+    ],
+    "team": [
+      "Web App et Mobile App",
+      "NPS (Net Promoter Score)"
+    ],
+    "title": "Rendez-vous et gestion vétérinaire en ligne | Digimidi"
+  },
+  "theme": {
+    "color1": "#10B981",
+    "color2": "#059669",
+    "color3": "#0D9488",
+    "cta_color": "#10B981",
+    "hero_dark": "#06060F",
+    "hero_image": "images/Uploaded/getty-images-6nFOaShrfT0-unsplash_1.jpg"
+  },
+  "images": [
+    "images/All/0001.jpg",
+    "images/All/0002.jpg",
+    "images/All/0003.jpg",
+    "images/All/0004.jpg",
+    "images/Uploaded/getty-images-6nFOaShrfT0-unsplash_1.jpg",
+    "images/Videos/0005.jpg"
+  ],
+  "reviews": [],
+  "review_keywords": [
+    "Pharmacies",
+    "Software company",
+    "Quai du Suchet 1, 1162 Saint-Prex, Switzerland",
+    "+41 78 850 18 33",
+    "FFJ6+55 Saint-Prex, Switzerland"
+  ],
+  "qa": [],
+  "updates": [],
+  "popular_times": {},
+  "about": {
+    "highlights": [
+      "Améliorez l’efficacité de votre clinique, engagez vos clients et simplifiez la gestion des dossiers médicaux avec Digimidi, le logiciel conçu pour les pratiques vétérinaires modernes.",
+      "Des dossiers patients à la communication client, simplifiez vos processus avec les fonctionnalités puissantes de Digimidi.",
+      "Notre logiciel intègre désormais une intelligence artificielle avancée, combinée à la reconnaissance vocale, pour transformer la manière dont les vétérinaires gèrent la documentation clinique. Cette innovation permet de générer des rapports précis en quelques clics, améliorant ainsi l’efficacité et la qualité des soins prodigués.",
+      "Fondée en 1995 par le Dr Antoine Adam, vétérinaire passionné par les technologies de l’information, Digimidi développe des solutions logicielles innovantes pour les cliniques vétérinaires."
+    ]
+  },
+  "about_attrs": [
+    "test1",
+    "Test 2"
+  ],
+  "social_links": [
+    {
+      "platform": "Facebook",
+      "url": "test.com"
+    },
+    {
+      "platform": "Instagram",
+      "url": "test2.com"
+    }
+  ],
+  "web_results": [],
+  "related_places": [],
+  "section_visibility": {
+    "about": true,
+    "contact": true,
+    "cta": true,
+    "faq": false,
+    "features": true,
+    "gallery": true,
+    "keywords": true,
+    "popular_times": true,
+    "reviews": true,
+    "videos": true
+  },
+  "_has_videos": true,
+  "_video_list": [
+    "0001.mp4"
+  ],
+  "videos": [
+    "0001.mp4"
+  ]
+}
