@@ -47,12 +47,12 @@ COPY . .
 RUN mkdir -p /app/ScrapeData
 
 # Expose port
-EXPOSE 5051
+EXPOSE 8000
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV FLASK_APP=admin.py
-ENV PORT=5051
+ENV PORT=8000
 
 # Run the application
 CMD ["python", "admin.py"]

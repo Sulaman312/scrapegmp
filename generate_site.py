@@ -814,18 +814,28 @@ def _render(business_dir: str, use_draft: bool = False, override_raw: dict = Non
             for para in (website.get("paragraphs") or [about_para])[:4]:
                 if len(para) > 40 and para != about_para:
                     bullet_items += f'<div class="flex gap-3 items-start"><div class="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center" style="background:{btn_grad}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p class="text-white/70 text-sm leading-relaxed">{_e(para[:180])}</p></div>'
+        br_tag = "<br/>"
+        img_tag = ""
+        if gallery_imgs:
+            img_src = repr(gallery_imgs[1] if len(gallery_imgs)>1 else hero_img)
+            img_tag = f"<div class='mt-8 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10'><img src={img_src} class='w-full object-cover' style='max-height:260px'/></div>"
+
+        cta_html = ""
+        if cta_link:
+            cta_html = f"<a href='{_e(cta_link)}' target='_blank' class='inline-flex items-center gap-2 cta-btn text-white font-bold px-7 py-3.5 rounded-xl text-sm transition-all'>{_e(cta_primary)} →</a>"
+
         highlight_sec = f"""
 <section class="py-32 px-6" style="background:#0d0d1e">
   <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
     <div data-aos="fade-right">
       <div class="sec-pill sec-pill-dark mb-6">{t["about_label"]}</div>
-      <h2 class="text-4xl md:text-5xl font-black text-white leading-[1.1] mb-8">{_e(name)},<br/><span style="background:{text_grad};-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">{t["about_suffix"]}</span></h2>
+      <h2 class="text-4xl md:text-5xl font-black text-white leading-[1.1] mb-8">{_e(name)},{br_tag}<span style="background:{text_grad};-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">{t["about_suffix"]}</span></h2>
       <p class="text-white/55 text-lg leading-relaxed mb-10">{_e(about_para[:300])}</p>
-      {"<a href='" + _e(cta_link) + "' target='_blank' class='inline-flex items-center gap-2 cta-btn text-white font-bold px-7 py-3.5 rounded-xl text-sm transition-all'>" + _e(cta_primary) + " →</a>" if cta_link else ""}
+      {cta_html}
     </div>
     <div class="flex flex-col gap-4" data-aos="fade-left" data-aos-delay="100">
       {bullet_items or ""}
-      {("<div class='mt-8 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10'><img src=" + repr(gallery_imgs[1] if len(gallery_imgs)>1 else hero_img) + ' class="w-full object-cover" style="max-height:260px"/></div>') if gallery_imgs else ""}
+      {img_tag}
     </div>
   </div>
 </section>"""
