@@ -825,7 +825,7 @@ def _render(business_dir: str, use_draft: bool = False, override_raw: dict = Non
     </div>
     <div class="flex flex-col gap-4" data-aos="fade-left" data-aos-delay="100">
       {bullet_items or ""}
-      {"<div class='mt-8 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10'><img src=" + repr(gallery_imgs[1] if len(gallery_imgs)>1 else hero_img) + " class=\"w-full object-cover\" style=\"max-height:260px\"/></div>" if gallery_imgs else ""}
+      {("<div class='mt-8 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10'><img src=" + repr(gallery_imgs[1] if len(gallery_imgs)>1 else hero_img) + ' class="w-full object-cover" style="max-height:260px"/></div>') if gallery_imgs else ""}
     </div>
   </div>
 </section>"""
