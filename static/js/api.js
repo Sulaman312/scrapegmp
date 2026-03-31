@@ -8,6 +8,28 @@ async function loadBusinesses() {
   }
 }
 
+// ── Templates list ────────────────────────────────────────────────────────
+async function loadTemplates() {
+  try {
+    const templates = await (await fetch('/api/templates')).json();
+    if (typeof setTemplateDefinitions === 'function') {
+      const defs = {};
+      (templates || []).forEach(t => { defs[t.id] = t; });
+      setTemplateDefinitions(defs);
+    }
+    const selector = document.getElementById('template-select');
+    if (selector) {
+      selector.innerHTML = templates.map(t =>
+        `<option value="${t.id}" title="${t.description}">${t.name}</option>`
+      ).join('');
+      if (typeof applyTemplateSections === 'function') applyTemplateSections(selector.value || 'default');
+    }
+  } catch (e) {
+    console.error('Failed to load templates:', e);
+    // Leave default option intact if error
+  }
+}
+
 function renderCompanyMenu() {
   const businessItems = allBusinesses.map(b => `
     <div class="company-option ${currentBusiness === b.name ? 'selected' : ''}" onclick="pickCompany('${escAttr(b.name)}')">
@@ -45,6 +67,12 @@ async function pickCompany(name) {
     if (!res.ok) throw new Error('Not found');
     currentData = await res.json();
     populateForm(currentData);
+    if (typeof applyTemplateSections === 'function') {
+      applyTemplateSections(currentData.template || 'default');
+    }
+    if (typeof renderVisibilityToggles === 'function') {
+      renderVisibilityToggles();
+    }
     if (typeof _pvReset === 'function') _pvReset();
     document.getElementById('emptyState').classList.add('hidden');
     document.getElementById('navHint').classList.add('hidden');
@@ -90,8 +118,21 @@ async function saveChanges() {
 async function generateWebsite() {
   if (!currentBusiness) return;
   const btn = document.getElementById('btnGenerate');
-  setBtn(btn, '<div class="spinner"></div>', 'Generating…', true);
-  showToast('Running generate_site.py using last saved draft…', 'info');
+  setBtn(btn, '<div class="spinner"></div>', 'Saving & Generating…', true);
+
+  // First, save the current form data (including template selection)
+  try {
+    const formData = collectFormData();
+    await fetch(`/api/business/${encodeURIComponent(currentBusiness)}/save`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+  } catch (e) {
+    console.warn('Failed to save draft before generating:', e);
+  }
+
+  showToast('Running generate_site.py with selected template…', 'info');
   try {
     const r = await (await fetch(`/api/business/${encodeURIComponent(currentBusiness)}/generate`, { method: 'POST' })).json();
     if (r.success) {
@@ -254,9 +295,28 @@ async function submitAddBusiness() {
   }
 }
 
+// ── Template Selection ────────────────────────────────────────────────────
+function updateTemplateAndPreview() {
+  const selectedTemplate = document.getElementById('template-select').value;
+  currentData = currentData || {};
+  currentData.template = selectedTemplate;
+  if (typeof applyTemplateSections === 'function') {
+    applyTemplateSections(selectedTemplate);
+  }
+  if (typeof renderVisibilityToggles === 'function') {
+    renderVisibilityToggles();
+  }
+  // Use updateLivePreview to send currentData with the new template via POST
+  if (typeof updateLivePreview === 'function') {
+    updateLivePreview();
+  }
+  showToast(`Template changed to: ${selectedTemplate}`, 'info');
+}
+
 // ── Bootstrap ─────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   loadBusinesses();
+  loadTemplates();
   setupSEOCounters();
   buildPresets();
   updateColorPreviews();

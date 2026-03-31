@@ -1,4 +1,5 @@
 {
+  "template": "facade",
   "business": {
     "name": "Digimidi",
     "place_type": "Software company",

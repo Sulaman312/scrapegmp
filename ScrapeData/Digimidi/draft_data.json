@@ -1,4 +1,5 @@
 {
+  "template": "facade",
   "business": {
     "name": "Digimidi",
     "place_type": "Software company",
@@ -37,11 +38,6 @@
     "seo_description": "Digimidi simplifie la gestion des cliniques vétérinaires : dossiers médicaux numériques, rappels WhatsApp automatiques, IA intégrée et tableaux de bord en temps réel.",
     "features": [
       {
-        "icon": "fitness_center",
-        "title": "Dossiers médicaux numériques",
-        "description": "Accédez en un clic à des résumés complets et notes médicales pour une vue d'ensemble précise de chaque patient, avec historique complet et accès rapide."
-      },
-      {
         "icon": "🤖",
         "title": "IA & Reconnaissance vocale",
         "description": "Notre IA avancée combinée à la reconnaissance vocale génère des rapports cliniques précis en quelques clics, libérant vos vétérinaires des tâches administratives chronophages."
@@ -60,11 +56,6 @@
         "icon": "📊",
         "title": "Tableaux de bord en temps réel",
         "description": "Pilotez votre clinique avec des tableaux de bord affichant vos KPI essentiels en direct : revenus, taux de rendez-vous, satisfaction client et bien plus."
-      },
-      {
-        "icon": "bar_chart",
-        "title": "Support multilingue",
-        "description": "Servez vos clients dans leur langue préférée grâce au support multilingue intégré pour une expérience accessible, inclusive et personnalisée."
       }
     ],
     "cta_heading": "Prêt à transformer votre clinique ?",
@@ -154,7 +145,7 @@
     "color3": "#0D9488",
     "cta_color": "#10B981",
     "hero_dark": "#06060F",
-    "hero_image": "images/Uploaded/getty-images-6nFOaShrfT0-unsplash_1.jpg"
+    "hero_image": "images/All/0004.jpg"
   },
   "images": [
     "images/All/0001.jpg",

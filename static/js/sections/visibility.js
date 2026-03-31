@@ -8,6 +8,13 @@ const VIS_SECTIONS = [
     navLabel: 'Features',
   },
   {
+    key:      'values',
+    label:    'Values',
+    desc:     'Floating value cards around center image',
+    svg:      '<path d="M12 2l2.6 5.27L20.5 8l-4.25 4.14L17.2 18 12 15.27 6.8 18l.95-5.86L3.5 8l5.9-.73L12 2z"/>',
+    navLabel: 'Values',
+  },
+  {
     key:      'gallery',
     label:    'Photo Gallery',
     desc:     'Image gallery with hover zoom effects',
@@ -66,6 +73,22 @@ const VIS_SECTIONS = [
   },
 ];
 
+function _getVisibleTemplateSections() {
+  return VIS_SECTIONS.filter(s => typeof isTemplateSectionEnabled === 'function' ? isTemplateSectionEnabled(s.key) : true);
+}
+
+function _syncSidebarWithVisibility() {
+  if (!currentData) return;
+  const vis = currentData.section_visibility || {};
+  _getVisibleTemplateSections().forEach((section) => {
+    const nav = document.getElementById(`nav-${section.key}`);
+    if (!nav) return;
+    const hasData = _hasContent(section.key, currentData);
+    const showInSidebar = vis[section.key] !== false && hasData;
+    nav.style.display = showInSidebar ? '' : 'none';
+  });
+}
+
 // ── Content availability check — mirrors generate_site.py's conditions ────
 function _hasContent(key, data) {
   const ai  = data.ai       || {};
@@ -75,6 +98,11 @@ function _hasContent(key, data) {
       return !!(
         (ai.features   && ai.features.length   > 0) ||
         (data.about_attrs && data.about_attrs.length > 0)
+      );
+    case 'values':
+      return !!(
+        (ai.values && ai.values.length > 0) ||
+        (ai.features && ai.features.length > 0)
       );
     case 'gallery':
       return !!(data.images && data.images.length > 0);
@@ -162,12 +190,13 @@ function renderVisibilityToggles() {
   if (!container || !currentData) return;
 
   const vis = currentData.section_visibility || {};
-  container.innerHTML = VIS_SECTIONS.map(s => {
+  container.innerHTML = _getVisibleTemplateSections().map(s => {
     const has = _hasContent(s.key, currentData);
     return _visBuildRow(s, vis[s.key] !== false, has);
   }).join('');
 
   _syncVisibilityPreview();
+  _syncSidebarWithVisibility();
 }
 
 // ── Toggle a single section ────────────────────────────────────────────────
@@ -209,6 +238,7 @@ function toggleSection(key) {
 
   // Rebuild nav links in preview (exclude no-data sections)
   _syncVisibilityPreview();
+  _syncSidebarWithVisibility();
 
   _scheduleVisSave();
   if (typeof scheduleLivePreviewUpdate === 'function') scheduleLivePreviewUpdate();
@@ -249,7 +279,7 @@ function _syncVisibilityPreview() {
   // Nav links — only sections that have content AND are not hidden
   const linksEl = document.getElementById('visNavLinks');
   if (linksEl) {
-    linksEl.innerHTML = VIS_SECTIONS
+    linksEl.innerHTML = _getVisibleTemplateSections()
       .filter(s => s.navLabel && vis[s.key] !== false && _hasContent(s.key, currentData))
       .map(s => `<span class="vis-nav-link">${s.navLabel}</span>`)
       .join('');

@@ -2,6 +2,48 @@
 let _imgList = [];
 let _heroImg = '';
 let _selPath = '';
+let _companyImg1 = '';
+let _companyImg2 = '';
+let _valuesImg = '';
+
+function toggleCompanyImageSelectors(templateId) {
+  const box = document.getElementById('companyImageSelectors');
+  const textBox = document.getElementById('companyStoryTextInputs');
+  const aboutParagraphCard = document.getElementById('aboutParagraphCard');
+  const showFacade = templateId === 'facade';
+  if (box) box.style.display = showFacade ? '' : 'none';
+  if (textBox) textBox.style.display = showFacade ? '' : 'none';
+  if (aboutParagraphCard) aboutParagraphCard.style.display = showFacade ? 'none' : '';
+}
+
+function renderCompanyImagePickers(images, selected1, selected2) {
+  const select1 = document.getElementById('about-company-image-1');
+  const select2 = document.getElementById('about-company-image-2');
+  if (!select1 || !select2) return;
+
+  const list = Array.isArray(images) ? images.slice() : [];
+  _companyImg1 = (selected1 && list.includes(selected1)) ? selected1 : (list[0] || '');
+  _companyImg2 = (selected2 && list.includes(selected2)) ? selected2 : (list[1] || list[0] || '');
+
+  const opts = ['<option value="">Auto-select</option>'].concat(
+    list.map(p => `<option value="${esc(p)}">${esc(p.split('/').pop())}</option>`)
+  ).join('');
+
+  select1.innerHTML = opts;
+  select2.innerHTML = opts;
+  select1.value = _companyImg1 || '';
+  select2.value = _companyImg2 || '';
+
+  select1.onchange = () => { _companyImg1 = select1.value.trim(); };
+  select2.onchange = () => { _companyImg2 = select2.value.trim(); };
+}
+
+function getCompanyStoryImages() {
+  return {
+    company_image_1: _companyImg1 || '',
+    company_image_2: _companyImg2 || '',
+  };
+}
 
 // ── Tab switching ─────────────────────────────────────────────────────────
 function switchMediaTab(tab, btn) {
@@ -105,6 +147,7 @@ function _setHeroImg(imgPath) {
   _refreshMediaGrid();
   _refreshMediaSidebar();
   _syncHeroImgPicker();
+  _syncValuesImgPicker();
 }
 
 function _moveImg(imgPath, dir) {
@@ -115,17 +158,23 @@ function _moveImg(imgPath, dir) {
   _refreshMediaGrid();
   _refreshMediaSidebar();
   _syncHeroImgPicker();
+  _syncValuesImgPicker();
 }
 
 function _removeImg(imgPath) {
   _imgList = _imgList.filter(p => p !== imgPath);
   if (_heroImg === imgPath) _heroImg = _imgList[0] || '';
+  if (_companyImg1 === imgPath) _companyImg1 = _imgList[0] || '';
+  if (_companyImg2 === imgPath) _companyImg2 = _imgList[1] || _imgList[0] || '';
+  if (_valuesImg === imgPath) _valuesImg = _imgList[0] || '';
   if (_selPath === imgPath) _selPath = '';
   document.getElementById('imgTotalCount').textContent =
     `${_imgList.length} image${_imgList.length !== 1 ? 's' : ''}`;
   _refreshMediaGrid();
   _refreshMediaSidebar();
   _syncHeroImgPicker();
+  _syncValuesImgPicker();
+  renderCompanyImagePickers(_imgList, _companyImg1, _companyImg2);
 }
 
 function filterMediaGrid(q) {
@@ -186,6 +235,64 @@ function onHeroPickerCellClick(imgPath) {
 function onHeroPickerChange(radio) { _setHeroImg(radio.value); }
 function onHeroChange(radio)       { _setHeroImg(radio.value); }
 
+// ── Values image picker (Values section) ──────────────────────────────────
+function renderValuesImgPicker(images, valuesImage) {
+  const el = document.getElementById('valuesImgPicker');
+  if (!el) return;
+
+  // Initialize _valuesImg state if provided
+  if (valuesImage) {
+    _valuesImg = valuesImage;
+  } else if (!_valuesImg && images.length) {
+    _valuesImg = images[0];
+  }
+
+  el.innerHTML = '';
+  if (!images.length) {
+    el.innerHTML = '<p class="text-sm text-slate-600">No images. Upload in the Gallery section.</p>';
+    return;
+  }
+  const grid = document.createElement('div');
+  grid.className = 'hero-img-grid';
+  images.forEach((imgPath, idx) => {
+    const isSelected = valuesImage ? imgPath === valuesImage : idx === 0;
+    const src = `/media/${currentBusiness}/${imgPath}`;
+    const name = imgPath.split('/').pop();
+    const cell = document.createElement('div');
+    cell.className = 'hero-img-cell' + (isSelected ? ' selected' : '');
+    cell.dataset.path = imgPath;
+    cell.innerHTML = `
+      <img class="hero-img-thumb" src="${esc(src)}" loading="lazy" onerror="this.style.background='#1e293b'"/>
+      <div class="hero-img-name" title="${esc(name)}">${esc(name)}</div>
+      <div class="hero-img-check"><svg viewBox="0 0 11 11"><polyline points="1.5,5.5 4.5,9 9.5,1.5"/></svg></div>
+      ${isSelected ? '<div class="hero-img-badge">VALUES</div>' : ''}`;
+    cell.addEventListener('click', () => onValuesPickerCellClick(imgPath));
+    grid.appendChild(cell);
+  });
+  el.appendChild(grid);
+}
+
+function _syncValuesImgPicker() { renderValuesImgPicker(_imgList, _valuesImg); }
+
+function onValuesPickerCellClick(imgPath) {
+  _valuesImg = imgPath;
+  document.querySelectorAll('#valuesImgPicker .hero-img-cell').forEach(c => {
+    const isSelected = c.dataset.path === imgPath;
+    c.classList.toggle('selected', isSelected);
+    const badge = c.querySelector('.hero-img-badge');
+    if (isSelected && !badge) {
+      const b = document.createElement('div');
+      b.className = 'hero-img-badge';
+      b.textContent = 'VALUES';
+      c.appendChild(b);
+    } else if (!isSelected && badge) {
+      badge.remove();
+    }
+  });
+}
+
+function getValuesImage() { return _valuesImg; }
+
 // ── Collect helpers ───────────────────────────────────────────────────────
 function collectImages()  { return _imgList.slice(); }
 function getHeroImage()   { return _heroImg; }
@@ -229,6 +336,8 @@ async function uploadFiles(files) {
         `${_imgList.length} image${_imgList.length !== 1 ? 's' : ''}`;
       _refreshMediaGrid();
       _syncHeroImgPicker();
+      _syncValuesImgPicker();
+      renderCompanyImagePickers(_imgList, _companyImg1, _companyImg2);
       const libBtn = document.getElementById('mtab-library');
       if (libBtn) switchMediaTab('library', libBtn);
     }

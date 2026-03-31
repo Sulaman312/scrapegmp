@@ -1,0 +1,23 @@
+<!-- COMPANY STORY - Alternating text/image layout -->
+<section class="section-company-story" id="about">
+    <div class="container">
+        <div class="story-row">
+            <div class="story-text" data-aos="fade-right">
+                <span class="section-label">About Us</span>
+                <h2 class="section-title">Our Story</h2>
+                <p>{{ about_story_left }}</p>
+            </div>
+            <div class="story-image" data-aos="fade-left" data-aos-delay="100">
+                <img src="{{ story_image_1 }}" alt="Company Story" loading="lazy">
+            </div>
+        </div>
+        <div class="story-row reverse">
+            <div class="story-text" data-aos="fade-left">
+                <p>{{ about_story_right }}</p>
+            </div>
+            <div class="story-image" data-aos="fade-right" data-aos-delay="100">
+                <img src="{{ story_image_2 }}" alt="Company Story" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>

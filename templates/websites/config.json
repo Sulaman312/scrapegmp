@@ -1,0 +1,14 @@
+{
+  "templates": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Modern one-page website with hero, features, gallery, and more"
+    },
+    {
+      "id": "facade",
+      "name": "Facade",
+      "description": "Professional corporate site with detailed content sections, case studies, and team focus"
+    }
+  ]
+}

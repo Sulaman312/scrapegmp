@@ -1,0 +1,18 @@
+<!-- CONTACT SECTION -->
+<section class="section-contact" id="contact">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Contact Us</h2>
+        <div class="contact-grid">
+            <div class="contact-info" data-aos="fade-right">
+                <p><strong>Address:</strong> {{ address }}</p>
+                <p><strong>Phone:</strong> {{ phone }}</p>
+                <p><strong>Email:</strong> {{ email }}</p>
+            </div>
+            <div class="contact-map-container" data-aos="fade-left" data-aos-delay="100">
+                {% if latitude and longitude %}
+                <iframe src="https://maps.google.com/maps?q={{ latitude }},{{ longitude }}&z=15&output=embed" class="contact-map" loading="lazy"></iframe>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

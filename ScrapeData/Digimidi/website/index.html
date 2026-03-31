@@ -1,360 +1,1359 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Digimidi | Logiciel de gestion vétérinaire tout-en-un</title>
-  <meta name="description" content="Digimidi simplifie la gestion des cliniques vétérinaires : dossiers médicaux numériques, rappels WhatsApp automatiques, IA intégrée et tableaux de bord en temps réel."/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
-  <style>
-    :root{--c1:#10B981;--c2:#059669;--c3:#0D9488;--hero:#06060F;}
-    *{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
-    body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;background:#fff;color:#111;}
-    /* Hero — always near-black, brand color as subtle spot only */
-    .hero-bg{background:radial-gradient(ellipse 70% 55% at 15% 45%, color-mix(in srgb,#10B981 14%,#06060F), #06060F 65%);position:relative;}
-    /* Dot grid overlay */
-    .dot-grid::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.055) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
-    /* Floating orbs */
-    .orb{position:absolute;border-radius:50%;filter:blur(110px);animation:floatOrb 12s ease-in-out infinite;pointer-events:none;}
-    @keyframes floatOrb{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-40px) scale(1.06)}}
-    /* Gradient text */
-    .gt{background:linear-gradient(135deg, #10B981 0%, #059669 50%, #0D9488 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-    /* CTA button — !important so Tailwind/utilities cannot override */
-    a.cta-btn,.cta-btn{background:linear-gradient(135deg, #10B981, #07b943)!important;transition:transform .2s,box-shadow .3s;border:none;}
-    a.cta-btn:hover,.cta-btn:hover{transform:translateY(-2px);box-shadow:0 20px 60px color-mix(in srgb,#10B981 50%,transparent);}
-    /* Outline button */
-    .btn-outline{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);transition:background .2s,border-color .2s;}
-    .btn-outline:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.25);}
-    /* Nav */
-    #nav{transition:background .4s,backdrop-filter .4s,border-color .4s;}
-    #nav.scrolled{background:rgba(6,6,15,0.94);backdrop-filter:blur(24px);border-color:rgba(255,255,255,0.06)!important;}
-    /* Marquee */
-    .marquee{display:flex;gap:12px;animation:marquee 40s linear infinite;width:max-content;}
-    @keyframes marquee{to{transform:translateX(-50%)}}
-    /* Section label pill */
-    .sec-pill{display:inline-flex;align-items:center;gap:8px;font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:.4rem 1rem;border-radius:9999px;background:color-mix(in srgb,#10B981 12%,white);color:#10B981;margin-bottom:1.5rem;}
-    .sec-pill-dark{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);}
-    /* Feature card hover */
-    .feat-card:hover{box-shadow:0 24px 64px rgba(0,0,0,0.10);}
-    .feat-card:hover .f-ico{transform:scale(1.12);box-shadow:0 12px 30px color-mix(in srgb,#10B981 40%,transparent);}
-    /* Gallery image zoom */
-    .gal-img:hover img{transform:scale(1.08);}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digimidi | Logiciel de gestion vétérinaire tout-en-un</title>
+    <meta name="description" content="Digimidi simplifie la gestion des cliniques vétérinaires : dossiers médicaux numériques, rappels WhatsApp automatiques, IA intégrée et tableaux de bord en temps réel.">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <style>
+:root {
+    /* Dynamic theme colors */
+    --color-primary: #10B981;
+    --color-secondary: #059669;
+    --color-accent: #0D9488;
+    --cta-color: #10B981;
+    --hero-dark: #06060F;
+
+    /* Fixed design colors */
+    --text-dark: #2c3e50;
+    --text-light: #ffffff;
+    --text-muted: #6c757d;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: &#39;Lato&#39;, -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, sans-serif;
+    line-height: 1.7;
+    color: var(--text-dark);
+    background: #fff;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.container-fluid {
+    max-width: 100%;
+    padding: 0 60px;
+}
+
+/* TOP HEADER - Centered */
+.top-header {
+    background: var(--hero-dark);
+    color: var(--text-light);
+    padding: 12px 0;
+    font-size: 14px;
+}
+
+.top-header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.top-header-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.top-header-item:hover {
+    color: var(--color-primary);
+}
+
+.top-header-item .icon {
+    font-size: 14px;
+}
+
+.top-header-divider {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* NAVIGATION - Logo integrated */
+.navbar {
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    padding: 18px 0;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.navbar-logo .logo-icon {
+    font-size: 28px;
+}
+
+.navbar-logo:hover {
+    color: var(--color-primary);
+}
+
+.navbar-content a:not(.navbar-logo) {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: var(--transition);
+    position: relative;
+}
+
+.navbar-content a:not(.navbar-logo):hover {
+    color: var(--color-primary);
+}
+
+.navbar-content a:not(.navbar-logo)::after {
+    content: &#39;&#39;;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width 0.3s ease;
+}
+
+.navbar-content a:not(.navbar-logo):hover::after {
+    width: 100%;
+}
+
+/* HERO - Full photo with pill buttons */
+.hero {
+    position: relative;
+    padding: 8px 0 34px 24px;
+    background: #ffffff;
+}
+
+.hero::after {
+    content: &#39;&#39;;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 270px;
+    height: 530px;
+    background: var(--color-primary);
+    z-index: 0;
+}
+
+.hero-frame {
+    position: relative;
+    min-height: 70vh;
+    overflow: hidden;
+    background: #0a1220;
+    z-index: 2;
+}
+
+.hero-frame .container {
+    position: relative;
+    z-index: 3;
+    min-height: 70vh;
+    display: flex;
+    align-items: flex-end;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: -42px;
+    width: calc(100% + 42px);
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: left;
+    color: var(--text-light);
+    max-width: 1080px;
+    padding: 0 20px 190px 140px;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 24px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    margin-bottom: 40px;
+    opacity: 0.95;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+/* COMPANY STORY - two text/image alternating halves */
+.section-company-story {
+    padding: 90px 0;
+    background: #fff;
+}
+
+.story-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 52px;
+}
+
+.story-row:last-child {
+    margin-bottom: 0;
+}
+
+.story-row.reverse {
+    direction: rtl;
+}
+
+.story-row.reverse &gt; * {
+    direction: ltr;
+}
+
+.story-text p {
+    font-size: 1.06rem;
+    line-height: 1.9;
+    color: var(--text-muted);
+}
+
+.story-text {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.story-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-image img {
+    width: 100%;
+    max-width: 520px;
+    border-radius: 14px;
+    box-shadow: var(--shadow-lg);
+    object-fit: cover;
+    min-height: 320px;
+}
+
+/* PILL BUTTONS */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.btn-pill-primary {
+    padding: 14px 40px;
+    background: var(--cta-color);
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+
+.btn-pill-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.btn-pill-outline {
+    padding: 14px 40px;
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 50px;
+}
+
+.btn-pill-outline:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    padding: 14px 32px;
+    background: var(--cta-color);
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+
+/* GALLERY ALTERNATING - Description/Photo layouts */
+.section-gallery-alt {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.gallery-alt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.gallery-alt-grid.reverse {
+    direction: rtl;
+}
+
+.gallery-alt-grid.reverse &gt; * {
+    direction: ltr;
+}
+
+.gallery-alt-content p {
+    font-size: 1.125rem;
+    line-height: 1.9;
+    color: var(--text-muted);
+}
+
+.gallery-alt-image img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+}
+
+.gallery-alt-image:hover img {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+}
+
+/* FEATURES COLORED SECTION */
+.section-features-colored {
+    padding: 100px 0;
+    background: var(--color-secondary);
+    color: #fff;
+    text-align: center;
+}
+
+.section-features-colored .features-intro {
+    font-size: 1.125rem;
+    font-weight: 400;
+    margin-bottom: 60px;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.6;
+}
+
+.features-colored-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.feature-colored-item {
+    text-align: center;
+}
+
+.feature-colored-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: inline-block;
+    line-height: 1;
+}
+
+.feature-colored-icon .material-symbols-outlined {
+    font-size: 4rem;
+    line-height: 1;
+    font-variation-settings: &#39;FILL&#39; 0, &#39;wght&#39; 500, &#39;GRAD&#39; 0, &#39;opsz&#39; 24;
+}
+
+.feature-colored-item p {
+    font-size: 1rem;
+    opacity: 0.92;
+    line-height: 1.7;
+    margin-top: 12px;
+}
+
+/* VALUES - center image with 5 floating value boxes */
+.section-values {
+    padding: 96px 0;
+    background: #f3f3f3;
+}
+
+.values-stage {
+    position: relative;
+    max-width: 1080px;
+    min-height: 540px;
+    margin: 0 auto;
+}
+
+.values-center-image {
+    position: absolute;
+    left: 20%;
+    top: 15%;
+    transform: translate(-50%, -50%);
+    width: min(64%, 690px);
+    height: auto;
+    object-fit: cover;
+}
+
+.value-box {
+    position: absolute;
+    width: 190px;
+    background: rgba(255, 255, 255, 0.56);
+    color: #111;
+    border: none;
+    box-shadow: none;
+    padding: 12px 14px;
+    font-size: 0.76rem;
+    line-height: 1.45;
+    text-align: left;
+}
+
+/* clock positions: 2, 4, 6, 8, 10 */
+.value-box.vb-1 { top: 86px; right: 118px; }
+.value-box.vb-2 { top: 282px; right: 42px; }
+.value-box.vb-3 { bottom: 28px; left: 50%; transform: translateX(-50%); }
+.value-box.vb-4 { top: 316px; left: 58px; }
+.value-box.vb-5 { top: 96px; left: 70px; }
+
+/* GALLERY */
+.section-gallery {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.section-gallery h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 12px;
+    position: relative;
+    padding-top: 70%;
+}
+
+.gallery-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+/* VIDEOS */
+.section-videos {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.section-videos h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+    color: var(--text-dark);
+    letter-spacing: -0.01em;
+}
+
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.video-item video {
+    width: 100%;
+    border-radius: 12px;
+}
+
+/* REVIEWS */
+.section-reviews {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.section-reviews h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+    color: var(--text-dark);
+    letter-spacing: -0.01em;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.review-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e8ecef;
+}
+
+.review-stars {
+    color: #ffc107;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.review-text {
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.review-author {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* FAQ */
+.section-faq {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.section-faq h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+    color: var(--text-dark);
+    letter-spacing: -0.01em;
+}
+
+.faq-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.faq-question {
+    padding: 20px 25px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.faq-answer {
+    padding: 0 25px 20px;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* CONTACT */
+.section-contact {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.section-contact h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+    color: var(--text-dark);
+    letter-spacing: -0.01em;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+}
+
+.contact-info p {
+    margin-bottom: 20px;
+    font-size: 1.125rem;
+}
+
+.contact-info strong {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.contact-map {
+    width: 100%;
+    height: 450px;
+    border: 0;
+    border-radius: 12px;
+}
+
+/* CTA BANNER */
+.section-cta-banner {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--hero-dark) 100%);
+    text-align: center;
+    color: #fff;
+}
+
+.section-cta-banner h2 {
+    font-size: 2.75rem;
+    margin-bottom: 36px;
+    color: #fff;
+}
+
+/* FOOTER */
+.footer {
+    background: var(--hero-dark);
+    color: #fff;
+    padding: 60px 0 30px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 40px;
+}
+
+.footer-logo {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.footer-tagline {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+}
+
+.footer-menu h4,
+.footer-contact h4 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.footer-menu ul {
+    list-style: none;
+}
+
+.footer-menu a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    line-height: 2;
+    transition: var(--transition);
+}
+
+.footer-menu a:hover {
+    color: var(--color-primary);
+}
+
+.footer-contact p {
+    line-height: 2;
+}
+
+.footer-contact a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+}
+
+.footer-contact a:hover {
+    color: var(--color-primary);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 30px;
+    text-align: center;
+}
+
+.footer-copyright {
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 968px) {
+    .features-colored-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-content {
+        max-width: 680px;
+        padding-left: 28px;
+    }
+
+    .hero {
+        padding: 8px 0 26px 14px;
+    }
+
+    .hero::after {
+        width: 180px;
+        height: 92px;
+    }
+
+    .story-row {
+        gap: 36px;
+    }
+
+    .values-stage {
+        min-height: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .values-center-image {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto 8px;
+    }
+
+    .value-box {
+        position: static;
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto;
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-content {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-content {
+        text-align: left;
+        padding: 0 16px 114px 6px;
+    }
+
+    .hero-background {
+        left: -20px;
+        width: calc(100% + 20px);
+    }
+
+    .hero-buttons {
+        justify-content: flex-start;
+    }
+
+    .gallery-alt-grid,
+    .story-row,
+    .contact-grid,
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-alt-grid.reverse {
+        direction: ltr;
+    }
+
+    .story-row.reverse {
+        direction: ltr;
+    }
+
+    .features-colored-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid,
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* SHARED SECTION LABEL */
+.section-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+/* ABOUT */
+.section-about {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-text {
+    font-size: 1.125rem;
+    line-height: 1.9;
+    color: var(--text-muted);
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+}
+
+/* SERVICES */
+.section-services {
+    padding: 100px 0;
+    background: #f9f9f9;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.service-card {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid #e8ecef;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.service-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.service-card p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.service-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.service-link:hover {
+    color: var(--color-secondary);
+}
+
+/* TESTIMONIALS */
+.section-testimonials {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.testimonials-carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* STATS */
+.section-stats {
+    padding: 80px 0;
+    background: var(--color-secondary);
+    color: #fff;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 60px;
+    text-align: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* PROCESS */
+.section-process {
+    padding: 100px 0;
+    background: #fff;
+}
+
+.process-timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.process-step {
+    background: #f9f9f9;
+    border: 1px solid #e8ecef;
+    border-radius: 14px;
+    padding: 28px;
+}
+
+.step-number {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+}
+
+/* PORTFOLIO */
+.section-portfolio {
+    padding: 100px 0;
+    background: #f9f9f9;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.portfolio-item {
+    min-height: 260px;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.15));
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+/* FAQ ACCORDION */
+.faq-accordion .faq-item {
+    margin-bottom: 12px;
+}
+
+.faq-accordion .faq-question {
+    width: 100%;
+    border: none;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: inherit;
+    text-align: left;
+}
+
+.faq-accordion .faq-answer {
+    padding-top: 0;
+}
+
+/* TRUST BADGES */
+.section-trust-badges {
+    padding: 70px 0;
+    background: #f5f6f7;
+}
+
+.section-trust-badges h3 {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.badges-scroll {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.trust-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dfe5ea;
+    background: #fff;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    color: var(--text-dark);
+}
+
+@media (max-width: 768px) {
+    .about-grid,
+    .services-grid,
+    .testimonials-carousel,
+    .process-timeline,
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="nav" class="fixed top-0 w-full z-50 border-b border-transparent px-6 lg:px-10">
-  <div class="max-w-7xl mx-auto h-16 flex items-center justify-between">
-    <a href="#" class="font-black text-xl text-white tracking-tight">Digimidi 2</a>
-    <div class="hidden md:flex items-center gap-8">
-      <a href="#features" class="text-white/60 hover:text-white transition-colors text-sm font-medium">Fonctionnalités</a>
-<a href="#gallery" class="text-white/60 hover:text-white transition-colors text-sm font-medium">Galerie</a>
-<a href="#videos" class="text-white/60 hover:text-white transition-colors text-sm font-medium">Vidéos</a>
-<a href="#contact" class="text-white/60 hover:text-white transition-colors text-sm font-medium">Contact</a>
+<!-- TOP HEADER - Centered contact info -->
+<div class="top-header">
+    <div class="container-fluid">
+        <div class="top-header-content">
+            <a href="mailto:" class="top-header-item">
+                <span class="icon">📧</span>
+                <span></span>
+            </a>
+            <span class="top-header-divider">|</span>
+            <a href="tel:+41 78 850 18 33" class="top-header-item">
+                <span class="icon">📱</span>
+                <span>+41 78 850 18 33</span>
+            </a>
+        </div>
     </div>
-    <a href='https://digimidi.ch' target='_blank' class='cta-btn text-white text-sm font-bold px-5 py-2.5 rounded-xl'>Demandez une démo →</a>
-  </div>
+</div>
+
+<!-- NAVIGATION - Logo integrated with nav links -->
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-content">
+            <a href="#hero" class="navbar-logo">
+                <span class="logo-icon">🏢</span>
+                <span>Digimidi 2</span>
+            </a>
+            
+        </div>
+    </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero-bg dot-grid relative min-h-screen flex items-center overflow-hidden px-6 lg:px-10">
-  <!-- Orbs: brand color, very low opacity so dark bg stays dominant -->
-  <div class="orb w-[600px] h-[600px] -top-40 -left-48" style="background:#10B981;opacity:.18;animation-delay:0s"></div>
-  <div class="orb w-72 h-72 bottom-20 right-16" style="background:#059669;opacity:.14;animation-delay:-6s"></div>
-  <div class="orb w-52 h-52" style="background:#0D9488;opacity:.10;top:40%;left:55%;animation-delay:-12s"></div>
-
-  <!-- Grid fills full viewport height so both columns are truly centered -->
-  <div class="relative z-10 w-full min-h-screen flex flex-col justify-center">
-    <div class="max-w-7xl mx-auto w-full px-6 lg:px-10 py-28
-                grid lg:grid-cols-[1fr_1fr] gap-10 xl:gap-16 items-center">
-
-      <!-- ── LEFT: text ── -->
-      <div>
-        <div class="inline-flex items-center gap-2 sec-pill sec-pill-dark mb-6" data-aos="fade-down">
-          <span class="w-2 h-2 rounded-full animate-pulse" style="background:#0D9488"></span>
-          Software company &nbsp;·&nbsp; 1162 Saint-Prex
-        </div>
-        <h1 class="font-black leading-[1.04] tracking-[-0.025em] text-white mb-6"
-            style="font-size:clamp(2.2rem,4.8vw,4rem)" data-aos="fade-up" data-aos-delay="60">
-          <span class="gt">Votre solution tout-en-un pour la gestion des cliniques vétérinaires</span>
-        </h1>
-        <p class="text-white/50 text-[1.05rem] leading-[1.8] mb-10 max-w-md"
-           data-aos="fade-up" data-aos-delay="130">
-          Améliorez l&#x27;efficacité de votre clinique, engagez vos clients et simplifiez la gestion des dossiers médicaux avec Digimidi — le logiciel conçu pour les pratiques vétérinaires modernes.
-        </p>
-        <div class="flex flex-wrap gap-4" data-aos="fade-up" data-aos-delay="200">
-          <a href='https://digimidi.ch' target='_blank' class='cta-btn inline-flex items-center gap-2.5 text-white font-bold px-8 py-[14px] rounded-2xl text-[15px]'>Demandez une démo <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='currentColor' stroke-width='2.5' viewBox='0 0 24 24'><line x1='5' y1='12' x2='19' y2='12'/><polyline points='12 5 19 12 12 19'/></svg></a>
-          <a href="#contact" class="btn-outline inline-flex items-center gap-2.5 text-white/75 font-semibold px-8 py-[14px] rounded-2xl text-[15px]">
-            Découvrir les fonctionnalités
-          </a>
-        </div>
-        <!-- Stat chips -->
-        <div class="flex flex-wrap gap-8 mt-12 pt-10 border-t border-white/[0.08]"
-             data-aos="fade-up" data-aos-delay="280">
-          <div><div class="text-sm font-bold leading-none mt-0.5" style="color:#059669">Software company</div><div class="text-white/35 text-[10px] uppercase tracking-widest mt-1">Secteur</div></div>
-        </div>
-      </div>
-
-      <!-- ── RIGHT: device frame — hidden on mobile ── -->
-      <div class='hidden lg:block' data-aos='fade-left' data-aos-delay='150'>
-        <div class="relative w-full">
-          <!-- Soft glow behind -->
-          <div class="absolute -inset-6 rounded-3xl opacity-20 blur-3xl pointer-events-none" style="background:linear-gradient(135deg, #10B981, #07b943)"></div>
-          <!-- macOS-style browser frame -->
-          <div class="relative rounded-2xl overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.75)] ring-1 ring-white/10" style="background:#0e0e0e">
-            <!-- Titlebar -->
-            <div class="flex items-center gap-2 px-4 h-10 shrink-0 border-b border-white/[0.06]" style="background:#161616">
-              <span class="w-3 h-3 rounded-full shrink-0" style="background:#ff5f57"></span>
-              <span class="w-3 h-3 rounded-full shrink-0" style="background:#febc2e"></span>
-              <span class="w-3 h-3 rounded-full shrink-0" style="background:#28c840"></span>
-              <div class="flex-1 h-6 rounded-md mx-3" style="background:rgba(255,255,255,0.06)">
-                <div class="w-2/3 h-full mx-auto rounded-md" style="background:rgba(255,255,255,0.03)"></div>
-              </div>
+<!-- HERO - Full image with overlay and pill buttons -->
+<section class="hero" id="hero">
+    <div class="hero-frame">
+        <div class="hero-background" style="background-image: url('/media/Digimidi/images/Uploaded/getty-images-6nFOaShrfT0-unsplash_1.jpg')"></div>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Digimidi | Logiciel de gestion vétérinaire tout-en-un</h1>
+                <p class="hero-subtitle">Améliorez l&#39;efficacité de votre clinique, engagez vos clients et simplifiez la gestion des dossiers médicaux avec Digimidi — le logiciel conçu pour les pratiques vétérinaires modernes.</p>
+                <div class="hero-buttons">
+                    <a href="https://digimidi.ch" class="btn btn-pill-primary">Demandez une démo</a>
+                    <a href="#contact" class="btn btn-pill-outline">Découvrir les fonctionnalités</a>
+                </div>
             </div>
-            <!-- Image: responsive height so it never clips on short viewports -->
-            <div class="relative overflow-hidden" style="height:clamp(220px,36vh,400px)">
-              <img src="/media/Digimidi/images/Uploaded/getty-images-6nFOaShrfT0-unsplash_1.jpg" alt="Digimidi"
-                   class="absolute inset-0 w-full h-full object-cover"/>
-              <div class="absolute inset-0" style="background:linear-gradient(to bottom,transparent 70%,rgba(0,0,0,0.35) 100%)"></div>
-            </div>
-          </div>
-        </div></div>
-
+        </div>
     </div>
-  </div>
-
-  <!-- Scroll hint -->
-  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/20 animate-bounce z-20">
-    <span class="text-[9px] tracking-[0.3em] uppercase font-semibold">Défiler</span>
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-  </div>
 </section>
 
-<div class="overflow-hidden py-6 border-y border-white/5" style="background:#08081a"><div class="marquee"><span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border border-white/8 text-white/60" style="background:rgba(255,255,255,0.04)">· Pharmacies</span> <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border border-white/8 text-white/60" style="background:rgba(255,255,255,0.04)">· Software company</span> <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border border-white/8 text-white/60" style="background:rgba(255,255,255,0.04)">· Quai du Suchet 1, 1162 Saint-Prex, Switzerland</span> <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border border-white/8 text-white/60" style="background:rgba(255,255,255,0.04)">· +41 78 850 18 33</span> <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border border-white/8 text-white/60" style="background:rgba(255,255,255,0.04)">· FFJ6+55 Saint-Prex, Switzerland</span>&nbsp;&nbsp;&nbsp;<span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border border-white/8 text-white/60" style="background:rgba(255,255,255,0.04)">· Pharmacies</span> <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border border-white/8 text-white/60" style="background:rgba(255,255,255,0.04)">· Software company</span> <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border border-white/8 text-white/60" style="background:rgba(255,255,255,0.04)">· Quai du Suchet 1, 1162 Saint-Prex, Switzerland</span> <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border border-white/8 text-white/60" style="background:rgba(255,255,255,0.04)">· +41 78 850 18 33</span> <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap border border-white/8 text-white/60" style="background:rgba(255,255,255,0.04)">· FFJ6+55 Saint-Prex, Switzerland</span></div></div>
 
-<section id="features" class="py-32 px-6 bg-[#f8f9ff]">
-  <div class="max-w-6xl mx-auto">
-    <div class="max-w-2xl mb-20" data-aos="fade-up">
-      <div class="sec-pill mb-5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Fonctionnalités
-      </div>
-      <h2 class="text-5xl md:text-6xl font-black text-gray-950 leading-[1.08] mb-5">Tout ce dont vous avez besoin</h2>
-      <p class="text-gray-500 text-lg leading-relaxed">Conçu pour les professionnels exigeants.</p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            <div class="group relative bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden" data-aos="fade-up" data-aos-delay="0">
-              <div class="absolute top-6 right-6 text-7xl font-black leading-none select-none pointer-events-none" style="color:rgba(0,0,0,0.04)">01</div>
-              <div class="f-ico w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl" style="background:linear-gradient(135deg,#10B981,#059669)"><span class="material-icons text-2xl">fitness_center</span></div>
-              <h3 class="text-xl font-bold text-gray-900 mb-3 leading-snug">Dossiers médicaux numériques</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">Accédez en un clic à des résumés complets et notes médicales pour une vue d&#x27;ensemble précise de chaque patient, avec historique complet et accès rapide.</p>
+<!-- COMPANY STORY - Alternating text/image layout -->
+<section class="section-company-story" id="about">
+    <div class="container">
+        <div class="story-row">
+            <div class="story-text">
+                <span class="section-label">About Us</span>
+                <h2 class="section-title">Our Story</h2>
+                <p>Fondée en 1995 par le Dr Antoine Adam, vétérinaire passionné par les technologies de l&#39;information, Digimidi développe depuis plus de 30 ans des solutions logicielles innovantes pour les cliniques vétérinaires. Notre plateforme tout-en-un intègre la gestion électronique des dossiers médicaux, la communication client automatisée</p>
             </div>
-            <div class="group relative bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden" data-aos="fade-up" data-aos-delay="70">
-              <div class="absolute top-6 right-6 text-7xl font-black leading-none select-none pointer-events-none" style="color:rgba(0,0,0,0.04)">02</div>
-              <div class="f-ico w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl text-2xl" style="background:linear-gradient(135deg,#059669,#0D9488)">🤖</div>
-              <h3 class="text-xl font-bold text-gray-900 mb-3 leading-snug">IA &amp; Reconnaissance vocale</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">Notre IA avancée combinée à la reconnaissance vocale génère des rapports cliniques précis en quelques clics, libérant vos vétérinaires des tâches administratives chronophages.</p>
+            <div class="story-image">
+                <img src="/media/Digimidi/images/All/0001.jpg" alt="Company Story">
             </div>
-            <div class="group relative bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden" data-aos="fade-up" data-aos-delay="140">
-              <div class="absolute top-6 right-6 text-7xl font-black leading-none select-none pointer-events-none" style="color:rgba(0,0,0,0.04)">03</div>
-              <div class="f-ico w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl text-2xl" style="background:linear-gradient(135deg,#0D9488,#067194)">💬</div>
-              <h3 class="text-xl font-bold text-gray-900 mb-3 leading-snug">Rappels automatiques WhatsApp</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">Informez vos clients automatiquement via WhatsApp ou SMS pour les rendez-vous à venir, les bilans annuels et les rappels de vaccination.</p>
+        </div>
+        <div class="story-row reverse">
+            <div class="story-text">
+                <p>via WhatsApp et SMS, la signature électronique, ainsi que des tableaux de bord KPI en temps réel. Enrichie par l&#39;intelligence artificielle et la reconnaissance vocale, Digimidi permet à vos équipes de gagner un temps précieux sur les tâches administratives pour se concentrer sur l&#39;essentiel : les soins aux animaux.</p>
             </div>
-            <div class="group relative bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden" data-aos="fade-up" data-aos-delay="210">
-              <div class="absolute top-6 right-6 text-7xl font-black leading-none select-none pointer-events-none" style="color:rgba(0,0,0,0.04)">04</div>
-              <div class="f-ico w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl text-2xl" style="background:linear-gradient(135deg,#07b9aa,#10B981)">✍️</div>
-              <h3 class="text-xl font-bold text-gray-900 mb-3 leading-snug">E-signature &amp; Formulaires</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">Simplifiez les formalités administratives grâce aux formulaires de consentement numériques et aux signatures électroniques PDF intégrées.</p>
+            <div class="story-image">
+                <img src="/media/Digimidi/images/All/0002.jpg" alt="Company Story">
             </div>
-            <div class="group relative bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden" data-aos="fade-up" data-aos-delay="280">
-              <div class="absolute top-6 right-6 text-7xl font-black leading-none select-none pointer-events-none" style="color:rgba(0,0,0,0.04)">05</div>
-              <div class="f-ico w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl text-2xl" style="background:linear-gradient(135deg,#10B981,#24b907)">📊</div>
-              <h3 class="text-xl font-bold text-gray-900 mb-3 leading-snug">Tableaux de bord en temps réel</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">Pilotez votre clinique avec des tableaux de bord affichant vos KPI essentiels en direct : revenus, taux de rendez-vous, satisfaction client et bien plus.</p>
-            </div>
-            <div class="group relative bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden" data-aos="fade-up" data-aos-delay="350">
-              <div class="absolute top-6 right-6 text-7xl font-black leading-none select-none pointer-events-none" style="color:rgba(0,0,0,0.04)">06</div>
-              <div class="f-ico w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl" style="background:linear-gradient(135deg,#059669,#008696)"><span class="material-icons text-2xl">bar_chart</span></div>
-              <h3 class="text-xl font-bold text-gray-900 mb-3 leading-snug">Support multilingue</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">Servez vos clients dans leur langue préférée grâce au support multilingue intégré pour une expérience accessible, inclusive et personnalisée.</p>
-            </div></div>
-  </div>
-</section>
-
-<section id="gallery" class="py-32 px-6" style="background:#0a0a18">
-  <div class="max-w-6xl mx-auto">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14" data-aos="fade-up">
-      <div>
-        <div class="sec-pill sec-pill-dark">Galerie</div>
-        <h2 class="text-5xl md:text-6xl font-black text-white leading-[1.08] tracking-[-0.02em]">Découvrez-le <span style="background:linear-gradient(135deg, #10B981 0%, #059669 50%, #0D9488 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">en action</span></h2>
-      </div>
-      <a href='https://digimidi.ch' target='_blank' class='cta-btn text-white font-bold px-7 py-3.5 rounded-xl text-sm whitespace-nowrap shrink-0'>Demandez une démo →</a>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <div class="group relative overflow-hidden rounded-2xl bg-gray-900 shadow-lg" style="aspect-ratio:4/3" data-aos="fade-up" data-aos-delay="0">
-          <img src="/media/Digimidi/images/All/0001.jpg" alt="Digimidi photo 1"
-               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
-               style="transform-origin:center;transition:transform .7s ease"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-            <span class="text-white text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1.5 rounded-full">Digimidi</span>
-          </div>
-        </div>
-        <div class="group relative overflow-hidden rounded-2xl bg-gray-900 shadow-lg" style="aspect-ratio:4/3" data-aos="fade-up" data-aos-delay="80">
-          <img src="/media/Digimidi/images/All/0002.jpg" alt="Digimidi photo 2"
-               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
-               style="transform-origin:center;transition:transform .7s ease"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-            <span class="text-white text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1.5 rounded-full">Digimidi</span>
-          </div>
-        </div>
-        <div class="group relative overflow-hidden rounded-2xl bg-gray-900 shadow-lg" style="aspect-ratio:4/3" data-aos="fade-up" data-aos-delay="160">
-          <img src="/media/Digimidi/images/All/0003.jpg" alt="Digimidi photo 3"
-               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
-               style="transform-origin:center;transition:transform .7s ease"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-            <span class="text-white text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1.5 rounded-full">Digimidi</span>
-          </div>
-        </div>
-        <div class="group relative overflow-hidden rounded-2xl bg-gray-900 shadow-lg" style="aspect-ratio:4/3" data-aos="fade-up" data-aos-delay="0">
-          <img src="/media/Digimidi/images/All/0004.jpg" alt="Digimidi photo 4"
-               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
-               style="transform-origin:center;transition:transform .7s ease"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-            <span class="text-white text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1.5 rounded-full">Digimidi</span>
-          </div>
-        </div>
-        <div class="group relative overflow-hidden rounded-2xl bg-gray-900 shadow-lg" style="aspect-ratio:4/3" data-aos="fade-up" data-aos-delay="80">
-          <img src="/media/Digimidi/images/Uploaded/getty-images-6nFOaShrfT0-unsplash_1.jpg" alt="Digimidi photo 5"
-               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
-               style="transform-origin:center;transition:transform .7s ease"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-            <span class="text-white text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1.5 rounded-full">Digimidi</span>
-          </div>
-        </div>
-        <div class="group relative overflow-hidden rounded-2xl bg-gray-900 shadow-lg" style="aspect-ratio:4/3" data-aos="fade-up" data-aos-delay="160">
-          <img src="/media/Digimidi/images/Videos/0005.jpg" alt="Digimidi photo 6"
-               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
-               style="transform-origin:center;transition:transform .7s ease"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-            <span class="text-white text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1.5 rounded-full">Digimidi</span>
-          </div>
-        </div></div>
-  </div>
-</section>
-
-<section id="videos" class="py-32 px-6" style="background:#06060f">
-  <div class="max-w-6xl mx-auto">
-    <div class="max-w-2xl mb-14" data-aos="fade-up">
-      <div class="sec-pill sec-pill-dark mb-5">Vidéos</div>
-      <h2 class="text-5xl md:text-6xl font-black text-white leading-[1.08] tracking-[-0.02em]">Découvrez-nous en vidéo</h2>
-    </div>
-    <div class="grid grid-cols-1  gap-6">
-      
-        <div class="rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] ring-1 ring-white/10 bg-black" data-aos="fade-up" data-aos-delay="0">
-          <video controls preload="metadata" class="w-full block"
-                 style="aspect-ratio:16/9;object-fit:contain;background:#000;max-height:420px">
-            <source src="/media/Digimidi/videos/0001.mp4" type="video/mp4">
-          </video>
         </div>
     </div>
-  </div>
-</section>
-
-<section class="py-32 px-6" style="background:#0d0d1e">
-  <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-    <div data-aos="fade-right">
-      <div class="sec-pill sec-pill-dark mb-6">À propos</div>
-      <h2 class="text-4xl md:text-5xl font-black text-white leading-[1.1] mb-8">Digimidi,<br/><span style="background:linear-gradient(135deg, #10B981 0%, #059669 50%, #0D9488 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">à votre service</span></h2>
-      <p class="text-white/55 text-lg leading-relaxed mb-10">Fondée en 1995 par le Dr Antoine Adam, vétérinaire passionné par les technologies de l&#x27;information, Digimidi développe depuis plus de 30 ans des solutions logicielles innovantes pour les cliniques vétérinaires. Notre plateforme tout-en-un intègre la gestion électronique des dossiers médicaux, la com</p>
-      <a href='https://digimidi.ch' target='_blank' class='inline-flex items-center gap-2 cta-btn text-white font-bold px-7 py-3.5 rounded-xl text-sm transition-all'>Demandez une démo →</a>
-    </div>
-    <div class="flex flex-col gap-4" data-aos="fade-left" data-aos-delay="100">
-      <div class="flex gap-3 items-start"><div class="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center" style="background:linear-gradient(135deg, #10B981, #07b943)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p class="text-white/70 text-sm leading-relaxed">Améliorez l’efficacité de votre clinique, engagez vos clients et simplifiez la gestion des dossiers médicaux avec Digimidi, le logiciel conçu pour les pratiques vétérinaires modern</p></div><div class="flex gap-3 items-start"><div class="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center" style="background:linear-gradient(135deg, #10B981, #07b943)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p class="text-white/70 text-sm leading-relaxed">Des dossiers patients à la communication client, simplifiez vos processus avec les fonctionnalités puissantes de Digimidi.</p></div><div class="flex gap-3 items-start"><div class="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center" style="background:linear-gradient(135deg, #10B981, #07b943)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p class="text-white/70 text-sm leading-relaxed">Notre logiciel intègre désormais une intelligence artificielle avancée, combinée à la reconnaissance vocale, pour transformer la manière dont les vétérinaires gèrent la documentati</p></div><div class="flex gap-3 items-start"><div class="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center" style="background:linear-gradient(135deg, #10B981, #07b943)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p class="text-white/70 text-sm leading-relaxed">Fondée en 1995 par le Dr Antoine Adam, vétérinaire passionné par les technologies de l’information, Digimidi développe des solutions logicielles innovantes pour les cliniques vétér</p></div>
-      <div class='mt-8 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10'><img src='/media/Digimidi/images/All/0002.jpg' class="w-full object-cover" style="max-height:260px"/></div>
-    </div>
-  </div>
 </section>
 
 
 
-
-<section id="contact" class="py-32 px-6 bg-[#f8f9ff]">
-  <div class="max-w-6xl mx-auto">
-    <div class="max-w-2xl mb-20" data-aos="fade-up">
-      <div class="sec-pill mb-5">Contact</div>
-      <h2 class="text-5xl md:text-6xl font-black text-gray-950 leading-[1.08]">Travaillons<br/>ensemble</h2>
+<!-- FEATURES COLORED SECTION (5 features on colored background) -->
+<section class="section-features-colored" id="features">
+    <div class="container">
+        <p class="features-intro">We offer a comprehensive range of professional features designed to meet your needs</p>
+        <div class="features-colored-grid">
+            
+            <div class="feature-colored-item">
+                <div class="feature-colored-icon">
+                    
+                    <span class="material-symbols-outlined" aria-hidden="true">fitness_center</span>
+                    
+                </div>
+                
+                <p>Accédez en un clic à des résumés complets et notes médicales pour une vue d&#39;ensemble précise de chaque patient, avec historique complet et accès rapide.</p>
+            </div>
+            
+            <div class="feature-colored-item">
+                <div class="feature-colored-icon">
+                    
+                    <span class="material-symbols-outlined" aria-hidden="true">smart_toy</span>
+                    
+                </div>
+                
+                <p>Notre IA avancée combinée à la reconnaissance vocale génère des rapports cliniques précis en quelques clics, libérant vos vétérinaires des tâches administratives chronophages.</p>
+            </div>
+            
+            <div class="feature-colored-item">
+                <div class="feature-colored-icon">
+                    
+                    <span class="material-symbols-outlined" aria-hidden="true">chat</span>
+                    
+                </div>
+                
+                <p>Informez vos clients automatiquement via WhatsApp ou SMS pour les rendez-vous à venir, les bilans annuels et les rappels de vaccination.</p>
+            </div>
+            
+            <div class="feature-colored-item">
+                <div class="feature-colored-icon">
+                    
+                    <span class="material-symbols-outlined" aria-hidden="true">edit_note</span>
+                    
+                </div>
+                
+                <p>Simplifiez les formalités administratives grâce aux formulaires de consentement numériques et aux signatures électroniques PDF intégrées.</p>
+            </div>
+            
+            <div class="feature-colored-item">
+                <div class="feature-colored-icon">
+                    
+                    <span class="material-symbols-outlined" aria-hidden="true">bar_chart</span>
+                    
+                </div>
+                
+                <p>Pilotez votre clinique avec des tableaux de bord affichant vos KPI essentiels en direct : revenus, taux de rendez-vous, satisfaction client et bien plus.</p>
+            </div>
+            
+            <div class="feature-colored-item">
+                <div class="feature-colored-icon">
+                    
+                    <span class="material-symbols-outlined" aria-hidden="true">bar_chart</span>
+                    
+                </div>
+                
+                <p>Servez vos clients dans leur langue préférée grâce au support multilingue intégré pour une expérience accessible, inclusive et personnalisée.</p>
+            </div>
+            
+        </div>
     </div>
-    <div class="grid lg:grid-cols-2 gap-10">
-      <div class="flex flex-col gap-4" data-aos="fade-right">
-        <div class="flex gap-4 p-5 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors items-start"><div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-md" style="background:linear-gradient(135deg,#10B981,#059669)"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="font-bold text-gray-800 text-sm mb-1">Adresse</div><p class="text-gray-500 text-sm">Quai du Suchet 1, 1162 Saint-Prex, Switzerland</p></div></div><div class="flex gap-4 p-5 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors items-start"><div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-md" style="background:linear-gradient(135deg,#059669,#0D9488)"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l1.79-1.79a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="font-bold text-gray-800 text-sm mb-1">Téléphone</div><a href="tel:+41 78 850 18 33" style="font-weight:600;font-size:.875rem;color:#10B981;">+41 78 850 18 33</a></div></div><div class="flex gap-4 p-5 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors items-start"><div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-md" style="background:linear-gradient(135deg,#07b934,#10B981)"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="font-bold text-gray-800 text-sm mb-1">Site web</div><a href="https://digimidi.ch" target="_blank" style="font-weight:600;font-size:.875rem;color:#10B981;">digimidi.ch</a></div></div>
-          <div class='bg-white border border-gray-100 rounded-3xl p-7 shadow-sm mt-2'><div class='flex items-center gap-2 font-bold text-gray-900 text-sm mb-4'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Heures d'ouverture</div><div class="flex justify-between py-2.5 border-b border-gray-100 last:border-0"><span class="text-sm font-medium text-gray-700">Mon</span><span class="text-sm font-medium" style="color:#10B981">8 AM–12 PM 2–6 PM</span></div><div class="flex justify-between py-2.5 border-b border-gray-100 last:border-0"><span class="text-sm font-medium text-gray-700">Tue</span><span class="text-sm font-medium" style="color:#10B981">8 AM–12 PM 2–6 PM</span></div><div class="flex justify-between py-2.5 border-b border-gray-100 last:border-0"><span class="text-sm font-medium text-gray-700">Wed</span><span class="text-sm font-medium" style="color:#10B981">8 AM–12 PM 2–6 PM</span></div><div class="flex justify-between py-2.5 border-b border-gray-100 last:border-0"><span class="text-sm font-medium text-gray-700">Thr</span><span class="text-sm font-medium" style="color:#10B981">8 AM–12 PM 2–6 PM</span></div><div class="flex justify-between py-2.5 border-b border-gray-100 last:border-0"><span class="text-sm font-medium text-gray-700">Fri</span><span class="text-sm font-medium" style="color:#10B981">8 AM–12 PM 2–6 PM</span></div><div class="flex justify-between py-2.5 border-b border-gray-100 last:border-0"><span class="text-sm font-medium text-gray-700">Sat</span><span class="text-sm text-red-400" style="">Closed</span></div><div class="flex justify-between py-2.5 border-b border-gray-100 last:border-0"><span class="text-sm font-medium text-gray-700">Sun</span><span class="text-sm text-red-400" style="">Closed</span></div></div>
-      </div>
-      <div data-aos="fade-left"><div class="rounded-3xl overflow-hidden shadow-xl h-full" style="min-height:320px"><iframe src="https://maps.google.com/maps?q=46.4804633,6.4555465&z=15&output=embed" class="w-full border-0" style="height:100%;min-height:320px" allowfullscreen loading="lazy"></iframe></div></div>
-    </div>
-  </div>
 </section>
 
-<section class="py-28 px-6 relative overflow-hidden" style="background:linear-gradient(135deg,#086546,#02432f)">
-  <div class="orb w-96 h-96 right-0 top-0 opacity-20" style="background:#0D9488"></div>
-  <div class="relative z-10 max-w-3xl mx-auto text-center" data-aos="fade-up">
-    <h2 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">Prêt à transformer votre clinique ?</h2>
-    <p class="text-white/60 text-lg mb-10">Améliorez l&#x27;efficacité de votre clinique, engagez vos clients et simplifiez la gestion des dossiers médicaux avec Digimidi — le logiciel conçu pour les pratiques vétérinaires modernes.</p>
-    <a href="https://digimidi.ch" target="_blank" class="cta-btn inline-flex items-center gap-3 text-white font-black px-10 py-5 rounded-2xl text-base shadow-2xl hover:scale-105 transition-all">
-      Demandez une démo <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-    </a>
-  </div>
+
+
+<!-- VALUES SECTION - ATOUTS -->
+<section class="section-values" id="values">
+    <div class="container">
+        <div class="values-stage">
+            <img src="/media/Digimidi/images/All/0001.jpg" alt="Values" class="values-center-image">
+            
+            <div class="value-box vb-1">Accédez en un clic à des résumés complets et notes médicales pour une vue d&#39;ensemble précise de chaque patient, avec historique complet et accès rapide.</div>
+            
+            <div class="value-box vb-2">Notre IA avancée combinée à la reconnaissance vocale génère des rapports cliniques précis en quelques clics, libérant vos vétérinaires des tâches administratives chronophages.</div>
+            
+            <div class="value-box vb-3">Informez vos clients automatiquement via WhatsApp ou SMS pour les rendez-vous à venir, les bilans annuels et les rappels de vaccination.</div>
+            
+            <div class="value-box vb-4">Simplifiez les formalités administratives grâce aux formulaires de consentement numériques et aux signatures électroniques PDF intégrées.</div>
+            
+            <div class="value-box vb-5">Pilotez votre clinique avec des tableaux de bord affichant vos KPI essentiels en direct : revenus, taux de rendez-vous, satisfaction client et bien plus.</div>
+            
+        </div>
+    </div>
 </section>
+
+
+
+<!-- VIDEOS SECTION -->
+<section class="section-videos" id="videos">
+    <div class="container">
+        <h2 class="section-title">Videos</h2>
+        <div class="videos-grid">
+            
+            <div class="video-item">
+                <video controls preload="metadata">
+                    <source src="/media/Digimidi/videos/0001.mp4" type="video/mp4">
+                </video>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+<!-- CONTACT SECTION -->
+<section class="section-contact" id="contact">
+    <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <p><strong>Address:</strong> Quai du Suchet 1, 1162 Saint-Prex, Switzerland</p>
+                <p><strong>Phone:</strong> +41 78 850 18 33</p>
+                <p><strong>Email:</strong> </p>
+            </div>
+            <div class="contact-map-container">
+                
+                <iframe src="https://maps.google.com/maps?q=46.4804633,6.4555465&z=15&output=embed" class="contact-map" loading="lazy"></iframe>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- CTA BANNER -->
+<section class="section-cta-banner" id="cta">
+    <div class="container">
+        <h2>Prêt à transformer votre clinique ?</h2>
+        <a href="https://digimidi.ch" class="btn btn-primary">Demandez une démo</a>
+    </div>
+</section>
+
 
 <!-- FOOTER -->
-<footer style="background:#06060f" class="pt-20 pb-10 px-6 lg:px-10">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid md:grid-cols-3 gap-12 pb-12 border-b border-white/8">
-      <div class="md:col-span-2">
-        <div class="font-black text-2xl mb-3 gt">Digimidi</div>
-        <p class="text-white/35 text-sm leading-relaxed max-w-md">Fondée en 1995 par le Dr Antoine Adam, vétérinaire passionné par les technologies de l&#x27;information, Digimidi développe depuis plus de 30 ans des solutions logicielles innovantes pour les cliniques vét</p>
-        <div class="flex gap-3 mt-6"><a href="test.com" target="_blank" class="w-10 h-10 rounded-xl flex items-center justify-center text-white/50 hover:text-white transition-all border border-white/10 hover:border-white/25"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a><a href="test2.com" target="_blank" class="w-10 h-10 rounded-xl flex items-center justify-center text-white/50 hover:text-white transition-all border border-white/10 hover:border-white/25"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://www.google.com/maps/place/Digimidi/@46.4804633,6.4555465,17z/data=!3m1!4b1!4m6!3m5!1s0x6975d1c62a901b9d:0x4963eb1c690d28ac!8m2!3d46.4804634!4d6.4604174!16s%2Fg%2F11wr99_920?entry=ttu&amp;g_ep=EgoyMDI2MDIyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="w-10 h-10 rounded-xl flex items-center justify-center text-white/50 hover:text-white transition-all border border-white/10 hover:border-white/25"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></a></div>
-      </div>
-      <div>
-        <div class="text-white/50 text-xs font-black uppercase tracking-widest mb-4">Contact</div>
-        <div class="flex flex-col gap-2 text-sm text-white/40">
-          <span>Quai du Suchet 1, 1162 Saint-Prex, Switzerland</span>
-          <a href="tel:+41 78 850 18 33" class="hover:text-white transition-colors">+41 78 850 18 33</a>
-          
-          <a href="https://digimidi.ch" target="_blank" class="hover:text-white transition-colors">digimidi.ch</a>
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">🏢</div>
+                <div class="footer-tagline">Fondée en 1995 par le Dr Antoine Adam, vétérinaire passionné par les technologies de l&#39;information, Digimidi développe depuis plus de 30 ans des solutions logicielles innovantes pour les cliniques vétérinaires. Notre plateforme tout-en-un intègre la gestion électronique des dossiers médicaux, la communication client automatisée via WhatsApp et SMS, la signature électronique, ainsi que des tableaux de bord KPI en temps réel. Enrichie par l&#39;intelligence artificielle et la reconnaissance vocale, Digimidi permet à vos équipes de gagner un temps précieux sur les tâches administratives pour se concentrer sur l&#39;essentiel : les soins aux animaux.</div>
+            </div>
+            <div class="footer-menu">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><a href="mailto:"></a></p>
+                <p><a href="tel:+41 78 850 18 33">+41 78 850 18 33</a></p>
+            </div>
         </div>
-      </div>
+        <div class="footer-bottom">
+            <p class="footer-copyright">hafneir tjvicguthn  uhirgwj</p>
+        </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 text-xs text-white/20">
-      <span>hafneir tjvicguthn  uhirgwj</span>
-      <a href="https://www.google.com/maps/place/Digimidi/@46.4804633,6.4555465,17z/data=!3m1!4b1!4m6!3m5!1s0x6975d1c62a901b9d:0x4963eb1c690d28ac!8m2!3d46.4804634!4d6.4604174!16s%2Fg%2F11wr99_920?entry=ttu&amp;g_ep=EgoyMDI2MDIyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="hover:text-white/50 transition-colors">Voir sur Google Maps</a>
-    </div>
-  </div>
 </footer>
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script>
-  AOS.init({duration:800,once:true,offset:80,easing:'ease-out-cubic'});
-  window.addEventListener('scroll',function(){
-    document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40);
-  });
-</script>
 </body>
 </html>

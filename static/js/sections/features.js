@@ -19,11 +19,28 @@ const ICON_CATS = {
 
 let _pickerTarget = null;
 
+function _getFeatureLimit() {
+  return (typeof getSelectedTemplateId === 'function' && getSelectedTemplateId() === 'facade') ? 5 : 20;
+}
+
+function _updateFeatureAddState() {
+  const btn = document.querySelector('#panel-features .btn-add');
+  if (!btn) return;
+  const count = document.querySelectorAll('.feature-card').length;
+  const limit = _getFeatureLimit();
+  btn.disabled = count >= limit;
+  btn.style.opacity = btn.disabled ? '0.55' : '';
+  btn.style.cursor = btn.disabled ? 'not-allowed' : '';
+  btn.textContent = count >= limit ? `Max ${limit} Features Reached` : '+ Add Feature Card';
+}
+
 // ── Feature cards ─────────────────────────────────────────────────────────
 function renderFeatures(features) {
   const el = document.getElementById('featuresList');
   el.innerHTML = '';
-  features.forEach((f, i) => appendFeatureCard(el, f, i));
+  const limit = _getFeatureLimit();
+  features.slice(0, limit).forEach((f, i) => appendFeatureCard(el, f, i));
+  _updateFeatureAddState();
 }
 
 function appendFeatureCard(container, feature, idx) {
@@ -34,10 +51,10 @@ function appendFeatureCard(container, feature, idx) {
   const icoName = feature.icon || '';
   const isMat   = /^[a-z][a-z0-9_]{1,49}$/.test(icoName);
   const btnInner = isMat
-    ? `<span class="material-icons">${esc(icoName)}</span>`
+    ? `<span class="material-symbols-outlined">${esc(icoName)}</span>`
     : (icoName
         ? `<span style="font-size:1.4rem">${esc(icoName)}</span>`
-        : `<span class="material-icons" style="opacity:.4">add_circle_outline</span>`);
+      : `<span class="material-symbols-outlined" style="opacity:.4">add_circle_outline</span>`);
 
   card.innerHTML = `
     <div class="feature-card-head">
@@ -58,8 +75,14 @@ function appendFeatureCard(container, feature, idx) {
 
 function addFeature() {
   const el = document.getElementById('featuresList');
+  if (el.children.length >= _getFeatureLimit()) {
+    showToast(`You can select up to ${_getFeatureLimit()} features for this template.`, 'info');
+    _updateFeatureAddState();
+    return;
+  }
   appendFeatureCard(el, { icon: '', title: '', description: '' }, el.children.length);
   el.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  _updateFeatureAddState();
 }
 
 function removeFeatureCard(btn) {
@@ -68,6 +91,7 @@ function removeFeatureCard(btn) {
     c.dataset.fi = i;
     c.querySelector('.text-xs.font-bold').textContent = `Feature ${i + 1}`;
   });
+  _updateFeatureAddState();
 }
 
 function collectFeatures() {
@@ -93,7 +117,7 @@ function openIconPicker(btn) {
     gridRows += `<div class="icon-cat-label">${cat}</div>`;
     icons.forEach(ic => {
       gridRows += `<div class="icon-cell${ic === current ? ' selected' : ''}" data-name="${ic}" onclick="selectIcon('${ic}')" title="${ic}">
-        <span class="material-icons">${ic}</span>
+        <span class="material-symbols-outlined">${ic}</span>
       </div>`;
     });
   }
@@ -101,7 +125,7 @@ function openIconPicker(btn) {
   overlay.innerHTML = `
     <div class="icon-picker-box">
       <div class="icon-picker-head">
-        <span class="material-icons" style="color:#16a34a">grid_view</span>
+        <span class="material-symbols-outlined" style="color:#16a34a">grid_view</span>
         <span style="font-weight:700;color:#f1f5f9;font-size:.95rem">Pick an Icon</span>
         <input class="icon-picker-search" id="icoSearch" placeholder="Search icons…" oninput="filterIcons(this.value)" autocomplete="off"/>
         <button class="icon-picker-close" onclick="document.getElementById('iconPickerModal').remove()" title="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
@@ -115,7 +139,7 @@ function openIconPicker(btn) {
 function selectIcon(name) {
   if (!_pickerTarget) return;
   _pickerTarget.dataset.icon = name;
-  _pickerTarget.innerHTML = `<span class="material-icons">${name}</span>`;
+  _pickerTarget.innerHTML = `<span class="material-symbols-outlined">${name}</span>`;
   document.getElementById('iconPickerModal')?.remove();
   _pickerTarget = null;
 }

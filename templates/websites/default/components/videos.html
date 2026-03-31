@@ -1,0 +1,18 @@
+<section id="videos" class="py-32 px-6" style="background:#06060f">
+  <div class="max-w-6xl mx-auto">
+    <div class="max-w-2xl mb-14" data-aos="fade-up">
+      <div class="sec-pill sec-pill-dark mb-5">Vidéos</div>
+      <h2 class="text-5xl md:text-6xl font-black text-white leading-[1.08] tracking-[-0.02em]">Découvrez-nous en vidéo</h2>
+    </div>
+    <div class="grid grid-cols-1  gap-6">
+      {% for video in videos %}
+        <div class="rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] ring-1 ring-white/10 bg-black" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 0 }}">
+          <video controls preload="metadata" class="w-full block"
+                 style="aspect-ratio:16/9;object-fit:contain;background:#000;max-height:420px">
+            <source src="{{ video.url }}" type="video/mp4">
+          </video>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

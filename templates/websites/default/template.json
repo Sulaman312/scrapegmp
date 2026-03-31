@@ -1,0 +1,8 @@
+{
+  "name": "Default",
+  "description": "Modern gradient design with all features",
+  "sections": {
+    "enabled": ["hero", "features", "gallery", "videos", "about", "reviews", "contact", "cta", "footer"],
+    "configs": {}
+  }
+}

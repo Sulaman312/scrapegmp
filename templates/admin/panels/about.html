@@ -11,9 +11,39 @@
   </div>
 
   <div class="space-y-4">
-    <div class="card">
+    <div class="card" id="aboutParagraphCard">
       <div class="sdiv">About Paragraph <span class="si si-g">→ About section (main text)</span></div>
       <textarea id="ai-about_paragraph" class="fi" rows="8" placeholder="History, mission, expertise…"></textarea>
+    </div>
+
+    <div class="card" id="companyImageSelectors" style="display:none">
+      <div class="sdiv">Company Story Images <span class="si si-g">→ Facade about section (2 alternating images)</span></div>
+      <p class="text-xs text-slate-500 mb-3">Choose two images used in the split company explanation section.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+          <label class="fl">Story Image 1</label>
+          <select id="about-company-image-1" class="fi"></select>
+        </div>
+        <div>
+          <label class="fl">Story Image 2</label>
+          <select id="about-company-image-2" class="fi"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="companyStoryTextInputs" style="display:none">
+      <div class="sdiv">Company Story Text (Facade) <span class="si si-g">→ Left and right text blocks in split section</span></div>
+      <p class="text-xs text-slate-500 mb-3">Use separate content for each side of the alternating story section.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+          <label class="fl">Story Text - Left</label>
+          <textarea id="ai-about_story_left" class="fi" rows="6" placeholder="Left side story text…"></textarea>
+        </div>
+        <div>
+          <label class="fl">Story Text - Right</label>
+          <textarea id="ai-about_story_right" class="fi" rows="6" placeholder="Right side story text…"></textarea>
+        </div>
+      </div>
     </div>
 
     <div class="card">

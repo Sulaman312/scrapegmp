@@ -1,10 +1,19 @@
 // ── Section switching ─────────────────────────────────────────────────────
+let _currentAdminSection = 'hero';
+
+function getCurrentAdminSection() {
+  return _currentAdminSection;
+}
+
 function switchSection(s) {
-  SECTIONS.forEach(t => {
-    document.getElementById(`panel-${t}`).classList.toggle('hidden', t !== s);
+  if (!ACTIVE_ADMIN_SECTIONS.includes(s)) return;
+  ACTIVE_ADMIN_SECTIONS.forEach(t => {
+    const panel = document.getElementById(`panel-${t}`);
+    if (panel) panel.classList.toggle('hidden', t !== s);
     const n = document.getElementById(`nav-${t}`);
     if (n) n.classList.toggle('active', t === s);
   });
+  _currentAdminSection = s;
   if (s === 'footer' && currentData) {
     updateFooterPreview(currentData.business, collectSocialLinks());
   }

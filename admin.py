@@ -125,6 +125,47 @@ def list_businesses():
     return jsonify(businesses)
 
 
+@app.route("/api/templates")
+def list_templates():
+    """Return available website templates from config.json"""
+    config_path = os.path.join(BASE_DIR, "templates", "websites", "config.json")
+    try:
+        if os.path.exists(config_path):
+            with open(config_path, "r", encoding="utf-8") as f:
+                config = json.load(f)
+                templates = config.get("templates", [])
+                enriched_templates = []
+                for template in templates:
+                    template_id = template.get("id", "default")
+                    template_json_path = os.path.join(
+                        BASE_DIR,
+                        "templates",
+                        "websites",
+                        template_id,
+                        "template.json"
+                    )
+                    template_copy = dict(template)
+                    if os.path.exists(template_json_path):
+                        try:
+                            with open(template_json_path, "r", encoding="utf-8") as tf:
+                                template_config = json.load(tf)
+                                template_copy["sections"] = template_config.get("sections", {})
+                        except Exception:
+                            template_copy["sections"] = {"enabled": [], "configs": {}}
+                    else:
+                        template_copy["sections"] = {"enabled": [], "configs": {}}
+                    enriched_templates.append(template_copy)
+                return jsonify(enriched_templates)
+    except Exception as e:
+        logging.error(f"Error reading templates config: {e}")
+    return jsonify([{
+        "id": "default",
+        "name": "Default",
+        "description": "Default template",
+        "sections": {"enabled": [], "configs": {}}
+    }])
+
+
 @app.route("/api/scrape-and-enrich", methods=["POST"])
 def scrape_and_enrich():
     """
@@ -258,10 +299,18 @@ def generate_website(name):
         except Exception as exc:
             logging.warning(f"Failed to copy draft to enriched for '{name}': {exc}")
 
+    # Get template from enriched data
+    template = "default"
+    try:
+        enriched_data = load_json(enriched_path)
+        template = enriched_data.get("template", "default")
+    except Exception:
+        pass
+
     dir_arg = os.path.join("ScrapeData", name)
     try:
         result = subprocess.run(
-            [sys.executable, "generate_site.py", "--dir", dir_arg],
+            [sys.executable, "generate_site.py", "--dir", dir_arg, "--template", template],
             capture_output=True,
             text=True,
             timeout=120,
@@ -425,6 +474,11 @@ def _prep_preview_html(html: str, name: str) -> str:
     """Rewrite asset paths and inject preview CSS. Used by GET preview and POST render."""
     html = html.replace('"../', f'"/media/{name}/')
     html = html.replace("'../", f"'/media/{name}/")
+    # Handle relative paths like href="style.css" → href="/media/BusinessName/website/style.css"
+    html = html.replace('href="style.css"', f'href="/media/{name}/website/style.css"')
+    html = html.replace("href='style.css'", f"href='/media/{name}/website/style.css'")
+    html = html.replace('src="style.css"', f'src="/media/{name}/website/style.css"')
+    html = html.replace("src='style.css'", f"src='/media/{name}/website/style.css'")
     preview_css = (
         '<style id="__preview_overrides__">'
         '[data-aos],[data-aos].aos-init,[data-aos].aos-animate{'
@@ -446,7 +500,8 @@ def preview_render_live(name):
     if data is None:
         return jsonify({"error": "JSON body required"}), 400
     try:
-        html = generate_site.build_html(biz_dir, use_draft=False, override_data=data)
+        template = data.get("template", "default")
+        html = generate_site.build_html(biz_dir, use_draft=False, override_data=data, template=template)
         html = _prep_preview_html(html, name)
         return make_response(html, 200, {"Content-Type": "text/html; charset=utf-8"})
     except Exception as exc:
@@ -465,7 +520,18 @@ def preview_website(name):
 
     if os.path.exists(draft_path) or os.path.exists(enriched):
         try:
-            html = generate_site.build_html(biz_dir, use_draft=True)
+            # Get template from draft or enriched data
+            template = "default"
+            for path in [draft_path, enriched]:
+                if os.path.exists(path):
+                    try:
+                        data = load_json(path)
+                        template = data.get("template", "default")
+                        break
+                    except Exception:
+                        pass
+
+            html = generate_site.build_html(biz_dir, use_draft=True, template=template)
             html = _prep_preview_html(html, name)
             resp = make_response(html)
             resp.headers["Content-Type"] = "text/html; charset=utf-8"
@@ -543,7 +609,7 @@ def serve_media(filepath):
 # ──────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5051))
+    port = int(os.environ.get("PORT", 8000))
     print("\n" + "=" * 55)
     print("  GMP Admin Panel")
     print(f"  Open in your browser:  http://localhost:{port}")

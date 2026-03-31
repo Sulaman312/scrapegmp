@@ -1,0 +1,25 @@
+<!-- FOOTER -->
+<footer style="background:#06060f" class="pt-20 pb-10 px-6 lg:px-10">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-12 pb-12 border-b border-white/8">
+      <div class="md:col-span-2">
+        <div class="font-black text-2xl mb-3 gt">{{ business_name }}</div>
+        <p class="text-white/35 text-sm leading-relaxed max-w-md">{{ footer_description }}</p>
+        <div class="flex gap-3 mt-6">{% for social in social_links %}<a href="{{ social.url }}" target="_blank" class="w-10 h-10 rounded-xl flex items-center justify-center text-white/50 hover:text-white transition-all border border-white/10 hover:border-white/25">{% if social.platform == 'facebook' %}<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>{% elif social.platform == 'instagram' %}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>{% elif social.platform == 'maps' %}<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>{% endif %}</a>{% endfor %}</div>
+      </div>
+      <div>
+        <div class="text-white/50 text-xs font-black uppercase tracking-widest mb-4">Contact</div>
+        <div class="flex flex-col gap-2 text-sm text-white/40">
+          <span>{{ address }}</span>
+          <a href="tel:{{ phone }}" class="hover:text-white transition-colors">{{ phone }}</a>
+          {% if email %}<a href="mailto:{{ email }}" class="hover:text-white transition-colors">{{ email }}</a>{% endif %}
+          <a href="{{ website }}" target="_blank" class="hover:text-white transition-colors">{{ website_display }}</a>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 text-xs text-white/20">
+      <span>{{ footer_copyright }}</span>
+      <a href="{{ maps_url }}" target="_blank" class="hover:text-white/50 transition-colors">Voir sur Google Maps</a>
+    </div>
+  </div>
+</footer>

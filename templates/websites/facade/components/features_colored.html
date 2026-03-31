@@ -1,0 +1,23 @@
+<!-- FEATURES COLORED SECTION (5 features on colored background) -->
+<section class="section-features-colored" id="features">
+    <div class="container">
+        <p class="features-intro" data-aos="fade-up">{{ features_intro_text }}</p>
+        <div class="features-colored-grid">
+            {% for feature in features %}
+            <div class="feature-colored-item" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
+                <div class="feature-colored-icon">
+                    {% if feature.icon_type == 'material' %}
+                    <span class="material-symbols-outlined" aria-hidden="true">{{ feature.icon }}</span>
+                    {% else %}
+                    {{ feature.icon }}
+                    {% endif %}
+                </div>
+                {% if feature.show_title and feature.title %}
+                <h3>{{ feature.title }}</h3>
+                {% endif %}
+                <p>{{ feature.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

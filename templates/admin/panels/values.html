@@ -1,0 +1,30 @@
+<div id="panel-values" class="panel hidden p-6 w-full">
+  <div class="panel-head">
+    <div class="flex items-center gap-3 mb-1">
+      <div class="ph-icon"><svg viewBox="0 0 24 24">
+        <path d="M12 2l2.6 5.27L20.5 8l-4.25 4.14L17.2 18 12 15.27 6.8 18l.95-5.86L3.5 8l5.9-.73L12 2z" />
+      </svg></div>
+      <h2>Values</h2>
+    </div>
+    <p>Floating value cards shown around the center image in facade. <span class="si si-g">→ Values section on website</span></p>
+  </div>
+
+  <div class="space-y-4">
+    <!-- Values List -->
+    <div class="card p-4 space-y-3">
+      <div class="flex items-center justify-between">
+        <div class="text-xs text-slate-400">Add up to 5 values</div>
+        <button class="btn-dx" onclick="addListItem('valuesList','text','value')">+ Add Value</button>
+      </div>
+      <div id="valuesList" class="space-y-2"></div>
+    </div>
+
+    <!-- Center Image Picker -->
+    <div class="card">
+      <div class="sdiv">Center Image <span class="si si-g">→ Image displayed in center of values section</span></div>
+      <p class="text-xs text-slate-500 mb-3">Click any image to set it as the center image for the values section.</p>
+      <div id="valuesImgPicker"></div>
+      <p class="text-xs text-slate-600 mt-3">Add or reorder images in the Gallery section.</p>
+    </div>
+  </div>
+</div>

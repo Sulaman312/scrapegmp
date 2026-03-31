@@ -1,0 +1,11 @@
+<!-- VALUES SECTION - ATOUTS -->
+<section class="section-values" id="values">
+    <div class="container">
+        <div class="values-stage">
+            <img src="{{ values_image }}" alt="Values" class="values-center-image" data-aos="zoom-in" loading="lazy">
+            {% for value in values %}
+            <div class="value-box vb-{{ loop.index }}" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 150 }}">{{ value }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,8 @@
+{
+  "name": "Facade",
+  "description": "Clean professional design",
+  "sections": {
+    "enabled": ["hero", "about", "features", "values", "videos", "contact", "cta", "footer"],
+    "configs": {}
+  }
+}

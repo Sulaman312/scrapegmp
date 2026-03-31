@@ -4,6 +4,10 @@ function populateForm(data) {
   const ai    = data.ai       || {};
   const theme = data.theme    || {};
 
+  // Template
+  const selectedTemplate = data.template || 'default';
+  setf('template-select', selectedTemplate);
+
   // Hero
   setf('ai-brand_short_name', ai.brand_short_name || biz.name || '');
   setf('ai-tagline',        ai.tagline);
@@ -16,9 +20,18 @@ function populateForm(data) {
   // Features
   renderFeatures(ai.features || []);
 
+  // Values
+  renderSimpleList('valuesList', (ai.values || []).slice(0, 5), 'text', 'value');
+
   // Gallery
   renderImageManager(data.images || [], theme.hero_image || '');
   renderHeroImgPicker(data.images || [], theme.hero_image || '');
+  if (typeof renderValuesImgPicker === 'function') {
+    renderValuesImgPicker(data.images || [], theme.values_image || '');
+  }
+  if (typeof renderCompanyImagePickers === 'function') {
+    renderCompanyImagePickers(data.images || [], theme.company_image_1 || '', theme.company_image_2 || '');
+  }
 
   // Videos
   renderVideoManager(data._video_list || data.videos || []);
@@ -33,6 +46,14 @@ function populateForm(data) {
 
   // About
   setf('ai-about_paragraph', ai.about_paragraph);
+  const aboutText = (ai.about_paragraph || '').trim();
+  const aboutMid = Math.floor(aboutText.length / 2);
+  let aboutSplitAt = aboutText.indexOf(' ', aboutMid);
+  if (aboutSplitAt === -1) aboutSplitAt = aboutMid;
+  const aboutLeftFallback = (aboutText.slice(0, aboutSplitAt).trim() || aboutText);
+  const aboutRightFallback = (aboutText.slice(aboutSplitAt).trim() || aboutText);
+  setf('ai-about_story_left', ai.about_story_left || (data.about || {}).story_left || aboutLeftFallback);
+  setf('ai-about_story_right', ai.about_story_right || (data.about || {}).story_right || aboutRightFallback);
   setf('f-description',      biz.description);
   const saved = (data.about || {}).highlights || [];
   if (saved.length) {
@@ -110,8 +131,15 @@ function collectFormData() {
     hero_dark: getColorVal('hero_dark')|| DEF.hero_dark,
     hero_image: getHeroImage(),
   };
+  if (typeof getValuesImage === 'function') {
+    theme.values_image = getValuesImage();
+  }
+  if (typeof getCompanyStoryImages === 'function') {
+    Object.assign(theme, getCompanyStoryImages());
+  }
 
   const payload = {
+    template: getf('template-select') || 'default',
     business: {
       name:          getf('f-name'),
       place_type:    getf('f-place_type'),
@@ -138,6 +166,8 @@ function collectFormData() {
       cta_secondary:    getf('ai-cta_secondary'),
       cta_secondary_url: getf('ai-cta_secondary_url'),
       about_paragraph:  getf('ai-about_paragraph'),
+      about_story_left: getf('ai-about_story_left'),
+      about_story_right: getf('ai-about_story_right'),
       seo_title:        getf('ai-seo_title'),
       seo_description:  getf('ai-seo_description'),
       features:         collectFeatures(),
@@ -149,6 +179,7 @@ function collectFormData() {
       cta_banner_btn_link:  getf('ai-cta_banner_btn_link'),
       footer_tagline:   getf('ai-footer_tagline'),
       footer_copyright: getf('ai-footer_copyright'),
+      values:           getListValues('valuesList', 'value').slice(0, 5),
     },
     website_data:    currentData.website_data    || {},
     theme,

@@ -3,7 +3,96 @@ let currentBusiness = null, currentData = null;
 let reviewKeywords = [], allBusinesses = [], menuOpen = false;
 let highlights = [];
 
-const SECTIONS = ['hero', 'features', 'gallery', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer', 'design', 'seo', 'visibility'];
+const ADMIN_SECTIONS = ['hero', 'features', 'values', 'gallery', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer', 'media', 'design', 'seo', 'visibility'];
+let ACTIVE_ADMIN_SECTIONS = ADMIN_SECTIONS.slice();
+let TEMPLATE_DEFS = {};
+
+const TEMPLATE_SECTION_TO_ADMIN = {
+  hero: 'hero',
+  features: 'features',
+  values: 'values',
+  gallery: 'gallery',
+  videos: 'videos',
+  about: 'about',
+  reviews: 'reviews',
+  contact: 'contact',
+  cta: 'cta',
+  footer: 'footer',
+};
+
+function setTemplateDefinitions(defs) {
+  TEMPLATE_DEFS = defs || {};
+}
+
+function getSelectedTemplateId() {
+  const selector = document.getElementById('template-select');
+  return (selector && selector.value) ? selector.value : ((currentData && currentData.template) || 'default');
+}
+
+function getTemplateEnabledWebsiteSections(templateId) {
+  const tid = templateId || getSelectedTemplateId();
+  const templateDef = TEMPLATE_DEFS[tid] || {};
+  const enabled = ((templateDef.sections || {}).enabled) || [];
+  return Array.isArray(enabled) ? enabled.slice() : [];
+}
+
+function getActiveTemplateWebsiteSections() {
+  return getTemplateEnabledWebsiteSections(getSelectedTemplateId());
+}
+
+function isTemplateSectionEnabled(sectionKey) {
+  const enabled = getActiveTemplateWebsiteSections();
+  if (!enabled.length) return true;
+  return enabled.includes(sectionKey);
+}
+
+function applyTemplateSections(templateId) {
+  const tid = templateId || getSelectedTemplateId();
+  const enabledSet = new Set(getTemplateEnabledWebsiteSections(tid));
+  const hasExplicitTemplateSections = enabledSet.size > 0;
+  const alwaysVisible = new Set(['hero', 'footer', 'visibility', 'design', 'seo']);
+
+  const panelToTemplateSection = {
+    features: 'features',
+    values: 'values',
+    gallery: 'gallery',
+    videos: 'videos',
+    about: 'about',
+    reviews: 'reviews',
+    contact: 'contact',
+    cta: 'cta',
+  };
+
+  ACTIVE_ADMIN_SECTIONS = [];
+
+  ADMIN_SECTIONS.forEach((sectionKey) => {
+    const navEl = document.getElementById(`nav-${sectionKey}`);
+    const panelEl = document.getElementById(`panel-${sectionKey}`);
+    const tplSection = panelToTemplateSection[sectionKey];
+    const enabledByTemplate = alwaysVisible.has(sectionKey)
+      || !hasExplicitTemplateSections
+      || !tplSection
+      || enabledSet.has(tplSection);
+
+    if (navEl) navEl.style.display = enabledByTemplate ? '' : 'none';
+    if (panelEl && !enabledByTemplate) panelEl.classList.add('hidden');
+
+    if (enabledByTemplate) ACTIVE_ADMIN_SECTIONS.push(sectionKey);
+  });
+
+  if (typeof toggleCompanyImageSelectors === 'function') {
+    toggleCompanyImageSelectors(tid);
+  }
+
+  if (typeof collectFeatures === 'function' && typeof renderFeatures === 'function') {
+    renderFeatures(collectFeatures());
+  }
+
+  const currentSection = (typeof getCurrentAdminSection === 'function') ? getCurrentAdminSection() : 'hero';
+  if (!ACTIVE_ADMIN_SECTIONS.includes(currentSection) && ACTIVE_ADMIN_SECTIONS.length && typeof switchSection === 'function') {
+    switchSection(ACTIVE_ADMIN_SECTIONS[0]);
+  }
+}
 const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 const DAY_LBL = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
