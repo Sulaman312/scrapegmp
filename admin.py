@@ -11,7 +11,8 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 from dotenv import load_dotenv
 
-from flask import Flask, jsonify, request, render_template, send_from_directory, make_response
+from flask import Flask, jsonify, request, render_template, send_from_directory, make_response, redirect, url_for, session
+from functools import wraps
 
 import generate_site
 from scraper.scraper import scrape_place_by_url
@@ -41,9 +42,67 @@ def _save_as_webp(file_stream, dest_path: str):
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SCRAPE_DIR = os.path.join(BASE_DIR, "ScrapeData")
 
+# ──────────────────────────────────────────────────────────────
+#  Authentication Configuration
+# ──────────────────────────────────────────────────────────────
+
+USERS = {
+    'admin@gmp.com': {
+        'password': 'Admin@12345',
+        'role': 'admin',
+        'businesses': []  # Empty list means access to all
+    },
+    'monal@dev.com': {
+        'password': 'Monal@12345',
+        'role': 'user',
+        'businesses': ['The Monal Islamabad']  # Restricted access
+    }
+}
+
+
+# ──────────────────────────────────────────────────────────────
+#  Authentication Helpers
+# ──────────────────────────────────────────────────────────────
+
+def login_required(f):
+    """Decorator to require login for routes"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_email' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+def get_user_businesses():
+    """Get list of businesses the current user can access"""
+    if 'user_email' not in session:
+        return []
+
+    user_email = session['user_email']
+    user = USERS.get(user_email)
+
+    if not user:
+        return []
+
+    # Admin has access to all businesses
+    if user['role'] == 'admin' or not user['businesses']:
+        return None  # None means all businesses
+
+    # Regular user has restricted access
+    return user['businesses']
+
+def has_business_access(business_name):
+    """Check if current user has access to the specified business"""
+    allowed = get_user_businesses()
+    # None means admin - has access to all
+    if allowed is None:
+        return True
+    # Check if business is in allowed list
+    return business_name in allowed
 
 # ──────────────────────────────────────────────────────────────
 #  Helpers
@@ -97,7 +156,43 @@ def log_request():
         print(f" [REQUEST] {request.method} {request.path!r}", flush=True)
 
 
+# ──────────────────────────────────────────────────────────────
+#  Authentication Routes
+# ──────────────────────────────────────────────────────────────
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form.get("email", "").strip()
+        password = request.form.get("password", "")
+
+        user = USERS.get(email)
+
+        if user and user['password'] == password:
+            session['user_email'] = email
+            session['user_role'] = user['role']
+            session['user_businesses'] = user['businesses']
+            return redirect(url_for('index'))
+        else:
+            return redirect(url_for('login', error='invalid'))
+
+    # If already logged in, redirect to dashboard
+    if 'user_email' in session:
+        return redirect(url_for('index'))
+
+    return render_template("admin/login.html")
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+# ──────────────────────────────────────────────────────────────
+#  Dashboard Routes
+# ──────────────────────────────────────────────────────────────
+
 @app.route("/")
+@login_required
 def index():
     resp = make_response(render_template("admin/base.html"))
     resp.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -109,11 +204,18 @@ def index():
 # ──────────────────────────────────────────────────────────────
 
 @app.route("/api/businesses")
+@login_required
 def list_businesses():
     if not os.path.exists(SCRAPE_DIR):
         return jsonify([])
+
+    allowed_businesses = get_user_businesses()
     businesses = []
     for name in sorted(os.listdir(SCRAPE_DIR)):
+        # Filter businesses based on user permissions
+        if allowed_businesses is not None and name not in allowed_businesses:
+            continue
+
         folder = os.path.join(SCRAPE_DIR, name)
         enriched = os.path.join(folder, "enriched_data.json")
         if os.path.isdir(folder) and os.path.exists(enriched):
@@ -126,6 +228,7 @@ def list_businesses():
 
 
 @app.route("/api/templates")
+@login_required
 def list_templates():
     """Return available website templates from config.json"""
     config_path = os.path.join(BASE_DIR, "templates", "websites", "config.json")
@@ -167,6 +270,7 @@ def list_templates():
 
 
 @app.route("/api/scrape-and-enrich", methods=["POST"])
+@login_required
 def scrape_and_enrich():
     """
     Scrape a business from Google Maps URL and enrich with AI.
@@ -235,7 +339,12 @@ def scrape_and_enrich():
 # ──────────────────────────────────────────────────────────────
 
 @app.route("/api/business/<name>", methods=["GET"])
+@login_required
 def get_business(name):
+    # Check business access
+    if not has_business_access(name):
+        return jsonify({"error": "Access denied"}), 403
+
     biz_dir = os.path.join(SCRAPE_DIR, name)
     # Prefer the draft JSON if it exists; otherwise fall back to the
     # last published enriched_data.json so first-time edits start from
@@ -266,7 +375,12 @@ def get_business(name):
 
 
 @app.route("/api/business/<name>/save", methods=["POST"])
+@login_required
 def save_business(name):
+    # Check business access
+    if not has_business_access(name):
+        return jsonify({"error": "Access denied"}), 403
+
     biz_dir = os.path.join(SCRAPE_DIR, name)
     # Saving from the admin only updates the draft JSON so the user
     # can experiment safely. The published enriched_data.json is only
@@ -287,7 +401,12 @@ def save_business(name):
 # ──────────────────────────────────────────────────────────────
 
 @app.route("/api/business/<name>/generate", methods=["POST"])
+@login_required
 def generate_website(name):
+    # Check business access
+    if not has_business_access(name):
+        return jsonify({"error": "Access denied"}), 403
+
     biz_dir = os.path.join(SCRAPE_DIR, name)
     # On publish, copy the current draft into enriched_data.json so the
     # generated static site reflects exactly the last saved draft.
@@ -330,7 +449,12 @@ def generate_website(name):
 # ──────────────────────────────────────────────────────────────
 
 @app.route("/api/business/<name>/upload", methods=["POST"])
+@login_required
 def upload_media(name):
+    # Check business access
+    if not has_business_access(name):
+        return jsonify({"error": "Access denied"}), 403
+
     biz_dir = os.path.join(SCRAPE_DIR, name)
     if not os.path.exists(biz_dir):
         return jsonify({"error": "Business not found"}), 404
@@ -386,7 +510,12 @@ def upload_media(name):
 # ──────────────────────────────────────────────────────────────
 
 @app.route("/api/business/<name>/videos/upload", methods=["POST"])
+@login_required
 def upload_videos(name):
+    # Check business access
+    if not has_business_access(name):
+        return jsonify({"error": "Access denied"}), 403
+
     biz_dir = os.path.join(SCRAPE_DIR, name)
     if not os.path.exists(biz_dir):
         return jsonify({"error": "Business not found"}), 404
@@ -426,7 +555,12 @@ def upload_videos(name):
 
 
 @app.route("/api/business/<name>/videos", methods=["GET"])
+@login_required
 def list_videos(name):
+    # Check business access
+    if not has_business_access(name):
+        return jsonify({"error": "Access denied"}), 403
+
     """Return the list of video files for a business by scanning disk.
 
     This is used by the admin panel's Video Library so that any files that
@@ -446,7 +580,12 @@ def list_videos(name):
     return jsonify({"files": files})
 
 @app.route("/api/business/<name>/videos/<filename>", methods=["DELETE"])
+@login_required
 def delete_video(name, filename):
+    # Check business access
+    if not has_business_access(name):
+        return jsonify({"error": "Access denied"}), 403
+
     safe_name = secure_filename(filename)
     video_path = os.path.join(SCRAPE_DIR, name, "videos", safe_name)
     if not os.path.isfile(video_path):
@@ -491,7 +630,12 @@ def _prep_preview_html(html: str, name: str) -> str:
 
 
 @app.route("/api/preview/<name>/render", methods=["POST"])
+@login_required
 def preview_render_live(name):
+    # Check business access
+    if not has_business_access(name):
+        return jsonify({"error": "Access denied"}), 403
+
     """Render HTML from current form data (live preview without saving)."""
     biz_dir = os.path.join(SCRAPE_DIR, name)
     if not os.path.isdir(biz_dir):
