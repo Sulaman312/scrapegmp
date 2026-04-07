@@ -1,4 +1,5 @@
 {
+  "template": "facade",
   "business": {
     "name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
     "place_type": "Swimming pool repair service",
@@ -31,46 +32,46 @@
     "cta_secondary": "Voir les services",
     "cta_secondary_url": "pisciflor.ch",
     "about_paragraph": "Pisciflor Vaud est un prestataire spécialisé dans la réparation, la rénovation et l’entretien de piscines, fontaines et jacuzzis dans toute la région de Vaud. Grâce à une solide expertise technique et à un engagement envers un travail de qualité, l’entreprise aide les propriétaires à restaurer et moderniser leurs installations aquatiques. Des réparations structurelles aux rénovations complètes de piscines, Pisciflor propose des solutions fiables et durables.",
+    "about_story_left": "Pisciflor Vaud est un prestataire spécialisé dans la réparation, la rénovation et l’entretien de piscines, fontaines et jacuzzis dans toute la région de Vaud. Grâce à une solide expertise technique et à un engagement envers un travail",
+    "about_story_right": "de qualité, l’entreprise aide les propriétaires à restaurer et moderniser leurs installations aquatiques. Des réparations structurelles aux rénovations complètes de piscines, Pisciflor propose des solutions fiables et durables.",
     "seo_title": "Pisciflor Vaud | Réparation et rénovation de piscines",
     "seo_description": "Pisciflor Vaud propose des services experts de réparation, rénovation et entretien de piscines, fontaines et jacuzzis en Suisse.",
     "features": [
       {
-        "icon": "🏊",
+        "icon": "water",
         "title": "Réparation de piscines",
         "description": "Réparation professionnelle des structures de piscine, des fuites et des composants endommagés afin de restaurer la sécurité et le bon fonctionnement."
       },
       {
-        "icon": "🛠️",
+        "icon": "two_wheeler",
         "title": "Rénovations complètes",
         "description": "Transformez les piscines vieillissantes grâce à des rénovations complètes incluant le resurfaçage, la mise à niveau des équipements et les améliorations structurelles."
       },
       {
-        "icon": "💧",
+        "icon": "draw",
         "title": "Systèmes de filtration et d’eau",
         "description": "Inspection et réparation des systèmes de filtration et de circulation pour garantir une eau de piscine propre et saine."
       },
       {
-        "icon": "⛲",
+        "icon": "flight",
         "title": "Restauration de fontaines",
         "description": "Services d’entretien et de restauration pour les fontaines décoratives et les installations aquatiques."
       },
       {
-        "icon": "🫧",
+        "icon": "fastfood",
         "title": "Réparation de jacuzzi",
         "description": "Service expert pour l’entretien et la réparation des jacuzzis et des systèmes de spa afin de restaurer confort et performance."
-      },
-      {
-        "icon": "🔍",
-        "title": "Diagnostic de piscine",
-        "description": "Inspections détaillées pour identifier les problèmes structurels ou techniques et proposer des solutions de réparation durables."
       }
     ],
     "cta_heading": "Entretien et maintenance",
     "cta_subtitle": "Services professionnels de réparation et de rénovation pour piscines, fontaines et jacuzzis. Restaurez la performance, la sécurité et l’esthétique grâce à un savoir-faire expert.",
-    "cta_btn_label": "Demander un devis",
-    "cta_link": "pisciflor.ch",
+    "cta_btn_label": "",
+    "cta_link": "",
+    "cta_banner_btn_label": "",
+    "cta_banner_btn_link": "",
     "footer_tagline": "Pisciflor Vaud est un prestataire spécialisé dans la réparation, la rénovation et l’entretien de piscines, fontaines et jacuzzis dans toute la région de Vaud. Grâce à une solide expertise technique et à un engagement envers un travail de qualité, l’entreprise aide les propriétaires à restaurer et moderniser leurs installations aquatiques. Des réparations structurelles aux rénovations complètes de piscines, Pisciflor propose des solutions fiables et durables.",
-    "footer_copyright": "© 2026 PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis. All rights reserved."
+    "footer_copyright": "© 2026 PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis. All rights reserved.",
+    "values": []
   },
   "website_data": {
     "headings": [
@@ -112,12 +113,15 @@
     "title": "Réparation et rénovation de piscines | Pisciflor Vaud"
   },
   "theme": {
-    "color1": "#4F7DF5",
-    "color2": "#7C3AED",
-    "color3": "#06C9D4",
-    "cta_color": "#4F7DF5",
-    "hero_dark": "#06060F",
-    "hero_image": "images/All/0001.jpg"
+    "color1": "#0EA5E9",
+    "color2": "#38BDF8",
+    "color3": "#7DD3FC",
+    "cta_color": "#000000",
+    "hero_dark": "#1A5FB4",
+    "hero_image": "images/All/0001.jpg",
+    "values_image": "images/All/0001.jpg",
+    "company_image_1": "images/All/0001.jpg",
+    "company_image_2": "images/All/0002.jpg"
   },
   "images": [
     "images/All/0001.jpg",
@@ -161,5 +165,8 @@
   "social_links": [],
   "web_results": [],
   "related_places": [],
-  "section_visibility": {}
+  "section_visibility": {},
+  "_has_videos": false,
+  "_video_list": [],
+  "videos": []
 }

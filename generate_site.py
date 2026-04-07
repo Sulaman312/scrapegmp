@@ -718,6 +718,8 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         for link in nav_links:
             nav_html_parts.append(f'<a href="{link["href"]}">{link["label"]}</a>')
         context["dynamic_nav_links"] = Markup("\n            ".join(nav_html_parts))
+        # Mark facade_css as safe to prevent HTML escaping
+        context["facade_css"] = Markup(context["facade_css"])
 
     # Setup Jinja2 environment
     templates_dir = os.path.join(os.path.dirname(__file__), "templates")
