@@ -1,0 +1,16 @@
+{% extends "websites/bernard/pages/base.html" %}
+
+{% block title %}{{ services_page_seo_title }}{% endblock %}
+{% block description %}{{ services_page_seo_description }}{% endblock %}
+
+{% block content %}
+
+{% if services %}
+<div style="margin-bottom: clamp(32px, 6vw, 72px);">
+{% include 'websites/bernard/components/services_detail.html' %}
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_scripts %}{% endblock %}

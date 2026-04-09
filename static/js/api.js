@@ -73,12 +73,25 @@ async function pickCompany(name) {
     if (typeof renderVisibilityToggles === 'function') {
       renderVisibilityToggles();
     }
+    if (typeof updatePageSelector === 'function') {
+      updatePageSelector();
+    }
     if (typeof _pvReset === 'function') _pvReset();
     document.getElementById('emptyState').classList.add('hidden');
     document.getElementById('navHint').classList.add('hidden');
     document.getElementById('sectionNav').classList.remove('hidden');
     document.getElementById('btnSave').disabled = document.getElementById('btnGenerate').disabled = false;
-    switchSection('hero');
+    if (typeof isMultipageTemplate !== 'undefined' && isMultipageTemplate) {
+      if (currentPage === 'services') {
+        switchSection('services-page');
+      } else if (currentPage === 'contact') {
+        switchSection('contact');
+      } else {
+        switchSection('our-services');
+      }
+    } else {
+      switchSection('hero');
+    }
   } catch (e) {
     showToast('Failed to load: ' + e.message, 'error');
   }
@@ -309,6 +322,10 @@ function updateTemplateAndPreview() {
   // Toggle Bernard-specific fields
   if (typeof toggleBernardFields === 'function') {
     toggleBernardFields(selectedTemplate);
+  }
+  // Update page selector visibility for multipage templates
+  if (typeof updatePageSelector === 'function') {
+    updatePageSelector();
   }
   // Use updateLivePreview to send currentData with the new template via POST
   if (typeof updateLivePreview === 'function') {

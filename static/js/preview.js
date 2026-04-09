@@ -16,6 +16,9 @@ const PV_ANCHORS = {
   design:        null,
   seo:           null,
   visibility:    null,
+  'our-services': 'services',
+  'why-choose-us': 'why-choose-us',
+  'services-page': 'features',
 };
 
 const PV_LABELS = {
@@ -32,6 +35,9 @@ const PV_LABELS = {
   design:        'Design',
   seo:           'SEO',
   visibility:    'Sections',
+  'our-services': 'Our Services',
+  'why-choose-us': 'Why Choose Us',
+  'services-page': 'Services Page',
 };
 
 // Desktop render width — forces lg/xl breakpoints so hidden images appear
@@ -83,7 +89,12 @@ function _pvLoad() {
 
   // Set src — iframe will start rendering at the CSS default (1280×900px desktop)
   // so all lg: breakpoints fire correctly from the very first paint.
-  iframe.src = `/preview/${encodeURIComponent(currentBusiness)}/`;
+  // For multipage templates, append the page parameter
+  let url = `/preview/${encodeURIComponent(currentBusiness)}/`;
+  if (typeof isMultipageTemplate !== 'undefined' && isMultipageTemplate && typeof currentPage !== 'undefined') {
+    url += `?page=${encodeURIComponent(currentPage)}`;
+  }
+  iframe.src = url;
   _pvLoaded = true;
   _pvInitResizeObserver();
 
@@ -225,6 +236,10 @@ async function updateLivePreview() {
 
   try {
     const payload = collectFormData();
+    // Add current page to payload for multipage templates
+    if (typeof isMultipageTemplate !== 'undefined' && isMultipageTemplate && typeof currentPage !== 'undefined') {
+      payload.current_page = currentPage;
+    }
     const res = await fetch(`/api/preview/${encodeURIComponent(currentBusiness)}/render`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

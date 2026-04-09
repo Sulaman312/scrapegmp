@@ -618,6 +618,16 @@ def _prep_preview_html(html: str, name: str) -> str:
     html = html.replace("href='style.css'", f"href='/media/{name}/website/style.css'")
     html = html.replace('src="style.css"', f'src="/media/{name}/website/style.css"')
     html = html.replace("src='style.css'", f"src='/media/{name}/website/style.css'")
+
+    # Bernard multipage preview links must stay on dynamic preview routes
+    # (index/services/contact), not static html files.
+    html = html.replace('href="index.html"', f'href="/preview/{name}/?page=home"')
+    html = html.replace("href='index.html'", f"href='/preview/{name}/?page=home'")
+    html = html.replace('href="services.html"', f'href="/preview/{name}/?page=services"')
+    html = html.replace("href='services.html'", f"href='/preview/{name}/?page=services'")
+    html = html.replace('href="contact.html"', f'href="/preview/{name}/?page=contact"')
+    html = html.replace("href='contact.html'", f"href='/preview/{name}/?page=contact'")
+
     preview_css = (
         '<style id="__preview_overrides__">'
         '[data-aos],[data-aos].aos-init,[data-aos].aos-animate{'
@@ -645,7 +655,14 @@ def preview_render_live(name):
         return jsonify({"error": "JSON body required"}), 400
     try:
         template = data.get("template", "default")
-        html = generate_site.build_html(biz_dir, use_draft=False, override_data=data, template=template)
+        current_page = data.get("current_page", "home")
+
+        # Check if this is a multipage template
+        if template == "bernard" and current_page in ["home", "services", "contact"]:
+            html = generate_site.build_html_page(biz_dir, template, current_page, current_page, use_draft=False)
+        else:
+            html = generate_site.build_html(biz_dir, use_draft=False, override_data=data, template=template)
+
         html = _prep_preview_html(html, name)
         return make_response(html, 200, {"Content-Type": "text/html; charset=utf-8"})
     except Exception as exc:
@@ -657,31 +674,62 @@ def preview_render_live(name):
 @app.route("/preview/<name>/website/")
 @app.route("/preview/<name>/website/index.html")
 def preview_website(name):
+    name = (name or "").strip()
     biz_dir = os.path.join(SCRAPE_DIR, name)
     # Preview should always reflect the latest draft edits if present.
     draft_path = os.path.join(biz_dir, "draft_data.json")
     enriched = os.path.join(biz_dir, "enriched_data.json")
 
-    if os.path.exists(draft_path) or os.path.exists(enriched):
-        try:
-            # Get template from draft or enriched data
-            template = "default"
-            for path in [draft_path, enriched]:
-                if os.path.exists(path):
-                    try:
-                        data = load_json(path)
-                        template = data.get("template", "default")
-                        break
-                    except Exception:
-                        pass
+    has_draft = os.path.exists(draft_path)
+    has_enriched = os.path.exists(enriched)
+    if has_draft or has_enriched:
+        # Get template and page from query params or draft/enriched data
+        template = "default"
+        current_page = request.args.get("page", "home")
 
-            html = generate_site.build_html(biz_dir, use_draft=True, template=template)
+        for path in [draft_path, enriched]:
+            if os.path.exists(path):
+                try:
+                    data = load_json(path)
+                    template = data.get("template", "default")
+                    break
+                except Exception:
+                    pass
+
+        try:
+            # First try: render from draft (preferred for admin preview)
+            if template == "bernard" and current_page in ["home", "services", "contact"]:
+                html = generate_site.build_html_page(biz_dir, template, current_page, current_page, use_draft=True)
+            else:
+                html = generate_site.build_html(biz_dir, use_draft=True, template=template)
+
             html = _prep_preview_html(html, name)
             resp = make_response(html)
             resp.headers["Content-Type"] = "text/html; charset=utf-8"
             return resp
-        except Exception as exc:
-            logging.warning(f"Dynamic preview failed for '{name}': {exc}")
+        except Exception as draft_exc:
+            logging.warning(f"Draft preview failed for '{name}' (page={current_page}): {draft_exc}")
+            # Fallback: render from enriched so preview still works if draft is malformed
+            try:
+                if template == "bernard" and current_page in ["home", "services", "contact"]:
+                    html = generate_site.build_html_page(biz_dir, template, current_page, current_page, use_draft=False)
+                else:
+                    html = generate_site.build_html(biz_dir, use_draft=False, template=template)
+
+                html = _prep_preview_html(html, name)
+                resp = make_response(html)
+                resp.headers["Content-Type"] = "text/html; charset=utf-8"
+                return resp
+            except Exception as enriched_exc:
+                logging.warning(
+                    f"Dynamic preview failed for '{name}' (page={current_page}). "
+                    f"draft_error={draft_exc}; enriched_error={enriched_exc}"
+                )
+                return (
+                    "<h2 style='font-family:sans-serif;padding:2rem'>"
+                    "Preview render failed. Please check data format and server logs.</h2>",
+                    500,
+                )
 
     # Preview never serves the static file — that would mix draft and published.
     # If we get here, show a clear message.
@@ -711,10 +759,25 @@ def preview_static(name, subpath):
 
 @app.route("/site/<path:subpath>")
 def serve_published_site(subpath):
-    # subpath is e.g. "Digimidi", "Digimidi/", or "Digimidi/index.html"
-    name = (subpath.split("/")[0] or "").strip().rstrip("/") or subpath.replace("/index.html", "").rstrip("/")
+    # subpath is e.g. "Digimidi", "Digimidi/", "Digimidi/index.html", "Digimidi/services.html"
+    parts = [p for p in subpath.split("/") if p]
+    name = (parts[0] if parts else "").strip()
     if not name:
         return ("<h2>Invalid site path.</h2>", 404)
+
+    # Canonicalize root URL to include trailing slash so relative links resolve correctly.
+    if len(parts) == 1 and not request.path.endswith("/"):
+        return redirect(f"/site/{name}/", code=301)
+
+    requested_rel = "/".join(parts[1:]) if len(parts) > 1 else "index.html"
+    if requested_rel.endswith("/") or requested_rel == "":
+        requested_rel = requested_rel + "index.html" if requested_rel else "index.html"
+
+    # Prevent path traversal
+    requested_rel = os.path.normpath(requested_rel).replace("\\", "/")
+    if requested_rel.startswith("../") or requested_rel == "..":
+        return ("<h2>Invalid site path.</h2>", 404)
+
     print(f" [serve_published_site] name={name!r}", flush=True)
     biz_dir = os.path.join(SCRAPE_DIR, name)
     website_dir = os.path.join(biz_dir, "website")
@@ -725,17 +788,26 @@ def serve_published_site(subpath):
             "No website generated yet. Click <b>Generate Website</b> in the admin.</h2>",
             404,
         )
+
+    target_path = os.path.join(website_dir, requested_rel)
+    if not os.path.isfile(target_path):
+        return ("<h2>Page not found.</h2>", 404)
+
     try:
-        with open(index_path, "r", encoding="utf-8") as f:
-            html = f.read()
-        # Rewrite relative asset paths so images/videos load via Flask
-        html = html.replace('"../', f'"/media/{name}/')
-        html = html.replace("'../", f"'/media/{name}/")
-        resp = make_response(html)
-        resp.headers["Content-Type"] = "text/html; charset=utf-8"
-        return resp
+        # For HTML files, rewrite relative media paths and return inline response.
+        if requested_rel.lower().endswith(".html"):
+            with open(target_path, "r", encoding="utf-8") as f:
+                html = f.read()
+            html = html.replace('"../', f'"/media/{name}/')
+            html = html.replace("'../", f"'/media/{name}/")
+            resp = make_response(html)
+            resp.headers["Content-Type"] = "text/html; charset=utf-8"
+            return resp
+
+        # Non-HTML assets under /website
+        return send_from_directory(website_dir, requested_rel)
     except Exception as exc:
-        logging.warning(f"Failed to serve published site for '{name}': {exc}")
+        logging.warning(f"Failed to serve published site for '{name}/{requested_rel}': {exc}")
         return ("<h2>Error loading published site.</h2>", 500)
 
 

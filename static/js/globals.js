@@ -2,14 +2,18 @@
 let currentBusiness = null, currentData = null;
 let reviewKeywords = [], allBusinesses = [], menuOpen = false;
 let highlights = [];
+let currentPage = 'home'; // Current page for multipage templates
+let isMultipageTemplate = false; // Track if current template is multipage
 
-const ADMIN_SECTIONS = ['hero', 'features', 'values', 'gallery', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer', 'media', 'design', 'seo', 'visibility'];
+const ADMIN_SECTIONS = ['hero', 'features', 'our-services', 'why-choose-us', 'values', 'gallery', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer', 'services-page', 'media', 'design', 'seo', 'visibility'];
 let ACTIVE_ADMIN_SECTIONS = ADMIN_SECTIONS.slice();
 let TEMPLATE_DEFS = {};
 
 const TEMPLATE_SECTION_TO_ADMIN = {
   hero: 'hero',
   features: 'features',
+  our_services: 'our-services',
+  why_choose_us: 'why-choose-us',
   values: 'values',
   gallery: 'gallery',
   videos: 'videos',
@@ -54,6 +58,8 @@ function applyTemplateSections(templateId) {
 
   const panelToTemplateSection = {
     features: 'features',
+    'our-services': 'features',
+    'why-choose-us': 'features',
     values: 'values',
     gallery: 'gallery',
     videos: 'videos',
@@ -61,6 +67,7 @@ function applyTemplateSections(templateId) {
     reviews: 'reviews',
     contact: 'contact',
     cta: 'cta',
+    'services-page': 'features',
   };
 
   ACTIVE_ADMIN_SECTIONS = [];
@@ -178,6 +185,136 @@ const SOCIAL_PLATFORMS = [
   },
   {
     id: 'pinterest', name: 'Pinterest', color: '#E60023',
-    svg: '<svg viewBox="0 0 24 24"><path d="M12 0a12 12 0 00-4.373 23.178c-.03-.528-.005-1.163.13-1.738l.97-4.11s-.248-.494-.248-1.228c0-1.15.668-2.01 1.5-2.01.707 0 1.05.53 1.05 1.167 0 .71-.453 1.775-.687 2.763-.195.824.413 1.495 1.224 1.495 1.467 0 2.597-1.547 2.597-3.78 0-1.975-1.42-3.354-3.448-3.354-2.348 0-3.725 1.76-3.725 3.579 0 .708.272 1.466.613 1.88a.246.246 0 01.057.233c-.062.26-.2.824-.228.939-.037.15-.122.182-.28.11-1.048-.488-1.703-2.023-1.703-3.257 0-2.647 1.923-5.082 5.547-5.082 2.912 0 5.177 2.073 5.177 4.844 0 2.89-1.822 5.213-4.348 5.213-.85 0-1.649-.442-1.923-.962l-.522 1.948c-.19.727-.698 1.636-1.04 2.19.785.243 1.615.374 2.476.374a12 12 0 000-24z"/></svg>'
+    svg: '<svg viewBox="0 0 24 24"><path d="M12 0a12 12 0 00-4.373 23.178c-.03-.528-.005-1.163.13-1.738l.97-4.11s-.248-.494-.248-1.228c0-1.15.668-2.01 1.5-2.01.707 0 1.05.53 1.05.167 0 .71-.453 1.775-.687 2.763-.195.824.413 1.495 1.224 1.495 1.467 0 2.597-1.547 2.597-3.78 0-1.975-1.42-3.354-3.448-3.354-2.348 0-3.725 1.76-3.725 3.579 0 .708.272 1.466.613 1.88a.246.246 0 01.057.233c-.062.26-.2.824-.228.939-.037.15-.122.182-.28.11-1.048-.488-1.703-2.023-1.703-3.257 0-2.647 1.923-5.082 5.547-5.082 2.912 0 5.177 2.073 5.177 4.844 0 2.89-1.822 5.213-4.348 5.213-.85 0-1.649-.442-1.923-.962l-.522 1.948c-.19.727-.698 1.636-1.04 2.19.785.243 1.615.374 2.476.374a12 12 0 000-24z"/></svg>'
   },
 ];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MULTIPAGE SUPPORT
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Templates that support multipage
+const MULTIPAGE_TEMPLATES = ['bernard'];
+
+function isTemplateMultipage(templateId) {
+  return MULTIPAGE_TEMPLATES.includes(templateId);
+}
+
+function updatePageSelector() {
+  const templateId = getSelectedTemplateId();
+  const pageSelector = document.getElementById('page-select');
+
+  if (!pageSelector) return;
+
+  isMultipageTemplate = isTemplateMultipage(templateId);
+
+  if (isMultipageTemplate) {
+    pageSelector.style.display = '';
+    // Set current page if stored in data
+    if (currentData && currentData.current_page) {
+      currentPage = currentData.current_page;
+      pageSelector.value = currentPage;
+    }
+  } else {
+    pageSelector.style.display = 'none';
+  }
+
+  if (typeof toggleBernardFields === 'function') {
+    toggleBernardFields(templateId);
+  }
+
+  // Show/hide multipage-specific nav items and panels
+  updateMultipageUI();
+}
+
+function updateMultipageUI() {
+  const templateId = getSelectedTemplateId();
+  const isBernard = templateId === 'bernard';
+  const isMulti = isMultipageTemplate;
+
+  const websiteSections = ['hero', 'features', 'our-services', 'why-choose-us', 'values', 'gallery', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer', 'services-page'];
+  let allowedWebsiteSections = websiteSections.slice();
+
+  if (isBernard && isMulti) {
+    if (currentPage === 'services') {
+      allowedWebsiteSections = ['services-page'];
+    } else if (currentPage === 'contact') {
+      allowedWebsiteSections = ['contact'];
+    } else {
+      allowedWebsiteSections = ['hero', 'features', 'our-services', 'why-choose-us', 'values', 'gallery', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer'];
+    }
+  }
+
+  // Respect template-enabled sections when available (except for the forced single-section pages above)
+  const enabledTemplateSections = new Set(getTemplateEnabledWebsiteSections(templateId));
+  const hasTemplateRules = enabledTemplateSections.size > 0;
+  if (!(isBernard && isMulti && (currentPage === 'services' || currentPage === 'contact'))) {
+    if (hasTemplateRules) {
+      const mapping = {
+        hero: 'hero', features: 'features', values: 'values', gallery: 'gallery', videos: 'videos',
+        about: 'about', reviews: 'reviews', contact: 'contact', cta: 'cta', footer: 'footer',
+        'our-services': 'features', 'why-choose-us': 'features',
+        'services-page': 'features'
+      };
+      allowedWebsiteSections = allowedWebsiteSections.filter(s => enabledTemplateSections.has(mapping[s]) || s === 'hero' || s === 'footer');
+    }
+  }
+
+  const visibleSet = new Set(allowedWebsiteSections);
+  ADMIN_SECTIONS.forEach(sectionKey => {
+    const nav = document.getElementById(`nav-${sectionKey}`);
+    const panel = document.getElementById(`panel-${sectionKey}`);
+    const isWebsite = websiteSections.includes(sectionKey);
+    const shouldShow = !isWebsite || visibleSet.has(sectionKey);
+    if (nav) nav.style.display = shouldShow ? '' : 'none';
+    if (panel && !shouldShow) panel.classList.add('hidden');
+  });
+
+  ACTIVE_ADMIN_SECTIONS = ADMIN_SECTIONS.filter(sectionKey => {
+    const nav = document.getElementById(`nav-${sectionKey}`);
+    return !nav || nav.style.display !== 'none';
+  });
+
+  const preferred = (isBernard && isMulti && currentPage === 'services')
+    ? 'services-page'
+    : (isBernard && isMulti && currentPage === 'contact')
+      ? 'contact'
+      : (isBernard && isMulti && currentPage === 'home')
+        ? 'our-services'
+        : 'hero';
+
+  if (typeof getCurrentAdminSection === 'function' && typeof switchSection === 'function') {
+    const currentSection = getCurrentAdminSection();
+    if (!ACTIVE_ADMIN_SECTIONS.includes(currentSection) || (ACTIVE_ADMIN_SECTIONS.includes(preferred) && currentSection !== preferred && (currentPage === 'services' || currentPage === 'contact'))) {
+      switchSection(ACTIVE_ADMIN_SECTIONS.includes(preferred) ? preferred : (ACTIVE_ADMIN_SECTIONS[0] || 'hero'));
+    }
+  }
+}
+
+function changeCurrentPage() {
+  const pageSelector = document.getElementById('page-select');
+  if (!pageSelector) return;
+
+  currentPage = pageSelector.value;
+
+  // Store current page selection
+  if (currentData) {
+    currentData.current_page = currentPage;
+  }
+
+  // Update multipage UI to show/hide appropriate nav items
+  updateMultipageUI();
+
+  // Update preview to show the selected page
+  if (typeof updateLivePreview === 'function') {
+    updateLivePreview();
+  }
+
+  // Show toast notification
+  const pageNames = {
+    home: 'Home Page',
+    services: 'Services Page',
+    contact: 'Contact Page'
+  };
+  showToast(`Switched to ${pageNames[currentPage] || currentPage}`, 'info');
+}

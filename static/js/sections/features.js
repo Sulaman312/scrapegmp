@@ -26,7 +26,7 @@ function _getFeatureLimit() {
 function _updateFeatureAddState() {
   const btn = document.querySelector('#panel-features .btn-add');
   if (!btn) return;
-  const count = document.querySelectorAll('.feature-card').length;
+  const count = document.querySelectorAll('#featuresList .feature-card').length;
   const limit = _getFeatureLimit();
   btn.disabled = count >= limit;
   btn.style.opacity = btn.disabled ? '0.55' : '';
@@ -69,6 +69,8 @@ function appendFeatureCard(container, feature, idx) {
     <div class="p-3 space-y-2">
       <div><label class="fl">Title</label><input type="text" data-feature="title" class="fi" value="${esc(feature.title || '')}" placeholder="Feature title"/></div>
       <div><label class="fl">Description</label><textarea data-feature="description" class="fi" rows="3" placeholder="Brief description…">${esc(feature.description || '')}</textarea></div>
+      <div><label class="fl">Image Path (optional) <span class="si si-g">→ Bernard services cards</span></label><input type="text" data-feature="image" class="fi" value="${esc(feature.image || '')}" placeholder="images/All/0001.webp"/></div>
+      <div><label class="fl">Link (optional)</label><input type="text" data-feature="link" class="fi" value="${esc(feature.link || '')}" placeholder="#contact or https://..."/></div>
     </div>`;
   container.appendChild(card);
 }
@@ -87,7 +89,7 @@ function addFeature() {
 
 function removeFeatureCard(btn) {
   btn.closest('.feature-card').remove();
-  document.querySelectorAll('.feature-card').forEach((c, i) => {
+  document.querySelectorAll('#featuresList .feature-card').forEach((c, i) => {
     c.dataset.fi = i;
     c.querySelector('.text-xs.font-bold').textContent = `Feature ${i + 1}`;
   });
@@ -95,10 +97,12 @@ function removeFeatureCard(btn) {
 }
 
 function collectFeatures() {
-  return Array.from(document.querySelectorAll('.feature-card')).map(c => ({
-    icon:        (c.querySelector('[data-feature="icon"]').dataset.icon || '').trim(),
-    title:       c.querySelector('[data-feature="title"]').value.trim(),
-    description: c.querySelector('[data-feature="description"]').value.trim(),
+  return Array.from(document.querySelectorAll('#featuresList .feature-card')).map(c => ({
+    icon:        (c.querySelector('[data-feature="icon"]')?.dataset?.icon || '').trim(),
+    title:       c.querySelector('[data-feature="title"]')?.value.trim() || '',
+    description: c.querySelector('[data-feature="description"]')?.value.trim() || '',
+    image:       c.querySelector('[data-feature="image"]')?.value.trim() || '',
+    link:        c.querySelector('[data-feature="link"]')?.value.trim() || '',
   })).filter(f => f.title || f.description);
 }
 

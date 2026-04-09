@@ -1,0 +1,23 @@
+{% extends "websites/bernard/pages/base.html" %}
+
+{% block title %}{{ contact_page_seo_title }}{% endblock %}
+{% block description %}{{ contact_page_seo_description }}{% endblock %}
+
+{% block content %}
+
+<div style="margin-bottom: clamp(32px, 6vw, 72px);">
+{% include 'websites/bernard/components/contact_detail.html' %}
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+  // Contact form submission handler
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Form submission will be implemented with your backend endpoint.');
+    });
+  }
+{% endblock %}

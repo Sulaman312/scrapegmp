@@ -2,16 +2,21 @@
 <nav class="navbar">
     <div class="container">
         <div class="navbar-content">
-            <a href="#" class="navbar-logo">
+            <a href="{{ 'index.html' if is_multipage else '#' }}" class="navbar-logo">
                 {% if logo_image %}
                 <img src="{{ logo_image }}" alt="{{ business_name }} Logo">
                 {% else %}
                 <span class="navbar-brand-text">{{ business_name }}</span>
                 {% endif %}
             </a>
-            <div class="navbar-links">
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="navbar-links" id="navbarLinks">
                 {% for link in nav_links %}
-                <a href="{{ link.href }}">{{ link.label }}</a>
+                <a href="{{ link.href }}" {% if link.active %}class="active"{% endif %}>{{ link.label }}</a>
                 {% endfor %}
             </div>
         </div>

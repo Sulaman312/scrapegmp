@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ seo_title }}</title>
-    <meta name="description" content="{{ seo_description }}">
+    <title>{% block title %}{{ seo_title }}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ seo_description }}{% endblock %}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
@@ -18,27 +18,8 @@
 
 {% include 'websites/bernard/components/navbar.html' %}
 
-{% include 'websites/bernard/components/hero.html' %}
-
-{% if advantages %}
-{% include 'websites/bernard/components/advantages.html' %}
-{% endif %}
-
-{% if advantages and why_choose_us_image %}
-{% include 'websites/bernard/components/why_choose_us.html' %}
-{% endif %}
-
-{% if about_description %}
-{% include 'websites/bernard/components/about.html' %}
-{% endif %}
-
-{% if services %}
-{% include 'websites/bernard/components/services.html' %}
-{% endif %}
-
-{% if testimonials %}
-{% include 'websites/bernard/components/testimonials.html' %}
-{% endif %}
+{% block content %}
+{% endblock %}
 
 {% include 'websites/bernard/components/footer.html' %}
 
@@ -82,7 +63,7 @@
     });
   }
 
-  // Smooth scroll for anchor links
+  // Smooth scroll for anchor links (only for same-page navigation)
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
@@ -93,31 +74,8 @@
     });
   });
 
-  // Form submission handler (placeholder)
-  const heroForm = document.querySelector('.hero-form');
-  if (heroForm) {
-    heroForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Form submission will be implemented with your backend endpoint.');
-    });
-  }
-
-  // Testimonials carousel
-  let currentTestimonial = 0;
-  const testimonialCards = document.querySelectorAll('.testimonial-card');
-
-  function changeTestimonial(direction) {
-    if (testimonialCards.length === 0) return;
-
-    testimonialCards[currentTestimonial].classList.remove('active');
-    currentTestimonial = (currentTestimonial + direction + testimonialCards.length) % testimonialCards.length;
-    testimonialCards[currentTestimonial].classList.add('active');
-  }
-
-  // Auto-advance testimonials every 5 seconds
-  if (testimonialCards.length > 1) {
-    setInterval(() => changeTestimonial(1), 5000);
-  }
+  {% block extra_scripts %}
+  {% endblock %}
 </script>
 
 </body>

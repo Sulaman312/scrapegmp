@@ -1,0 +1,57 @@
+{% extends "websites/bernard/pages/base.html" %}
+
+{% block title %}{{ seo_title }}{% endblock %}
+
+{% block content %}
+
+{% include 'websites/bernard/components/hero.html' %}
+
+{% if advantages %}
+{% include 'websites/bernard/components/advantages.html' %}
+{% endif %}
+
+{% if about_description %}
+{% include 'websites/bernard/components/about.html' %}
+{% endif %}
+
+{% if services %}
+{% include 'websites/bernard/components/services.html' %}
+{% endif %}
+
+{% if advantages and why_choose_us_image %}
+{% include 'websites/bernard/components/why_choose_us.html' %}
+{% endif %}
+
+{% if testimonials %}
+{% include 'websites/bernard/components/testimonials.html' %}
+{% endif %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+  // Form submission handler (placeholder)
+  const heroForm = document.querySelector('.hero-form');
+  if (heroForm) {
+    heroForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Form submission will be implemented with your backend endpoint.');
+    });
+  }
+
+  // Testimonials carousel
+  let currentTestimonial = 0;
+  const testimonialCards = document.querySelectorAll('.testimonial-card');
+
+  function changeTestimonial(direction) {
+    if (testimonialCards.length === 0) return;
+
+    testimonialCards[currentTestimonial].classList.remove('active');
+    currentTestimonial = (currentTestimonial + direction + testimonialCards.length) % testimonialCards.length;
+    testimonialCards[currentTestimonial].classList.add('active');
+  }
+
+  // Auto-advance testimonials every 5 seconds
+  if (testimonialCards.length > 1) {
+    setInterval(() => changeTestimonial(1), 5000);
+  }
+{% endblock %}

@@ -1,0 +1,40 @@
+<section class="section-why-choose-us" id="why-choose-us">
+    <div class="why-choose-us-container">
+
+        <!-- Split Section -->
+        <div class="why-choose-us-split">
+
+            <!-- Left: Image -->
+            <div class="why-choose-us-image">
+                <img src="{{ why_choose_us_image }}" alt="{{ business_name }} - Why Choose Us">
+            </div>
+
+            <!-- Right: Colored Background + Heading -->
+            <div class="why-choose-us-colored-bg">
+                <h2 class="why-choose-us-heading">{{ why_choose_us_heading }}</h2>
+            </div>
+
+        </div>
+
+        <!-- Cards Container (Below, then translated up) -->
+        <div class="why-choose-us-cards-wrapper">
+            <div class="why-choose-us-cards" data-aos="fade-up" data-aos-delay="200">
+                {% for advantage in advantages %}
+                <div class="why-choose-us-card" data-aos="fade-up" data-aos-delay="{{ 200 + loop.index0 * 100 }}">
+
+                    <span class="advantage-icon">
+                        <span class="material-symbols-outlined">
+                            {{ advantage.icon }}
+                        </span>
+                    </span>
+
+                    <h3>{{ advantage.title }}</h3>
+                    <p>{{ advantage.description }}</p>
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</section>

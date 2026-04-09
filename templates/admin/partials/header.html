@@ -34,6 +34,12 @@
     <select id="template-select" class="btn btn-outline" style="padding: 0.625rem 0.75rem; cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22 fill=%22currentColor%22><path fill-rule=%22evenodd%22 d=%22M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z%22 clip-rule=%22evenodd%22/></svg>'); background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 1.25rem; padding-right: 2rem;" onchange="updateTemplateAndPreview()" title="Select website template">
       <option value="default">Default Template</option>
     </select>
+    <!-- Page Selector (only shown for multipage templates) -->
+    <select id="page-select" class="btn btn-outline" style="padding: 0.625rem 0.75rem; cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22 fill=%22currentColor%22><path fill-rule=%22evenodd%22 d=%22M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z%22 clip-rule=%22evenodd%22/></svg>'); background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 1.25rem; padding-right: 2rem; display: none;" onchange="changeCurrentPage()" title="Select page to edit">
+      <option value="home">Home Page</option>
+      <option value="services">Services Page</option>
+      <option value="contact">Contact Page</option>
+    </select>
     <div class="h-6 w-px bg-white/10 mx-1"></div>
     <!-- Live preview toggle -->
     <button id="btnTogglePreview" onclick="togglePreview()" class="btn btn-outline pv-toggle-btn" title="Toggle live preview panel">

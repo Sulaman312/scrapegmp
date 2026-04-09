@@ -326,11 +326,16 @@ def build_html(business_dir: str, use_draft: bool = False, override_data: dict =
 
 
 def generate(business_dir: str, open_browser: bool = False, template: str = "default") -> str:
-    """Build the HTML, write it to website/index.html, and return the output path.
+    """Build the HTML, write it to website/index.html (or multiple pages for multipage templates), and return the output path.
 
     This always uses the published enriched_data.json, not the draft JSON.
     Uses the specified template (default: "default").
     """
+    # Check if template supports multipage
+    if template == "bernard":
+        return generate_multipage(business_dir, open_browser, template)
+
+    # Single page generation
     html = build_html(business_dir, use_draft=False, template=template)
     out_dir = os.path.join(business_dir, "website")
     os.makedirs(out_dir, exist_ok=True)
@@ -344,10 +349,57 @@ def generate(business_dir: str, open_browser: bool = False, template: str = "def
     return out_path
 
 
-def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = False, override_raw: dict = None) -> str:
+def generate_multipage(business_dir: str, open_browser: bool = False, template: str = "bernard") -> str:
+    """Generate a multipage website for templates that support it (e.g., Bernard)."""
+    out_dir = os.path.join(business_dir, "website")
+    os.makedirs(out_dir, exist_ok=True)
+
+    # Define pages to generate
+    pages = [
+        {"filename": "index.html", "page_template": "home", "page_key": "home"},
+        {"filename": "services.html", "page_template": "services", "page_key": "services"},
+        {"filename": "contact.html", "page_template": "contact", "page_key": "contact"}
+    ]
+
+    generated_files = []
+
+    for page_info in pages:
+        html = build_html_page(business_dir, template, page_info["page_template"], page_info["page_key"])
+        out_path = os.path.join(out_dir, page_info["filename"])
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(html)
+        generated_files.append(out_path)
+        _log.info(f"✅ Generated {page_info['filename']} → {out_path}")
+
+    main_page = os.path.join(out_dir, "index.html")
+    if open_browser:
+        import webbrowser
+        webbrowser.open(f"file://{os.path.abspath(main_page)}")
+
+    return main_page
+
+
+def build_html_page(business_dir: str, template: str, page_template: str, page_key: str, use_draft: bool = False) -> str:
+    """Build HTML for a specific page in a multipage template."""
+    return _render_jinja2_template(
+        business_dir,
+        template=template,
+        use_draft=use_draft,
+        page_template=page_template,
+        current_page=page_key
+    )
+
+
+
+
+def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = False, override_raw: dict = None, page_template: str = None, current_page: str = "home") -> str:
     """
     Render a Jinja2-based template with prepared context data.
     Replaces _render_external_template for modular component-based templates.
+
+    Args:
+        page_template: For multipage templates, specify which page template to render (e.g., "home", "services", "contact")
+        current_page: Current page key for navigation highlighting
     """
     # Load data
     enriched_path = os.path.join(business_dir, "enriched_data.json")
@@ -640,15 +692,25 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
 
     # For bernard template
     elif template == "bernard":
-        nav_links.append({"href": "#home", "label": "Home"})
-        if features:
-            nav_links.append({"href": "#advantages", "label": "Advantages"})
-        if ai.get("about_paragraph"):
-            nav_links.append({"href": "#about", "label": "About"})
-        if features:
-            nav_links.append({"href": "#services", "label": "Services"})
-        if reviews:
-            nav_links.append({"href": "#testimonials", "label": "Testimonials"})
+        # Check if multipage mode (determined by presence of page_template parameter)
+        is_multipage = page_template is not None
+
+        if is_multipage:
+            # Multipage navigation
+            nav_links.append({"href": "index.html", "label": "Home", "active": current_page == "home"})
+            nav_links.append({"href": "services.html", "label": "Services", "active": current_page == "services"})
+            nav_links.append({"href": "contact.html", "label": "Contact", "active": current_page == "contact"})
+        else:
+            # Single page navigation (old behavior)
+            nav_links.append({"href": "#home", "label": "Home"})
+            if features:
+                nav_links.append({"href": "#advantages", "label": "Advantages"})
+            if ai.get("about_paragraph"):
+                nav_links.append({"href": "#about", "label": "About"})
+            if features:
+                nav_links.append({"href": "#services", "label": "Services"})
+            if reviews:
+                nav_links.append({"href": "#testimonials", "label": "Testimonials"})
 
     # For facade template - check using same conditions as template conditionals
     else:
@@ -752,19 +814,32 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                     hours_summary = time
                     break
 
-        # Split features into advantages (first 3) and services (remaining)
-        advantages = features[:3] if len(features) >= 3 else features
-        services_from_features = features[3:7] if len(features) > 3 else []
+        # Split features into advantages/services, with dedicated Bernard data preferred
+        why_choose_cards_raw = ai.get("why_choose_us_cards") or []
+        services_cards_raw = ai.get("services_cards") or []
+        services_page_cards_raw = ai.get("services_page_cards") or []
+
+        if isinstance(why_choose_cards_raw, list) and why_choose_cards_raw:
+            advantages = why_choose_cards_raw
+        else:
+            advantages = features[:3] if len(features) >= 3 else features
+
+        if isinstance(services_cards_raw, list) and services_cards_raw:
+            services_from_features = services_cards_raw
+        else:
+            services_from_features = features[3:7] if len(features) > 3 else []
 
         # Prepare services with default images
         bernard_services = []
         for idx, feat in enumerate(services_from_features):
-            service_image = images[idx % len(images)] if images else ""
+            feat_obj = feat if isinstance(feat, dict) else {}
+            feat_image = feat_obj.get("image", "")
+            service_image = feat_image or (images[idx % len(images)] if images else "")
             bernard_services.append({
                 "image": media_prefix + service_image if service_image else "",
-                "title": feat.get("title", ""),
-                "description": feat.get("description", ""),
-                "link": "#contact"
+                "title": feat_obj.get("title", ""),
+                "description": feat_obj.get("description", ""),
+                "link": feat_obj.get("link", "") or "#contact"
             })
 
         # Fill services to at least 4 with defaults if needed
@@ -772,6 +847,27 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             bernard_services.append({
                 "image": media_prefix + images[0] if images else "",
                 "title": f"Service {len(bernard_services) + 1}",
+                "description": "Description du service à personnaliser depuis le tableau de bord.",
+                "link": "#contact"
+            })
+
+        services_page_source = services_page_cards_raw if (isinstance(services_page_cards_raw, list) and services_page_cards_raw) else services_from_features
+        bernard_services_page = []
+        for idx, feat in enumerate(services_page_source):
+            feat_obj = feat if isinstance(feat, dict) else {}
+            feat_image = feat_obj.get("image", "")
+            service_image = feat_image or (images[idx % len(images)] if images else "")
+            bernard_services_page.append({
+                "image": media_prefix + service_image if service_image else "",
+                "title": feat_obj.get("title", ""),
+                "description": feat_obj.get("description", ""),
+                "link": feat_obj.get("link", "") or "#contact"
+            })
+
+        while len(bernard_services_page) < 4:
+            bernard_services_page.append({
+                "image": media_prefix + images[0] if images else "",
+                "title": f"Service {len(bernard_services_page) + 1}",
                 "description": "Description du service à personnaliser depuis le tableau de bord.",
                 "link": "#contact"
             })
@@ -854,25 +950,52 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             "bernard_css": bernard_css,
             "hours_summary": hours_summary,
             "logo_image": "",  # Can be added to theme later
+            "is_multipage": page_template is not None,
+            "current_page": current_page,
             "hero_small_text": ai.get("hero_small_text", biz.get("place_type", "Service professionnel")),
             "hero_heading": ai.get("hero_heading", tagline),
             "form_heading": ai.get("form_heading", "Have any question?"),
             "form_button_text": ai.get("form_button_text", "Je souhaite être rappelé"),
             "advantages": advantages,
+            "why_choose_us_heading": ai.get("why_choose_us_heading") or "Why Choose Us?",
+            "why_choose_us_image": (
+                media_prefix + _theme.get("why_choose_us_image")
+                if _theme.get("why_choose_us_image")
+                else media_prefix + (images[2] if len(images) > 2 else (images[0] if images else ""))
+            ),
             "about_image": media_prefix + story_img_1 if story_img_1 else (media_prefix + images[0] if images else ""),
             "years_of_experience": raw.get("years_of_experience", 0),
             "about_small_text": ai.get("about_small_text", "À propos"),
             "about_heading": ai.get("about_heading", "Your trusted company"),
             "about_description": about_text,
             "about_bullets": about_bullets,
-            "services_small_text": ai.get("services_small_text", "For individuals and professionals"),
-            "services_heading": ai.get("services_heading", "Discover our services"),
-            "services": bernard_services,
+            "services_small_text": ai.get("services_small_text") or "For individuals and professionals",
+            "services_heading": ai.get("services_heading") or "Discover our services",
+            "services": bernard_services_page if current_page == "services" else bernard_services,
             "values_heading": ai.get("values_heading", "Who are our clients"),
             "values_list": values_list,
             "testimonials_small_text": ai.get("testimonials_small_text", "Testimonials"),
             "testimonials_heading": ai.get("testimonials_heading", "What our clients say"),
             "testimonials": bernard_testimonials,
+            # Services Page Data
+            "services_page_seo_title": ai.get("services_page_seo_title", f"{biz.get('name', '')} - Our Services"),
+            "services_page_seo_description": ai.get("services_page_seo_description", f"Discover all the services offered by {biz.get('name', '')}"),
+            "services_page_hero_title": ai.get("services_page_hero_title", "Our Services"),
+            "services_page_hero_subtitle": ai.get("services_page_hero_subtitle", "Comprehensive solutions tailored to your needs"),
+            "services_page_small_text": ai.get("services_page_small_text", "What we offer"),
+            "services_page_heading": ai.get("services_page_heading", "Complete Service Catalog"),
+            "services_page_description": ai.get("services_page_description", "Explore our full range of professional services designed to meet your specific requirements."),
+            "services_cta_heading": ai.get("services_cta_heading", "Ready to get started?"),
+            "services_cta_text": ai.get("services_cta_text", "Contact us today for a free consultation and personalized quote."),
+            "services_cta_button": ai.get("services_cta_button", "Get a Quote"),
+            # Contact Page Data
+            "contact_page_seo_title": ai.get("contact_page_seo_title", f"Contact {biz.get('name', '')}"),
+            "contact_page_seo_description": ai.get("contact_page_seo_description", f"Get in touch with {biz.get('name', '')}. We're here to help!"),
+            "contact_page_hero_title": ai.get("contact_page_hero_title", "Contact Us"),
+            "contact_page_hero_subtitle": ai.get("contact_page_hero_subtitle", "We'd love to hear from you"),
+            "contact_page_small_text": ai.get("contact_page_small_text", "Get in touch"),
+            "contact_page_heading": ai.get("contact_page_heading", "Let's Start a Conversation"),
+            "contact_page_description": ai.get("contact_page_description", "Have questions or need assistance? Fill out the form below and our team will get back to you as soon as possible."),
         })
 
     # Generate dynamic nav links HTML for facade template
@@ -897,8 +1020,13 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         autoescape=select_autoescape(['html', 'xml'])
     )
 
-    # Render template
-    template_obj = env.get_template(f"websites/{template}/index.html")
+    # Render template - use page_template if specified (multipage mode)
+    if page_template:
+        template_path = f"websites/{template}/pages/{page_template}.html"
+    else:
+        template_path = f"websites/{template}/index.html"
+
+    template_obj = env.get_template(template_path)
     return template_obj.render(context)
 
 

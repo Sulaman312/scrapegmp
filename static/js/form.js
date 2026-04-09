@@ -1,3 +1,67 @@
+function _deriveBernardWhyChooseCards(ai) {
+  if (Array.isArray(ai.why_choose_us_cards) && ai.why_choose_us_cards.length) {
+    const cards = ai.why_choose_us_cards.slice(0, 20);
+    while (cards.length < 3) {
+      cards.push({ icon: 'star', title: `Advantage ${cards.length + 1}`, description: '' });
+    }
+    return cards;
+  }
+  const legacy = Array.isArray(ai.features) ? ai.features : [];
+  const cards = legacy.slice(0, 3).map(f => ({
+    icon: f?.icon || 'star',
+    title: f?.title || '',
+    description: f?.description || '',
+  }));
+  while (cards.length < 3) {
+    cards.push({ icon: 'star', title: `Advantage ${cards.length + 1}`, description: '' });
+  }
+  return cards;
+}
+
+function _deriveBernardServicesCards(ai, images) {
+  const fallbackImage = (Array.isArray(images) && images.length) ? images[0] : '';
+  if (Array.isArray(ai.services_cards) && ai.services_cards.length) {
+    const cards = ai.services_cards.slice(0, 20).map(c => ({
+      title: c?.title || '',
+      description: c?.description || '',
+      image: c?.image || fallbackImage,
+      link: c?.link || '#contact',
+    }));
+    while (cards.length < 4) {
+      cards.push({ title: `Service ${cards.length + 1}`, description: '', image: fallbackImage, link: '#contact' });
+    }
+    return cards;
+  }
+  const legacy = Array.isArray(ai.features) ? ai.features : [];
+  const cards = legacy.slice(3, 7).map(f => ({
+    title: f?.title || '',
+    description: f?.description || '',
+    image: f?.image || fallbackImage,
+    link: f?.link || '#contact',
+  }));
+  while (cards.length < 4) {
+    cards.push({ title: `Service ${cards.length + 1}`, description: '', image: fallbackImage, link: '#contact' });
+  }
+  return cards;
+}
+
+function _deriveBernardServicesPageCards(ai, images) {
+  const fallbackImage = (Array.isArray(images) && images.length) ? images[0] : '';
+  if (Array.isArray(ai.services_page_cards) && ai.services_page_cards.length) {
+    const cards = ai.services_page_cards.slice(0, 20).map(c => ({
+      title: c?.title || '',
+      description: c?.description || '',
+      image: c?.image || fallbackImage,
+      link: c?.link || '#contact',
+    }));
+    while (cards.length < 4) {
+      cards.push({ title: `Service ${cards.length + 1}`, description: '', image: fallbackImage, link: '#contact' });
+    }
+    return cards;
+  }
+  return _deriveBernardServicesCards(ai, images);
+}
+
 // ── Populate form from data ───────────────────────────────────────────────
 function populateForm(data) {
   const biz   = data.business || {};
@@ -19,6 +83,18 @@ function populateForm(data) {
 
   // Features
   renderFeatures(ai.features || []);
+  setf('ai-services_small_text', ai.services_small_text);
+  setf('ai-services_heading', ai.services_heading);
+  setf('ai-why_choose_us_heading', ai.why_choose_us_heading);
+  if (typeof renderBernardServicesCards === 'function') {
+    renderBernardServicesCards(_deriveBernardServicesCards(ai, data.images || []));
+  }
+  if (typeof renderBernardWhyChooseCards === 'function') {
+    renderBernardWhyChooseCards(_deriveBernardWhyChooseCards(ai));
+  }
+  if (typeof renderBernardServicesPageCards === 'function') {
+    renderBernardServicesPageCards(_deriveBernardServicesPageCards(ai, data.images || []));
+  }
 
   // Values
   renderSimpleList('valuesList', (ai.values || []).slice(0, 5), 'text', 'value');
@@ -32,6 +108,7 @@ function populateForm(data) {
   if (typeof renderCompanyImagePickers === 'function') {
     renderCompanyImagePickers(data.images || [], theme.company_image_1 || '', theme.company_image_2 || '');
   }
+  renderWhyChooseUsImageSelect(data.images || [], theme.why_choose_us_image || '');
 
   // Videos
   renderVideoManager(data._video_list || data.videos || []);
@@ -112,6 +189,27 @@ function populateForm(data) {
     document.getElementById(id).dispatchEvent(new Event('input'))
   );
 
+  // Services Page
+  setf('ai-services_page_seo_title', ai.services_page_seo_title);
+  setf('ai-services_page_seo_description', ai.services_page_seo_description);
+  setf('ai-services_page_hero_title', ai.services_page_hero_title);
+  setf('ai-services_page_hero_subtitle', ai.services_page_hero_subtitle);
+  setf('ai-services_page_small_text', ai.services_page_small_text);
+  setf('ai-services_page_heading', ai.services_page_heading);
+  setf('ai-services_page_description', ai.services_page_description);
+  setf('ai-services_cta_heading', ai.services_cta_heading);
+  setf('ai-services_cta_text', ai.services_cta_text);
+  setf('ai-services_cta_button', ai.services_cta_button);
+
+  // Contact Page
+  setf('ai-contact_page_seo_title', ai.contact_page_seo_title);
+  setf('ai-contact_page_seo_description', ai.contact_page_seo_description);
+  setf('ai-contact_page_hero_title', ai.contact_page_hero_title);
+  setf('ai-contact_page_hero_subtitle', ai.contact_page_hero_subtitle);
+  setf('ai-contact_page_small_text', ai.contact_page_small_text);
+  setf('ai-contact_page_heading', ai.contact_page_heading);
+  setf('ai-contact_page_description', ai.contact_page_description);
+
   // Colors
   setColorPair('color1',    theme.color1    || DEF.color1);
   setColorPair('color2',    theme.color2    || DEF.color2);
@@ -129,6 +227,7 @@ function populateForm(data) {
 
 // ── Collect form data ─────────────────────────────────────────────────────
 function collectFormData() {
+  const aiCurrent = (currentData && currentData.ai) ? currentData.ai : {};
   const hours = {};
   document.querySelectorAll('[data-hours]').forEach(el => {
     const v = el.value.trim();
@@ -142,6 +241,7 @@ function collectFormData() {
     cta_color: getColorVal('cta')      || getColorVal('color1') || DEF.color1,
     hero_dark: getColorVal('hero_dark')|| DEF.hero_dark,
     hero_image: getHeroImage(),
+    why_choose_us_image: getf('theme-why_choose_us_image') || '',
   };
   if (typeof getValuesImage === 'function') {
     theme.values_image = getValuesImage();
@@ -183,6 +283,18 @@ function collectFormData() {
       seo_title:        getf('ai-seo_title'),
       seo_description:  getf('ai-seo_description'),
       features:         collectFeatures(),
+      services_cards: typeof collectBernardServicesCards === 'function'
+        ? collectBernardServicesCards()
+        : (_deriveBernardServicesCards(aiCurrent, (currentData && currentData.images) || []) || []),
+      services_page_cards: typeof collectBernardServicesPageCards === 'function'
+        ? collectBernardServicesPageCards()
+        : (_deriveBernardServicesPageCards(aiCurrent, (currentData && currentData.images) || []) || []),
+      why_choose_us_cards: typeof collectBernardWhyChooseCards === 'function'
+        ? collectBernardWhyChooseCards()
+        : (_deriveBernardWhyChooseCards(aiCurrent) || []),
+      services_small_text: getf('ai-services_small_text'),
+      services_heading: getf('ai-services_heading'),
+      why_choose_us_heading: getf('ai-why_choose_us_heading'),
       cta_heading:      getf('ai-cta_heading'),
       cta_subtitle:     getf('ai-cta_subtitle'),
       cta_btn_label:    getf('ai-cta_btn_label'),
@@ -193,6 +305,25 @@ function collectFormData() {
       footer_copyright: getf('ai-footer_copyright'),
       values:           getListValues('valuesList', 'value').slice(0, 5),
       about_bullet_points: bernardBullets,
+      // Services Page fields
+      services_page_seo_title: getf('ai-services_page_seo_title') || aiCurrent.services_page_seo_title || '',
+      services_page_seo_description: getf('ai-services_page_seo_description') || aiCurrent.services_page_seo_description || '',
+      services_page_hero_title: getf('ai-services_page_hero_title') || aiCurrent.services_page_hero_title || '',
+      services_page_hero_subtitle: getf('ai-services_page_hero_subtitle') || aiCurrent.services_page_hero_subtitle || '',
+      services_page_small_text: getf('ai-services_page_small_text') || aiCurrent.services_page_small_text || '',
+      services_page_heading: getf('ai-services_page_heading') || aiCurrent.services_page_heading || '',
+      services_page_description: getf('ai-services_page_description') || aiCurrent.services_page_description || '',
+      services_cta_heading: getf('ai-services_cta_heading') || aiCurrent.services_cta_heading || '',
+      services_cta_text: getf('ai-services_cta_text') || aiCurrent.services_cta_text || '',
+      services_cta_button: getf('ai-services_cta_button') || aiCurrent.services_cta_button || '',
+      // Contact Page fields
+      contact_page_seo_title: getf('ai-contact_page_seo_title') || aiCurrent.contact_page_seo_title || '',
+      contact_page_seo_description: getf('ai-contact_page_seo_description') || aiCurrent.contact_page_seo_description || '',
+      contact_page_hero_title: getf('ai-contact_page_hero_title') || aiCurrent.contact_page_hero_title || '',
+      contact_page_hero_subtitle: getf('ai-contact_page_hero_subtitle') || aiCurrent.contact_page_hero_subtitle || '',
+      contact_page_small_text: getf('ai-contact_page_small_text') || aiCurrent.contact_page_small_text || '',
+      contact_page_heading: getf('ai-contact_page_heading') || aiCurrent.contact_page_heading || '',
+      contact_page_description: getf('ai-contact_page_description') || aiCurrent.contact_page_description || '',
     },
     _raw: {
       years_of_experience: toInt(getf('raw-years_of_experience')) || 0,
@@ -226,4 +357,19 @@ function collectFormData() {
   }
 
   return payload;
+}
+
+function renderWhyChooseUsImageSelect(images, selected) {
+  const select = document.getElementById('theme-why_choose_us_image');
+  if (!select) return;
+  const list = Array.isArray(images) ? images.slice() : [];
+  const autoFallback = list[2] || list[0] || '';
+  const current = selected || autoFallback;
+
+  const options = ['<option value="">Auto-select</option>']
+    .concat(list.map(p => `<option value="${escAttr(p)}">${esc(p.split('/').pop())}</option>`))
+    .join('');
+
+  select.innerHTML = options;
+  select.value = list.includes(current) ? current : '';
 }

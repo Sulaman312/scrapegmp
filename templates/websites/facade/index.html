@@ -60,6 +60,36 @@
     easing: 'ease-out-cubic'
   });
 
+  // ── 0. HAMBURGER MENU ────────────────────────────────────
+  const hamburgerFacade = document.getElementById('hamburger-facade');
+  const navbarLinksFacade = document.getElementById('navbarLinksFacade');
+
+  if (hamburgerFacade && navbarLinksFacade) {
+    hamburgerFacade.addEventListener('click', function() {
+      hamburgerFacade.classList.toggle('active');
+      navbarLinksFacade.classList.toggle('active');
+      document.body.style.overflow = navbarLinksFacade.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Close menu when clicking nav links
+    navbarLinksFacade.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerFacade.classList.remove('active');
+        navbarLinksFacade.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!hamburgerFacade.contains(e.target) && !navbarLinksFacade.contains(e.target)) {
+        hamburgerFacade.classList.remove('active');
+        navbarLinksFacade.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
   // ── 1. PARALLAX EFFECT ───────────────────────────────────
   const parallaxBg = document.querySelector('.parallax-bg');
   if (parallaxBg) {

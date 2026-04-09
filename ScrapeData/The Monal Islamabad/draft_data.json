@@ -1,5 +1,5 @@
 {
-  "template": "facade",
+  "template": "bernard",
   "business": {
     "name": "The Monal Islamabad",
     "place_type": "Restaurant",
@@ -42,6 +42,95 @@
       {
         "icon": "🍪",
         "title": "Gourmet Cuisine",
+        "description": "Savor a diverse menu featuring traditional and contemporary dishes crafted by top chefs.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "☀️",
+        "title": "Breathtaking Views",
+        "description": "Dine while enjoying panoramic views of Islamabad, creating the perfect backdrop for any occasion.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "🍷",
+        "title": "Extensive Wine Selection",
+        "description": "Pair your meal with our curated selection of fine wines from around the world.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "🔥",
+        "title": "Event Hosting",
+        "description": "Host your special events, weddings, and corporate gatherings in our beautifully designed spaces.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "🏛️",
+        "title": "Best Facilities",
+        "description": "We give the best facilities in the city for this type of food.",
+        "image": "",
+        "link": ""
+      }
+    ],
+    "services_cards": [
+      {
+        "title": "Event Hosting",
+        "description": "Host your special events, weddings, and corporate gatherings in our beautifully designed spaces.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Best Facilities",
+        "description": "We give the best facilities in the city for this type of food.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service 3",
+        "description": "",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service 4",
+        "description": "",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      }
+    ],
+    "services_page_cards": [
+      {
+        "title": "Event Hosting",
+        "description": "Host your special events, weddings, and corporate gatherings in our beautifully designed spaces.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Best Facilities",
+        "description": "We give the best facilities in the city for this type of food.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service 3",
+        "description": "",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service 4",
+        "description": "",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      }
+    ],
+    "why_choose_us_cards": [
+      {
+        "icon": "🍪",
+        "title": "Gourmet Cuisine",
         "description": "Savor a diverse menu featuring traditional and contemporary dishes crafted by top chefs."
       },
       {
@@ -53,18 +142,11 @@
         "icon": "🍷",
         "title": "Extensive Wine Selection",
         "description": "Pair your meal with our curated selection of fine wines from around the world."
-      },
-      {
-        "icon": "🔥",
-        "title": "Event Hosting",
-        "description": "Host your special events, weddings, and corporate gatherings in our beautifully designed spaces."
-      },
-      {
-        "icon": "🏛️",
-        "title": "Best Facilities",
-        "description": "We give the best facilities in the city for this type of food."
       }
     ],
+    "services_small_text": "",
+    "services_heading": "",
+    "why_choose_us_heading": "",
     "cta_heading": "Elevate Your Dining Experience at The Monal",
     "cta_subtitle": "Indulge in exquisite cuisine with breathtaking views in Islamabad.",
     "cta_btn_label": "",
@@ -93,7 +175,24 @@
         "description": "Pair your meal with our curated selection of fine wines from around the world.",
         "title": "Extensive Wine Selection"
       }
-    ]
+    ],
+    "services_page_seo_title": "",
+    "services_page_seo_description": "",
+    "services_page_hero_title": "",
+    "services_page_hero_subtitle": "",
+    "services_page_small_text": "",
+    "services_page_heading": "",
+    "services_page_description": "",
+    "services_cta_heading": "",
+    "services_cta_text": "",
+    "services_cta_button": "",
+    "contact_page_seo_title": "",
+    "contact_page_seo_description": "",
+    "contact_page_hero_title": "",
+    "contact_page_hero_subtitle": "",
+    "contact_page_small_text": "",
+    "contact_page_heading": "",
+    "contact_page_description": ""
   },
   "_raw": {
     "years_of_experience": 30
@@ -117,12 +216,13 @@
     "title": "Taplink - landing page that drives your sales on Instagram"
   },
   "theme": {
-    "color1": "#4F7DF5",
-    "color2": "#7C3AED",
-    "color3": "#06C9D4",
-    "cta_color": "#06060F",
+    "color1": "#9F1239",
+    "color2": "#FCE7F3",
+    "color3": "#F97316",
+    "cta_color": "#9F1239",
     "hero_dark": "#06060F",
     "hero_image": "images/All/0001.webp",
+    "why_choose_us_image": "images/All/0001.webp",
     "values_image": "images/All/0001.webp",
     "company_image_1": "images/All/0001.webp",
     "company_image_2": "images/All/0002.webp"

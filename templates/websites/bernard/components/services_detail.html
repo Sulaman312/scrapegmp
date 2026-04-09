@@ -1,0 +1,44 @@
+<!-- SERVICES DETAIL PAGE SECTION -->
+<section class="section-services-detail section-padding" id="services-detail">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <p class="services-small-text">{{ services_page_small_text }}</p>
+            <h2 class="services-heading">{{ services_page_heading }}</h2>
+            <p class="services-page-description">{{ services_page_description }}</p>
+        </div>
+
+        <div class="services-detail-grid">
+            {% for service in services %}
+            <div class="service-detail-card" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
+                <div class="service-detail-image">
+                    <img src="{{ service.image }}" alt="{{ service.title }}">
+                </div>
+                <div class="service-detail-content">
+                    <h3>{{ service.title }}</h3>
+                    <p class="service-detail-description">{{ service.description }}</p>
+
+                    {% if service.features %}
+                    <ul class="service-features-list">
+                        {% for feature in service.features %}
+                        <li>
+                            <span class="material-symbols-outlined">check_circle</span>
+                            {{ feature }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if service.price %}
+                    <div class="service-price">
+                        <span class="price-label">Starting at</span>
+                        <span class="price-value">{{ service.price }}</span>
+                    </div>
+                    {% endif %}
+
+                    <a href="#contact" class="btn btn-primary">Request Quote</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
