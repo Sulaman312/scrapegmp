@@ -1,0 +1,28 @@
+<!-- VALUES SECTION (40-60 split) -->
+<section class="section-values" id="values">
+    <div class="values-grid">
+        <!-- Left 40%: Image -->
+        <div class="values-image" style="background-image: url('{{ values_image }}');" data-aos="fade-right"></div>
+
+        <!-- Right 60%: Content with cards -->
+        <div class="values-content" data-aos="fade-left">
+            <p class="values-heading">{{ values_heading }}</p>
+
+            <div class="values-cards">
+                {% for value in values_list %}
+                <div class="value-card">
+                    <div class="advantage-icon">
+                        {% if value.icon_type == 'material' %}
+                        <span class="material-symbols-outlined">{{ value.icon }}</span>
+                        {% else %}
+                        {{ value.icon }}
+                        {% endif %}
+                    </div>
+                    <h3>{{ value.title }}</h3>
+                    <p>{{ value.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

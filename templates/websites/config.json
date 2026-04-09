@@ -9,6 +9,11 @@
       "id": "facade",
       "name": "Facade",
       "description": "Professional corporate site with detailed content sections, case studies, and team focus"
+    },
+    {
+      "id": "bernard",
+      "name": "Bernard",
+      "description": "French cleaning service template with contact form, services showcase, and testimonials"
     }
   ]
 }

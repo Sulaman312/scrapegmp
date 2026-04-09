@@ -1,0 +1,55 @@
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <!-- Company Info -->
+            <div class="footer-company">
+                <h3>{{ business_name }}</h3>
+                <p>{{ footer_description }}</p>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                {% if address %}
+                <div class="footer-contact-item">
+                    <span class="material-symbols-outlined">location_on</span>
+                    <span>{{ address }}</span>
+                </div>
+                {% endif %}
+                {% if phone %}
+                <div class="footer-contact-item">
+                    <span class="material-symbols-outlined">phone</span>
+                    <span>{{ phone }}</span>
+                </div>
+                {% endif %}
+                {% if email %}
+                <div class="footer-contact-item">
+                    <span class="material-symbols-outlined">email</span>
+                    <span>{{ email }}</span>
+                </div>
+                {% endif %}
+                {% if hours_summary %}
+                <div class="footer-contact-item">
+                    <span class="material-symbols-outlined">schedule</span>
+                    <span>{{ hours_summary }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Links -->
+            <div class="footer-links">
+                <h4>Liens rapides</h4>
+                <ul>
+                    {% for link in nav_links %}
+                    <li><a href="{{ link.href }}">{{ link.label }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-copyright">{{ footer_copyright }}</p>
+        </div>
+    </div>
+</footer>

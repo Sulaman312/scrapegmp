@@ -1,0 +1,25 @@
+<!-- TOP HEADER -->
+<div class="top-header">
+    <div class="container">
+        <div class="top-header-content">
+            {% if phone %}
+            <div class="top-header-item">
+                <span class="material-symbols-outlined">phone</span>
+                <span>{{ phone }}</span>
+            </div>
+            {% endif %}
+            {% if email %}
+            <div class="top-header-item">
+                <span class="material-symbols-outlined">email</span>
+                <span>{{ email }}</span>
+            </div>
+            {% endif %}
+            {% if hours_summary %}
+            <div class="top-header-item">
+                <span class="material-symbols-outlined">schedule</span>
+                <span>{{ hours_summary }}</span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

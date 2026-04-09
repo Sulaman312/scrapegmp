@@ -66,6 +66,18 @@ function populateForm(data) {
   renderHighlights();
   renderSimpleList('aboutAttrsList', data.about_attrs || [], 'text', 'attr');
 
+  // Bernard-specific fields
+  bernardBullets = ai.about_bullet_points || [];
+  if (typeof renderBernardBullets === 'function') {
+    renderBernardBullets();
+  }
+  setf('raw-years_of_experience', (data._raw || {}).years_of_experience || 0);
+
+  // Toggle Bernard fields based on template
+  if (typeof toggleBernardFields === 'function') {
+    toggleBernardFields(selectedTemplate);
+  }
+
   // Reviews
   reviewKeywords = [...(data.review_keywords || [])];
   renderKeywords();
@@ -180,6 +192,10 @@ function collectFormData() {
       footer_tagline:   getf('ai-footer_tagline'),
       footer_copyright: getf('ai-footer_copyright'),
       values:           getListValues('valuesList', 'value').slice(0, 5),
+      about_bullet_points: bernardBullets,
+    },
+    _raw: {
+      years_of_experience: toInt(getf('raw-years_of_experience')) || 0,
     },
     website_data:    currentData.website_data    || {},
     theme,

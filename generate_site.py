@@ -556,6 +556,8 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
 
     # Prepare CSS for facade
     facade_css = ""
+    bernard_css = ""
+
     if template == "facade":
         css_file = os.path.join(os.path.dirname(__file__), "templates", "websites", template, "style.css")
         if os.path.isfile(css_file):
@@ -571,6 +573,20 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 facade_css = facade_css.replace("{{ theme_color3 }}", theme_color3)
                 facade_css = facade_css.replace("{{ theme_cta_color }}", theme_cta_color)
                 facade_css = facade_css.replace("{{ theme_hero_dark }}", theme_hero_dark)
+
+    elif template == "bernard":
+        css_file = os.path.join(os.path.dirname(__file__), "templates", "websites", template, "style.css")
+        if os.path.isfile(css_file):
+            with open(css_file, "r", encoding="utf-8") as f:
+                bernard_css = f.read()
+                theme_color1 = _theme.get("color1", "#2563EB")
+                theme_color2 = _theme.get("color2", "#93C5FD")
+                theme_color3 = _theme.get("color3", "#F59E0B")
+                theme_cta_color = _theme.get("cta_color", theme_color1)
+                bernard_css = bernard_css.replace("{{ theme_color1 }}", theme_color1)
+                bernard_css = bernard_css.replace("{{ theme_color2 }}", theme_color2)
+                bernard_css = bernard_css.replace("{{ theme_color3 }}", theme_color3)
+                bernard_css = bernard_css.replace("{{ theme_cta_color }}", theme_cta_color)
 
     # Smart tagline and subtitle logic (match old renderer)
     tagline = ai.get("tagline", "")
@@ -621,6 +637,18 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             nav_links.append({"href": "#videos", "label": "Vidéos"})
         # Contact is always shown in default template
         nav_links.append({"href": "#contact", "label": "Contact"})
+
+    # For bernard template
+    elif template == "bernard":
+        nav_links.append({"href": "#home", "label": "Home"})
+        if features:
+            nav_links.append({"href": "#advantages", "label": "Advantages"})
+        if ai.get("about_paragraph"):
+            nav_links.append({"href": "#about", "label": "About"})
+        if features:
+            nav_links.append({"href": "#services", "label": "Services"})
+        if reviews:
+            nav_links.append({"href": "#testimonials", "label": "Testimonials"})
 
     # For facade template - check using same conditions as template conditionals
     else:
@@ -711,6 +739,142 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         "social_links": [],  # Can be populated from business data if available
     }
 
+    # Bernard template specific data
+    if template == "bernard":
+        # Format hours summary for top header
+        hours_summary = ""
+        hours_dict = biz.get("hours", {})
+        if hours_dict:
+            # Try to create a summary like "Lun-Ven: 9h-17h"
+            # For now, just use the first available day if data exists
+            for day, time in hours_dict.items():
+                if time and time.lower() not in ["not available", "closed", "fermé"]:
+                    hours_summary = time
+                    break
+
+        # Split features into advantages (first 3) and services (remaining)
+        advantages = features[:3] if len(features) >= 3 else features
+        services_from_features = features[3:7] if len(features) > 3 else []
+
+        # Prepare services with default images
+        bernard_services = []
+        for idx, feat in enumerate(services_from_features):
+            service_image = images[idx % len(images)] if images else ""
+            bernard_services.append({
+                "image": media_prefix + service_image if service_image else "",
+                "title": feat.get("title", ""),
+                "description": feat.get("description", ""),
+                "link": "#contact"
+            })
+
+        # Fill services to at least 4 with defaults if needed
+        while len(bernard_services) < 4:
+            bernard_services.append({
+                "image": media_prefix + images[0] if images else "",
+                "title": f"Service {len(bernard_services) + 1}",
+                "description": "Description du service à personnaliser depuis le tableau de bord.",
+                "link": "#contact"
+            })
+
+        # Prepare about bullets - check if AI data has bullet_points first
+        about_bullets = []
+        bullet_points_data = ai.get("about_bullet_points", [])
+
+        if bullet_points_data and len(bullet_points_data) > 0:
+            # Use dedicated bullet points from AI data
+            for bp in bullet_points_data[:3]:
+                if isinstance(bp, dict):
+                    about_bullets.append({
+                        "title": bp.get("title", "Advantage"),
+                        "description": bp.get("description", "")
+                    })
+                elif isinstance(bp, str):
+                    # Parse string format "Title: description"
+                    parts = bp.split(":", 1) if ":" in bp else [bp, ""]
+                    about_bullets.append({
+                        "title": parts[0].strip() if parts[0] else "Advantage",
+                        "description": parts[1].strip() if len(parts) > 1 and parts[1] else ""
+                    })
+        else:
+            # Fallback to values
+            for val in values[:3]:
+                if isinstance(val, str):
+                    parts = val.split(":", 1) if ":" in val else ["", val]
+                    about_bullets.append({
+                        "title": parts[0].strip() if parts[0] else "Advantage",
+                        "description": parts[1].strip() if len(parts) > 1 and parts[1] else val
+                    })
+
+        # Fill to 3 bullets with defaults
+        while len(about_bullets) < 3:
+            about_bullets.append({
+                "title": "Advantage",
+                "description": "Customizable description from the dashboard."
+            })
+
+        # Prepare values list (last 3 features or values)
+        values_list = []
+        remaining_features = features[3:6] if len(features) > 3 else features[:3]
+        for feat in remaining_features:
+            values_list.append({
+                "icon": feat.get("icon", "✦"),
+                "icon_type": feat.get("icon_type", "emoji"),
+                "title": feat.get("title", ""),
+                "description": feat.get("description", "")
+            })
+
+        # Fill to 3 values with defaults
+        while len(values_list) < 3:
+            values_list.append({
+                "icon": "✦",
+                "icon_type": "emoji",
+                "title": "Valeur client",
+                "description": "Description à personnaliser depuis le tableau de bord."
+            })
+
+        # Prepare testimonials from reviews
+        bernard_testimonials = []
+        for review in reviews[:3]:
+            if isinstance(review, dict) and review.get("text"):
+                bernard_testimonials.append({
+                    "text": review.get("text", "")[:200],
+                    "author": review.get("author_name", review.get("name", "Client satisfait"))
+                })
+
+        # Add defaults if no reviews
+        if not bernard_testimonials:
+            bernard_testimonials = [
+                {"text": "Service excellent et très professionnel. Je recommande vivement!", "author": "Client satisfait"},
+                {"text": "Équipe compétente et résultats au-delà de mes attentes.", "author": "Client satisfait"},
+                {"text": "Très satisfait de la qualité du service fourni.", "author": "Client satisfait"}
+            ]
+
+        # Bernard-specific context additions
+        context.update({
+            "bernard_css": bernard_css,
+            "hours_summary": hours_summary,
+            "logo_image": "",  # Can be added to theme later
+            "hero_small_text": ai.get("hero_small_text", biz.get("place_type", "Service professionnel")),
+            "hero_heading": ai.get("hero_heading", tagline),
+            "form_heading": ai.get("form_heading", "Have any question?"),
+            "form_button_text": ai.get("form_button_text", "Je souhaite être rappelé"),
+            "advantages": advantages,
+            "about_image": media_prefix + story_img_1 if story_img_1 else (media_prefix + images[0] if images else ""),
+            "years_of_experience": raw.get("years_of_experience", 0),
+            "about_small_text": ai.get("about_small_text", "À propos"),
+            "about_heading": ai.get("about_heading", "Your trusted company"),
+            "about_description": about_text,
+            "about_bullets": about_bullets,
+            "services_small_text": ai.get("services_small_text", "For individuals and professionals"),
+            "services_heading": ai.get("services_heading", "Discover our services"),
+            "services": bernard_services,
+            "values_heading": ai.get("values_heading", "Who are our clients"),
+            "values_list": values_list,
+            "testimonials_small_text": ai.get("testimonials_small_text", "Testimonials"),
+            "testimonials_heading": ai.get("testimonials_heading", "What our clients say"),
+            "testimonials": bernard_testimonials,
+        })
+
     # Generate dynamic nav links HTML for facade template
     if template == "facade":
         from markupsafe import Markup
@@ -720,6 +884,11 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         context["dynamic_nav_links"] = Markup("\n            ".join(nav_html_parts))
         # Mark facade_css as safe to prevent HTML escaping
         context["facade_css"] = Markup(context["facade_css"])
+
+    # Mark bernard_css as safe for bernard template
+    if template == "bernard":
+        from markupsafe import Markup
+        context["bernard_css"] = Markup(context["bernard_css"])
 
     # Setup Jinja2 environment
     templates_dir = os.path.join(os.path.dirname(__file__), "templates")

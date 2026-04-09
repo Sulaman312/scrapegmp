@@ -1,0 +1,31 @@
+<!-- TESTIMONIALS SECTION -->
+<section class="section-testimonials" id="testimonials">
+    <div class="container">
+        <div class="testimonials-header" data-aos="fade-up">
+            <p class="testimonials-small-text">{{ testimonials_small_text }}</p>
+            <h2 class="testimonials-heading">{{ testimonials_heading }}</h2>
+        </div>
+
+        <div class="testimonials-carousel-container">
+            <div class="testimonials-carousel">
+                {% for testimonial in testimonials %}
+                <div class="testimonial-card {% if loop.index == 1 %}active{% endif %}" data-aos="fade-up">
+                    <p class="testimonial-text">"{{ testimonial.text }}"</p>
+                    <p class="testimonial-author">{{ testimonial.author }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if testimonials|length > 1 %}
+            <div class="testimonials-navigation">
+                <button class="testimonial-nav-btn prev" onclick="changeTestimonial(-1)" aria-label="Previous testimonial">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <button class="testimonial-nav-btn next" onclick="changeTestimonial(1)" aria-label="Next testimonial">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

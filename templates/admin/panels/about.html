@@ -52,7 +52,7 @@
       <textarea id="f-description" class="fi" rows="3" placeholder="Short one-liner from Google Maps…"></textarea>
     </div>
 
-    <div class="card">
+    <div class="card" id="highlightsCard">
       <div class="sdiv">Highlights <span class="si si-g">→ About section (checkmark bullet points)</span></div>
       <p class="text-xs text-slate-500 mb-2">Each chip = one bullet point on the website. Add, edit or remove them below.</p>
       <div class="chip-editor" id="highlightsEditor"
@@ -61,6 +61,19 @@
           onkeydown="if(event.key==='Enter'){event.preventDefault();addHighlight();}" />
       </div>
       <button class="btn-add" onclick="addHighlight()">+ Add Highlight</button>
+    </div>
+
+    <div class="card" id="bernardAboutBulletsCard" style="display:none">
+      <div class="sdiv">About Bullet Points (Bernard) <span class="si si-g">→ About section (title + description bullets)</span></div>
+      <p class="text-xs text-slate-500 mb-2">Each bullet has a bold title and description. Used in Bernard template.</p>
+      <div id="bernardBulletsList" class="space-y-3"></div>
+      <button class="btn-add" onclick="addBernardBullet()">+ Add Bullet Point</button>
+    </div>
+
+    <div class="card" id="bernardYearsCard" style="display:none">
+      <div class="sdiv">Years of Experience (Bernard) <span class="si si-g">→ Badge shown on about section image</span></div>
+      <p class="text-xs text-slate-500 mb-2">Number of years displayed in the experience badge.</p>
+      <input type="number" id="raw-years_of_experience" class="fi" min="0" placeholder="e.g., 15" />
     </div>
 
     <div class="card">

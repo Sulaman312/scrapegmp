@@ -1,0 +1,24 @@
+<!-- SERVICES SECTION -->
+<section class="section-services" id="services">
+    <div class="container-wide">
+        <div class="services-header" data-aos="fade-up">
+            <p class="services-small-text">{{ services_small_text }}</p>
+            <h2 class="services-heading">{{ services_heading }}</h2>
+        </div>
+
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
+                <div class="service-image" style="background-image: url('{{ service.image }}');"></div>
+                <div class="service-content">
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description }}</p>
+                    <a href="{{ service.link }}" class="service-link">
+                        En savoir plus →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

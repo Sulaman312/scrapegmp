@@ -1,0 +1,8 @@
+{
+  "name": "Bernard",
+  "description": "French cleaning service template with contact form",
+  "sections": {
+    "enabled": ["hero", "features", "about", "reviews", "contact", "footer"],
+    "configs": {}
+  }
+}

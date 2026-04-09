@@ -79,7 +79,24 @@
       "Pair your meal with our curated selection of fine wines from around the world.",
       "Host your special events, weddings, and corporate gatherings in our beautifully designed spaces.",
       "We give the best facilities in the city for this type of food."
+    ],
+    "about_bullet_points": [
+      {
+        "description": "Savor a diverse menu featuring traditional and contemporary dishes crafted by top chefs. ",
+        "title": "Gourmet Cuisine"
+      },
+      {
+        "description": "Dine while enjoying panoramic views of Islamabad, creating the perfect backdrop for any occasion.",
+        "title": "Breathtaking Views"
+      },
+      {
+        "description": "Pair your meal with our curated selection of fine wines from around the world.",
+        "title": "Extensive Wine Selection"
+      }
     ]
+  },
+  "_raw": {
+    "years_of_experience": 30
   },
   "website_data": {
     "headings": [

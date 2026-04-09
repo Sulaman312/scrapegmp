@@ -1,0 +1,40 @@
+<!-- ABOUT / WHY TRUST US SECTION -->
+<section class="section-about" id="about">
+    <div class="container-wide">
+        <div class="about-grid">
+            <!-- Left: D-shaped Image with Years Badge -->
+            <div class="about-image-container" data-aos="fade-right">
+                <div class="about-image-d-shape" style="background-image: url('{{ about_image }}');"></div>
+                {% if years_of_experience > 0 %}
+                <div class="years-badge">
+                    <span class="years-number">{{ years_of_experience }}</span>
+                    <span class="years-text">years of experience</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Right: Content -->
+            <div class="about-content" data-aos="fade-left">
+                <p class="about-small-text">{{ about_small_text }}</p>
+                <h2 class="about-heading">{{ about_heading }}</h2>
+                <p class="about-description">{{ about_description }}</p>
+
+                <div class="about-bullets">
+                    {% for bullet in about_bullets %}
+                    <div class="bullet-item">
+                        <span class="bullet-icon">●</span>
+                        <div class="bullet-content">
+                            <strong>{{ bullet.title }}</strong> {{ bullet.description }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="hero-buttons">
+                    <a href="{{ cta_primary_url }}" class="btn btn-primary">{{ cta_primary }}</a>
+                    <a href="{{ cta_secondary_url }}" class="btn btn-accent">{{ cta_secondary }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

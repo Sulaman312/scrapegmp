@@ -306,6 +306,10 @@ function updateTemplateAndPreview() {
   if (typeof renderVisibilityToggles === 'function') {
     renderVisibilityToggles();
   }
+  // Toggle Bernard-specific fields
+  if (typeof toggleBernardFields === 'function') {
+    toggleBernardFields(selectedTemplate);
+  }
   // Use updateLivePreview to send currentData with the new template via POST
   if (typeof updateLivePreview === 'function') {
     updateLivePreview();

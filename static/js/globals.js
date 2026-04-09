@@ -88,6 +88,9 @@ function applyTemplateSections(templateId) {
     renderFeatures(collectFeatures());
   }
 
+  // Update color presets for template
+  updatePresetsForTemplate(tid);
+
   const currentSection = (typeof getCurrentAdminSection === 'function') ? getCurrentAdminSection() : 'hero';
   if (!ACTIVE_ADMIN_SECTIONS.includes(currentSection) && ACTIVE_ADMIN_SECTIONS.length && typeof switchSection === 'function') {
     switchSection(ACTIVE_ADMIN_SECTIONS[0]);
@@ -98,7 +101,7 @@ const DAY_LBL = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturd
 
 const DEF = { color1: '#4f7df5', color2: '#7c3aed', color3: '#06c9d4', hero_dark: '#06060f' };
 
-const PRESETS = [
+const PRESETS_DEFAULT = [
   { name: 'Ocean Blue', c: ['#4f7df5', '#7c3aed', '#06c9d4'] },
   { name: 'Emerald',    c: ['#10b981', '#059669', '#0d9488'] },
   { name: 'Sunset',     c: ['#f59e0b', '#ef4444', '#ec4899'] },
@@ -106,6 +109,43 @@ const PRESETS = [
   { name: 'Fire',       c: ['#f97316', '#ef4444', '#dc2626'] },
   { name: 'Sky',        c: ['#0ea5e9', '#38bdf8', '#7dd3fc'] },
 ];
+
+const PRESETS_BERNARD = [
+  { name: 'Blue Professional', c: ['#1E3A8A', '#DBEAFE', '#F59E0B'] },
+  { name: 'Blue Clean', c: ['#0284C7', '#E0F2FE', '#F97316'] },
+  { name: 'Navy Orange', c: ['#1E40AF', '#DBEAFE', '#FB923C'] },
+  { name: 'Red Professional', c: ['#991B1B', '#FEE2E2', '#F59E0B'] },
+  { name: 'Crimson', c: ['#9F1239', '#FCE7F3', '#F97316'] },
+  { name: 'Red Orange', c: ['#B91C1C', '#FEE2E2', '#FB923C'] },
+];
+
+const PRESETS_FACADE = [
+  { name: 'Ocean Blue', c: ['#4f7df5', '#7c3aed', '#06c9d4'] },
+  { name: 'Emerald',    c: ['#10b981', '#059669', '#0d9488'] },
+  { name: 'Sunset',     c: ['#f59e0b', '#ef4444', '#ec4899'] },
+  { name: 'Purple',     c: ['#16a34a', '#8b5cf6', '#a855f7'] },
+  { name: 'Fire',       c: ['#f97316', '#ef4444', '#dc2626'] },
+  { name: 'Sky',        c: ['#0ea5e9', '#38bdf8', '#7dd3fc'] },
+];
+
+let PRESETS = PRESETS_DEFAULT;
+
+function updatePresetsForTemplate(templateId) {
+  if (templateId === 'bernard') {
+    PRESETS = PRESETS_BERNARD;
+  } else if (templateId === 'facade') {
+    PRESETS = PRESETS_FACADE;
+  } else {
+    PRESETS = PRESETS_DEFAULT;
+  }
+  if (typeof buildPresets === 'function') {
+    const grid = document.getElementById('presetsGrid');
+    if (grid) {
+      grid.innerHTML = '';
+      buildPresets();
+    }
+  }
+}
 
 const SOCIAL_PLATFORMS = [
   {
