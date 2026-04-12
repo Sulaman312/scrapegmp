@@ -27,13 +27,13 @@
         <div class="flex flex-wrap gap-4" data-aos="fade-up" data-aos-delay="200">
           <a href='{{ cta_url }}' target='_blank' class='cta-btn inline-flex items-center gap-2.5 text-white font-bold px-8 py-[14px] rounded-2xl text-[15px]'>{{ cta_text }} <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='currentColor' stroke-width='2.5' viewBox='0 0 24 24'><line x1='5' y1='12' x2='19' y2='12'/><polyline points='12 5 19 12 12 19'/></svg></a>
           <a href="#contact" class="btn-outline inline-flex items-center gap-2.5 text-white/75 font-semibold px-8 py-[14px] rounded-2xl text-[15px]">
-            Découvrir les fonctionnalités
+            {{ tr.hero.discover_features if tr and tr.hero else 'Discover features' }}
           </a>
         </div>
         <!-- Stat chips -->
         <div class="flex flex-wrap gap-8 mt-12 pt-10 border-t border-white/[0.08]"
              data-aos="fade-up" data-aos-delay="280">
-          <div><div class="text-sm font-bold leading-none mt-0.5" style="color:#059669">{{ category }}</div><div class="text-white/35 text-[10px] uppercase tracking-widest mt-1">Secteur</div></div>
+          <div><div class="text-sm font-bold leading-none mt-0.5" style="color:#059669">{{ category }}</div><div class="text-white/35 text-[10px] uppercase tracking-widest mt-1">{{ tr.hero.sector if tr and tr.hero else 'Sector' }}</div></div>
         </div>
       </div>
 
@@ -67,7 +67,7 @@
 
   <!-- Scroll hint -->
   <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/20 animate-bounce z-20">
-    <span class="text-[9px] tracking-[0.3em] uppercase font-semibold">Défiler</span>
+    <span class="text-[9px] tracking-[0.3em] uppercase font-semibold">{{ tr.hero.scroll if tr and tr.hero else 'Scroll' }}</span>
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
   </div>
 </section>

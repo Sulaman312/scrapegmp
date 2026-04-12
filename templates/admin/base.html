@@ -189,7 +189,30 @@
           class="modal-input"
           placeholder="https://www.google.com/maps/place/YourBusiness/..."
         />
-        <p class="modal-hint">The system will automatically scrape the business data and enrich it with AI-generated content.</p>
+
+        <div style="margin-top: 20px;">
+          <label class="modal-label">Content Language:</label>
+          <div class="language-selector">
+            <button type="button" class="language-btn" data-lang="en">
+              <span class="lang-flag">🇬🇧</span>
+              <span class="lang-name">English</span>
+            </button>
+            <button type="button" class="language-btn active" data-lang="fr">
+              <span class="lang-flag">🇫🇷</span>
+              <span class="lang-name">Français</span>
+            </button>
+            <button type="button" class="language-btn" data-lang="de">
+              <span class="lang-flag">🇩🇪</span>
+              <span class="lang-name">Deutsch</span>
+            </button>
+            <button type="button" class="language-btn" data-lang="es">
+              <span class="lang-flag">🇪🇸</span>
+              <span class="lang-name">Español</span>
+            </button>
+          </div>
+        </div>
+
+        <p class="modal-hint">The system will automatically scrape the business data and enrich it with AI-generated content in the selected language.</p>
       </div>
 
       <!-- Progress View (shown during scraping) -->

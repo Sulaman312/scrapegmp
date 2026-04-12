@@ -54,6 +54,9 @@ yarn-error.log*
 *.temp
 *.bak
 
+# Claude files
+*.claude 
+
 # OS files
 Thumbs.db
 .DS_Store

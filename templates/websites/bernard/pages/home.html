@@ -29,15 +29,6 @@
 {% endblock %}
 
 {% block extra_scripts %}
-  // Form submission handler (placeholder)
-  const heroForm = document.querySelector('.hero-form');
-  if (heroForm) {
-    heroForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Form submission will be implemented with your backend endpoint.');
-    });
-  }
-
   // Testimonials carousel
   let currentTestimonial = 0;
   const testimonialCards = document.querySelectorAll('.testimonial-card');

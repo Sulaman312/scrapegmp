@@ -9,7 +9,8 @@
 
         <div class="services-detail-grid">
             {% for service in services %}
-            <div class="service-detail-card" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
+            {% set reverse = loop.index0 % 2 == 1 %}
+            <div class="service-detail-card{% if reverse %} reverse{% endif %}" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
                 <div class="service-detail-image">
                     <img src="{{ service.image }}" alt="{{ service.title }}">
                 </div>
@@ -30,12 +31,12 @@
 
                     {% if service.price %}
                     <div class="service-price">
-                        <span class="price-label">Starting at</span>
+                        <span class="price-label">{{ tr.services.starting_at if tr and tr.services else 'Starting at' }}</span>
                         <span class="price-value">{{ service.price }}</span>
                     </div>
                     {% endif %}
 
-                    <a href="#contact" class="btn btn-primary">Request Quote</a>
+                    <a href="#contact" class="btn btn-primary">{{ tr.services.request_quote if tr and tr.services else 'Request Quote' }}</a>
                 </div>
             </div>
             {% endfor %}

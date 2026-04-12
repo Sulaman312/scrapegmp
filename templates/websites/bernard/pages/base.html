@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ html_lang or 'en' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,6 +71,65 @@
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+    });
+  });
+
+  function updateBernardFormStatus(form, message, state) {
+    const status = form.querySelector('[data-form-status]');
+    if (!status) return;
+    status.textContent = message;
+    status.classList.remove('is-success', 'is-error', 'is-pending');
+    if (state) status.classList.add(`is-${state}`);
+  }
+
+  async function submitBernardForm(form) {
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalLabel = submitButton ? submitButton.textContent : '';
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.classList.add('is-loading');
+      submitButton.textContent = 'Sending...';
+    }
+
+    updateBernardFormStatus(form, 'Sending your message...', 'pending');
+
+    try {
+      const response = await fetch(form.action || '/api/public/contact', {
+        method: form.method || 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...payload,
+          page_url: window.location.href,
+          page_title: document.title,
+        }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Unable to send your message.');
+      }
+
+      form.reset();
+      updateBernardFormStatus(form, result.message || 'Message sent successfully.', 'success');
+    } catch (error) {
+      updateBernardFormStatus(form, error.message || 'Unable to send your message.', 'error');
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.classList.remove('is-loading');
+        submitButton.textContent = originalLabel;
+      }
+    }
+  }
+
+  document.querySelectorAll('form[data-bernard-contact-form="true"]').forEach(form => {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      submitBernardForm(form);
     });
   });
 

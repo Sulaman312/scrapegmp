@@ -1,0 +1,34 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "features": "Features",
+    "values": "Values",
+    "videos": "Videos",
+    "reviews": "Reviews",
+    "contact": "Contact"
+  },
+  "about": {
+    "label": "About Us",
+    "title": "Our Story",
+    "story_image_alt": "Company Story"
+  },
+  "videos": {
+    "title": "Videos"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email"
+  },
+  "footer": {
+    "navigation": "Navigation",
+    "contact_us": "Contact Us",
+    "all_rights_reserved": "All rights reserved."
+  },
+  "aria": {
+    "toggle_menu": "Toggle menu",
+    "close": "Close"
+  }
+}

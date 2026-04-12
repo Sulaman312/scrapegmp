@@ -3,12 +3,12 @@
     <div class="container">
         <div class="story-row">
             <div class="story-text" data-aos="fade-right">
-                <span class="section-label">About Us</span>
-                <h2 class="section-title">Our Story</h2>
+                <span class="section-label">{{ tr.about.label if tr and tr.about else 'About Us' }}</span>
+                <h2 class="section-title">{{ tr.about.title if tr and tr.about else 'Our Story' }}</h2>
                 <p>{{ about_story_left }}</p>
             </div>
             <div class="story-image" data-aos="fade-left" data-aos-delay="100">
-                <img src="{{ story_image_1 }}" alt="Company Story" loading="lazy">
+                <img src="{{ story_image_1 }}" alt="{{ tr.about.story_image_alt if tr and tr.about else 'Company Story' }}" loading="lazy">
             </div>
         </div>
         <div class="story-row reverse">
@@ -16,7 +16,7 @@
                 <p>{{ about_story_right }}</p>
             </div>
             <div class="story-image" data-aos="fade-right" data-aos-delay="100">
-                <img src="{{ story_image_2 }}" alt="Company Story" loading="lazy">
+                <img src="{{ story_image_2 }}" alt="{{ tr.about.story_image_alt if tr and tr.about else 'Company Story' }}" loading="lazy">
             </div>
         </div>
     </div>

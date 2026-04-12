@@ -107,6 +107,15 @@ h3 {
     color: var(--text-light);
 }
 
+.top-header-link {
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.top-header-link:hover {
+    opacity: 0.9;
+}
+
 .top-header-item .material-symbols-outlined {
     font-size: 18px;
 }
@@ -203,6 +212,30 @@ h3 {
 
 .hamburger.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Call Button */
+.navbar-call-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.navbar-call-btn:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.navbar-call-btn .material-symbols-outlined {
+    font-size: 24px;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -383,6 +416,31 @@ h3 {
     padding: 16px;
     font-weight: 600;
     margin-top: 8px;
+}
+
+.btn.is-loading {
+    opacity: 0.75;
+    cursor: wait;
+}
+
+.form-status {
+    margin-top: 12px;
+    min-height: 1.1em;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-gray);
+}
+
+.form-status.is-success {
+    color: #0f766e;
+}
+
+.form-status.is-error {
+    color: #b91c1c;
+}
+
+.form-status.is-pending {
+    color: var(--color-primary);
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -792,7 +850,7 @@ h3 {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: var(--color-primary-light);
+    color: var(--color-primary);
     text-decoration: underline;
     font-size: 0.9rem;
     font-weight: 600;
@@ -928,10 +986,8 @@ h3 {
 }
 
 .testimonial-card {
-    background: var(--bg-light);
-    padding: 48px 40px;
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
+    background: transparent;
+    padding: 8px 4px 0;
     text-align: center;
     display: none;
     opacity: 0;
@@ -952,6 +1008,26 @@ h3 {
     margin-bottom: 24px;
 }
 
+.testimonial-rating {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    justify-content: center;
+}
+
+.testimonial-rating .material-symbols-outlined {
+    font-size: 24px;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.testimonial-rating .star-filled {
+    color: #fbbf24;
+}
+
+.testimonial-rating .star-empty {
+    color: #d1d5db;
+}
+
 .testimonial-author {
     font-size: 1rem;
     color: var(--text-gray);
@@ -966,11 +1042,11 @@ h3 {
 }
 
 .testimonial-nav-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    color: var(--text-light);
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
     border: none;
     cursor: pointer;
     display: flex;
@@ -981,7 +1057,7 @@ h3 {
 }
 
 .testimonial-nav-btn:hover {
-    transform: scale(1.1);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
@@ -1041,6 +1117,17 @@ h3 {
     margin-top: 2px;
 }
 
+.footer-contact-link {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.footer-contact-link:hover {
+    opacity: 0.9;
+    text-decoration: underline;
+}
+
 .footer-links ul {
     list-style: none;
 }
@@ -1090,6 +1177,10 @@ h3 {
     }
 
     .hamburger {
+        display: flex;
+    }
+
+    .navbar-call-btn {
         display: flex;
     }
 
@@ -1384,6 +1475,18 @@ h3 {
     transition: var(--transition);
 }
 
+.service-detail-card.reverse {
+    grid-template-columns: 60% 40%;
+}
+
+.service-detail-card.reverse .service-detail-image {
+    order: 2;
+}
+
+.service-detail-card.reverse .service-detail-content {
+    order: 1;
+}
+
 .service-detail-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
@@ -1640,6 +1743,15 @@ h3 {
         grid-template-columns: 1fr;
     }
 
+    .service-detail-card.reverse {
+        grid-template-columns: 1fr;
+    }
+
+    .service-detail-card.reverse .service-detail-image,
+    .service-detail-card.reverse .service-detail-content {
+        order: initial;
+    }
+
     .service-detail-image {
         min-height: 300px;
     }
@@ -1686,21 +1798,21 @@ h3 {
     <div class="container">
         <div class="top-header-content">
             
-            <div class="top-header-item">
+            <a href="tel:+92 51 2898066" class="top-header-item top-header-link">
                 <span class="material-symbols-outlined">phone</span>
                 <span>+92 51 2898066</span>
-            </div>
+            </a>
             
             
-            <div class="top-header-item">
+            <a href="mailto:info@themonal.com" class="top-header-item top-header-link">
                 <span class="material-symbols-outlined">email</span>
-                <span>lilapadrona@yahoo.com</span>
-            </div>
+                <span>info@themonal.com</span>
+            </a>
             
             
             <div class="top-header-item">
                 <span class="material-symbols-outlined">schedule</span>
-                <span>12 PM–12 AM</span>
+                <span>10 AM–10 PM</span>
             </div>
             
         </div>
@@ -1716,6 +1828,11 @@ h3 {
                 <span class="navbar-brand-text">The Monal Islamabad</span>
                 
             </a>
+            
+            <a href="tel:+92 51 2898066" class="navbar-call-btn" aria-label="Call The Monal Islamabad">
+                <span class="material-symbols-outlined">call</span>
+            </a>
+            
             <button class="hamburger" id="hamburger" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
@@ -1749,13 +1866,14 @@ h3 {
 
         <div class="services-detail-grid">
             
+            
             <div class="service-detail-card" data-aos="fade-up" data-aos-delay="0">
                 <div class="service-detail-image">
-                    <img src="/media/The Monal Islamabad/images/All/0001.webp" alt="Event Hosting">
+                    <img src="/media/The Monal Islamabad/images/All/0001.webp" alt="Diverse Menu">
                 </div>
                 <div class="service-detail-content">
-                    <h3>Event Hosting</h3>
-                    <p class="service-detail-description">Host your special events, weddings, and corporate gatherings in our beautifully designed spaces.</p>
+                    <h3>Diverse Menu</h3>
+                    <p class="service-detail-description">Our extensive menu features a wide variety of dishes, catering to every taste and preference.</p>
 
                     
 
@@ -1765,13 +1883,14 @@ h3 {
                 </div>
             </div>
             
-            <div class="service-detail-card" data-aos="fade-up" data-aos-delay="100">
+            
+            <div class="service-detail-card reverse" data-aos="fade-up" data-aos-delay="100">
                 <div class="service-detail-image">
-                    <img src="/media/The Monal Islamabad/images/All/0001.webp" alt="Best Facilities">
+                    <img src="/media/The Monal Islamabad/images/All/0001.webp" alt="Exceptional Service">
                 </div>
                 <div class="service-detail-content">
-                    <h3>Best Facilities</h3>
-                    <p class="service-detail-description">We give the best facilities in the city for this type of food.</p>
+                    <h3>Exceptional Service</h3>
+                    <p class="service-detail-description">Our attentive staff is dedicated to providing an unparalleled dining experience for every guest.</p>
 
                     
 
@@ -1780,14 +1899,15 @@ h3 {
                     <a href="#contact" class="btn btn-primary">Request Quote</a>
                 </div>
             </div>
+            
             
             <div class="service-detail-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="service-detail-image">
-                    <img src="/media/The Monal Islamabad/images/All/0001.webp" alt="Service 3">
+                    <img src="/media/The Monal Islamabad/images/All/0001.webp" alt="Family-Friendly">
                 </div>
                 <div class="service-detail-content">
-                    <h3>Service 3</h3>
-                    <p class="service-detail-description"></p>
+                    <h3>Family-Friendly</h3>
+                    <p class="service-detail-description">A welcoming atmosphere for families, with special menus and activities for children.</p>
 
                     
 
@@ -1797,13 +1917,14 @@ h3 {
                 </div>
             </div>
             
-            <div class="service-detail-card" data-aos="fade-up" data-aos-delay="300">
+            
+            <div class="service-detail-card reverse" data-aos="fade-up" data-aos-delay="300">
                 <div class="service-detail-image">
-                    <img src="/media/The Monal Islamabad/images/All/0001.webp" alt="Service 4">
+                    <img src="/media/The Monal Islamabad/images/All/0001.webp" alt="Flexible Hours">
                 </div>
                 <div class="service-detail-content">
-                    <h3>Service 4</h3>
-                    <p class="service-detail-description"></p>
+                    <h3>Flexible Hours</h3>
+                    <p class="service-detail-description">Open daily with extended hours to accommodate your dining needs, from lunch to late-night meals.</p>
 
                     
 
@@ -1828,7 +1949,7 @@ h3 {
             <!-- Company Info -->
             <div class="footer-company">
                 <h3>The Monal Islamabad</h3>
-                <p>The Monal Islamabad offers a unique dining experience that combines gourmet cuisine with stunning panoramic views of the city. Our restaurant is dedicated to providing exceptional service and a memorable atmosphere for all our guests.</p>
+                <p>The Monal Islamabad is a premier dining destination renowned for its authentic Pakistani cuisine and exceptional service. Nestled in a picturesque location, our restaurant promises an unforgettable experience, whether you&#39;re enjoying a meal with family or celebrating a special occasion.</p>
             </div>
 
             <!-- Contact -->
@@ -1841,28 +1962,28 @@ h3 {
                 </div>
                 
                 
-                <div class="footer-contact-item">
+                <a href="tel:+92 51 2898066" class="footer-contact-item footer-contact-link">
                     <span class="material-symbols-outlined">phone</span>
                     <span>+92 51 2898066</span>
-                </div>
+                </a>
                 
                 
-                <div class="footer-contact-item">
+                <a href="mailto:info@themonal.com" class="footer-contact-item footer-contact-link">
                     <span class="material-symbols-outlined">email</span>
-                    <span>lilapadrona@yahoo.com</span>
-                </div>
+                    <span>info@themonal.com</span>
+                </a>
                 
                 
                 <div class="footer-contact-item">
                     <span class="material-symbols-outlined">schedule</span>
-                    <span>12 PM–12 AM</span>
+                    <span>10 AM–10 PM</span>
                 </div>
                 
             </div>
 
             <!-- Links -->
             <div class="footer-links">
-                <h4>Liens rapides</h4>
+                <h4>Quick Links</h4>
                 <ul>
                     
                     <li><a href="index.html">Home</a></li>
@@ -1929,6 +2050,65 @@ h3 {
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+    });
+  });
+
+  function updateBernardFormStatus(form, message, state) {
+    const status = form.querySelector('[data-form-status]');
+    if (!status) return;
+    status.textContent = message;
+    status.classList.remove('is-success', 'is-error', 'is-pending');
+    if (state) status.classList.add(`is-${state}`);
+  }
+
+  async function submitBernardForm(form) {
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalLabel = submitButton ? submitButton.textContent : '';
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.classList.add('is-loading');
+      submitButton.textContent = 'Sending...';
+    }
+
+    updateBernardFormStatus(form, 'Sending your message...', 'pending');
+
+    try {
+      const response = await fetch(form.action || '/api/public/contact', {
+        method: form.method || 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...payload,
+          page_url: window.location.href,
+          page_title: document.title,
+        }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Unable to send your message.');
+      }
+
+      form.reset();
+      updateBernardFormStatus(form, result.message || 'Message sent successfully.', 'success');
+    } catch (error) {
+      updateBernardFormStatus(form, error.message || 'Unable to send your message.', 'error');
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.classList.remove('is-loading');
+        submitButton.textContent = originalLabel;
+      }
+    }
+  }
+
+  document.querySelectorAll('form[data-bernard-contact-form="true"]').forEach(form => {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      submitBernardForm(form);
     });
   });
 

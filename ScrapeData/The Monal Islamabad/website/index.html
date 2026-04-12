@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Monal Islamabad - Fine Dining with a View</title>
-    <meta name="description" content="Experience the best of Islamabad&#39;s dining at The Monal. Reserve your table today for exquisite food and stunning views.">
+    <title>The Monal Islamabad - Premier Pakistani Restaurant</title>
+    <meta name="description" content="Dine at The Monal Islamabad for exquisite Pakistani cuisine and stunning views. Reserve your table today!">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
@@ -107,6 +107,15 @@ h3 {
     color: var(--text-light);
 }
 
+.top-header-link {
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.top-header-link:hover {
+    opacity: 0.9;
+}
+
 .top-header-item .material-symbols-outlined {
     font-size: 18px;
 }
@@ -203,6 +212,30 @@ h3 {
 
 .hamburger.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Call Button */
+.navbar-call-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.navbar-call-btn:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.navbar-call-btn .material-symbols-outlined {
+    font-size: 24px;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -383,6 +416,31 @@ h3 {
     padding: 16px;
     font-weight: 600;
     margin-top: 8px;
+}
+
+.btn.is-loading {
+    opacity: 0.75;
+    cursor: wait;
+}
+
+.form-status {
+    margin-top: 12px;
+    min-height: 1.1em;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-gray);
+}
+
+.form-status.is-success {
+    color: #0f766e;
+}
+
+.form-status.is-error {
+    color: #b91c1c;
+}
+
+.form-status.is-pending {
+    color: var(--color-primary);
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -792,7 +850,7 @@ h3 {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: var(--color-primary-light);
+    color: var(--color-primary);
     text-decoration: underline;
     font-size: 0.9rem;
     font-weight: 600;
@@ -928,10 +986,8 @@ h3 {
 }
 
 .testimonial-card {
-    background: var(--bg-light);
-    padding: 48px 40px;
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
+    background: transparent;
+    padding: 8px 4px 0;
     text-align: center;
     display: none;
     opacity: 0;
@@ -952,6 +1008,26 @@ h3 {
     margin-bottom: 24px;
 }
 
+.testimonial-rating {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    justify-content: center;
+}
+
+.testimonial-rating .material-symbols-outlined {
+    font-size: 24px;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.testimonial-rating .star-filled {
+    color: #fbbf24;
+}
+
+.testimonial-rating .star-empty {
+    color: #d1d5db;
+}
+
 .testimonial-author {
     font-size: 1rem;
     color: var(--text-gray);
@@ -966,11 +1042,11 @@ h3 {
 }
 
 .testimonial-nav-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    color: var(--text-light);
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
     border: none;
     cursor: pointer;
     display: flex;
@@ -981,7 +1057,7 @@ h3 {
 }
 
 .testimonial-nav-btn:hover {
-    transform: scale(1.1);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
@@ -1041,6 +1117,17 @@ h3 {
     margin-top: 2px;
 }
 
+.footer-contact-link {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.footer-contact-link:hover {
+    opacity: 0.9;
+    text-decoration: underline;
+}
+
 .footer-links ul {
     list-style: none;
 }
@@ -1090,6 +1177,10 @@ h3 {
     }
 
     .hamburger {
+        display: flex;
+    }
+
+    .navbar-call-btn {
         display: flex;
     }
 
@@ -1384,6 +1475,18 @@ h3 {
     transition: var(--transition);
 }
 
+.service-detail-card.reverse {
+    grid-template-columns: 60% 40%;
+}
+
+.service-detail-card.reverse .service-detail-image {
+    order: 2;
+}
+
+.service-detail-card.reverse .service-detail-content {
+    order: 1;
+}
+
 .service-detail-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
@@ -1640,6 +1743,15 @@ h3 {
         grid-template-columns: 1fr;
     }
 
+    .service-detail-card.reverse {
+        grid-template-columns: 1fr;
+    }
+
+    .service-detail-card.reverse .service-detail-image,
+    .service-detail-card.reverse .service-detail-content {
+        order: initial;
+    }
+
     .service-detail-image {
         min-height: 300px;
     }
@@ -1686,21 +1798,21 @@ h3 {
     <div class="container">
         <div class="top-header-content">
             
-            <div class="top-header-item">
+            <a href="tel:+92 51 2898066" class="top-header-item top-header-link">
                 <span class="material-symbols-outlined">phone</span>
                 <span>+92 51 2898066</span>
-            </div>
+            </a>
             
             
-            <div class="top-header-item">
+            <a href="mailto:info@themonal.com" class="top-header-item top-header-link">
                 <span class="material-symbols-outlined">email</span>
-                <span>lilapadrona@yahoo.com</span>
-            </div>
+                <span>info@themonal.com</span>
+            </a>
             
             
             <div class="top-header-item">
                 <span class="material-symbols-outlined">schedule</span>
-                <span>12 PM–12 AM</span>
+                <span>10 AM–10 PM</span>
             </div>
             
         </div>
@@ -1716,6 +1828,11 @@ h3 {
                 <span class="navbar-brand-text">The Monal Islamabad</span>
                 
             </a>
+            
+            <a href="tel:+92 51 2898066" class="navbar-call-btn" aria-label="Call The Monal Islamabad">
+                <span class="material-symbols-outlined">call</span>
+            </a>
+            
             <button class="hamburger" id="hamburger" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
@@ -1746,24 +1863,27 @@ h3 {
                     <!-- Left: Text and CTAs -->
                     <div class="hero-left">
                         <p class="hero-small-text">Restaurant</p>
-                        <h1 class="hero-heading">Elevate Your Dining Experience at The Monal</h1>
+                        <h1 class="hero-heading">Savor Authentic Pakistani Cuisine with Stunning Views</h1>
                         <div class="hero-buttons">
-                            <a href="https://taplink.cc" class="btn btn-primary">Reserve Your Table Now</a>
-                            <a href="taplink.cc" class="btn btn-accent">Explore Our Menu</a>
+                            <a href="https://themonal.com" class="btn btn-primary">Book Your Table</a>
+                            <a href="themonal.com" class="btn btn-accent">Explore Our Menu</a>
                         </div>
                     </div>
 
                     <!-- Right: Contact Form -->
                     <div class="hero-form-container">
-                        <form class="hero-form">
+                        <form class="hero-form" method="post" action="/api/public/contact" data-bernard-contact-form="true" data-form-type="hero">
                             <h3>Have any question?</h3>
+                            <input type="hidden" name="business_name" value="The Monal Islamabad">
+                            <input type="hidden" name="form_type" value="hero">
                             <div class="form-group">
                                 <input type="text" name="name" placeholder="Name" required>
                             </div>
                             <div class="form-group">
                                 <input type="tel" name="phone" placeholder="Telephone" required>
                             </div>
-                            <button type="submit" class="btn btn-submit">Je souhaite être rappelé</button>
+                            <button type="submit" class="btn btn-submit">I want to be called back</button>
+                            <p class="form-status" data-form-status aria-live="polite"></p>
                         </form>
                     </div>
                 </div>
@@ -1781,31 +1901,31 @@ h3 {
             <div class="advantage-card" data-aos="fade-up" data-aos-delay="0">
                 <div class="advantage-icon">
                     
-                    🍪
+                    <span class="material-symbols-outlined">restaurant</span>
                     
                 </div>
-                <h3>Gourmet Cuisine</h3>
-                <p>Savor a diverse menu featuring traditional and contemporary dishes crafted by top chefs.</p>
+                <h3>Authentic Cuisine</h3>
+                <p>Experience the rich flavors of traditional Pakistani dishes, expertly crafted by our talented chefs.</p>
             </div>
             
             <div class="advantage-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="advantage-icon">
                     
-                    ☀️
+                    <span class="material-symbols-outlined">celebration</span>
                     
                 </div>
-                <h3>Breathtaking Views</h3>
-                <p>Dine while enjoying panoramic views of Islamabad, creating the perfect backdrop for any occasion.</p>
+                <h3>Event Spaces</h3>
+                <p>Host your special occasions in our beautifully designed event spaces, perfect for any celebration.</p>
             </div>
             
             <div class="advantage-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="advantage-icon">
                     
-                    🍷
+                    <span class="material-symbols-outlined">star</span>
                     
                 </div>
-                <h3>Extensive Wine Selection</h3>
-                <p>Pair your meal with our curated selection of fine wines from around the world.</p>
+                <h3>Stunning Views</h3>
+                <p>Enjoy breathtaking views of Islamabad while savoring your meal in our elevated dining area.</p>
             </div>
             
         </div>
@@ -1826,38 +1946,38 @@ h3 {
 
             <!-- Right: Content -->
             <div class="about-content" data-aos="fade-left">
-                <p class="about-small-text">À propos</p>
-                <h2 class="about-heading">Your trusted company</h2>
-                <p class="about-description">The Monal Islamabad offers a unique dining experience that combines gourmet cuisine with stunning panoramic views of the city. Our restaurant is dedicated to providing exceptional service and a memorable atmosphere for all our guests.</p>
+                <p class="about-small-text">ABOUT</p>
+                <h2 class="about-heading">Your Trusted Company</h2>
+                <p class="about-description">The Monal Islamabad is a premier dining destination renowned for its authentic Pakistani cuisine and exceptional service. Nestled in a picturesque location, our restaurant promises an unforgettable experience, whether you&#39;re enjoying a meal with family or celebrating a special occasion.</p>
 
                 <div class="about-bullets">
                     
                     <div class="bullet-item">
                         <span class="bullet-icon">●</span>
                         <div class="bullet-content">
-                            <strong>Gourmet Cuisine</strong> Savor a diverse menu featuring traditional and contemporary dishes crafted by top chefs. 
+                            <strong>Authentic Cuisine</strong> Experience the rich flavors of traditional Pakistani dishes, expertly crafted by our talented chefs.
                         </div>
                     </div>
                     
                     <div class="bullet-item">
                         <span class="bullet-icon">●</span>
                         <div class="bullet-content">
-                            <strong>Breathtaking Views</strong> Dine while enjoying panoramic views of Islamabad, creating the perfect backdrop for any occasion.
+                            <strong>Event Spaces</strong> Host your special occasions in our beautifully designed event spaces, perfect for any celebration.
                         </div>
                     </div>
                     
                     <div class="bullet-item">
                         <span class="bullet-icon">●</span>
                         <div class="bullet-content">
-                            <strong>Extensive Wine Selection</strong> Pair your meal with our curated selection of fine wines from around the world.
+                            <strong>Stunning Views</strong> Enjoy breathtaking views of Islamabad while savoring your meal in our elevated dining area.
                         </div>
                     </div>
                     
                 </div>
 
                 <div class="hero-buttons">
-                    <a href="https://taplink.cc" class="btn btn-primary">Reserve Your Table Now</a>
-                    <a href="taplink.cc" class="btn btn-accent">Explore Our Menu</a>
+                    <a href="https://themonal.com" class="btn btn-primary">Book Your Table</a>
+                    <a href="themonal.com" class="btn btn-accent">Explore Our Menu</a>
                 </div>
             </div>
         </div>
@@ -1879,10 +1999,10 @@ h3 {
             <div class="service-card" data-aos="fade-up" data-aos-delay="0">
                 <div class="service-image" style="background-image: url('/media/The Monal Islamabad/images/All/0001.webp');"></div>
                 <div class="service-content">
-                    <h3>Event Hosting</h3>
-                    <p>Host your special events, weddings, and corporate gatherings in our beautifully designed spaces.</p>
+                    <h3>Diverse Menu</h3>
+                    <p>Our extensive menu features a wide variety of dishes, catering to every taste and preference.</p>
                     <a href="#contact" class="service-link">
-                        En savoir plus →
+                        Learn more →
                     </a>
                 </div>
             </div>
@@ -1890,10 +2010,10 @@ h3 {
             <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="service-image" style="background-image: url('/media/The Monal Islamabad/images/All/0001.webp');"></div>
                 <div class="service-content">
-                    <h3>Best Facilities</h3>
-                    <p>We give the best facilities in the city for this type of food.</p>
+                    <h3>Exceptional Service</h3>
+                    <p>Our attentive staff is dedicated to providing an unparalleled dining experience for every guest.</p>
                     <a href="#contact" class="service-link">
-                        En savoir plus →
+                        Learn more →
                     </a>
                 </div>
             </div>
@@ -1901,10 +2021,10 @@ h3 {
             <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="service-image" style="background-image: url('/media/The Monal Islamabad/images/All/0001.webp');"></div>
                 <div class="service-content">
-                    <h3>Service 3</h3>
-                    <p></p>
+                    <h3>Family-Friendly</h3>
+                    <p>A welcoming atmosphere for families, with special menus and activities for children.</p>
                     <a href="#contact" class="service-link">
-                        En savoir plus →
+                        Learn more →
                     </a>
                 </div>
             </div>
@@ -1912,10 +2032,10 @@ h3 {
             <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="service-image" style="background-image: url('/media/The Monal Islamabad/images/All/0001.webp');"></div>
                 <div class="service-content">
-                    <h3>Service 4</h3>
-                    <p></p>
+                    <h3>Flexible Hours</h3>
+                    <p>Open daily with extended hours to accommodate your dining needs, from lunch to late-night meals.</p>
                     <a href="#contact" class="service-link">
-                        En savoir plus →
+                        Learn more →
                     </a>
                 </div>
             </div>
@@ -1934,7 +2054,7 @@ h3 {
 
             <!-- Left: Image -->
             <div class="why-choose-us-image">
-                <img src="/media/The Monal Islamabad/images/All/0001.webp" alt="The Monal Islamabad - Why Choose Us">
+                <img src="/media/The Monal Islamabad/images/All/0003.webp" alt="The Monal Islamabad - Why Choose Us">
             </div>
 
             <!-- Right: Colored Background + Heading -->
@@ -1952,12 +2072,12 @@ h3 {
 
                     <span class="advantage-icon">
                         <span class="material-symbols-outlined">
-                            🍪
+                            restaurant
                         </span>
                     </span>
 
-                    <h3>Gourmet Cuisine</h3>
-                    <p>Savor a diverse menu featuring traditional and contemporary dishes crafted by top chefs.</p>
+                    <h3>Authentic Cuisine</h3>
+                    <p>Experience the rich flavors of traditional Pakistani dishes, expertly crafted by our talented chefs.</p>
 
                 </div>
                 
@@ -1965,12 +2085,12 @@ h3 {
 
                     <span class="advantage-icon">
                         <span class="material-symbols-outlined">
-                            ☀️
+                            celebration
                         </span>
                     </span>
 
-                    <h3>Breathtaking Views</h3>
-                    <p>Dine while enjoying panoramic views of Islamabad, creating the perfect backdrop for any occasion.</p>
+                    <h3>Event Spaces</h3>
+                    <p>Host your special occasions in our beautifully designed event spaces, perfect for any celebration.</p>
 
                 </div>
                 
@@ -1978,12 +2098,12 @@ h3 {
 
                     <span class="advantage-icon">
                         <span class="material-symbols-outlined">
-                            🍷
+                            star
                         </span>
                     </span>
 
-                    <h3>Extensive Wine Selection</h3>
-                    <p>Pair your meal with our curated selection of fine wines from around the world.</p>
+                    <h3>Stunning Views</h3>
+                    <p>Enjoy breathtaking views of Islamabad while savoring your meal in our elevated dining area.</p>
 
                 </div>
                 
@@ -2007,18 +2127,90 @@ h3 {
             <div class="testimonials-carousel">
                 
                 <div class="testimonial-card active" data-aos="fade-up">
-                    <p class="testimonial-text">"Service excellent et très professionnel. Je recommande vivement!"</p>
-                    <p class="testimonial-author">Client satisfait</p>
+                    <p class="testimonial-text">"&#34;Had a great experience at Monal. Food was tasty, service was quick, and the view made the atmosphere special. Recommended!&#34;"</p>
+                    <div class="testimonial-rating">
+                        
+                        
+                            
+                                <span class="material-symbols-outlined star-filled">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                    </div>
+                    <p class="testimonial-author">Bhai Bhai</p>
                 </div>
                 
                 <div class="testimonial-card " data-aos="fade-up">
-                    <p class="testimonial-text">"Équipe compétente et résultats au-delà de mes attentes."</p>
-                    <p class="testimonial-author">Client satisfait</p>
+                    <p class="testimonial-text">"&#34;Had a great experience at Monal. Food was tasty, service was quick, and the view made the atmosphere special. Recommend"</p>
+                    <div class="testimonial-rating">
+                        
+                        
+                            
+                                <span class="material-symbols-outlined star-filled">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                    </div>
+                    <p class="testimonial-author">Bhai Bhai</p>
                 </div>
                 
                 <div class="testimonial-card " data-aos="fade-up">
-                    <p class="testimonial-text">"Très satisfait de la qualité du service fourni."</p>
-                    <p class="testimonial-author">Client satisfait</p>
+                    <p class="testimonial-text">"&#34;Had a great experience at Monal. Food was tasty, service was quick, and the view made the atmosphere special. Recommend"</p>
+                    <div class="testimonial-rating">
+                        
+                        
+                            
+                                <span class="material-symbols-outlined star-filled">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                            
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            
+                        
+                    </div>
+                    <p class="testimonial-author">Anonymous</p>
                 </div>
                 
             </div>
@@ -2047,7 +2239,7 @@ h3 {
             <!-- Company Info -->
             <div class="footer-company">
                 <h3>The Monal Islamabad</h3>
-                <p>The Monal Islamabad offers a unique dining experience that combines gourmet cuisine with stunning panoramic views of the city. Our restaurant is dedicated to providing exceptional service and a memorable atmosphere for all our guests.</p>
+                <p>The Monal Islamabad is a premier dining destination renowned for its authentic Pakistani cuisine and exceptional service. Nestled in a picturesque location, our restaurant promises an unforgettable experience, whether you&#39;re enjoying a meal with family or celebrating a special occasion.</p>
             </div>
 
             <!-- Contact -->
@@ -2060,28 +2252,28 @@ h3 {
                 </div>
                 
                 
-                <div class="footer-contact-item">
+                <a href="tel:+92 51 2898066" class="footer-contact-item footer-contact-link">
                     <span class="material-symbols-outlined">phone</span>
                     <span>+92 51 2898066</span>
-                </div>
+                </a>
                 
                 
-                <div class="footer-contact-item">
+                <a href="mailto:info@themonal.com" class="footer-contact-item footer-contact-link">
                     <span class="material-symbols-outlined">email</span>
-                    <span>lilapadrona@yahoo.com</span>
-                </div>
+                    <span>info@themonal.com</span>
+                </a>
                 
                 
                 <div class="footer-contact-item">
                     <span class="material-symbols-outlined">schedule</span>
-                    <span>12 PM–12 AM</span>
+                    <span>10 AM–10 PM</span>
                 </div>
                 
             </div>
 
             <!-- Links -->
             <div class="footer-links">
-                <h4>Liens rapides</h4>
+                <h4>Quick Links</h4>
                 <ul>
                     
                     <li><a href="index.html">Home</a></li>
@@ -2151,16 +2343,66 @@ h3 {
     });
   });
 
-  
-  // Form submission handler (placeholder)
-  const heroForm = document.querySelector('.hero-form');
-  if (heroForm) {
-    heroForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Form submission will be implemented with your backend endpoint.');
-    });
+  function updateBernardFormStatus(form, message, state) {
+    const status = form.querySelector('[data-form-status]');
+    if (!status) return;
+    status.textContent = message;
+    status.classList.remove('is-success', 'is-error', 'is-pending');
+    if (state) status.classList.add(`is-${state}`);
   }
 
+  async function submitBernardForm(form) {
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalLabel = submitButton ? submitButton.textContent : '';
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.classList.add('is-loading');
+      submitButton.textContent = 'Sending...';
+    }
+
+    updateBernardFormStatus(form, 'Sending your message...', 'pending');
+
+    try {
+      const response = await fetch(form.action || '/api/public/contact', {
+        method: form.method || 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...payload,
+          page_url: window.location.href,
+          page_title: document.title,
+        }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Unable to send your message.');
+      }
+
+      form.reset();
+      updateBernardFormStatus(form, result.message || 'Message sent successfully.', 'success');
+    } catch (error) {
+      updateBernardFormStatus(form, error.message || 'Unable to send your message.', 'error');
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.classList.remove('is-loading');
+        submitButton.textContent = originalLabel;
+      }
+    }
+  }
+
+  document.querySelectorAll('form[data-bernard-contact-form="true"]').forEach(form => {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      submitBernardForm(form);
+    });
+  });
+
+  
   // Testimonials carousel
   let currentTestimonial = 0;
   const testimonialCards = document.querySelectorAll('.testimonial-card');

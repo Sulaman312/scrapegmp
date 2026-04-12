@@ -1,0 +1,368 @@
+{
+  "template": "bernard",
+  "language": "en",
+  "business": {
+    "name": "Broadway Pizza - Gulberg Greens",
+    "place_type": "Restaurant",
+    "phone": "+92 51 111 339 339",
+    "email": "",
+    "website": "broadwaypizza.com.pk",
+    "price_range": "",
+    "rating": 4.6,
+    "reviews_count": null,
+    "address": "Service Rd S, Gulberg Greens Gulberg Greens Block B Islamabad, Pakistan",
+    "description": "Explore the mouthwatering selection of pizzas and fast food offerings from Broadway Pizza Pakistan. Order online for convenient delivery and indulge in delicious flavors crafted with quality ingredients.",
+    "latitude": "33.6027361",
+    "longitude": "73.1595333",
+    "google_maps_url": "https://www.google.com/maps/place/Broadway+Pizza+-+Gulberg+Greens/@33.6027361,73.1595333,17z/data=!3m1!4b1!4m6!3m5!1s0x38dfed9f16b282a7:0x53ee2107f992fff2!8m2!3d33.6027361!4d73.1595333!16s%2Fg%2F11vr0s3s0l?entry=ttu&g_ep=EgoyMDI2MDQwOC4wIKXMDSoASAFQAw%3D%3D",
+    "plus_code": "J535+3R Islamabad, Pakistan",
+    "hours": {
+      "monday": "Not available",
+      "tuesday": "Not available",
+      "wednesday": "Not available",
+      "thursday": "Not available",
+      "friday": "Not available",
+      "saturday": "Not available",
+      "sunday": "11 AM–4 AM"
+    }
+  },
+  "ai": {
+    "brand_short_name": "Broadway Pizza - Gulberg Greens",
+    "tagline": "Savor the Best Pizzas in Islamabad",
+    "hero_subtitle": "Delicious pizzas made with fresh ingredients, delivered to your door.",
+    "cta_primary": "Order Now",
+    "cta_primary_url": "broadwaypizza.com.pk",
+    "cta_secondary": "View Menu",
+    "cta_secondary_url": "broadwaypizza.com.pk",
+    "about_paragraph": "Broadway Pizza - Gulberg Greens is dedicated to bringing you an unforgettable pizza experience. Our commitment to quality and flavor ensures that each bite is a delight, made with the finest ingredients and crafted with care.",
+    "about_story_left": "Broadway Pizza - Gulberg Greens is dedicated to bringing you an unforgettable pizza experience. Our commitment to",
+    "about_story_right": "quality and flavor ensures that each bite is a delight, made with the finest ingredients and crafted with care.",
+    "seo_title": "Broadway Pizza - Delicious Pizzas in Gulberg Greens",
+    "seo_description": "Discover a variety of mouthwatering pizzas and fast food options at Broadway Pizza Gulberg Greens. Order online for fast delivery!",
+    "features": [
+      {
+        "icon": "restaurant",
+        "title": "Wide Selection of Pizzas",
+        "description": "Choose from a diverse menu featuring classic and gourmet pizzas to satisfy every craving.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "local_shipping",
+        "title": "Fast Delivery",
+        "description": "Enjoy quick and reliable delivery right to your doorstep, ensuring your food arrives fresh.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "thumb_up",
+        "title": "High-Quality Ingredients",
+        "description": "We use only the best ingredients to create flavors that excite your taste buds.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "celebration",
+        "title": "Catering Services",
+        "description": "Let us handle your events with our professional catering services, perfect for any occasion.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "shopping_cart",
+        "title": "Online Ordering",
+        "description": "Easily order your favorite dishes online for a seamless dining experience.",
+        "image": "",
+        "link": ""
+      }
+    ],
+    "services_cards": [
+      {
+        "title": "Catering Services",
+        "description": "Let us handle your events with our professional catering services, perfect for any occasion.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Online Ordering",
+        "description": "Easily order your favorite dishes online for a seamless dining experience.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Customer Support",
+        "description": "Our friendly team is always here to assist you with any inquiries or feedback.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Dine-In Experience",
+        "description": "Join us at our cozy location for a delightful dine-in experience with friends and family.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      }
+    ],
+    "services_page_cards": [
+      {
+        "title": "Catering Services",
+        "description": "Let us handle your events with our professional catering services, perfect for any occasion.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Online Ordering",
+        "description": "Easily order your favorite dishes online for a seamless dining experience.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Customer Support",
+        "description": "Our friendly team is always here to assist you with any inquiries or feedback.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Dine-In Experience",
+        "description": "Join us at our cozy location for a delightful dine-in experience with friends and family.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      }
+    ],
+    "why_choose_us_cards": [
+      {
+        "icon": "restaurant",
+        "title": "Wide Selection of Pizzas",
+        "description": "Choose from a diverse menu featuring classic and gourmet pizzas to satisfy every craving."
+      },
+      {
+        "icon": "local_shipping",
+        "title": "Fast Delivery",
+        "description": "Enjoy quick and reliable delivery right to your doorstep, ensuring your food arrives fresh."
+      },
+      {
+        "icon": "thumb_up",
+        "title": "High-Quality Ingredients",
+        "description": "We use only the best ingredients to create flavors that excite your taste buds."
+      }
+    ],
+    "services_small_text": "",
+    "services_heading": "",
+    "why_choose_us_heading": "",
+    "cta_heading": "Savor the Best Pizzas in Islamabad",
+    "cta_subtitle": "Delicious pizzas made with fresh ingredients, delivered to your door.",
+    "cta_btn_label": "",
+    "cta_link": "",
+    "cta_banner_btn_label": "",
+    "cta_banner_btn_link": "",
+    "footer_tagline": "Broadway Pizza - Gulberg Greens is dedicated to bringing you an unforgettable pizza experience. Our commitment to quality and flavor ensures that each bite is a delight, made with the finest ingredients and crafted with care.",
+    "footer_copyright": "© 2026 Broadway Pizza - Gulberg Greens. All rights reserved.",
+    "values": [],
+    "about_bullet_points": [],
+    "services_page_seo_title": "",
+    "services_page_seo_description": "",
+    "services_page_hero_title": "",
+    "services_page_hero_subtitle": "",
+    "services_page_small_text": "",
+    "services_page_heading": "",
+    "services_page_description": "",
+    "services_cta_heading": "",
+    "services_cta_text": "",
+    "services_cta_button": "",
+    "contact_page_seo_title": "",
+    "contact_page_seo_description": "",
+    "contact_page_hero_title": "",
+    "contact_page_hero_subtitle": "",
+    "contact_page_small_text": "",
+    "contact_page_heading": "",
+    "contact_page_description": ""
+  },
+  "_raw": {
+    "years_of_experience": 0
+  },
+  "website_data": {
+    "headings": [
+      "Verification",
+      "WELCOME"
+    ],
+    "meta_description": "Explore the mouthwatering selection of pizzas and fast food offerings from Broadway Pizza Pakistan. Order online for convenient delivery and indulge in delicious flavors crafted with quality ingredients.",
+    "paragraphs": [
+      "You will receive verification code via SMS"
+    ],
+    "pricing_hints": [],
+    "raw_text": "Broadway Pizza Pakistan - Indulge in Pizza Experience Menu About Blog Feedback Catering Birthday Corporate Franchise Contact Connect with us Facebook Instagram Whatsapp Call Us Dark Mode Wingman Lab x Broadway Pizza Pk (v ) bars house Order doc_plaintext Menu 0 cart Cart pin Locations person Profile WELCOME Enter your phone number to continue Go Back Verification You will receive verification code via SMS Resend Code CONTINUE CANCEL",
+    "services": [],
+    "team": [],
+    "title": "Broadway Pizza Pakistan - Indulge in Pizza Experience"
+  },
+  "theme": {
+    "color1": "#26A269",
+    "color2": "#AAD8BB",
+    "color3": "#1A5FB4",
+    "cta_color": "#0284C7",
+    "hero_dark": "#06060F",
+    "hero_image": "images/All/0001.webp",
+    "why_choose_us_image": "images/All/0003.webp",
+    "values_image": "images/All/0001.webp",
+    "company_image_1": "images/All/0001.webp",
+    "company_image_2": "images/All/0002.webp"
+  },
+  "images": [
+    "images/All/0001.webp",
+    "images/All/0002.webp",
+    "images/All/0003.webp",
+    "images/All/0004.webp",
+    "images/All/0005.webp",
+    "images/All/0006.webp",
+    "images/All/0007.webp",
+    "images/All/0008.webp",
+    "images/All/0009.webp",
+    "images/All/0010.webp",
+    "images/All/0011.webp",
+    "images/All/0012.webp",
+    "images/All/0013.webp",
+    "images/All/0014.webp",
+    "images/All/0015.webp",
+    "images/All/0016.webp",
+    "images/All/0017.webp",
+    "images/All/0018.webp",
+    "images/All/0019.webp",
+    "images/All/0020.webp"
+  ],
+  "reviews": [
+    {
+      "author_name": "Atif Javed",
+      "text": "Piza is very basic! Matlab nothing special. Taste is also very very basic. But the fires are like home made fries. Seems like koi ghar me bheth k bna k kha rai. Kahi se b restaurant Wali feel Ni ai. Broadway needs to improve the taste. When …",
+      "rating": 3,
+      "date": "5 months ago"
+    },
+    {
+      "author_name": "Atif Javed",
+      "text": "Piza is very basic! Matlab nothing special. Taste is also very very basic. But the fires are like home made fries. Seems like koi ghar me bheth k bna k kha rai. Kahi se b restaurant Wali feel Ni ai. Broadway needs to improve the taste. When …",
+      "rating": 3,
+      "date": "5 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Piza is very basic! Matlab nothing special. Taste is also very very basic. But the fires are like home made fries. Seems like koi ghar me bheth k bna k kha rai. Kahi se b restaurant Wali feel Ni ai. Broadway needs to improve the taste. When …",
+      "rating": 3,
+      "date": "5 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Piza is very basic! Matlab nothing special. Taste is also very very basic. But the fires are like home made fries. Seems like koi ghar me bheth k bna k kha rai. Kahi se b restaurant Wali feel Ni ai. Broadway needs to improve the taste. When …",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Piza is very basic! Matlab nothing special. Taste is also very very basic. But the fires are like home made fries. Seems like koi ghar me bheth k bna k kha rai. Kahi se b restaurant Wali feel Ni ai. Broadway needs to improve the taste. When …",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anas Ali",
+      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet …",
+      "rating": 4,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "Anas Ali",
+      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet …",
+      "rating": 4,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet …",
+      "rating": 4,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet …",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet …",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "RAJA ADNAN",
+      "text": "Their pizza and items are very high quality amazing behavior of staff and interior is amazing amazing deals at reasonable prices very satisfied",
+      "rating": 5,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "RAJA ADNAN",
+      "text": "Their pizza and items are very high quality amazing behavior of staff and interior is amazing amazing deals at reasonable prices very satisfied",
+      "rating": 5,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Their pizza and items are very high quality amazing behavior of staff and interior is amazing amazing deals at reasonable prices very satisfied",
+      "rating": 5,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Their pizza and items are very high quality amazing behavior of staff and interior is amazing amazing deals at reasonable prices very satisfied",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Their pizza and items are very high quality amazing behavior of staff and interior is amazing amazing deals at reasonable prices very satisfied",
+      "rating": 5,
+      "date": ""
+    }
+  ],
+  "review_keywords": [
+    "Nearby restaurants",
+    "Hotels",
+    "Things to do",
+    "Bars",
+    "Coffee",
+    "Takeout",
+    "Groceries",
+    "See photos",
+    "Restaurant",
+    "Directions",
+    "Save",
+    "Nearby",
+    "Send to phone",
+    "Share",
+    "+92 51 111 339 339",
+    "J535+3R Islamabad, Pakistan",
+    "Suggest an edit",
+    "Write a review",
+    "Learn more"
+  ],
+  "qa": [],
+  "updates": [],
+  "popular_times": {},
+  "about": {
+    "attributes": {
+      "Sunday": [
+        "11 AM–4 AM"
+      ]
+    },
+    "social_links": [],
+    "highlights": [
+      "You will receive verification code via SMS"
+    ]
+  },
+  "about_attrs": [
+    "[object Object]"
+  ],
+  "social_links": [],
+  "web_results": [],
+  "related_places": [],
+  "section_visibility": {},
+  "_has_videos": false,
+  "_video_list": [],
+  "videos": []
+}

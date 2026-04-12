@@ -11,6 +11,16 @@
                 {% for testimonial in testimonials %}
                 <div class="testimonial-card {% if loop.index == 1 %}active{% endif %}" data-aos="fade-up">
                     <p class="testimonial-text">"{{ testimonial.text }}"</p>
+                    <div class="testimonial-rating">
+                        {% set rating = testimonial.rating|int %}
+                        {% for i in range(1, 6) %}
+                            {% if i <= rating %}
+                                <span class="material-symbols-outlined star-filled">star</span>
+                            {% else %}
+                                <span class="material-symbols-outlined star-empty">star</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                     <p class="testimonial-author">{{ testimonial.author }}</p>
                 </div>
                 {% endfor %}

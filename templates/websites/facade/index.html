@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ html_lang or 'en' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -154,7 +154,7 @@
   const lightbox = document.createElement('div');
   lightbox.className = 'lightbox';
   lightbox.innerHTML = `
-    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <button class="lightbox-close" aria-label="{{ tr.aria.close if tr and tr.aria else 'Close' }}">&times;</button>
     <img src="" alt="">
   `;
   document.body.appendChild(lightbox);

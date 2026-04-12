@@ -219,6 +219,11 @@ function populateForm(data) {
   updateColorPreviews();
   syncAllCtaControls();
 
+  // Logo-based colors
+  if (typeof loadLogoColors === 'function') {
+    loadLogoColors(data.logo_colors || null);
+  }
+
   document.getElementById('btnPreview').style.display = (data.has_website !== false) ? '' : 'none';
 
   // Section visibility
@@ -252,6 +257,7 @@ function collectFormData() {
 
   const payload = {
     template: getf('template-select') || 'default',
+    language: (currentData && currentData.language) ? currentData.language : 'fr',
     business: {
       name:          getf('f-name'),
       place_type:    getf('f-place_type'),

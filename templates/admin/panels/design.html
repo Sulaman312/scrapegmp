@@ -47,6 +47,30 @@
       </div>
     </div>
 
+    <!-- Logo-based Coloring -->
+    <div class="card" id="logoColorsCard" style="display:none;">
+      <div class="sdiv">Logo-based Coloring <span class="si si-b">→ Colors extracted from your logo</span></div>
+      <p class="text-xs text-slate-500 mb-3">Click any color to apply it to your brand colors.</p>
+
+      <div class="space-y-3">
+        <div id="logoDominantColor" class="hidden">
+          <label class="text-xs text-slate-400 block mb-2">Dominant Color</label>
+          <div class="color-row">
+            <div class="color-swatch">
+              <div id="dominantColorPreview" style="width:40px;height:40px;border-radius:8px;border:1px solid #475569;"></div>
+            </div>
+            <input type="text" id="dominantColorHex" class="color-hex" readonly onfocus="this.select()" />
+            <button onclick="applyDominantColor()" class="btn-dx text-green-500 border-green-700">Apply to Primary</button>
+          </div>
+        </div>
+
+        <div id="logoPalette" class="hidden">
+          <label class="text-xs text-slate-400 block mb-2">Color Palette</label>
+          <div id="paletteColors" class="flex gap-2 flex-wrap"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- CTA Button Color -->
     <div class="card">
       <div class="sdiv">CTA Button Color <span class="si si-b">→ All CTA buttons across the site</span></div>

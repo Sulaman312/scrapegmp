@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="{{ html_lang or 'en' }}" class="scroll-smooth">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -72,8 +72,8 @@
 <section class="py-32 px-6" style="background:#0d0d1e">
   <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
     <div data-aos="fade-right">
-      <div class="sec-pill sec-pill-dark mb-6">À propos</div>
-      <h2 class="text-4xl md:text-5xl font-black text-white leading-[1.1] mb-8">{{ about_title }},<br/><span style="background:linear-gradient(135deg, #10B981 0%, #059669 50%, #0D9488 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">à votre service</span></h2>
+      <div class="sec-pill sec-pill-dark mb-6">{{ tr.about.pill if tr and tr.about else 'About' }}</div>
+      <h2 class="text-4xl md:text-5xl font-black text-white leading-[1.1] mb-8">{{ about_title }},<br/><span style="background:linear-gradient(135deg, #10B981 0%, #059669 50%, #0D9488 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">{{ tr.about.service_suffix if tr and tr.about else 'at your service' }}</span></h2>
       <p class="text-white/55 text-lg leading-relaxed mb-10">{{ about_description }}</p>
       <a href='{{ cta_url }}' target='_blank' class='inline-flex items-center gap-2 cta-btn text-white font-bold px-7 py-3.5 rounded-xl text-sm transition-all'>{{ cta_text }} →</a>
     </div>

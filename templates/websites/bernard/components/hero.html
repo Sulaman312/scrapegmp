@@ -17,15 +17,18 @@
 
                     <!-- Right: Contact Form -->
                     <div class="hero-form-container">
-                        <form class="hero-form">
+                        <form class="hero-form" method="post" action="/api/public/contact" data-bernard-contact-form="true" data-form-type="hero">
                             <h3>{{ form_heading }}</h3>
+                            <input type="hidden" name="business_name" value="{{ business_name }}">
+                            <input type="hidden" name="form_type" value="hero">
                             <div class="form-group">
-                                <input type="text" name="name" placeholder="Name" required>
+                                <input type="text" name="name" placeholder="{{ tr.hero.name_placeholder if tr and tr.hero else 'Name' }}" required>
                             </div>
                             <div class="form-group">
-                                <input type="tel" name="phone" placeholder="Telephone" required>
+                                <input type="tel" name="phone" placeholder="{{ tr.hero.phone_placeholder if tr and tr.hero else 'Telephone' }}" required>
                             </div>
                             <button type="submit" class="btn btn-submit">{{ form_button_text }}</button>
+                            <p class="form-status" data-form-status aria-live="polite"></p>
                         </form>
                     </div>
                 </div>

@@ -112,3 +112,62 @@ function buildPresets() {
     grid.appendChild(btn);
   });
 }
+
+// ── Logo-based Coloring Functions ─────────────────────────────────────────
+function loadLogoColors(logoColors) {
+  const logoColorsCard = document.getElementById('logoColorsCard');
+  const dominantSection = document.getElementById('logoDominantColor');
+  const paletteSection = document.getElementById('logoPalette');
+
+  if (!logoColors || (!logoColors.dominant_color && !logoColors.palette?.length)) {
+    logoColorsCard.style.display = 'none';
+    return;
+  }
+
+  logoColorsCard.style.display = 'block';
+
+  // Display dominant color
+  if (logoColors.dominant_color) {
+    dominantSection.classList.remove('hidden');
+    const preview = document.getElementById('dominantColorPreview');
+    const hexInput = document.getElementById('dominantColorHex');
+    preview.style.backgroundColor = logoColors.dominant_color;
+    hexInput.value = logoColors.dominant_color.toUpperCase();
+  }
+
+  // Display color palette
+  if (logoColors.palette && logoColors.palette.length > 0) {
+    paletteSection.classList.remove('hidden');
+    const paletteContainer = document.getElementById('paletteColors');
+    paletteContainer.innerHTML = '';
+
+    logoColors.palette.forEach((color, index) => {
+      const colorItem = document.createElement('div');
+      colorItem.className = 'cursor-pointer';
+      colorItem.innerHTML = `
+        <div style="width:60px;height:60px;border-radius:8px;background:${color};border:1px solid #475569;transition:transform 0.2s;cursor:pointer;"
+             onmouseover="this.style.transform='scale(1.1)'"
+             onmouseout="this.style.transform='scale(1)'"
+             onclick="applyPaletteColor('${color}', ${index})"
+             title="Click to apply to Color ${(index % 3) + 1}">
+        </div>
+        <div style="text-align:center;font-size:0.7rem;color:#94a3b8;margin-top:0.25rem;">${color.toUpperCase()}</div>
+      `;
+      paletteContainer.appendChild(colorItem);
+    });
+  }
+}
+
+function applyDominantColor() {
+  const hexInput = document.getElementById('dominantColorHex');
+  if (hexInput && hexInput.value) {
+    setColorPair('color1', hexInput.value);
+    updateColorPreviews();
+  }
+}
+
+function applyPaletteColor(color, index) {
+  const targetKey = `color${(index % 3) + 1}`;
+  setColorPair(targetKey, color);
+  updateColorPreviews();
+}

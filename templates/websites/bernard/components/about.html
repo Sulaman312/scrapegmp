@@ -8,7 +8,7 @@
                 {% if years_of_experience > 0 %}
                 <div class="years-badge">
                     <span class="years-number">{{ years_of_experience }}</span>
-                    <span class="years-text">years of experience</span>
+                    <span class="years-text">{{ tr.about.years_of_experience if tr and tr.about else 'years of experience' }}</span>
                 </div>
                 {% endif %}
             </div>

@@ -9,6 +9,11 @@
                 <span class="navbar-brand-text">{{ business_name }}</span>
                 {% endif %}
             </a>
+            {% if phone %}
+            <a href="tel:{{ phone }}" class="navbar-call-btn" aria-label="Call {{ business_name }}">
+                <span class="material-symbols-outlined">call</span>
+            </a>
+            {% endif %}
             <button class="hamburger" id="hamburger" aria-label="Toggle menu">
                 <span></span>
                 <span></span>

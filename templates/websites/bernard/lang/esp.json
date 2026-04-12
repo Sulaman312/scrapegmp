@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "contact": "Contáctenos"
+  },
+  "hero": {
+    "form_heading": "¿Tiene alguna pregunta?",
+    "name_placeholder": "Nombre",
+    "phone_placeholder": "Teléfono",
+    "form_button": "Quiero que me llamen"
+  },
+  "about": {
+    "small_text": "SOBRE NOSOTROS",
+    "heading": "Su empresa de confianza",
+    "years_of_experience": "años de experiencia"
+  },
+  "services": {
+    "small_text": "Para particulares y profesionales",
+    "heading": "Descubra nuestros servicios",
+    "learn_more": "Saber más",
+    "starting_at": "Desde",
+    "request_quote": "Solicitar presupuesto"
+  },
+  "why_choose": {
+    "heading": "¿Por qué elegirnos?"
+  },
+  "testimonials": {
+    "small_text": "Testimonios",
+    "heading": "Lo que dicen nuestros clientes"
+  },
+  "footer": {
+    "contact_heading": "Contacto",
+    "quick_links_heading": "Enlaces rápidos",
+    "all_rights_reserved": "Todos los derechos reservados."
+  },
+  "contact": {
+    "form_title": "Envíenos un mensaje",
+    "name_label": "Nombre",
+    "name_placeholder": "Su nombre",
+    "email_label": "Correo electrónico",
+    "email_placeholder": "su@email.com",
+    "phone_label": "Teléfono",
+    "phone_placeholder": "Su número de teléfono",
+    "subject_label": "Asunto",
+    "subject_placeholder": "¿Cómo podemos ayudar?",
+    "message_label": "Mensaje",
+    "message_placeholder": "Cuéntenos más sobre sus necesidades...",
+    "send_button": "Enviar mensaje",
+    "info_title": "Póngase en contacto",
+    "address_label": "Dirección",
+    "hours_label": "Horario comercial"
+  }
+}

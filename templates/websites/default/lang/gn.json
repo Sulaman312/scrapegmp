@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "reviews": "Bewertungen",
+    "features": "Funktionen",
+    "gallery": "Galerie",
+    "videos": "Videos",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "discover_features": "Funktionen entdecken",
+    "sector": "Branche",
+    "scroll": "Scrollen"
+  },
+  "about": {
+    "pill": "Über uns",
+    "service_suffix": "zu Ihren Diensten"
+  },
+  "features": {
+    "pill": "Funktionen",
+    "title": "Alles, was Sie brauchen",
+    "subtitle": "Für anspruchsvolle Profis entwickelt.",
+    "intro": "Wir bieten eine umfassende Auswahl professioneller Funktionen für Ihre Anforderungen"
+  },
+  "gallery": {
+    "pill": "Galerie",
+    "heading_prefix": "Entdecken Sie es",
+    "heading_highlight": "in Aktion"
+  },
+  "videos": {
+    "pill": "Videos",
+    "heading": "Entdecken Sie uns im Video"
+  },
+  "contact": {
+    "pill": "Kontakt",
+    "heading_line1": "Lassen Sie uns",
+    "heading_line2": "zusammenarbeiten",
+    "address_label": "Adresse",
+    "phone_label": "Telefon",
+    "website_label": "Webseite",
+    "opening_hours_label": "Öffnungszeiten"
+  },
+  "footer": {
+    "contact_heading": "Kontakt",
+    "view_on_maps": "Auf Google Maps ansehen",
+    "all_rights_reserved": "Alle Rechte vorbehalten."
+  }
+}

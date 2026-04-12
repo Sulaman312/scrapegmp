@@ -7,17 +7,17 @@
                 <div class="footer-tagline">{{ footer_tagline }}</div>
             </div>
             <div class="footer-menu">
-                <h4>Navigation</h4>
+                <h4>{{ tr.footer.navigation if tr and tr.footer else 'Navigation' }}</h4>
                 <ul>
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#reviews">Reviews</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#hero">{{ tr.nav.home if tr and tr.nav else 'Home' }}</a></li>
+                    <li><a href="#about">{{ tr.nav.about if tr and tr.nav else 'About' }}</a></li>
+                    <li><a href="#features">{{ tr.nav.features if tr and tr.nav else 'Features' }}</a></li>
+                    <li><a href="#reviews">{{ tr.nav.reviews if tr and tr.nav else 'Reviews' }}</a></li>
+                    <li><a href="#contact">{{ tr.nav.contact if tr and tr.nav else 'Contact' }}</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
-                <h4>Contact Us</h4>
+                <h4>{{ tr.footer.contact_us if tr and tr.footer else 'Contact Us' }}</h4>
                 <p><a href="mailto:{{ email }}">{{ email }}</a></p>
                 <p><a href="tel:{{ phone }}">{{ phone }}</a></p>
             </div>

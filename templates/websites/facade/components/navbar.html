@@ -6,7 +6,7 @@
                 <span class="logo-icon">🏢</span>
                 <span>{{ brand_short_name }}</span>
             </a>
-            <button class="hamburger" id="hamburger-facade" aria-label="Toggle menu">
+            <button class="hamburger" id="hamburger-facade" aria-label="{{ tr.aria.toggle_menu if tr and tr.aria else 'Toggle menu' }}">
                 <span></span>
                 <span></span>
                 <span></span>

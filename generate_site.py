@@ -35,6 +35,66 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 _log = logging.getLogger(__name__)
 
 
+# Optional code-side override for template language while testing existing businesses.
+# Keep empty string to use persisted language from data (recommended).
+LANGUAGE_OVERRIDE = ""
+# Backward compatibility alias used in previous notes.
+BERNARD_LANGUAGE_OVERRIDE = LANGUAGE_OVERRIDE
+
+_LANG_FILE_BY_CODE = {
+    "en": "en",
+    "fr": "fr",
+    "de": "gn",
+    "gn": "gn",
+    "es": "esp",
+    "esp": "esp",
+}
+
+_HTML_LANG_BY_FILE = {
+    "en": "en",
+    "fr": "fr",
+    "gn": "de",
+    "esp": "es",
+}
+
+
+def _normalize_lang_code(lang_code: str) -> str:
+    code = str(lang_code or "").strip().lower()
+    return _LANG_FILE_BY_CODE.get(code, "fr")
+
+
+def _deep_merge_dict(base: dict, override: dict) -> dict:
+    merged = dict(base or {})
+    for key, value in (override or {}).items():
+        if isinstance(value, dict) and isinstance(merged.get(key), dict):
+            merged[key] = _deep_merge_dict(merged.get(key, {}), value)
+        else:
+            merged[key] = value
+    return merged
+
+
+def _load_template_translations(template_id: str, lang_file_code: str) -> dict:
+    lang_dir = os.path.join(os.path.dirname(__file__), "templates", "websites", template_id, "lang")
+    fr_path = os.path.join(lang_dir, "fr.json")
+    target_path = os.path.join(lang_dir, f"{lang_file_code}.json")
+
+    fr_data = _load_json(fr_path) if os.path.isfile(fr_path) else {}
+    if lang_file_code == "fr":
+        return fr_data
+
+    target_data = _load_json(target_path) if os.path.isfile(target_path) else {}
+    return _deep_merge_dict(fr_data, target_data)
+
+
+def _tr(translations: dict, key_path: str, fallback: str = "") -> str:
+    value = translations
+    for key in (key_path or "").split("."):
+        if not isinstance(value, dict) or key not in value:
+            return fallback
+        value = value[key]
+    return value if isinstance(value, str) else fallback
+
+
 def _e(text) -> str:
     """HTML-escape a value."""
     return html_lib.escape(str(text or ""), quote=True)
@@ -435,7 +495,9 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     media_prefix = f"/media/{biz_slug}/"
 
     _json_images = raw.get("images")
-    images = _json_images if _json_images else _find_images(os.path.join(business_dir, "images"))
+    all_images = _json_images if _json_images else _find_images(os.path.join(business_dir, "images"))
+    # Filter out debug images
+    images = [img for img in all_images if "_debug_" not in img]
     videos_raw = _find_videos(os.path.join(business_dir, "videos"))
     reviews = raw.get("reviews") or _load_csv(os.path.join(business_dir, "reviews.csv"))
     qa = raw.get("qa") or _load_csv(os.path.join(business_dir, "qa.csv"))
@@ -446,12 +508,31 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
 
     _theme = raw.get("theme", {})
 
-    # Prepare hero image
+    # Photo tracker to ensure unique photos across all sections
+    photo_index = 0
+    def get_next_photo():
+        """Get the next unique photo and increment the counter."""
+        nonlocal photo_index
+        if not images or photo_index >= len(images):
+            return ""
+        photo = images[photo_index]
+        photo_index += 1
+        return photo
+
+    # Prepare hero image - always use first photo
     hero_image_choice = _theme.get("hero_image", "").strip()
     if hero_image_choice and hero_image_choice in images:
         hero_image = media_prefix + hero_image_choice
+        # Mark this photo as used by advancing the counter to skip it
+        try:
+            hero_idx = images.index(hero_image_choice)
+            if hero_idx == photo_index:
+                photo_index += 1
+        except ValueError:
+            pass
     else:
-        hero_image = media_prefix + images[0] if images else ""
+        hero_photo = get_next_photo()
+        hero_image = media_prefix + hero_photo if hero_photo else ""
 
     # Prepare keywords - match old renderer behavior
     keywords_raw = ai.get("keywords") or []
@@ -514,14 +595,16 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             "show_title": False  # For facade template
         })
 
-    # Prepare gallery images
+    # Prepare gallery images - use next unique photos
     gallery_images = []
-    for idx, img in enumerate(images[:12]):
-        gallery_images.append({
-            "src": media_prefix + img,
-            "alt": f"{biz.get('name', 'Business')} photo {idx + 1}",
-            "delay": (idx % 3) * 80
-        })
+    for idx in range(min(12, len(images) - photo_index)):
+        photo = get_next_photo()
+        if photo:
+            gallery_images.append({
+                "src": media_prefix + photo,
+                "alt": f"{biz.get('name', 'Business')} photo {photo_index}",
+                "delay": (idx % 3) * 80
+            })
 
     # Prepare videos
     videos = []
@@ -559,17 +642,33 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         first_half = about_text[:split_at].strip() if split_at > 0 else about_text
         second_half = about_text[split_at:].strip() if split_at > 0 else about_text
 
-    # Story images for facade
-    hero_image_choice = _theme.get("hero_image", "").strip()
-    story_candidates = [img for img in images if img != hero_image_choice] if images else []
-    fallback_1 = story_candidates[0] if len(story_candidates) > 0 else (images[0] if images else "")
-    fallback_2 = story_candidates[1] if len(story_candidates) > 1 else (images[1] if len(images) > 1 else fallback_1)
-
+    # Story images for facade - use next unique photos
     selected_story_img_1 = (_theme.get("company_image_1") or "").strip()
     selected_story_img_2 = (_theme.get("company_image_2") or "").strip()
 
-    story_img_1 = selected_story_img_1 if selected_story_img_1 in images else fallback_1
-    story_img_2 = selected_story_img_2 if selected_story_img_2 in images else fallback_2
+    if selected_story_img_1 and selected_story_img_1 in images:
+        story_img_1 = selected_story_img_1
+        # Skip this photo in the tracker if it matches current position
+        try:
+            story_idx = images.index(selected_story_img_1)
+            if story_idx == photo_index:
+                photo_index += 1
+        except ValueError:
+            pass
+    else:
+        story_img_1 = get_next_photo()
+
+    if selected_story_img_2 and selected_story_img_2 in images:
+        story_img_2 = selected_story_img_2
+        # Skip this photo in the tracker if it matches current position
+        try:
+            story_idx = images.index(selected_story_img_2)
+            if story_idx == photo_index:
+                photo_index += 1
+        except ValueError:
+            pass
+    else:
+        story_img_2 = get_next_photo()
 
     # Prepare values section for facade
     values_raw = ai.get("values") or []
@@ -594,17 +693,25 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     while len(values) < 5:
         values.append(f"Value {len(values) + 1}")
 
-    # Values image - use saved value or default to first non-hero image
+    # Values image - use saved value or next unique photo
     values_image = ""
     saved_values_image = _theme.get("values_image", "")
     if saved_values_image:
         # Use saved values image (strip media prefix if present)
-        values_image = saved_values_image if saved_values_image.startswith(media_prefix) else media_prefix + saved_values_image
-    elif images:
-        # Default to first non-hero image
-        non_hero_images = [img for img in images if img != hero_image_choice]
-        chosen = non_hero_images[0] if non_hero_images else images[0]
-        values_image = media_prefix + chosen
+        clean_saved = saved_values_image.replace(media_prefix, "") if saved_values_image.startswith(media_prefix) else saved_values_image
+        values_image = media_prefix + clean_saved
+        # Skip this photo in the tracker if it matches current position
+        if clean_saved in images:
+            try:
+                val_idx = images.index(clean_saved)
+                if val_idx == photo_index:
+                    photo_index += 1
+            except ValueError:
+                pass
+    else:
+        # Use next unique photo
+        val_photo = get_next_photo()
+        values_image = media_prefix + val_photo if val_photo else ""
 
     # Prepare CSS for facade
     facade_css = ""
@@ -670,6 +777,16 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     # Location for hero label
     city = biz.get("address", "").split(",")[-2].strip() if biz.get("address") and "," in biz.get("address") else biz.get("address", "").split(",")[0].strip() if biz.get("address") else ""
 
+    # Template language
+    lang_file_code = "fr"
+    html_lang = "en"
+    tr = {}
+    stored_lang = raw.get("language", "fr")
+    requested_lang = LANGUAGE_OVERRIDE or BERNARD_LANGUAGE_OVERRIDE or stored_lang
+    lang_file_code = _normalize_lang_code(requested_lang)
+    html_lang = _HTML_LANG_BY_FILE.get(lang_file_code, "fr")
+    tr = _load_template_translations(template, lang_file_code)
+
     # Generate dynamic navigation links based on enabled sections
     nav_links = []
 
@@ -677,18 +794,18 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     if template == "default":
         # Keywords section shown if keywords exist
         if keywords:
-            nav_links.append({"href": "#keywords", "label": "Avis"})
+            nav_links.append({"href": "#keywords", "label": _tr(tr, "nav.reviews", "Reviews")})
         # Features section shown if features exist
         if features:
-            nav_links.append({"href": "#features", "label": "Fonctionnalités"})
+            nav_links.append({"href": "#features", "label": _tr(tr, "nav.features", "Features")})
         # Gallery section shown if gallery_images exist
         if gallery_images:
-            nav_links.append({"href": "#gallery", "label": "Galerie"})
+            nav_links.append({"href": "#gallery", "label": _tr(tr, "nav.gallery", "Gallery")})
         # Videos section shown if videos exist
         if videos:
-            nav_links.append({"href": "#videos", "label": "Vidéos"})
+            nav_links.append({"href": "#videos", "label": _tr(tr, "nav.videos", "Videos")})
         # Contact is always shown in default template
-        nav_links.append({"href": "#contact", "label": "Contact"})
+        nav_links.append({"href": "#contact", "label": _tr(tr, "nav.contact", "Contact")})
 
     # For bernard template
     elif template == "bernard":
@@ -697,38 +814,38 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
 
         if is_multipage:
             # Multipage navigation
-            nav_links.append({"href": "index.html", "label": "Home", "active": current_page == "home"})
-            nav_links.append({"href": "services.html", "label": "Services", "active": current_page == "services"})
-            nav_links.append({"href": "contact.html", "label": "Contact", "active": current_page == "contact"})
+            nav_links.append({"href": "index.html", "label": _tr(tr, "nav.home", "Home"), "active": current_page == "home"})
+            nav_links.append({"href": "services.html", "label": _tr(tr, "nav.services", "Services"), "active": current_page == "services"})
+            nav_links.append({"href": "contact.html", "label": _tr(tr, "nav.contact", "Contact"), "active": current_page == "contact"})
         else:
             # Single page navigation (old behavior)
-            nav_links.append({"href": "#home", "label": "Home"})
+            nav_links.append({"href": "#home", "label": _tr(tr, "nav.home", "Home")})
             if features:
                 nav_links.append({"href": "#advantages", "label": "Advantages"})
             if ai.get("about_paragraph"):
-                nav_links.append({"href": "#about", "label": "About"})
+                nav_links.append({"href": "#about", "label": _tr(tr, "about.small_text", "About")})
             if features:
-                nav_links.append({"href": "#services", "label": "Services"})
+                nav_links.append({"href": "#services", "label": _tr(tr, "nav.services", "Services")})
             if reviews:
-                nav_links.append({"href": "#testimonials", "label": "Testimonials"})
+                nav_links.append({"href": "#testimonials", "label": _tr(tr, "testimonials.small_text", "Testimonials")})
 
     # For facade template - check using same conditions as template conditionals
     else:
         # About section: {% if about_story_left or about_story_right %}
         if first_half or second_half:
-            nav_links.append({"href": "#about", "label": "About"})
+            nav_links.append({"href": "#about", "label": _tr(tr, "nav.about", "About")})
         # Features section: {% if features %}
         if features:
-            nav_links.append({"href": "#features", "label": "Features"})
+            nav_links.append({"href": "#features", "label": _tr(tr, "nav.features", "Features")})
         # Values section: {% if values %}
         if values:
-            nav_links.append({"href": "#values", "label": "Values"})
+            nav_links.append({"href": "#values", "label": _tr(tr, "nav.values", "Values")})
         # Videos section: {% if videos %}
         if videos:
-            nav_links.append({"href": "#videos", "label": "Videos"})
+            nav_links.append({"href": "#videos", "label": _tr(tr, "nav.videos", "Videos")})
         # Contact section: {% if address or phone or email %}
         if biz.get("address") or biz.get("phone") or biz.get("email"):
-            nav_links.append({"href": "#contact", "label": "Contact"})
+            nav_links.append({"href": "#contact", "label": _tr(tr, "nav.contact", "Contact")})
 
     # Build Jinja2 context
     context = {
@@ -776,9 +893,9 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         # Sections data
         "keywords": keywords,
         "features": features,
-        "features_title": "Tout ce dont vous avez besoin",
-        "features_subtitle": "Conçu pour les professionnels exigeants.",
-        "features_intro_text": "We offer a comprehensive range of professional features designed to meet your needs",
+        "features_title": _tr(tr, "features.title", "Everything you need"),
+        "features_subtitle": _tr(tr, "features.subtitle", "Designed for demanding professionals."),
+        "features_intro_text": _tr(tr, "features.intro", "We offer a comprehensive range of professional features designed to meet your needs"),
         "gallery_images": gallery_images,
         "videos": videos,
         "opening_hours": opening_hours,
@@ -797,8 +914,16 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         # Footer
         "footer_description": ai.get("footer_tagline") or (about_text[:200] if about_text else subtitle[:200]),
         "footer_tagline": ai.get("footer_tagline") or (about_text[:200] if about_text else subtitle[:200]),
-        "footer_copyright": ai.get("footer_copyright", f"© {__import__('datetime').date.today().year} {biz.get('name', 'Business')}. All rights reserved."),
+        "footer_copyright": ai.get(
+            "footer_copyright",
+            f"© {__import__('datetime').date.today().year} {biz.get('name', 'Business')}. {_tr(tr, 'footer.all_rights_reserved', 'All rights reserved.')}"
+        ),
         "social_links": [],  # Can be populated from business data if available
+        "html_lang": html_lang,
+        "language": raw.get("language", "fr"),
+        "lang_file_code": lang_file_code,
+        "tr": tr,
+        "template_id": template,
     }
 
     # Bernard template specific data
@@ -820,7 +945,19 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         services_page_cards_raw = ai.get("services_page_cards") or []
 
         if isinstance(why_choose_cards_raw, list) and why_choose_cards_raw:
-            advantages = why_choose_cards_raw
+            advantages = []
+            for card in why_choose_cards_raw:
+                card_obj = card if isinstance(card, dict) else {}
+                icon = str(card_obj.get("icon", "star")).strip() or "star"
+                icon_type = card_obj.get("icon_type")
+                if icon_type not in ["material", "emoji"]:
+                    icon_type = "material" if re.match(r'^[a-z][a-z0-9_]{1,49}$', icon) else "emoji"
+                advantages.append({
+                    "icon": icon,
+                    "icon_type": icon_type,
+                    "title": card_obj.get("title", ""),
+                    "description": card_obj.get("description", ""),
+                })
         else:
             advantages = features[:3] if len(features) >= 3 else features
 
@@ -829,12 +966,17 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         else:
             services_from_features = features[3:7] if len(features) > 3 else []
 
-        # Prepare services with default images
+        # Prepare services with default images - only show real services
         bernard_services = []
         for idx, feat in enumerate(services_from_features):
             feat_obj = feat if isinstance(feat, dict) else {}
             feat_image = feat_obj.get("image", "")
-            service_image = feat_image or (images[idx % len(images)] if images else "")
+            # Use next unique photo instead of rotating through same images
+            if feat_image:
+                service_image = feat_image
+            else:
+                next_photo = get_next_photo()
+                service_image = next_photo if next_photo else ""
             bernard_services.append({
                 "image": media_prefix + service_image if service_image else "",
                 "title": feat_obj.get("title", ""),
@@ -842,34 +984,28 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 "link": feat_obj.get("link", "") or "#contact"
             })
 
-        # Fill services to at least 4 with defaults if needed
-        while len(bernard_services) < 4:
-            bernard_services.append({
-                "image": media_prefix + images[0] if images else "",
-                "title": f"Service {len(bernard_services) + 1}",
-                "description": "Description du service à personnaliser depuis le tableau de bord.",
-                "link": "#contact"
-            })
+        # Don't pad with placeholders - only show actual services
 
-        services_page_source = services_page_cards_raw if (isinstance(services_page_cards_raw, list) and services_page_cards_raw) else services_from_features
+        services_page_source = (
+            services_page_cards_raw
+            if (isinstance(services_page_cards_raw, list) and services_page_cards_raw)
+            else features[3:]
+        )
         bernard_services_page = []
         for idx, feat in enumerate(services_page_source):
             feat_obj = feat if isinstance(feat, dict) else {}
             feat_image = feat_obj.get("image", "")
-            service_image = feat_image or (images[idx % len(images)] if images else "")
+            # Use next unique photo instead of rotating through same images
+            if feat_image:
+                service_image = feat_image
+            else:
+                next_photo = get_next_photo()
+                service_image = next_photo if next_photo else ""
             bernard_services_page.append({
                 "image": media_prefix + service_image if service_image else "",
                 "title": feat_obj.get("title", ""),
                 "description": feat_obj.get("description", ""),
                 "link": feat_obj.get("link", "") or "#contact"
-            })
-
-        while len(bernard_services_page) < 4:
-            bernard_services_page.append({
-                "image": media_prefix + images[0] if images else "",
-                "title": f"Service {len(bernard_services_page) + 1}",
-                "description": "Description du service à personnaliser depuis le tableau de bord.",
-                "link": "#contact"
             })
 
         # Prepare about bullets - check if AI data has bullet_points first
@@ -892,16 +1028,26 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                         "description": parts[1].strip() if len(parts) > 1 and parts[1] else ""
                     })
         else:
-            # Fallback to values
-            for val in values[:3]:
-                if isinstance(val, str):
-                    parts = val.split(":", 1) if ":" in val else ["", val]
-                    about_bullets.append({
-                        "title": parts[0].strip() if parts[0] else "Advantage",
-                        "description": parts[1].strip() if len(parts) > 1 and parts[1] else val
-                    })
+            # Fallback to why_choose_us_cards first
+            why_choose_cards = ai.get("why_choose_us_cards", [])
+            if why_choose_cards and len(why_choose_cards) > 0:
+                for card in why_choose_cards[:3]:
+                    if isinstance(card, dict):
+                        about_bullets.append({
+                            "title": card.get("title", ""),
+                            "description": card.get("description", "")
+                        })
+            else:
+                # Final fallback to values
+                for val in values[:3]:
+                    if isinstance(val, str):
+                        parts = val.split(":", 1) if ":" in val else ["", val]
+                        about_bullets.append({
+                            "title": parts[0].strip() if parts[0] else "Advantage",
+                            "description": parts[1].strip() if len(parts) > 1 and parts[1] else val
+                        })
 
-        # Fill to 3 bullets with defaults
+        # Fill to 3 bullets with defaults only if still needed
         while len(about_bullets) < 3:
             about_bullets.append({
                 "title": "Advantage",
@@ -934,15 +1080,16 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             if isinstance(review, dict) and review.get("text"):
                 bernard_testimonials.append({
                     "text": review.get("text", "")[:200],
-                    "author": review.get("author_name", review.get("name", "Client satisfait"))
+                    "author": review.get("author_name", review.get("name", "Client satisfait")),
+                    "rating": review.get("rating", 5)
                 })
 
         # Add defaults if no reviews
         if not bernard_testimonials:
             bernard_testimonials = [
-                {"text": "Service excellent et très professionnel. Je recommande vivement!", "author": "Client satisfait"},
-                {"text": "Équipe compétente et résultats au-delà de mes attentes.", "author": "Client satisfait"},
-                {"text": "Très satisfait de la qualité du service fourni.", "author": "Client satisfait"}
+                {"text": "Service excellent et très professionnel. Je recommande vivement!", "author": "Client satisfait", "rating": 5},
+                {"text": "Équipe compétente et résultats au-delà de mes attentes.", "author": "Client satisfait", "rating": 5},
+                {"text": "Très satisfait de la qualité du service fourni.", "author": "Client satisfait", "rating": 5}
             ]
 
         # Bernard-specific context additions
@@ -954,28 +1101,29 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             "current_page": current_page,
             "hero_small_text": ai.get("hero_small_text", biz.get("place_type", "Service professionnel")),
             "hero_heading": ai.get("hero_heading", tagline),
-            "form_heading": ai.get("form_heading", "Have any question?"),
-            "form_button_text": ai.get("form_button_text", "Je souhaite être rappelé"),
+            "form_heading": ai.get("form_heading", _tr(tr, "hero.form_heading", "Have any question?")),
+            "form_button_text": ai.get("form_button_text", _tr(tr, "hero.form_button", "Je souhaite être rappelé")),
+            "service_link_label": _tr(tr, "services.learn_more", "Learn more"),
             "advantages": advantages,
-            "why_choose_us_heading": ai.get("why_choose_us_heading") or "Why Choose Us?",
+            "why_choose_us_heading": ai.get("why_choose_us_heading") or _tr(tr, "why_choose.heading", "Why Choose Us?"),
             "why_choose_us_image": (
                 media_prefix + _theme.get("why_choose_us_image")
                 if _theme.get("why_choose_us_image")
-                else media_prefix + (images[2] if len(images) > 2 else (images[0] if images else ""))
+                else media_prefix + get_next_photo() if images else ""
             ),
-            "about_image": media_prefix + story_img_1 if story_img_1 else (media_prefix + images[0] if images else ""),
+            "about_image": media_prefix + (story_img_1 if story_img_1 else get_next_photo()),
             "years_of_experience": raw.get("years_of_experience", 0),
-            "about_small_text": ai.get("about_small_text", "À propos"),
-            "about_heading": ai.get("about_heading", "Your trusted company"),
+            "about_small_text": ai.get("about_small_text", _tr(tr, "about.small_text", "À propos")),
+            "about_heading": ai.get("about_heading", _tr(tr, "about.heading", "Your trusted company")),
             "about_description": about_text,
             "about_bullets": about_bullets,
-            "services_small_text": ai.get("services_small_text") or "For individuals and professionals",
-            "services_heading": ai.get("services_heading") or "Discover our services",
+            "services_small_text": ai.get("services_small_text") or _tr(tr, "services.small_text", "For individuals and professionals"),
+            "services_heading": ai.get("services_heading") or _tr(tr, "services.heading", "Discover our services"),
             "services": bernard_services_page if current_page == "services" else bernard_services,
             "values_heading": ai.get("values_heading", "Who are our clients"),
             "values_list": values_list,
-            "testimonials_small_text": ai.get("testimonials_small_text", "Testimonials"),
-            "testimonials_heading": ai.get("testimonials_heading", "What our clients say"),
+            "testimonials_small_text": ai.get("testimonials_small_text", _tr(tr, "testimonials.small_text", "Testimonials")),
+            "testimonials_heading": ai.get("testimonials_heading", _tr(tr, "testimonials.heading", "What our clients say")),
             "testimonials": bernard_testimonials,
             # Services Page Data
             "services_page_seo_title": ai.get("services_page_seo_title", f"{biz.get('name', '')} - Our Services"),

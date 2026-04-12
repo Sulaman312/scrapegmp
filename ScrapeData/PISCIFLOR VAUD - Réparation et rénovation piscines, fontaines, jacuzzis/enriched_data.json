@@ -1,0 +1,393 @@
+{
+  "template": "bernard",
+  "language": "de",
+  "business": {
+    "name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
+    "place_type": "Swimming pool repair service",
+    "phone": "+41 78 602 58 36",
+    "email": "",
+    "website": "pisciflor.ch",
+    "price_range": "",
+    "rating": 4.2,
+    "reviews_count": null,
+    "address": "14 ZI Pré-Briand, 1510 Moudon, Switzerland",
+    "description": "Rénovation de piscine ? L’expert suisse, c’est Pisciflor ! Réparation, fissures, changement de couleurs, des spécialistes à votre service.",
+    "latitude": "46.6764209",
+    "longitude": "6.8113791",
+    "google_maps_url": "https://www.google.com/maps/place/PISCIFLOR+VAUD+-+Réparation+et+rénovation+piscines,+fontaines,+jacuzzis/@46.6764209,6.8113791,17z/data=!3m1!4b1!4m6!3m5!1s0x478e79aa6a47a709:0x3ee5171e2b0c6d55!8m2!3d46.6764209!4d6.813954!16s%2Fg%2F11tn5fwjyj?entry=ttu&g_ep=EgoyMDI2MDMwMS4xIKXMDSoASAFQAw%3D%3D",
+    "plus_code": "MRG7+HH Moudon, Switzerland",
+    "hours": {
+      "monday": "Not available",
+      "tuesday": "Not available",
+      "wednesday": "Not available",
+      "thursday": "Not available",
+      "friday": "Not available",
+      "saturday": "Not available",
+      "sunday": "Closed"
+    }
+  },
+  "ai": {
+    "brand_short_name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
+    "tagline": "Ihr Experte für Poolrenovierungen und Reparaturen",
+    "hero_subtitle": "Verleihen Sie Ihrem Pool neues Leben mit unseren professionellen Renovierungsdiensten.",
+    "cta_primary": "Jetzt Kontakt aufnehmen",
+    "cta_primary_url": "pisciflor.ch",
+    "cta_secondary": "Mehr erfahren",
+    "cta_secondary_url": "pisciflor.ch",
+    "about_paragraph": "Die Pisciflor Vaud ist seit 1958 auf die Reparatur und Renovierung von Schwimmbecken, Fontänen und Whirlpools spezialisiert. Unser Team von Fachleuten bietet hochwertige Dienstleistungen, um Ihre Wasserlandschaft wieder in Topform zu bringen.",
+    "about_story_left": "Die Pisciflor Vaud ist seit 1958 auf die Reparatur und Renovierung von Schwimmbecken, Fontänen und Whirlpools spezialisiert.",
+    "about_story_right": "Unser Team von Fachleuten bietet hochwertige Dienstleistungen, um Ihre Wasserlandschaft wieder in Topform zu bringen.",
+    "seo_title": "Professionelle Poolrenovierung in der Schweiz | Pisciflor",
+    "seo_description": "Erleben Sie die besten Renovierungsdienste für Pools, Whirlpools und Fontänen in der Schweiz. Kontaktieren Sie Pisciflor für ein individuelles Angebot.",
+    "features": [
+      {
+        "icon": "verified",
+        "title": "Erfahrene Fachleute",
+        "description": "Unser Team aus Experten garantiert qualitativ hochwertige Renovierungsarbeiten für Ihre Pools.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "spa",
+        "title": "Umfassende Renovierungsdienste",
+        "description": "Wir bieten vollständige Renovierungen für Schwimmbecken, Whirlpools und Fontänen an.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "support_agent",
+        "title": "Kundenservice",
+        "description": "Unser freundliches Team steht Ihnen jederzeit für Fragen und Unterstützung zur Verfügung.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "checklist",
+        "title": "Individuelle Angebote",
+        "description": "Erhalten Sie ein maßgeschneidertes Angebot für Ihre spezifischen Renovierungsbedürfnisse.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "local_shipping",
+        "title": "Schnelle Ausführung",
+        "description": "Wir garantieren eine zügige Durchführung der Arbeiten, damit Sie schnell wieder genießen können.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "star",
+        "title": "Hochwertige Materialien",
+        "description": "Wir verwenden nur die besten Materialien für eine langlebige und ästhetische Renovierung.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "bolt",
+        "title": "Innovative Techniken",
+        "description": "Unsere modernen Techniken sorgen für eine effektive und nachhaltige Renovierung Ihrer Pools.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "home",
+        "title": "Lokale Expertise",
+        "description": "Als lokales Unternehmen kennen wir die spezifischen Bedürfnisse und Herausforderungen der Region.",
+        "image": "",
+        "link": ""
+      }
+    ],
+    "services_cards": [
+      {
+        "title": "Individuelle Angebote",
+        "description": "Erhalten Sie ein maßgeschneidertes Angebot für Ihre spezifischen Renovierungsbedürfnisse.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Schnelle Ausführung",
+        "description": "Wir garantieren eine zügige Durchführung der Arbeiten, damit Sie schnell wieder genießen können.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Hochwertige Materialien",
+        "description": "Wir verwenden nur die besten Materialien für eine langlebige und ästhetische Renovierung.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Innovative Techniken",
+        "description": "Unsere modernen Techniken sorgen für eine effektive und nachhaltige Renovierung Ihrer Pools.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      }
+    ],
+    "services_page_cards": [
+      {
+        "title": "Individuelle Angebote",
+        "description": "Erhalten Sie ein maßgeschneidertes Angebot für Ihre spezifischen Renovierungsbedürfnisse.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Schnelle Ausführung",
+        "description": "Wir garantieren eine zügige Durchführung der Arbeiten, damit Sie schnell wieder genießen können.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Hochwertige Materialien",
+        "description": "Wir verwenden nur die besten Materialien für eine langlebige und ästhetische Renovierung.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Innovative Techniken",
+        "description": "Unsere modernen Techniken sorgen für eine effektive und nachhaltige Renovierung Ihrer Pools.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      }
+    ],
+    "why_choose_us_cards": [
+      {
+        "icon": "verified",
+        "title": "Erfahrene Fachleute",
+        "description": "Unser Team aus Experten garantiert qualitativ hochwertige Renovierungsarbeiten für Ihre Pools."
+      },
+      {
+        "icon": "spa",
+        "title": "Umfassende Renovierungsdienste",
+        "description": "Wir bieten vollständige Renovierungen für Schwimmbecken, Whirlpools und Fontänen an."
+      },
+      {
+        "icon": "support_agent",
+        "title": "Kundenservice",
+        "description": "Unser freundliches Team steht Ihnen jederzeit für Fragen und Unterstützung zur Verfügung."
+      }
+    ],
+    "services_small_text": "",
+    "services_heading": "",
+    "why_choose_us_heading": "",
+    "cta_heading": "RÉNOVATION PISCINE : EN CAS DE MAUVAIS TEMPS OU PENDANT L’HIVER",
+    "cta_subtitle": "Verleihen Sie Ihrem Pool neues Leben mit unseren professionellen Renovierungsdiensten.",
+    "cta_btn_label": "",
+    "cta_link": "",
+    "cta_banner_btn_label": "",
+    "cta_banner_btn_link": "",
+    "footer_tagline": "Die Pisciflor Vaud ist seit 1958 auf die Reparatur und Renovierung von Schwimmbecken, Fontänen und Whirlpools spezialisiert. Unser Team von Fachleuten bietet hochwertige Dienstleistungen, um Ihre Wasserlandschaft wieder in Topform zu bringen.",
+    "footer_copyright": "© 2026 PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis. All rights reserved.",
+    "values": [],
+    "about_bullet_points": [],
+    "services_page_seo_title": "",
+    "services_page_seo_description": "",
+    "services_page_hero_title": "",
+    "services_page_hero_subtitle": "",
+    "services_page_small_text": "",
+    "services_page_heading": "",
+    "services_page_description": "",
+    "services_cta_heading": "",
+    "services_cta_text": "",
+    "services_cta_button": "",
+    "contact_page_seo_title": "",
+    "contact_page_seo_description": "",
+    "contact_page_hero_title": "",
+    "contact_page_hero_subtitle": "",
+    "contact_page_small_text": "",
+    "contact_page_heading": "",
+    "contact_page_description": ""
+  },
+  "_raw": {
+    "years_of_experience": 0
+  },
+  "website_data": {
+    "headings": [
+      "Votre piscine rénovée à partir de CHF 175.-/mois*",
+      "RÉPARATION ET RÉNOVATION DE PISCINES EN POLYESTER",
+      "RÉNOVEZ L’HIVER POUR PROFITER DE L’ÉTÉ",
+      "DES PROFESSIONNELS DE LA RÉNOVATION DE PISCINES À VOTRE DISPOSITION",
+      "GARANTIES LOCALES",
+      "EXEMPLES DE PROBLÈMES RENCONTRÉS",
+      "R É NOVATION PISCINE : TECHNIQUE DE PULVÉRISATION",
+      "EXEMPLES DE RÉPARATION ET DE RÉNOVATION PISCINE",
+      "RÉNOVATION PISCINE : EN CAS DE MAUVAIS TEMPS OU PENDANT L’HIVER"
+    ],
+    "meta_description": "Rénovation de piscine ? L’expert suisse, c’est Pisciflor ! Réparation, fissures, changement de couleurs, des spécialistes à votre service.",
+    "paragraphs": [
+      "Problèmes d’osmose, cloques sur les parois de votre piscine ? Gelcoat abîmé , rayé, fissures ? Chez Pisciflor, nous vous proposons un service de rénovation de piscine et des produits de qualité .",
+      "La société Pisciflor travaille avec des experts depuis 1958 . Spécialisée dans les revêtements de sols sans joints à base de résine synthétique, elle apporte son expertise dans l’entretien de piscines.",
+      "Les produits sont sélectionnés et fabriqués par nos soins afin d’obtenir une qualité de travail et un résultat sans faille . Nous évaluons gratuitement l’étendue des travaux à réaliser et vous proposons la rénovation de piscine la plus adaptée à vos besoins !",
+      "Quelques soient vos dégâts nos experts Pisciflor se chargent de tout et répareront votre piscine comme à ses premiers jours. Chez Pisciflor rien est impossible ! Pour une meilleure compréhension de votre besoin, prenez des photos des dégâts et envoyer les nous via le formulaire de contact .",
+      "Notre équipe de spécialistes Pisciflor utilise une technique de pulvérisation lors de la rénovation de votre piscine pour un résultat optimal . Le Gelcoat assure la finition des piscines en polyester et à coques . En plus de cela, de nombreuses couleurs sont disponibles , il est agréable au toucher et donne un aspect lisse à votre piscine.",
+      "Notre société travaille avec les professionnels et les particuliers. Nous répondons aux normes en vigueur et disposons en interne d’un laboratoire d’analyse afin de créer nos propres produits. Nous utilisons des produits qui répondent parfaitement aux défis techniques et aux normes en vigueur.",
+      "VALAIS Route de Bas-Vièze 12 1875 - Morgins Tél.: 078 602 58 36 info@pisciflor.ch",
+      "J'autorise la société Pisciflor à me faire parvenir les nouveautés et offres du moment. En savoir plus .",
+      "Les services de Pisciflor n’ont plus de secret pour vous et vous êtes intéressé par l’une de nos offres ? Que ce soit pour de la rénovation ou de la réparation nos experts Pisciflor sont à votre service ! Remplissez le formulaire de contact ci-dessous pour obtenir un devis gratuit.",
+      "Et pour vous tenir au courant de toutes les Astuces et Conseils partagées par Pisciflor inscrivez-vous à notre newsletter .",
+      "PISCIFLOR 39, route du Jorat 1000 Lausanne 27",
+      "Ajoutez des photos de la piscine (un plan large & un plan rapproché des dégats) pour permettre à nos experts de comprendre votre besoin au plus vite. Plan ou photos [file fichier filetypes:doc|docx|pdf|txt|gif|jpg|jpeg|png class:form-control limit:4 096 000]",
+      "Type de fichier accepté: doc, docx, pdf, txt, gif, jpg, jpeg, png Taille de fichier maximum: 4mb"
+    ],
+    "pricing_hints": [],
+    "raw_text": "Rénovation piscine & entretien de piscine à coque en Suisse Skip to content 078 602 58 36 058 502 76 12 info@pisciflor.ch Lu – Ve : 08h00 – 18h00 Demandez un devis Rénovation Réparation Décoration Astuces et conseils Demande de devis Votre piscine rénovée à partir de CHF 175.-/mois* Contactez-nous pour en savoir plus RÉPARATION ET RÉNOVATION DE PISCINES EN POLYESTER RÉNOVEZ L’HIVER POUR PROFITER DE L’ÉTÉ DES PROFESSIONNELS DE LA RÉNOVATION DE PISCINES À VOTRE DISPOSITION Problèmes d’osmose, cloques sur les parois de votre piscine ? Gelcoat abîmé , rayé, fissures ? Chez Pisciflor, nous vous proposons un service de rénovation de piscine et des produits de qualité . La société Pisciflor travaille avec des experts depuis 1958 . Spécialisée dans les revêtements de sols sans joints à base de résine synthétique, elle apporte son expertise dans l’entretien de piscines. Les produits sont sélectionnés et fabriqués par nos soins afin d’obtenir une qualité de travail et un résultat sans faille . Nous évaluons gratuitement l’étendue des travaux à réaliser et vous proposons la rénovation de piscine la plus adaptée à vos besoins ! GARANTIES LOCALES EXEMPLES DE PROBLÈMES RENCONTRÉS Quelques soient vos dégâts nos experts Pisciflor se chargent de tout et répareront votre piscine comme à ses premiers jours. Chez Pisciflor rien est impossible ! Pour une meilleure compréhension de votre besoin, prenez des photos des dégâts et envoyer les nous via le formulaire de contact . NOUS ÉVALUONS GRATUITEMENT L’ÉTENDUE DES TRAVAUX À RÉALISER CONTACTEZ-NOUS R É NOVATION PISCINE : TECHNIQUE DE PULVÉRISATION Notre équipe de spécialistes Pisciflor utilise une technique de pulvérisation lors de la rénovation de votre piscine pour un résultat optimal . Le Gelcoat assure la finition des piscines en polyester et à coques . En plus de cela, de nombreuses couleurs sont disponibles , il est agréable au toucher et donne un aspect lisse à votre piscine. application gelcoat application gelcoat EXEMPLES DE RÉPARATION ET DE RÉNOVATION PISCINE Convaincu ? Obtenez votre devis en moins de 48h CONTACTEZ-NOUS RÉNOVATION PISCINE : EN CAS DE MAUVAIS TEMPS OU PENDANT L’HIVER Notre société travaille avec les professionnels et les particuliers. Nous répondons aux normes en vigueur et disposons en interne d’un laboratoire d’analyse afin de créer nos propres produits. Nous utilisons des produits qui répondent parfaitement aux défis techniques et aux normes en vigueur. CONTACTEZ-NOUS PISCIFLOR VALAIS Route de Bas-Vièze 12 1875 - Morgins Tél.: 078 602 58 36 info@pisciflor.ch ACCÈS RAPIDE RÉNOVATION RÉPARATION COULEURS DISPONIBLES ASTUCES & CONSEILS CONTACT INSCRIPTION NEWSLETTER J'autorise la société Pisciflor à me faire parvenir les nouveautés et offres du moment. En savoir plus . © Copyright 2026 Pisciflor tous droits réservés - Mentions Légales - by www.c OO mmunication.com & www.pme-kmu.com - Conditions générales de vente Gérer le consentement aux cookies Pour offrir les meilleures expériences, nous ut",
+    "services": [
+      "Rénovation",
+      "Réparation",
+      "Décoration",
+      "Astuces et conseils",
+      "Demande de devis"
+    ],
+    "team": [],
+    "title": "Rénovation piscine & entretien de piscine à coque en Suisse"
+  },
+  "theme": {
+    "color1": "#1E40AF",
+    "color2": "#DBEAFE",
+    "color3": "#FB923C",
+    "cta_color": "#1E40AF",
+    "hero_dark": "#06060F",
+    "hero_image": "images/All/0001.webp",
+    "why_choose_us_image": "images/All/0003.webp",
+    "values_image": "images/All/0001.webp",
+    "company_image_1": "images/All/0001.webp",
+    "company_image_2": "images/All/0002.webp"
+  },
+  "images": [
+    "images/All/0001.webp",
+    "images/All/0002.webp",
+    "images/All/0003.webp"
+  ],
+  "reviews": [
+    {
+      "author_name": "Mirjam",
+      "text": "We highly recommend this company for pool renovations! From the very first contact, the owner was attentive, professional, and responsive. The project was completed on schedule, with meticulous attention to detail and quality, and the quote was adhered to precisely. The result exceeded our expectations. A huge thank you to the entire team for their professionalism, expertise, and especially their friendliness!",
+      "rating": 5,
+      "date": "9 months ago"
+    },
+    {
+      "author_name": "Mirjam",
+      "text": "We highly recommend this company for pool renovations! From the very first contact, the owner was attentive, professiona",
+      "rating": 5,
+      "date": "9 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "We highly recommend this company for pool renovations! From the very first contact, the owner was attentive, professiona",
+      "rating": 5,
+      "date": "9 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "We highly recommend this company for pool renovations! From the very first contact, the owner was attentive, professiona",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "We highly recommend this company for pool renovations! From the very first contact, the owner was attentive, professiona",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Natalia Vlasova",
+      "text": "This company, and Mr. Picard, who gave his company 5 stars in BTW magazine, renovated our pool.\n\nI must say that Mr. Picard is quite the writer, and instead of fixing their mistakes and providing simple after-sales service, he sends us numerous letters with explanations.\n\nI strongly recommend that you use other companies for your projects. Pisciflor doesn't adhere to any of the rules of a reliable company.",
+      "rating": 1,
+      "date": "2 years ago"
+    },
+    {
+      "author_name": "Natalia Vlasova",
+      "text": "This company, and Mr. Picard, who gave his company 5 stars in BTW magazine, renovated our pool.\n\nI must say that Mr. Picard is quite the writer, and instead of fixing their mistakes and providing simple after-sales service, he sends us numerous letters with explanations.\n\nI strongly recommend that you use other companies for your projects. Pisciflor doesn't adhere to any of the rules of a reliable company.",
+      "rating": 1,
+      "date": "2 years ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "This company, and Mr. Picard, who gave his company 5 stars in BTW magazine, renovated our pool.\n\nI must say that Mr. Pic",
+      "rating": 1,
+      "date": "2 years ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "This company, and Mr. Picard, who gave his company 5 stars in BTW magazine, renovated our pool.\n\nI must say that Mr. Pic",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "This company, and Mr. Picard, who gave his company 5 stars in BTW magazine, renovated our pool.\n\nI must say that Mr. Pic",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Raymond Rochat",
+      "text": "The plan was kept and followed closely. Extremely happy with the final result. The staff were competent and very friendl",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Raymond Rochat",
+      "text": "The plan was kept and followed closely. Extremely happy with the final result. The staff were competent and very friendl",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "The plan was kept and followed closely. Extremely happy with the final result. The staff were competent and very friendl",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "The plan was kept and followed closely. Extremely happy with the final result. The staff were competent and very friendl",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "The plan was kept and followed closely. Extremely happy with the final result. The staff were competent and very friendl",
+      "rating": 5,
+      "date": ""
+    }
+  ],
+  "review_keywords": [
+    "Restaurants",
+    "Hotels",
+    "Things to do",
+    "Transit",
+    "Parking",
+    "Pharmacies",
+    "ATMs",
+    "See photos",
+    "Swimming pool repair service",
+    "Directions",
+    "Save",
+    "Nearby",
+    "Send to phone",
+    "Share",
+    "14 ZI Pré-Briand, 1510 Moudon, Switzerland",
+    "+41 78 602 58 36",
+    "MRG7+HH Moudon, Switzerland",
+    "Suggest an edit",
+    "Write a review",
+    "Learn more"
+  ],
+  "qa": [],
+  "updates": [],
+  "popular_times": {},
+  "about": {
+    "highlights": [
+      "Problèmes d’osmose, cloques sur les parois de votre piscine ? Gelcoat abîmé , rayé, fissures ? Chez Pisciflor, nous vous proposons un service de rénovation de piscine et des produits de qualité .",
+      "La société Pisciflor travaille avec des experts depuis 1958 . Spécialisée dans les revêtements de sols sans joints à base de résine synthétique, elle apporte son expertise dans l’entretien de piscines.",
+      "Les produits sont sélectionnés et fabriqués par nos soins afin d’obtenir une qualité de travail et un résultat sans faille . Nous évaluons gratuitement l’étendue des travaux à réaliser et vous proposons la rénovation de piscine la plus adaptée à vos besoins !",
+      "Quelques soient vos dégâts nos experts Pisciflor se chargent de tout et répareront votre piscine comme à ses premiers jours. Chez Pisciflor rien est impossible ! Pour une meilleure compréhension de votre besoin, prenez des photos des dégâts et envoyer les nous via le formulaire de contact ."
+    ]
+  },
+  "about_attrs": [],
+  "social_links": [],
+  "web_results": [],
+  "related_places": [],
+  "section_visibility": {},
+  "_has_videos": false,
+  "_video_list": [],
+  "videos": []
+}

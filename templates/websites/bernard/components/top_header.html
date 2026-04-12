@@ -3,16 +3,16 @@
     <div class="container">
         <div class="top-header-content">
             {% if phone %}
-            <div class="top-header-item">
+            <a href="tel:{{ phone }}" class="top-header-item top-header-link">
                 <span class="material-symbols-outlined">phone</span>
                 <span>{{ phone }}</span>
-            </div>
+            </a>
             {% endif %}
             {% if email %}
-            <div class="top-header-item">
+            <a href="mailto:{{ email }}" class="top-header-item top-header-link">
                 <span class="material-symbols-outlined">email</span>
                 <span>{{ email }}</span>
-            </div>
+            </a>
             {% endif %}
             {% if hours_summary %}
             <div class="top-header-item">

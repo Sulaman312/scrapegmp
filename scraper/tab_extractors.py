@@ -1,4 +1,5 @@
 import logging
+import re
 
 from playwright.sync_api import Page
 
@@ -21,6 +22,110 @@ def click_tab(page: Page, tab_name: str) -> bool:
         "Updates":  ["Updates", "Mises à jour", "Actualizaciones"],
     }
     candidates = _ALIASES.get(tab_name, [tab_name])
+    logging.info(f"🔍 Looking for '{tab_name}' tab - will try: {candidates}")
+
+    # Playwright best-practice path: role/name based locator first.
+    # This is generally more stable than class/XPath selectors.
+    if tab_name == "Reviews":
+        def _is_valid_reviews_control(text: str) -> bool:
+            t = (text or "").strip().lower()
+            if not t:
+                return False
+            blocked = [
+                "write a review", "post a review", "add a review", "be the first",
+                "donner un avis", "écrire un avis", "escribir una reseña",
+                "eine rezension", "dejar una reseña", "rate and review",
+            ]
+            if any(b in t for b in blocked):
+                return False
+
+            review_words = [
+                "reviews", "review", "avis", "rezension", "reseña", "recension",
+                "avalia", "отзы", "评价", "리뷰",
+            ]
+            return any(w in t for w in review_words)
+
+        role_patterns = [
+            re.compile(r"review", re.IGNORECASE),
+            re.compile(r"avis", re.IGNORECASE),
+            re.compile(r"rezension", re.IGNORECASE),
+            re.compile(r"reseña", re.IGNORECASE),
+            re.compile(r"recension", re.IGNORECASE),
+            re.compile(r"avalia", re.IGNORECASE),
+            re.compile(r"отзы", re.IGNORECASE),
+            re.compile(r"리뷰", re.IGNORECASE),
+            re.compile(r"评价", re.IGNORECASE),
+            re.compile(r"\d+[\s\u00a0]*(review|avis|reseña|rezension)", re.IGNORECASE),
+        ]
+        for pattern in role_patterns:
+            try:
+                tab_loc = page.get_by_role("tab", name=pattern)
+                if tab_loc.count() > 0:
+                    for idx in range(tab_loc.count()):
+                        candidate = tab_loc.nth(idx)
+                        label = (candidate.get_attribute("aria-label") or candidate.inner_text() or "").strip()
+                        if not _is_valid_reviews_control(label):
+                            continue
+                        candidate.click(force=True)
+                        page.wait_for_timeout(2200)
+                        logging.info(f"  ✅ Clicked Reviews tab via role=tab name~/{pattern.pattern}/")
+                        return True
+            except Exception:
+                pass
+
+            try:
+                btn_loc = page.get_by_role("button", name=pattern)
+                if btn_loc.count() > 0:
+                    for idx in range(btn_loc.count()):
+                        candidate = btn_loc.nth(idx)
+                        label = (candidate.get_attribute("aria-label") or candidate.inner_text() or "").strip()
+                        if not _is_valid_reviews_control(label):
+                            continue
+                        candidate.click(force=True)
+                        page.wait_for_timeout(2200)
+                        logging.info(f"  ✅ Clicked Reviews button via role=button name~/{pattern.pattern}/")
+                        return True
+            except Exception:
+                pass
+
+    # Special-case fallback: on many Maps UIs, the reviews entry appears as
+    # a dynamic "<number> reviews" button rather than a literal "Reviews" label.
+    if tab_name == "Reviews":
+        review_count_selectors = [
+            'button[aria-label*="reviews" i]',
+            'div[role="tab"][aria-label*="review" i]',
+            'button[role="tab"][aria-label*="review" i]',
+            'div[role="tab"][aria-label*="reviews" i]',
+            'button:has-text("reviews")',
+            'button:has-text("Reviews")',
+            'button:has-text("avis")',
+            'button:has-text("reseñas")',
+            'button:has-text("rezension")',
+            'button:has-text("avaliações")',
+            'button:has-text("recensioni")',
+            'button:has-text("отзывы")',
+            'button:has-text("리뷰")',
+            'button:has-text("评价")',
+            'text=/\\d+[.,]?\\d*\\s*reviews?/i',
+            'text=/\\d+[.,]?\\d*\\s*avis/i',
+            'text=/\\d+[.,]?\\d*\\s*reseñas/i',
+            'text=/\\d+[.,]?\\d*\\s*rezension/i',
+        ]
+        for sel in review_count_selectors:
+            try:
+                loc = page.locator(sel)
+                if loc.count() > 0:
+                    for idx in range(loc.count()):
+                        candidate = loc.nth(idx)
+                        label = (candidate.get_attribute("aria-label") or candidate.inner_text() or "").strip()
+                        if not _is_valid_reviews_control(label):
+                            continue
+                        candidate.click(force=True)
+                        page.wait_for_timeout(2500)
+                        logging.info(f"  ✅ Clicked dynamic Reviews entry via selector: {sel}")
+                        return True
+            except Exception:
+                continue
 
     for name in candidates:
         selectors = [
@@ -35,15 +140,47 @@ def click_tab(page: Page, tab_name: str) -> bool:
         for sel in selectors:
             try:
                 elem = page.locator(sel)
-                if elem.count() > 0:
+                count = elem.count()
+                if count > 0:
+                    logging.info(f"  ✅ Found {count} element(s) for '{name}' with selector: {sel[:60]}...")
                     elem.first.click(force=True)
                     page.wait_for_timeout(2000)
-                    logging.info(f"Clicked '{name}' tab (requested: '{tab_name}')")
+                    logging.info(f"  ✅ Clicked '{name}' tab (requested: '{tab_name}')")
                     return True
-            except Exception:
+                else:
+                    logging.debug(f"  ❌ No elements for '{name}' with selector: {sel[:60]}...")
+            except Exception as e:
+                logging.debug(f"  ⚠ Exception for selector '{sel[:60]}...': {e}")
                 continue
 
-    logging.warning(f"Could not find '{tab_name}' tab (tried: {candidates})")
+    # Last-resort JS text matcher for role=tab / button nodes.
+    try:
+        for name in candidates:
+            clicked = page.evaluate(
+                """
+                (needle) => {
+                    const n = (needle || '').toLowerCase();
+                    const nodes = Array.from(document.querySelectorAll('button, [role="tab"]'));
+                    for (const el of nodes) {
+                        const txt = ((el.textContent || '') + ' ' + (el.getAttribute('aria-label') || '')).toLowerCase();
+                        if (txt.includes(n)) {
+                            el.click();
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                """,
+                name,
+            )
+            if clicked:
+                page.wait_for_timeout(2000)
+                logging.info(f"  ✅ Clicked '{name}' tab using JS fallback")
+                return True
+    except Exception:
+        pass
+
+    logging.warning(f"⚠ Could not find '{tab_name}' tab (tried: {candidates})")
     return False
 
 

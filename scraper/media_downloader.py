@@ -1,6 +1,7 @@
 import logging
 import os
 import re
+import time
 from io import BytesIO
 
 import requests
@@ -9,6 +10,85 @@ from playwright.sync_api import Page
 
 from scraper.tab_extractors import click_tab
 from scraper.utils import sanitize_filename
+
+
+def _env_int(name: str, default: int, min_value: int = 1) -> int:
+    """Read an integer env var with sane fallback and minimum guard."""
+    raw = os.getenv(name, str(default)).strip()
+    try:
+        value = int(raw)
+    except Exception:
+        return default
+    return max(min_value, value)
+
+
+def _find_scrollable_panel(page: Page):
+    selectors = [
+        'div[role="feed"]',
+        'div.m6QErb.DxyBCb.kA9KIf.dS8AEf',
+        'div.m6QErb.DxyBCb',
+        'div.m6QErb',
+    ]
+    for sel in selectors:
+        loc = page.locator(sel)
+        count = loc.count()
+        if count == 0:
+            continue
+        for idx in range(count):
+            candidate = loc.nth(idx)
+            try:
+                if sel == 'div[role="feed"]':
+                    return candidate, sel
+                is_scrollable = candidate.evaluate(
+                    "el => (el.scrollHeight - el.clientHeight) > 120"
+                )
+                if is_scrollable:
+                    return candidate, sel
+            except Exception:
+                continue
+    return None, ""
+
+
+def _open_full_photos_gallery(page: Page) -> bool:
+    """Try to open the dedicated photos gallery view (not the single-photo preview)."""
+    selectors = [
+        'button:has-text("See photos")',
+        'button:has-text("All photos")',
+        'button:has-text("Photos")',
+        'a:has-text("See photos")',
+        'a:has-text("All photos")',
+        '//button[contains(., "See photos")]',
+        '//button[contains(., "All photos")]',
+        '//button[contains(., "Photos")]',
+        '//a[contains(., "See photos")]',
+        '//a[contains(., "All photos")]',
+        '//button[contains(@aria-label, "See photos")]',
+        '//button[contains(@aria-label, "All photos")]',
+        '//button[contains(@aria-label, "photos")]',
+    ]
+
+    for sel in selectors:
+        try:
+            loc = page.locator(sel)
+            if loc.count() > 0:
+                loc.first.click(force=True)
+                page.wait_for_timeout(3000)
+                return True
+        except Exception:
+            continue
+
+    # Last resort: if this is a place page, try direct /photos URL.
+    try:
+        current = page.url
+        if '/maps/place/' in current and '/photos' not in current:
+            target = current.split('?')[0].rstrip('/') + '/photos'
+            page.goto(target, timeout=30000)
+            page.wait_for_timeout(3000)
+            return True
+    except Exception:
+        pass
+
+    return False
 
 
 def _download_one_image(base_url: str, dest_path: str) -> bool:
@@ -110,14 +190,25 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
     page.on('response', _on_response)
 
     try:
+        initial_scrolls = _env_int('SCRAPER_INITIAL_SCROLLS', 5, 1)
+        max_category_scrolls = _env_int('SCRAPER_MAX_CATEGORY_SCROLLS', 60, 1)
+        max_no_new_scrolls = _env_int('SCRAPER_MAX_NO_NEW_SCROLLS', 5, 1)
+        max_photos = int(os.getenv('SCRAPER_MAX_PHOTOS', '20'))
+        max_seconds = float(os.getenv('SCRAPER_IMAGES_MAX_SECONDS', '180'))
+        deadline = time.monotonic() + max_seconds
+
         photos_opened = False
+        logging.info("🔍 Attempting to open Photos panel...")
         for label in ["Photos", "Photo", "All photos", "See photos",
                        "Fotos", "Foto", "Alle Fotos", "Photos & vidéos", "Galerie"]:
+            logging.info(f"  Trying label: '{label}'")
             if click_tab(page, label):
+                logging.info(f"  ✅ Photos panel opened with label: '{label}'")
                 photos_opened = True
                 break
 
         if not photos_opened:
+            logging.info("  Labels failed, trying XPath selectors...")
             for sel in [
                 '//button[contains(@aria-label, "photo")]',
                 '//button[contains(@aria-label, "Photo")]',
@@ -126,18 +217,61 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
                 '//div[@class="RZ66Rb YU2qld"]',
             ]:
                 try:
-                    if page.locator(sel).count() > 0:
+                    count = page.locator(sel).count()
+                    logging.info(f"  Selector '{sel[:50]}...' found {count} elements")
+                    if count > 0:
                         page.locator(sel).first.click(force=True)
                         page.wait_for_timeout(3000)
+                        logging.info(f"  ✅ Photos panel opened with selector: '{sel[:50]}...'")
                         photos_opened = True
                         break
-                except Exception:
+                except Exception as e:
+                    logging.debug(f"  ⚠ Selector '{sel[:50]}...' failed: {e}")
                     continue
 
         if not photos_opened:
-            logging.warning("⚠ Could not open Photos panel")
+            logging.warning("⚠ Could not open Photos panel - all attempts failed")
 
-        page.wait_for_timeout(4000)
+        # Ensure we are in full photos gallery (not single preview/lightbox).
+        if _open_full_photos_gallery(page):
+            logging.info("✅ Opened full photos gallery view")
+        else:
+            logging.info("ℹ Could not explicitly open full gallery; continuing with current photos view")
+
+        page.wait_for_timeout(1500)
+
+        scrollable, panel_sel = _find_scrollable_panel(page)
+        if scrollable:
+            logging.info(f"✅ Photos scrollable panel found: {panel_sel}")
+        else:
+            logging.warning("⚠ No scrollable photos panel detected; using mouse wheel fallback")
+
+        # Initial scrolling to load more photos - scroll aggressively
+        logging.info("📜 Performing initial scroll to load photos...")
+        visible_target = max(max_photos * 2, max_photos + 5) if max_photos > 0 else 40
+        for i in range(initial_scrolls):
+            if time.monotonic() > deadline:
+                logging.warning(f"⚠ Image scraping time limit reached ({int(max_seconds)}s) during preload")
+                break
+            if scrollable:
+                try:
+                    scrollable.evaluate("el => el.scrollBy(0, 5000)")
+                except Exception:
+                    page.mouse.wheel(0, 5000)
+            else:
+                page.mouse.wheel(0, 5000)
+            page.wait_for_timeout(1200)
+
+            # Check how many images are visible after this scroll
+            img_count = page.locator('img[src*="googleusercontent.com"]').count()
+            logging.info(f"  Scroll {i+1}/{initial_scrolls} - Images visible: {img_count}")
+            if max_photos > 0 and img_count >= visible_target:
+                logging.info(
+                    f"✅ Image card target reached during preload ({img_count} >= {visible_target}); stopping early"
+                )
+                break
+        logging.info("📜 Initial scroll complete - waiting for images to load...")
+        page.wait_for_timeout(1200)
 
         KNOWN_CATEGORIES = [
             "All", "By owner", "Videos", "Street View & 360°",
@@ -161,6 +295,15 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
             logging.info(f"📸 Tabs found: {categories}")
 
         for category in categories:
+            if time.monotonic() > deadline:
+                logging.warning(f"⚠ Image scraping time limit reached ({int(max_seconds)}s), stopping category scan")
+                break
+            # Check if we already have enough URLs
+            total_urls_collected = sum(len(v) for v in category_urls.values())
+            if max_photos > 0 and total_urls_collected >= max_photos:
+                logging.info(f"✅ Already have {total_urls_collected} photo URLs - stopping collection (limit={max_photos})")
+                break
+
             current_category[0] = category
             logging.info(f"  ▶ Category: '{category}'")
 
@@ -187,9 +330,25 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
             prev_count = sum(len(v) for v in category_urls.values())
             no_new = 0
             scrolls = 0
-            while no_new < 5 and scrolls < 100:
-                page.mouse.wheel(0, 3000)
-                page.wait_for_timeout(2000)
+            # Continue until no-new threshold or max per-category scrolls.
+            while no_new < max_no_new_scrolls and scrolls < max_category_scrolls:
+                if time.monotonic() > deadline:
+                    logging.warning(f"⚠ Image scraping time limit reached ({int(max_seconds)}s) inside category '{category}'")
+                    break
+                # Check if we have enough URLs
+                total_urls_collected = sum(len(v) for v in category_urls.values())
+                if max_photos > 0 and total_urls_collected >= max_photos:
+                    logging.info(f"✅ Collected {total_urls_collected} photo URLs - stopping scroll (limit={max_photos})")
+                    break
+
+                if scrollable:
+                    try:
+                        scrollable.evaluate("el => el.scrollBy(0, 4000)")
+                    except Exception:
+                        page.mouse.wheel(0, 4000)
+                else:
+                    page.mouse.wheel(0, 4000)
+                page.wait_for_timeout(2500)
                 scrolls += 1
 
                 _dom_scan_images(page, seen_base_urls, category, category_urls)
@@ -202,24 +361,36 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
                 else:
                     no_new += 1
 
+                if max_photos > 0 and cur_count >= max_photos:
+                    logging.info(f"✅ Reached target photo URL count ({cur_count}) during category scan")
+                    break
+
+            if scrolls >= max_category_scrolls:
+                logging.info(f"    ℹ Reached max category scrolls ({max_category_scrolls}) for '{category}'")
+
             _dom_scan_images(page, seen_base_urls, category, category_urls)
             cat_count = len(category_urls.get(category, []))
             logging.info(f"  ✅ '{category}': {cat_count} photo URLs found")
-
-        extra = _dom_scan_images(page, seen_base_urls, "All", category_urls)
-        if extra:
-            logging.info(f"📸 Final DOM pass added {extra} extra URLs")
 
     finally:
         page.remove_listener('response', _on_response)
 
     total_found = sum(len(v) for v in category_urls.values())
-    logging.info(f"📷 Downloading {total_found} unique place photos …")
+    max_photos = int(os.getenv('SCRAPER_MAX_PHOTOS', '20'))
+    if max_photos > 0:
+        logging.info(f"📷 Downloading up to {max_photos} photos from {total_found} unique URLs found…")
+    else:
+        logging.info(f"📷 Downloading all photos from {total_found} unique URLs found…")
 
     for cat, urls in category_urls.items():
+        if max_photos > 0 and downloaded >= max_photos:
+            logging.info(f"✅ Reached maximum of {max_photos} photos - stopping download")
+            break
         cat_dir = os.path.join(images_dir, sanitize_filename(cat))
         os.makedirs(cat_dir, exist_ok=True)
         for base in urls:
+            if max_photos > 0 and downloaded >= max_photos:
+                break
             dest = os.path.join(cat_dir, f'{downloaded + 1:04d}.webp')
             if _download_one_image(base, dest):
                 downloaded += 1
@@ -352,7 +523,7 @@ def collect_videos(page: Page, videos_dir: str) -> int:
                 logging.info(f"  🎞 Found {len(thumbnails)} thumbnail(s) via '{sel}'")
                 break
 
-        thumbnails = thumbnails[:10]
+        thumbnails = thumbnails[:20]
         if not thumbnails:
             logging.info("  ℹ No video thumbnails found in Videos tab")
         else:

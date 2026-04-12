@@ -1,12 +1,12 @@
 <!-- CONTACT SECTION -->
 <section class="section-contact" id="contact">
     <div class="container">
-        <h2 class="section-title" data-aos="fade-up">Contact Us</h2>
+        <h2 class="section-title" data-aos="fade-up">{{ tr.contact.title if tr and tr.contact else 'Contact Us' }}</h2>
         <div class="contact-grid">
             <div class="contact-info" data-aos="fade-right">
-                <p><strong>Address:</strong> {{ address }}</p>
-                <p><strong>Phone:</strong> {{ phone }}</p>
-                <p><strong>Email:</strong> {{ email }}</p>
+                <p><strong>{{ tr.contact.address if tr and tr.contact else 'Address' }}:</strong> {{ address }}</p>
+                <p><strong>{{ tr.contact.phone if tr and tr.contact else 'Phone' }}:</strong> {{ phone }}</p>
+                <p><strong>{{ tr.contact.email if tr and tr.contact else 'Email' }}:</strong> {{ email }}</p>
             </div>
             <div class="contact-map-container" data-aos="fade-left" data-aos-delay="100">
                 {% if latitude and longitude %}

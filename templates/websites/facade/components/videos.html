@@ -1,7 +1,7 @@
 <!-- VIDEOS SECTION -->
 <section class="section-videos" id="videos">
     <div class="container">
-        <h2 class="section-title" data-aos="fade-up">Videos</h2>
+        <h2 class="section-title" data-aos="fade-up">{{ tr.videos.title if tr and tr.videos else 'Videos' }}</h2>
         <div class="videos-grid">
             {% for video in videos %}
             <div class="video-item" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">

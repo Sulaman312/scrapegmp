@@ -10,7 +10,7 @@
 
             <!-- Contact -->
             <div class="footer-contact">
-                <h4>Contact</h4>
+                <h4>{{ tr.footer.contact_heading if tr and tr.footer else 'Contact' }}</h4>
                 {% if address %}
                 <div class="footer-contact-item">
                     <span class="material-symbols-outlined">location_on</span>
@@ -18,16 +18,16 @@
                 </div>
                 {% endif %}
                 {% if phone %}
-                <div class="footer-contact-item">
+                <a href="tel:{{ phone }}" class="footer-contact-item footer-contact-link">
                     <span class="material-symbols-outlined">phone</span>
                     <span>{{ phone }}</span>
-                </div>
+                </a>
                 {% endif %}
                 {% if email %}
-                <div class="footer-contact-item">
+                <a href="mailto:{{ email }}" class="footer-contact-item footer-contact-link">
                     <span class="material-symbols-outlined">email</span>
                     <span>{{ email }}</span>
-                </div>
+                </a>
                 {% endif %}
                 {% if hours_summary %}
                 <div class="footer-contact-item">
@@ -39,7 +39,7 @@
 
             <!-- Links -->
             <div class="footer-links">
-                <h4>Liens rapides</h4>
+                <h4>{{ tr.footer.quick_links_heading if tr and tr.footer else 'Quick Links' }}</h4>
                 <ul>
                     {% for link in nav_links %}
                     <li><a href="{{ link.href }}">{{ link.label }}</a></li>

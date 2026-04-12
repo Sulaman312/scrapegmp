@@ -3,10 +3,14 @@ import io
 import json
 import logging
 import os
+import smtplib
 import shutil
 import subprocess
 import sys
 import traceback
+from datetime import datetime, timezone
+from email.message import EmailMessage
+from html import escape
 from werkzeug.utils import secure_filename
 from PIL import Image
 from dotenv import load_dotenv
@@ -116,6 +120,118 @@ def load_json(path):
 def save_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+def _contact_mail_settings():
+    recipient = os.getenv("CONTACT_TO_EMAIL", "tech@sulamanahmed.com").strip()
+    smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com").strip()
+    smtp_port = int(os.getenv("SMTP_PORT", "587"))
+    smtp_username = os.getenv("SMTP_USERNAME", recipient).strip()
+    smtp_password = os.getenv("SMTP_PASSWORD", "").strip()
+    from_email = os.getenv("CONTACT_FROM_EMAIL", smtp_username or recipient).strip()
+    use_tls = os.getenv("SMTP_USE_TLS", "true").strip().lower() not in {"0", "false", "no"}
+    use_ssl = os.getenv("SMTP_USE_SSL", "false").strip().lower() in {"1", "true", "yes"}
+
+    return {
+        "recipient": recipient,
+        "smtp_host": smtp_host,
+        "smtp_port": smtp_port,
+        "smtp_username": smtp_username,
+        "smtp_password": smtp_password,
+        "from_email": from_email,
+        "use_tls": use_tls,
+        "use_ssl": use_ssl,
+    }
+
+
+def _send_contact_submission_email(payload: dict) -> None:
+    settings = _contact_mail_settings()
+
+    if not settings["smtp_username"] or not settings["smtp_password"]:
+        raise RuntimeError(
+            "SMTP credentials are not configured. Set SMTP_USERNAME and SMTP_PASSWORD in the environment."
+        )
+
+    business_name = (payload.get("business_name") or "Business").strip() or "Business"
+    form_type = (payload.get("form_type") or "contact").strip() or "contact"
+    submitted_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    page_url = (payload.get("page_url") or payload.get("referrer") or "").strip()
+    page_title = (payload.get("page_title") or "").strip()
+    name = (payload.get("name") or "").strip()
+    email = (payload.get("email") or "").strip()
+    phone = (payload.get("phone") or "").strip()
+    subject = (payload.get("subject") or "").strip()
+    message = (payload.get("message") or "").strip()
+
+    if not message and form_type == "hero":
+        message = f"Hero form submission from {name or 'a visitor'}"
+        if phone:
+            message += f". Phone: {phone}"
+
+    email_subject = f"[Website Contact] {business_name} — {subject or 'New submission'}"
+
+    body_lines = [
+        "New contact form submission received.",
+        "",
+        f"Business: {business_name}",
+        f"Form type: {form_type}",
+        f"Submitted at: {submitted_at}",
+    ]
+    if page_title:
+        body_lines.append(f"Page title: {page_title}")
+    if page_url:
+        body_lines.append(f"Page URL: {page_url}")
+    body_lines.extend([
+        "",
+        f"Name: {name or '-'}",
+        f"Email: {email or '-'}",
+        f"Phone: {phone or '-'}",
+        f"Subject: {subject or '-'}",
+        "",
+        "Message:",
+        message or "-",
+    ])
+
+    html_parts = [
+        "<h2>New contact form submission received</h2>",
+        "<ul>",
+        f"<li><strong>Business:</strong> {escape(business_name)}</li>",
+        f"<li><strong>Form type:</strong> {escape(form_type)}</li>",
+        f"<li><strong>Submitted at:</strong> {escape(submitted_at)}</li>",
+    ]
+    if page_title:
+        html_parts.append(f"<li><strong>Page title:</strong> {escape(page_title)}</li>")
+    if page_url:
+        html_parts.append(f"<li><strong>Page URL:</strong> {escape(page_url)}</li>")
+    html_parts.extend([
+        f"<li><strong>Name:</strong> {escape(name or '-')}</li>",
+        f"<li><strong>Email:</strong> {escape(email or '-')}</li>",
+        f"<li><strong>Phone:</strong> {escape(phone or '-')}</li>",
+        f"<li><strong>Subject:</strong> {escape(subject or '-')}</li>",
+        "</ul>",
+        "<h3>Message</h3>",
+        f"<pre style=\"white-space:pre-wrap;font-family:inherit\">{escape(message or '-')}</pre>",
+    ])
+
+    email_message = EmailMessage()
+    email_message["Subject"] = email_subject
+    email_message["From"] = settings["from_email"]
+    email_message["To"] = settings["recipient"]
+    if email:
+        email_message["Reply-To"] = email
+    email_message.set_content("\n".join(body_lines))
+    email_message.add_alternative("".join(html_parts), subtype="html")
+
+    if settings["use_ssl"]:
+        with smtplib.SMTP_SSL(settings["smtp_host"], settings["smtp_port"], timeout=30) as smtp:
+            smtp.login(settings["smtp_username"], settings["smtp_password"])
+            smtp.send_message(email_message)
+    else:
+        with smtplib.SMTP(settings["smtp_host"], settings["smtp_port"], timeout=30) as smtp:
+            if settings["use_tls"]:
+                smtp.starttls()
+            smtp.login(settings["smtp_username"], settings["smtp_password"])
+            smtp.send_message(email_message)
 
 
 def load_csv(path):
@@ -281,6 +397,7 @@ def scrape_and_enrich():
         return jsonify({"success": False, "error": "No URL provided"}), 400
 
     url = data["url"]
+    language = data.get("language", "fr")  # Default to French
 
     # OpenAI API key - must be set via environment variable
     api_key = os.environ.get("OPENAI_API_KEY", "")
@@ -314,7 +431,7 @@ def scrape_and_enrich():
         logging.info(f"Starting AI enrichment...")
 
         # Step 2: Enrich with AI
-        enriched_data = enrich(output_dir, api_key)
+        enriched_data = enrich(output_dir, api_key, language)
 
         logging.info(f"AI enrichment complete for: {business_name}")
 
@@ -332,6 +449,49 @@ def scrape_and_enrich():
             "success": False,
             "error": str(e)
         }), 500
+
+
+@app.route("/api/public/contact", methods=["POST"])
+def public_contact_submit():
+    """Receive public Bernard contact form submissions and forward them by email."""
+    payload = request.get_json(silent=True) or request.form.to_dict(flat=True)
+
+    if not payload:
+        return jsonify({"success": False, "error": "No form data provided"}), 400
+
+    name = (payload.get("name") or "").strip()
+    email = (payload.get("email") or "").strip()
+    phone = (payload.get("phone") or "").strip()
+    subject = (payload.get("subject") or "").strip()
+    message = (payload.get("message") or "").strip()
+    business_name = (payload.get("business_name") or "Business").strip() or "Business"
+    form_type = (payload.get("form_type") or "contact").strip() or "contact"
+
+    if not name:
+        return jsonify({"success": False, "error": "Name is required"}), 400
+
+    if form_type == "contact" and (not email or not message):
+        return jsonify({"success": False, "error": "Email is required"}), 400
+
+    try:
+        _send_contact_submission_email({
+            "name": name,
+            "email": email,
+            "phone": phone,
+            "subject": subject,
+            "message": message,
+            "business_name": business_name,
+            "form_type": form_type,
+            "page_url": (payload.get("page_url") or "").strip(),
+            "page_title": (payload.get("page_title") or "").strip(),
+            "referrer": request.referrer or "",
+        })
+    except Exception as exc:
+        logging.error("Failed to forward contact submission: %s", exc)
+        logging.error(traceback.format_exc())
+        return jsonify({"success": False, "error": "Unable to send message right now"}), 500
+
+    return jsonify({"success": True, "message": "Your message has been sent successfully."})
 
 
 # ──────────────────────────────────────────────────────────────

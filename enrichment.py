@@ -19,6 +19,7 @@ import logging
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
+from colorthief import ColorThief
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
@@ -54,6 +55,56 @@ def _find_images(images_dir: str) -> list[str]:
                 rel = os.path.relpath(os.path.join(root, f), os.path.dirname(images_dir))
                 results.append(rel.replace("\\", "/"))
     return results
+
+
+def extract_logo_colors(business_dir: str) -> dict:
+    """
+    Extract dominant colors from the first image (typically the logo).
+    Returns dict: { dominant_color, palette }
+    """
+    colors_data = {
+        "dominant_color": None,
+        "palette": []
+    }
+
+    images_dir = os.path.join(business_dir, "images")
+    if not os.path.isdir(images_dir):
+        logging.info("No images directory found for color extraction")
+        return colors_data
+
+    # Get the first image (often the logo)
+    image_files = []
+    for f in sorted(os.listdir(images_dir)):
+        if f.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
+            image_files.append(f)
+
+    if not image_files:
+        logging.info("No images found for color extraction")
+        return colors_data
+
+    first_image_path = os.path.join(images_dir, image_files[0])
+
+    try:
+        color_thief = ColorThief(first_image_path)
+
+        # Get dominant color
+        dominant_color = color_thief.get_color(quality=1)
+        colors_data["dominant_color"] = "#{:02x}{:02x}{:02x}".format(*dominant_color)
+
+        # Get color palette (5 colors)
+        palette = color_thief.get_palette(color_count=5, quality=1)
+        colors_data["palette"] = [
+            "#{:02x}{:02x}{:02x}".format(*color) for color in palette
+        ]
+
+        logging.info(f"✅ Extracted colors from {image_files[0]}")
+        logging.info(f"   Dominant: {colors_data['dominant_color']}")
+        logging.info(f"   Palette: {', '.join(colors_data['palette'])}")
+
+    except Exception as e:
+        logging.warning(f"Could not extract colors from {first_image_path}: {e}")
+
+    return colors_data
 
 
 # ── Website Scraper ───────────────────────────────────────────────────────────
@@ -195,7 +246,7 @@ def scrape_website(url: str) -> dict:
 
 # ── OpenAI Enrichment ─────────────────────────────────────────────────────────
 
-def enrich_with_ai(place: dict, website: dict, api_key: str) -> dict:
+def enrich_with_ai(place: dict, website: dict, api_key: str, language: str = "fr") -> dict:
     """
     Call OpenAI to generate: tagline, subtitle, feature descriptions,
     about paragraph, CTA texts.
@@ -244,25 +295,49 @@ def enrich_with_ai(place: dict, website: dict, api_key: str) -> dict:
 
     context = "\n".join(context_parts)
 
-    prompt = f"""You are a professional copywriter creating a modern one-page website for a business.
+    # Language mapping
+    language_names = {
+        "en": "English",
+        "fr": "French",
+        "de": "German",
+        "es": "Spanish"
+    }
+    output_language = language_names.get(language.lower(), "French")
+
+    prompt = f"""You are a professional copywriter creating a modern website for a business.
 
 Here is everything we know about this business:
 {context}
 
+IMPORTANT: Generate ALL content in {output_language} language.
+
 Generate the following in JSON format (respond ONLY with valid JSON, no markdown, no explanation):
 {{
-  "tagline": "A punchy 6-10 word headline capturing what this business does (e.g. 'The modern platform for veterinary practices')",
+  "tagline": "A punchy 6-10 word headline capturing what this business does",
   "hero_subtitle": "1-2 sentence value proposition, compelling and specific",
   "about_paragraph": "2-3 sentence paragraph about the company, professional tone",
-  "cta_primary": "Primary call-to-action button text (e.g. 'Start Free Trial', 'Book a Demo', 'Get Started')",
-  "cta_secondary": "Secondary CTA text (e.g. 'Learn More', 'See Features', 'Watch Demo')",
+  "cta_primary": "Primary call-to-action button text (e.g. 'Get Started', 'Book Now', 'Contact Us')",
+  "cta_secondary": "Secondary CTA text (e.g. 'Learn More', 'Our Services', 'View Menu')",
   "seo_title": "SEO page title (50-60 chars)",
   "seo_description": "SEO meta description (120-155 chars)",
   "features": [
-    {{"icon": "emoji", "title": "Feature name", "description": "1-2 sentence feature description"}},
-    ... (generate 6 features based on the business context)
+    {{
+      "icon": "material_symbol_name",
+      "title": "Feature name",
+      "description": "1-2 sentence feature description"
+    }},
+    ... (generate 8-10 features/services based on the business context)
   ]
-}}"""
+}}
+
+CRITICAL ICON RULES:
+- Use ONLY Material Symbols icon names (NOT emojis, NOT emoji descriptions)
+- Valid examples: "workspace_premium", "speed", "security", "verified", "support_agent", "dining", "local_shipping", "schedule", "payments", "star", "thumb_up", "checklist", "lock", "bolt", "celebration", "restaurant", "coffee", "fitness_center", "spa", "directions_car", "home", "storefront", "shopping_cart", "medical_services", "school", "business_center"
+- Choose icons that match each feature's purpose
+- NEVER use emojis or emoji descriptions like "🎯" or "trophy emoji"
+
+Generate 8-10 features to ensure sufficient content for different page templates (some templates show 3 features, others show 6+ services).
+Make features diverse and specific to the business type."""
 
     try:
         logging.info("🤖 Calling OpenAI to generate website copy...")
@@ -286,7 +361,7 @@ Generate the following in JSON format (respond ONLY with valid JSON, no markdown
 
 # ── Main Enrichment Function ──────────────────────────────────────────────────
 
-def enrich(business_dir: str, api_key: str = "") -> dict:
+def enrich(business_dir: str, api_key: str = "", language: str = "fr") -> dict:
     """
     Load all scraped data, scrape website, call AI, return enriched dict.
     """
@@ -321,11 +396,14 @@ def enrich(business_dir: str, api_key: str = "") -> dict:
     # Collect images
     images = _find_images(os.path.join(business_dir, "images"))
 
+    # Extract logo colors
+    logo_colors = extract_logo_colors(business_dir)
+
     # Scrape business website
     website_data = scrape_website(place_data.get("website", ""))
 
     # AI enrichment
-    ai_data = enrich_with_ai(place_data, website_data, api_key)
+    ai_data = enrich_with_ai(place_data, website_data, api_key, language)
 
     # Build hours list
     day_order = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
@@ -333,6 +411,7 @@ def enrich(business_dir: str, api_key: str = "") -> dict:
 
     # Assemble enriched structure
     enriched = {
+        "language": language,
         "business": {
             "name":           place_data.get("name", ""),
             "place_type":     place_data.get("place_type", ""),
@@ -353,6 +432,7 @@ def enrich(business_dir: str, api_key: str = "") -> dict:
         "website_data":   website_data,
         "ai":             ai_data,
         "images":         images,
+        "logo_colors":    logo_colors,
         "reviews":        reviews[:20],       # top 20 for testimonials
         "review_keywords":review_keywords,
         "qa":             qa[:15],
@@ -380,10 +460,11 @@ def main():
     parser = argparse.ArgumentParser(description="Enrich scraped Google Maps data with website + AI content")
     parser.add_argument("--dir", required=True, help="Path to business ScrapeData folder (e.g. ScrapeData/Digimidi)")
     parser.add_argument("--api-key", default="", help="OpenAI API key (or set OPENAI_API_KEY env var)")
+    parser.add_argument("--language", default="fr", choices=["en", "fr", "de", "es"], help="Language for AI-generated content (default: fr)")
     args = parser.parse_args()
 
     api_key = args.api_key or os.environ.get("OPENAI_API_KEY", "")
-    enrich(args.dir, api_key)
+    enrich(args.dir, api_key, args.language)
 
 
 if __name__ == "__main__":

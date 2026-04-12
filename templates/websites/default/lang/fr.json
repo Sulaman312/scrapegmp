@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "reviews": "Avis",
+    "features": "Fonctionnalités",
+    "gallery": "Galerie",
+    "videos": "Vidéos",
+    "contact": "Contact"
+  },
+  "hero": {
+    "discover_features": "Découvrir les fonctionnalités",
+    "sector": "Secteur",
+    "scroll": "Défiler"
+  },
+  "about": {
+    "pill": "À propos",
+    "service_suffix": "à votre service"
+  },
+  "features": {
+    "pill": "Fonctionnalités",
+    "title": "Tout ce dont vous avez besoin",
+    "subtitle": "Conçu pour les professionnels exigeants.",
+    "intro": "Nous proposons une gamme complète de fonctionnalités professionnelles adaptées à vos besoins"
+  },
+  "gallery": {
+    "pill": "Galerie",
+    "heading_prefix": "Découvrez-le",
+    "heading_highlight": "en action"
+  },
+  "videos": {
+    "pill": "Vidéos",
+    "heading": "Découvrez-nous en vidéo"
+  },
+  "contact": {
+    "pill": "Contact",
+    "heading_line1": "Travaillons",
+    "heading_line2": "ensemble",
+    "address_label": "Adresse",
+    "phone_label": "Téléphone",
+    "website_label": "Site web",
+    "opening_hours_label": "Heures d'ouverture"
+  },
+  "footer": {
+    "contact_heading": "Contact",
+    "view_on_maps": "Voir sur Google Maps",
+    "all_rights_reserved": "Tous droits réservés."
+  }
+}

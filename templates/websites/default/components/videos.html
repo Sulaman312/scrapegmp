@@ -1,8 +1,8 @@
 <section id="videos" class="py-32 px-6" style="background:#06060f">
   <div class="max-w-6xl mx-auto">
     <div class="max-w-2xl mb-14" data-aos="fade-up">
-      <div class="sec-pill sec-pill-dark mb-5">Vidéos</div>
-      <h2 class="text-5xl md:text-6xl font-black text-white leading-[1.08] tracking-[-0.02em]">Découvrez-nous en vidéo</h2>
+      <div class="sec-pill sec-pill-dark mb-5">{{ tr.videos.pill if tr and tr.videos else 'Videos' }}</div>
+      <h2 class="text-5xl md:text-6xl font-black text-white leading-[1.08] tracking-[-0.02em]">{{ tr.videos.heading if tr and tr.videos else 'Discover us on video' }}</h2>
     </div>
     <div class="grid grid-cols-1  gap-6">
       {% for video in videos %}

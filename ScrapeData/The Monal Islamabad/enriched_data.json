@@ -1,16 +1,17 @@
 {
   "template": "bernard",
+  "language": "en",
   "business": {
     "name": "The Monal Islamabad",
     "place_type": "Restaurant",
     "phone": "+92 51 2898066",
-    "email": "lilapadrona@yahoo.com",
-    "website": "taplink.cc",
+    "email": "info@themonal.com",
+    "website": "themonal.com",
     "price_range": "",
     "rating": 4.4,
     "reviews_count": null,
     "address": "5, Capital Enclave, Main Islamabad Expressway, near PWD Interchange, Islamabad, 44000, Pakistan",
-    "description": "Taplink helps you create a high-converting landing page for your business on Instagram in 10 minutes. Use numerous marketing features to increase your sales",
+    "description": "The Monal â Pakistan's premier restaurant chain offering authentic Pakistani cuisine with breathtaking views. Dine at our locations in Lahore, Rawalpindi, Murree, Peshawar, and Bhera. Experience world-class dining, event spaces, and unforgettable moments.",
     "latitude": "33.5707786",
     "longitude": "73.1593502",
     "google_maps_url": "https://www.google.com/maps/place/The+Monal+Islamabad/@33.5707786,73.1593502,17z/data=!3m1!4b1!4m6!3m5!1s0x38dfbf49c71bac3b:0x440c38883a64cd51!8m2!3d33.5707786!4d73.1593502!16s%2Fg%2F1th55c94?entry=ttu&g_ep=EgoyMDI2MDMyMi4wIKXMDSoASAFQAw%3D%3D",
@@ -18,164 +19,180 @@
     "hours": {
       "monday": "Not available",
       "tuesday": "Not available",
-      "wednesday": "12 PM–12 AM",
+      "wednesday": "Not available",
       "thursday": "Not available",
       "friday": "Not available",
       "saturday": "Not available",
-      "sunday": "Not available"
+      "sunday": "10 AM–10 PM"
     }
   },
   "ai": {
     "brand_short_name": "The Monal Islamabad",
-    "tagline": "Elevate Your Dining Experience at The Monal",
-    "hero_subtitle": "Indulge in exquisite cuisine with breathtaking views in Islamabad.",
-    "cta_primary": "Reserve Your Table Now",
-    "cta_primary_url": "taplink.cc",
+    "tagline": "Savor Authentic Pakistani Cuisine with Stunning Views",
+    "hero_subtitle": "Indulge in a culinary journey at The Monal, where exquisite flavors meet breathtaking scenery.",
+    "cta_primary": "Book Your Table",
+    "cta_primary_url": "themonal.com",
     "cta_secondary": "Explore Our Menu",
-    "cta_secondary_url": "taplink.cc",
-    "about_paragraph": "The Monal Islamabad offers a unique dining experience that combines gourmet cuisine with stunning panoramic views of the city. Our restaurant is dedicated to providing exceptional service and a memorable atmosphere for all our guests.",
-    "about_story_left": "The Monal Islamabad offers a unique dining experience that combines gourmet cuisine with stunning panoramic views of the city.",
-    "about_story_right": "Our restaurant is dedicated to providing exceptional service and a memorable atmosphere for all our guests",
-    "seo_title": "The Monal Islamabad - Fine Dining with a View",
-    "seo_description": "Experience the best of Islamabad's dining at The Monal. Reserve your table today for exquisite food and stunning views.",
+    "cta_secondary_url": "themonal.com",
+    "about_paragraph": "The Monal Islamabad is a premier dining destination renowned for its authentic Pakistani cuisine and exceptional service. Nestled in a picturesque location, our restaurant promises an unforgettable experience, whether you're enjoying a meal with family or celebrating a special occasion.",
+    "about_story_left": "The Monal Islamabad is a premier dining destination renowned for its authentic Pakistani cuisine and exceptional service. Nestled in a picturesque",
+    "about_story_right": "location, our restaurant promises an unforgettable experience, whether you're enjoying a meal with family or celebrating a special occasion.",
+    "seo_title": "The Monal Islamabad - Premier Pakistani Restaurant",
+    "seo_description": "Dine at The Monal Islamabad for exquisite Pakistani cuisine and stunning views. Reserve your table today!",
     "features": [
       {
-        "icon": "🍪",
-        "title": "Gourmet Cuisine",
-        "description": "Savor a diverse menu featuring traditional and contemporary dishes crafted by top chefs.",
+        "icon": "restaurant",
+        "title": "Authentic Cuisine",
+        "description": "Experience the rich flavors of traditional Pakistani dishes, expertly crafted by our talented chefs.",
         "image": "",
         "link": ""
       },
       {
-        "icon": "☀️",
-        "title": "Breathtaking Views",
-        "description": "Dine while enjoying panoramic views of Islamabad, creating the perfect backdrop for any occasion.",
+        "icon": "celebration",
+        "title": "Event Spaces",
+        "description": "Host your special occasions in our beautifully designed event spaces, perfect for any celebration.",
         "image": "",
         "link": ""
       },
       {
-        "icon": "🍷",
-        "title": "Extensive Wine Selection",
-        "description": "Pair your meal with our curated selection of fine wines from around the world.",
+        "icon": "star",
+        "title": "Stunning Views",
+        "description": "Enjoy breathtaking views of Islamabad while savoring your meal in our elevated dining area.",
         "image": "",
         "link": ""
       },
       {
-        "icon": "🔥",
-        "title": "Event Hosting",
-        "description": "Host your special events, weddings, and corporate gatherings in our beautifully designed spaces.",
+        "icon": "dining",
+        "title": "Diverse Menu",
+        "description": "Our extensive menu features a wide variety of dishes, catering to every taste and preference.",
         "image": "",
         "link": ""
       },
       {
-        "icon": "🏛️",
-        "title": "Best Facilities",
-        "description": "We give the best facilities in the city for this type of food.",
+        "icon": "support_agent",
+        "title": "Exceptional Service",
+        "description": "Our attentive staff is dedicated to providing an unparalleled dining experience for every guest.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "thumb_up",
+        "title": "Family-Friendly",
+        "description": "A welcoming atmosphere for families, with special menus and activities for children.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "schedule",
+        "title": "Flexible Hours",
+        "description": "Open daily with extended hours to accommodate your dining needs, from lunch to late-night meals.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "payments",
+        "title": "Easy Reservations",
+        "description": "Book your table effortlessly through our online reservation system for a hassle-free experience.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "local_shipping",
+        "title": "Takeout & Delivery",
+        "description": "Enjoy your favorite dishes from The Monal at home with our convenient takeout and delivery options.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "home",
+        "title": "Cultural Ambiance",
+        "description": "Immerse yourself in a culturally rich setting that reflects the heritage of Pakistan.",
         "image": "",
         "link": ""
       }
     ],
     "services_cards": [
       {
-        "title": "Event Hosting",
-        "description": "Host your special events, weddings, and corporate gatherings in our beautifully designed spaces.",
+        "title": "Diverse Menu",
+        "description": "Our extensive menu features a wide variety of dishes, catering to every taste and preference.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Best Facilities",
-        "description": "We give the best facilities in the city for this type of food.",
+        "title": "Exceptional Service",
+        "description": "Our attentive staff is dedicated to providing an unparalleled dining experience for every guest.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Service 3",
-        "description": "",
+        "title": "Family-Friendly",
+        "description": "A welcoming atmosphere for families, with special menus and activities for children.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Service 4",
-        "description": "",
+        "title": "Flexible Hours",
+        "description": "Open daily with extended hours to accommodate your dining needs, from lunch to late-night meals.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       }
     ],
     "services_page_cards": [
       {
-        "title": "Event Hosting",
-        "description": "Host your special events, weddings, and corporate gatherings in our beautifully designed spaces.",
+        "title": "Diverse Menu",
+        "description": "Our extensive menu features a wide variety of dishes, catering to every taste and preference.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Best Facilities",
-        "description": "We give the best facilities in the city for this type of food.",
+        "title": "Exceptional Service",
+        "description": "Our attentive staff is dedicated to providing an unparalleled dining experience for every guest.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Service 3",
-        "description": "",
+        "title": "Family-Friendly",
+        "description": "A welcoming atmosphere for families, with special menus and activities for children.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Service 4",
-        "description": "",
+        "title": "Flexible Hours",
+        "description": "Open daily with extended hours to accommodate your dining needs, from lunch to late-night meals.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       }
     ],
     "why_choose_us_cards": [
       {
-        "icon": "🍪",
-        "title": "Gourmet Cuisine",
-        "description": "Savor a diverse menu featuring traditional and contemporary dishes crafted by top chefs."
+        "icon": "restaurant",
+        "title": "Authentic Cuisine",
+        "description": "Experience the rich flavors of traditional Pakistani dishes, expertly crafted by our talented chefs."
       },
       {
-        "icon": "☀️",
-        "title": "Breathtaking Views",
-        "description": "Dine while enjoying panoramic views of Islamabad, creating the perfect backdrop for any occasion."
+        "icon": "celebration",
+        "title": "Event Spaces",
+        "description": "Host your special occasions in our beautifully designed event spaces, perfect for any celebration."
       },
       {
-        "icon": "🍷",
-        "title": "Extensive Wine Selection",
-        "description": "Pair your meal with our curated selection of fine wines from around the world."
+        "icon": "star",
+        "title": "Stunning Views",
+        "description": "Enjoy breathtaking views of Islamabad while savoring your meal in our elevated dining area."
       }
     ],
     "services_small_text": "",
     "services_heading": "",
     "why_choose_us_heading": "",
-    "cta_heading": "Elevate Your Dining Experience at The Monal",
-    "cta_subtitle": "Indulge in exquisite cuisine with breathtaking views in Islamabad.",
+    "cta_heading": "Savor Authentic Pakistani Cuisine with Stunning Views",
+    "cta_subtitle": "Indulge in a culinary journey at The Monal, where exquisite flavors meet breathtaking scenery.",
     "cta_btn_label": "",
     "cta_link": "",
     "cta_banner_btn_label": "",
     "cta_banner_btn_link": "",
-    "footer_tagline": "The Monal Islamabad offers a unique dining experience that combines gourmet cuisine with stunning panoramic views of the city. Our restaurant is dedicated to providing exceptional service and a memorable atmosphere for all our guests.",
+    "footer_tagline": "The Monal Islamabad is a premier dining destination renowned for its authentic Pakistani cuisine and exceptional service. Nestled in a picturesque location, our restaurant promises an unforgettable experience, whether you're enjoying a meal with family or celebrating a special occasion.",
     "footer_copyright": "© 2026 The Monal Islamabad. All rights reserved.",
-    "values": [
-      "Savor a diverse menu featuring traditional and contemporary dishes crafted by top chefs.",
-      "Dine while enjoying panoramic views of Islamabad, creating the perfect backdrop for any occasion.",
-      "Pair your meal with our curated selection of fine wines from around the world.",
-      "Host your special events, weddings, and corporate gatherings in our beautifully designed spaces.",
-      "We give the best facilities in the city for this type of food."
-    ],
-    "about_bullet_points": [
-      {
-        "description": "Savor a diverse menu featuring traditional and contemporary dishes crafted by top chefs. ",
-        "title": "Gourmet Cuisine"
-      },
-      {
-        "description": "Dine while enjoying panoramic views of Islamabad, creating the perfect backdrop for any occasion.",
-        "title": "Breathtaking Views"
-      },
-      {
-        "description": "Pair your meal with our curated selection of fine wines from around the world.",
-        "title": "Extensive Wine Selection"
-      }
-    ],
+    "values": [],
+    "about_bullet_points": [],
     "services_page_seo_title": "",
     "services_page_seo_description": "",
     "services_page_hero_title": "",
@@ -195,25 +212,17 @@
     "contact_page_description": ""
   },
   "_raw": {
-    "years_of_experience": 30
+    "years_of_experience": 0
   },
   "website_data": {
-    "headings": [
-      "Drive more leads and sales on Instagram",
-      "Multiple links",
-      "Online messaging",
-      "Social networks",
-      "Micro landing page",
-      "Application forms",
-      "Online store"
-    ],
-    "meta_description": "Taplink helps you create a high-converting landing page for your business on Instagram in 10 minutes. Use numerous marketing features to increase your sales",
+    "headings": [],
+    "meta_description": "The Monal â Pakistan's premier restaurant chain offering authentic Pakistani cuisine with breathtaking views. Dine at our locations in Lahore, Rawalpindi, Murree, Peshawar, and Bhera. Experience world-class dining, event spaces, and unforgettable moments.",
     "paragraphs": [],
     "pricing_hints": [],
-    "raw_text": "Taplink - landing page that drives your sales on Instagram Drive more leads and sales on Instagram Taplink is a convenient way to manage your links and drive your sales directly on Instagram Get started for free Multiple links Add multiple links in Instagram instead of just one Instagram allows users to place only one clickable link in the profile description, but this is often not enough. Using Taplink, you can place any number of links to pages of your products and services, special offers, instant messengers for communication in one click, accounts in social networks and more. Online messaging Allow your clients to connect with you with one click Online messaging is the most convenient, modern and common method of communication. Create smart links to online messaging apps that allow you to start conversations with clients with one click, and get more hits and requests from followers. Social networks Create right links to your accounts in social networks The correct link is opened in the application rather than in the browser! People who followed regular links will not be able to subscribe or write to you because they are not authorized in other social networks in the Instagram browser! The links created in Taplink will open the application of the required social network, where your page will be displayed. People will be able to contact you, subscribe and like without any further actions. Micro landing page Create a page that will sell Create offers that are difficult to refuse, launch promotions and motivate the audience to leave requests and place orders. Add high-converting text, engaging photos and videos to encourage your customers. Use the answer block to address frequently asked questions, start a time-limited offer with a countdown timer. Application forms Capture leads and accept payments online Do not waste time accepting requests and payments from clients manually, let Taplink do it. Receive notifications about new requests in messengers and via e-mail. Export the collected requests to external CRM or use our order management system. Online store Everything you need to start selling on Instagram Allow clients to view and pay for goods directly on the Instagram app. With Taplink, you can create your online store in 10 minutes without a designer and programmer. Support Report violation We use cookies. By continuing to use our website, you agree to our privacy policy Got it Info Content Rules and Requirements Content Generation Terms Terms of service Trademarks Affiliate program Pricing Support Ask a question Feedback Report violation Help Detailed tutorials FAQ Blog English Taplink, 2017-2026",
+    "raw_text": "The Monal Restaurant - Pakistan's Premier Dining Experience",
     "services": [],
     "team": [],
-    "title": "Taplink - landing page that drives your sales on Instagram"
+    "title": "The Monal Restaurant - Pakistan's Premier Dining Experience"
   },
   "theme": {
     "color1": "#9F1239",
@@ -222,16 +231,125 @@
     "cta_color": "#9F1239",
     "hero_dark": "#06060F",
     "hero_image": "images/All/0001.webp",
-    "why_choose_us_image": "images/All/0001.webp",
+    "why_choose_us_image": "images/All/0003.webp",
     "values_image": "images/All/0001.webp",
     "company_image_1": "images/All/0001.webp",
     "company_image_2": "images/All/0002.webp"
   },
   "images": [
     "images/All/0001.webp",
-    "images/All/0002.webp"
+    "images/All/0002.webp",
+    "images/All/0003.webp",
+    "images/All/0004.webp",
+    "images/All/0005.webp",
+    "images/All/0006.webp",
+    "images/All/0007.webp",
+    "images/All/0008.webp",
+    "images/All/0009.webp",
+    "images/All/0010.webp",
+    "images/All/0011.webp",
+    "images/All/0012.webp",
+    "images/All/0013.webp",
+    "images/All/0014.webp",
+    "images/All/0015.webp",
+    "images/All/0016.webp",
+    "images/All/0017.webp",
+    "images/All/0018.webp",
+    "images/All/0019.webp",
+    "images/All/0020.webp"
   ],
-  "reviews": [],
+  "reviews": [
+    {
+      "author_name": "Bhai Bhai",
+      "text": "\"Had a great experience at Monal. Food was tasty, service was quick, and the view made the atmosphere special. Recommended!\"",
+      "rating": 1,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "Bhai Bhai",
+      "text": "\"Had a great experience at Monal. Food was tasty, service was quick, and the view made the atmosphere special. Recommend",
+      "rating": 1,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "\"Had a great experience at Monal. Food was tasty, service was quick, and the view made the atmosphere special. Recommend",
+      "rating": 1,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "\"Had a great experience at Monal. Food was tasty, service was quick, and the view made the atmosphere special. Recommend",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "\"Had a great experience at Monal. Food was tasty, service was quick, and the view made the atmosphere special. Recommend",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Shahzad Mehmood",
+      "text": "Definitely, Monal was on the top list to dine out with beautiful scenery in capital Islamabad.\nAdventurer road, awesome service, good food worth the money.\nI've been there 3 times, very much satisfied with food and services.\nWill be missed. the restaurant is closed in 2025.",
+      "rating": 5,
+      "date": "9 months ago"
+    },
+    {
+      "author_name": "Shahzad Mehmood",
+      "text": "Definitely, Monal was on the top list to dine out with beautiful scenery in capital Islamabad.\nAdventurer road, awesome ",
+      "rating": 5,
+      "date": "9 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Definitely, Monal was on the top list to dine out with beautiful scenery in capital Islamabad.\nAdventurer road, awesome ",
+      "rating": 5,
+      "date": "9 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Definitely, Monal was on the top list to dine out with beautiful scenery in capital Islamabad.\nAdventurer road, awesome ",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Definitely, Monal was on the top list to dine out with beautiful scenery in capital Islamabad.\nAdventurer road, awesome ",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Waqas Bukhari",
+      "text": "Memorable experience. Food quality and taste is top notch. Not very value for money 😔💰. Too much expensive. But experience and view is everything. Food spice levels and sugar and salt levels are very balanced. Very tasty food.   Every bite the taste is top notch and more than expected.  Always jam packed. Always wait for seat reservations. Standards and customer care are top priorities.",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Waqas Bukhari",
+      "text": "Memorable experience. Food quality and taste is top notch. Not very value for money 😔💰. Too much expensive. But experien",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Memorable experience. Food quality and taste is top notch. Not very value for money 😔💰. Too much expensive. But experien",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Memorable experience. Food quality and taste is top notch. Not very value for money 😔💰. Too much expensive. But experien",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Memorable experience. Food quality and taste is top notch. Not very value for money 😔💰. Too much expensive. But experien",
+      "rating": 5,
+      "date": ""
+    }
+  ],
   "review_keywords": [
     "Nearby restaurants",
     "Hotels",
@@ -247,6 +365,7 @@
     "Nearby",
     "Send to phone",
     "Share",
+    "taplink.cc",
     "+92 51 2898066",
     "H5C5+8P Islamabad, Pakistan",
     "Suggest an edit",
@@ -263,10 +382,7 @@
   "social_links": [],
   "web_results": [],
   "related_places": [],
-  "section_visibility": {
-    "gallery": true,
-    "values": true
-  },
+  "section_visibility": {},
   "_has_videos": false,
   "_video_list": [],
   "videos": []

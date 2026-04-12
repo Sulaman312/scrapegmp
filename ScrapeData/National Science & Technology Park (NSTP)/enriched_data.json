@@ -1,0 +1,398 @@
+{
+  "template": "bernard",
+  "language": "fr",
+  "business": {
+    "name": "National Science & Technology Park (NSTP)",
+    "place_type": "Technology park",
+    "phone": "+92 51 90856464",
+    "email": "info@nstp.pk",
+    "website": "nstp.pk",
+    "price_range": "",
+    "rating": 4.7,
+    "reviews_count": 535,
+    "address": "Ravi Rd, H-12, Islamabad, 46000, Pakistan",
+    "description": "NSTP - National Science and Technology Park",
+    "latitude": "33.6464875",
+    "longitude": "72.9918352",
+    "google_maps_url": "https://www.google.com/maps/place/National+Science+%26+Technology+Park+(NSTP)/@33.6464875,72.9918352,17z/data=!4m14!1m7!3m6!1s0x38df9675aaaaaaab:0xc5180922c44eb86b!2sNational+University+of+Sciences+%26+Technology!8m2!3d33.6441876!4d72.9921839!16zL20vMDN4MjY4!3m5!1s0x38df9573aecd2f93:0x1c7fdc5084512ca2!8m2!3d33.6456729!4d72.9985536!16s%2Fg%2F11h7fm4qtk?entry=ttu&g_ep=EgoyMDI2MDQwOC4wIKXMDSoASAFQAw%3D%3D",
+    "plus_code": "JXWX+7C Islamabad, Pakistan",
+    "hours": {
+      "monday": "9 AM–5 PM",
+      "tuesday": "9 AM–5 PM",
+      "wednesday": "9 AM–5 PM",
+      "thursday": "9 AM–5 PM",
+      "friday": "9 AM–5 PM",
+      "saturday": "9 AM–5 PM",
+      "sunday": "9 AM–5 PM"
+    }
+  },
+  "ai": {
+    "brand_short_name": "National Science & Technology Park (NSTP)",
+    "tagline": "Innovation et collaboration pour l'avenir technologique",
+    "hero_subtitle": "Un espace dédié à l'innovation scientifique et technologique, favorisant la collaboration entre entreprises et chercheurs.",
+    "cta_primary": "Contactez-nous",
+    "cta_primary_url": "nstp.pk",
+    "cta_secondary": "En savoir plus",
+    "cta_secondary_url": "nstp.pk",
+    "about_paragraph": "Le National Science & Technology Park (NSTP) est un écosystème dynamique conçu pour soutenir l'innovation et la recherche. Situé à Islamabad, il offre des infrastructures modernes et des ressources pour les entreprises technologiques et les startups.",
+    "about_story_left": "Le National Science & Technology Park (NSTP) est un écosystème dynamique conçu pour soutenir l'innovation et la recherche. Situé",
+    "about_story_right": "à Islamabad, il offre des infrastructures modernes et des ressources pour les entreprises technologiques et les startups.",
+    "seo_title": "National Science & Technology Park - Innovons ensemble",
+    "seo_description": "Découvrez le National Science & Technology Park, un hub d'innovation à Islamabad, Pakistan, dédié aux entreprises technologiques.",
+    "features": [
+      {
+        "icon": "business_center",
+        "title": "Espaces de travail modernes",
+        "description": "Des bureaux équipés et des espaces collaboratifs pour stimuler l'innovation.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "support_agent",
+        "title": "Accompagnement personnalisé",
+        "description": "Des experts à votre disposition pour vous aider à développer votre entreprise.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "speed",
+        "title": "Accélérateur d'entreprises",
+        "description": "Programmes d'accélération pour les startups afin d'accélérer leur croissance.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "verified",
+        "title": "Réseau d'experts",
+        "description": "Accès à un réseau de chercheurs et d'experts dans divers domaines technologiques.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "lock",
+        "title": "Sécurité avancée",
+        "description": "Des infrastructures sécurisées pour protéger vos idées et vos innovations.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "celebration",
+        "title": "Événements et ateliers",
+        "description": "Participez à des événements réguliers pour échanger des idées et développer vos compétences.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "local_shipping",
+        "title": "Accès facile",
+        "description": "Situé à Islamabad, avec un accès facile aux principales routes et transports en commun.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "star",
+        "title": "Partenariats stratégiques",
+        "description": "Opportunités de collaboration avec des entreprises et des institutions de recherche.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "dining",
+        "title": "Espaces de détente",
+        "description": "Des zones de détente et de restauration pour favoriser le bien-être des employés.",
+        "image": "",
+        "link": ""
+      }
+    ],
+    "services_cards": [
+      {
+        "title": "Réseau d'experts",
+        "description": "Accès à un réseau de chercheurs et d'experts dans divers domaines technologiques.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Sécurité avancée",
+        "description": "Des infrastructures sécurisées pour protéger vos idées et vos innovations.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Événements et ateliers",
+        "description": "Participez à des événements réguliers pour échanger des idées et développer vos compétences.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Accès facile",
+        "description": "Situé à Islamabad, avec un accès facile aux principales routes et transports en commun.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "services_page_cards": [
+      {
+        "title": "Réseau d'experts",
+        "description": "Accès à un réseau de chercheurs et d'experts dans divers domaines technologiques.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Sécurité avancée",
+        "description": "Des infrastructures sécurisées pour protéger vos idées et vos innovations.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Événements et ateliers",
+        "description": "Participez à des événements réguliers pour échanger des idées et développer vos compétences.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Accès facile",
+        "description": "Situé à Islamabad, avec un accès facile aux principales routes et transports en commun.",
+        "image": "images/All/0005.webp",
+        "link": "#contact"
+      }
+    ],
+    "why_choose_us_cards": [
+      {
+        "icon": "business_center",
+        "title": "Espaces de travail modernes",
+        "description": "Des bureaux équipés et des espaces collaboratifs pour stimuler l'innovation."
+      },
+      {
+        "icon": "support_agent",
+        "title": "Accompagnement personnalisé",
+        "description": "Des experts à votre disposition pour vous aider à développer votre entreprise."
+      },
+      {
+        "icon": "speed",
+        "title": "Accélérateur d'entreprises",
+        "description": "Programmes d'accélération pour les startups afin d'accélérer leur croissance."
+      }
+    ],
+    "services_small_text": "",
+    "services_heading": "",
+    "why_choose_us_heading": "",
+    "cta_heading": "Innovation et collaboration pour l'avenir technologique",
+    "cta_subtitle": "Un espace dédié à l'innovation scientifique et technologique, favorisant la collaboration entre entreprises et chercheurs.",
+    "cta_btn_label": "",
+    "cta_link": "",
+    "cta_banner_btn_label": "",
+    "cta_banner_btn_link": "",
+    "footer_tagline": "Le National Science & Technology Park (NSTP) est un écosystème dynamique conçu pour soutenir l'innovation et la recherche. Situé à Islamabad, il offre des infrastructures modernes et des ressources pour les entreprises technologiques et les startups.",
+    "footer_copyright": "© 2026 National Science & Technology Park (NSTP). All rights reserved.",
+    "values": [],
+    "about_bullet_points": [],
+    "services_page_seo_title": "",
+    "services_page_seo_description": "",
+    "services_page_hero_title": "",
+    "services_page_hero_subtitle": "",
+    "services_page_small_text": "",
+    "services_page_heading": "",
+    "services_page_description": "",
+    "services_cta_heading": "",
+    "services_cta_text": "",
+    "services_cta_button": "",
+    "contact_page_seo_title": "",
+    "contact_page_seo_description": "",
+    "contact_page_hero_title": "",
+    "contact_page_hero_subtitle": "",
+    "contact_page_small_text": "",
+    "contact_page_heading": "",
+    "contact_page_description": ""
+  },
+  "_raw": {
+    "years_of_experience": 0
+  },
+  "website_data": {
+    "headings": [],
+    "meta_description": "NSTP - National Science and Technology Park",
+    "paragraphs": [],
+    "pricing_hints": [],
+    "raw_text": "NSTP - National Science and Technology Park",
+    "services": [],
+    "team": [],
+    "title": "NSTP - National Science and Technology Park"
+  },
+  "theme": {
+    "color1": "#1E3A8A",
+    "color2": "#DBEAFE",
+    "color3": "#F59E0B",
+    "cta_color": "#1E3A8A",
+    "hero_dark": "#06060F",
+    "hero_image": "images/All/0001.webp",
+    "why_choose_us_image": "images/All/0003.webp",
+    "values_image": "images/All/0001.webp",
+    "company_image_1": "images/All/0001.webp",
+    "company_image_2": "images/All/0002.webp"
+  },
+  "images": [
+    "images/All/0001.webp",
+    "images/All/0002.webp",
+    "images/All/0003.webp",
+    "images/All/0004.webp",
+    "images/All/0005.webp",
+    "images/All/0006.webp",
+    "images/All/0007.webp",
+    "images/All/0008.webp",
+    "images/All/0009.webp",
+    "images/All/0010.webp",
+    "images/All/0011.webp",
+    "images/All/0012.webp",
+    "images/All/0013.webp",
+    "images/All/0014.webp",
+    "images/All/0015.webp",
+    "images/All/0016.webp",
+    "images/All/0017.webp",
+    "images/All/0018.webp",
+    "images/All/0019.webp",
+    "images/All/0020.webp"
+  ],
+  "reviews": [
+    {
+      "author_name": "abdulmajid raza",
+      "text": "The campus in Sector H-12 Islamabad was initiated in 2008. The campus is spread over 800 acres. Includes all sports facilities. Cricket, hockey football  Besides NUST Headquarters, the schools and institutes that were relocated to this campus include School of Civil and Environmental Engineering, School of Mechanical and Manufacturing Engineering, School of Electrical Engineering and Computer Science, School of Chemical and Materials Engineering, Research Center for Modeling and Simulation, School of Natural Sciences (formerly known as Center for Advanced Mathematics and Physics), Atta-ur-Rehman School of Applied Bio-sciences, School of Art Design and Architecture, NUST Business School, School of Social Sciences and Humanities, Professional Development Center, Technology Incubation Center, Marketing and Industrial Relations Organization, NUST Publishing and NUST Outreach and Talent Hunt Initiative. Well maintained by the authorities. Fully recommend for the students to get visionary education in the best environment.",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "abdulmajid raza",
+      "text": "The campus in Sector H-12 Islamabad was initiated in 2008. The campus is spread over 800 acres. Includes all sports faci",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "The campus in Sector H-12 Islamabad was initiated in 2008. The campus is spread over 800 acres. Includes all sports faci",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "The campus in Sector H-12 Islamabad was initiated in 2008. The campus is spread over 800 acres. Includes all sports faci",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "The campus in Sector H-12 Islamabad was initiated in 2008. The campus is spread over 800 acres. Includes all sports faci",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Junaid Hassan",
+      "text": "Loved the place, great for working and easily accessible for commuting 😀 …",
+      "rating": 5,
+      "date": "Edited a year ago"
+    },
+    {
+      "author_name": "Junaid Hassan",
+      "text": "Loved the place, great for working and easily accessible for commuting 😀 …",
+      "rating": 5,
+      "date": "Edited a year ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Loved the place, great for working and easily accessible for commuting 😀 …",
+      "rating": 5,
+      "date": "Edited a year ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Loved the place, great for working and easily accessible for commuting 😀 …",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Loved the place, great for working and easily accessible for commuting 😀 …",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anas Ali Khan",
+      "text": "Great, clean, plenty of parking.\nWell equipped",
+      "rating": 5,
+      "date": "5 months ago"
+    },
+    {
+      "author_name": "Anas Ali Khan",
+      "text": "Great, clean, plenty of parking.\nWell equipped",
+      "rating": 5,
+      "date": "5 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Great, clean, plenty of parking.\nWell equipped",
+      "rating": 5,
+      "date": "5 months ago"
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Great, clean, plenty of parking.\nWell equipped",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Anonymous",
+      "text": "Great, clean, plenty of parking.\nWell equipped",
+      "rating": 5,
+      "date": ""
+    }
+  ],
+  "review_keywords": [
+    "Restaurants",
+    "Hotels",
+    "Things to do",
+    "Transit",
+    "Parking",
+    "Pharmacies",
+    "ATMs",
+    "Reviews",
+    "Write a review",
+    "Sort",
+    "All",
+    "startups 23",
+    "environment 15",
+    "university 13",
+    "building 12",
+    "students 9",
+    "innovation 7",
+    "research 6",
+    "security 5",
+    "idea 5",
+    "business 5",
+    "abdulmajid razaLocal Guide · 52 reviews · 246 photos",
+    "More",
+    "Like2",
+    " Share",
+    "Junaid HassanLocal Guide · 29 reviews · 136 photos",
+    "Like",
+    "Anas Ali KhanLocal Guide · 112 reviews · 43 photos",
+    "Muhammad UsmanLocal Guide · 63 reviews · 112 photos",
+    "Like1",
+    "Jamil AhmadLocal Guide · 80 reviews · 92 photos",
+    "Roshan NadeemLocal Guide · 127 reviews · 574 photos",
+    "Muhammad AliLocal Guide · 833 reviews · 444 photos",
+    "Waheed KhizarLocal Guide · 184 reviews · 8 photos",
+    "Bilal AhmedLocal Guide · 7 reviews · 5 photos",
+    "danish azizLocal Guide · 73 reviews · 17 photos"
+  ],
+  "qa": [],
+  "updates": [],
+  "popular_times": {},
+  "about": {
+    "highlights": []
+  },
+  "about_attrs": [],
+  "social_links": [],
+  "web_results": [],
+  "related_places": [],
+  "section_visibility": {},
+  "_has_videos": false,
+  "_video_list": [],
+  "videos": []
+}

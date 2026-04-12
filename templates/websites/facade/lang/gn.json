@@ -1,0 +1,34 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "features": "Funktionen",
+    "values": "Werte",
+    "videos": "Videos",
+    "reviews": "Bewertungen",
+    "contact": "Kontakt"
+  },
+  "about": {
+    "label": "Über uns",
+    "title": "Unsere Geschichte",
+    "story_image_alt": "Unternehmensgeschichte"
+  },
+  "videos": {
+    "title": "Videos"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "address": "Adresse",
+    "phone": "Telefon",
+    "email": "E-Mail"
+  },
+  "footer": {
+    "navigation": "Navigation",
+    "contact_us": "Kontakt",
+    "all_rights_reserved": "Alle Rechte vorbehalten."
+  },
+  "aria": {
+    "toggle_menu": "Menü umschalten",
+    "close": "Schließen"
+  }
+}

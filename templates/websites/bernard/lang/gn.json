@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "services": "Leistungen",
+    "contact": "Kontakt aufnehmen"
+  },
+  "hero": {
+    "form_heading": "Haben Sie eine Frage?",
+    "name_placeholder": "Name",
+    "phone_placeholder": "Telefon",
+    "form_button": "Ich möchte zurückgerufen werden"
+  },
+  "about": {
+    "small_text": "ÜBER UNS",
+    "heading": "Ihr vertrauenswürdiges Unternehmen",
+    "years_of_experience": "Jahre Erfahrung"
+  },
+  "services": {
+    "small_text": "Für Privatpersonen und Unternehmen",
+    "heading": "Entdecken Sie unsere Leistungen",
+    "learn_more": "Mehr erfahren",
+    "starting_at": "Ab",
+    "request_quote": "Angebot anfordern"
+  },
+  "why_choose": {
+    "heading": "Warum uns wählen?"
+  },
+  "testimonials": {
+    "small_text": "Kundenstimmen",
+    "heading": "Was unsere Kunden sagen"
+  },
+  "footer": {
+    "contact_heading": "Kontakt",
+    "quick_links_heading": "Schnellzugriff",
+    "all_rights_reserved": "Alle Rechte vorbehalten."
+  },
+  "contact": {
+    "form_title": "Senden Sie uns eine Nachricht",
+    "name_label": "Name",
+    "name_placeholder": "Ihr Name",
+    "email_label": "E-Mail",
+    "email_placeholder": "ihre@email.com",
+    "phone_label": "Telefon",
+    "phone_placeholder": "Ihre Telefonnummer",
+    "subject_label": "Betreff",
+    "subject_placeholder": "Wie können wir helfen?",
+    "message_label": "Nachricht",
+    "message_placeholder": "Erzählen Sie uns mehr über Ihren Bedarf...",
+    "send_button": "Nachricht senden",
+    "info_title": "Kontakt aufnehmen",
+    "address_label": "Adresse",
+    "hours_label": "Geschäftszeiten"
+  }
+}

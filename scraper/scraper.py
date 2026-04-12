@@ -29,6 +29,28 @@ from scraper.tab_extractors import (
 )
 from scraper.utils import sanitize_filename
 
+# DEBUG: Set to True to run browser in headful mode for debugging
+DEBUG_HEADFUL_MODE = False
+
+DEFAULT_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/124.0.0.0 Safari/537.36"
+)
+
+
+def _apply_stealth(page):
+    try:
+        page.add_init_script(
+            """
+            Object.defineProperty(navigator, 'webdriver', {
+                get: () => undefined,
+            });
+            """
+        )
+    except Exception:
+        pass
+
 
 def check_end_of_list(page) -> bool:
     """Check if we've reached the end of the list."""
@@ -63,8 +85,8 @@ def scrape_places_until_end(search_for: str, output_path: str, max_results: int 
     with sync_playwright() as p:
         logging.info(f"🖥 Platform: {platform.system()}")
 
-        # Run headless in production (non-Windows), with GUI on Windows for debugging
-        is_headless = platform.system() != "Windows"
+        # Force headless mode on all platforms
+        is_headless = True
 
         if platform.system() == "Windows":
             browser_path = r"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
@@ -75,7 +97,13 @@ def scrape_places_until_end(search_for: str, output_path: str, max_results: int 
             browser = p.chromium.launch(headless=is_headless, args=['--no-sandbox', '--disable-setuid-sandbox'])
 
         logging.info("✅ Browser launched successfully")
-        page = browser.new_page()
+        page = browser.new_page(
+            user_agent=DEFAULT_USER_AGENT,
+            locale="en-US",
+            timezone_id="Asia/Karachi",
+        )
+        page.set_viewport_size({"width": 1366, "height": 900})
+        _apply_stealth(page)
         logging.info("✅ New page created")
 
         try:
@@ -516,19 +544,27 @@ def scrape_place_by_url(
                     logging.warning("⚠ Could not find Default profile — using profile dir directly")
                     profile_copy = chrome_profile
 
-                is_headless = platform.system() != "Windows"
+                is_headless = True
                 if platform.system() == "Windows":
                     browser_path = r"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
                     context = p.chromium.launch_persistent_context(
                         user_data_dir=profile_copy,
                         executable_path=browser_path,
                         headless=is_headless,
+                        viewport={"width": 1366, "height": 900},
+                        user_agent=DEFAULT_USER_AGENT,
+                        locale="en-US",
+                        timezone_id="Asia/Karachi",
                         args=["--profile-directory=Default"],
                     )
                 else:
                     context = p.chromium.launch_persistent_context(
                         user_data_dir=profile_copy,
                         headless=is_headless,
+                        viewport={"width": 1366, "height": 900},
+                        user_agent=DEFAULT_USER_AGENT,
+                        locale="en-US",
+                        timezone_id="Asia/Karachi",
                         args=["--profile-directory=Default", "--no-sandbox", "--disable-setuid-sandbox"],
                     )
                 logging.info("✅ Launched Chrome with profile (logged-in mode)")
@@ -542,9 +578,11 @@ def scrape_place_by_url(
 
         if context is not None:
             page = context.new_page()
+            page.set_viewport_size({"width": 1366, "height": 900})
+            _apply_stealth(page)
             browser = None
         else:
-            is_headless = platform.system() != "Windows"
+            is_headless = True
             if platform.system() == "Windows":
                 browser_path = r"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
                 logging.info(f"🌐 Launching Chrome: {browser_path} (headless={is_headless})")
@@ -552,7 +590,13 @@ def scrape_place_by_url(
             else:
                 logging.info(f"🌐 Launching Chromium (headless={is_headless})")
                 browser = p.chromium.launch(headless=is_headless, args=['--no-sandbox', '--disable-setuid-sandbox'])
-            page = browser.new_page()
+            page = browser.new_page(
+                user_agent=DEFAULT_USER_AGENT,
+                locale="en-US",
+                timezone_id="Asia/Karachi",
+            )
+            page.set_viewport_size({"width": 1366, "height": 900})
+            _apply_stealth(page)
 
         try:
             logging.info(f"🗺  Opening: {url}")
@@ -737,7 +781,9 @@ def scrape_place_by_url(
                     kw_path, index=False, encoding='utf-8-sig')
                 logging.info(f"💾 Saved  : {kw_path}  ({len(review_keywords)} keywords)")
 
-            reviews = extract_all_reviews(page, max_reviews=20)
+            max_reviews = int(os.getenv('SCRAPER_MAX_REVIEWS', '20'))
+            reviews_debug_dir = os.path.join(place_dir, 'debug_reviews')
+            reviews = extract_all_reviews(page, max_reviews=max_reviews, debug_dir=reviews_debug_dir)
             result['reviews'] = reviews
             if reviews:
                 reviews_path = os.path.join(place_dir, 'reviews.csv')

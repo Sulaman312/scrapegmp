@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "reviews": "Reviews",
+    "features": "Features",
+    "gallery": "Gallery",
+    "videos": "Videos",
+    "contact": "Contact"
+  },
+  "hero": {
+    "discover_features": "Discover features",
+    "sector": "Sector",
+    "scroll": "Scroll"
+  },
+  "about": {
+    "pill": "About",
+    "service_suffix": "at your service"
+  },
+  "features": {
+    "pill": "Features",
+    "title": "Everything you need",
+    "subtitle": "Designed for demanding professionals.",
+    "intro": "We offer a comprehensive range of professional features designed to meet your needs"
+  },
+  "gallery": {
+    "pill": "Gallery",
+    "heading_prefix": "Discover it",
+    "heading_highlight": "in action"
+  },
+  "videos": {
+    "pill": "Videos",
+    "heading": "Discover us on video"
+  },
+  "contact": {
+    "pill": "Contact",
+    "heading_line1": "Let's work",
+    "heading_line2": "together",
+    "address_label": "Address",
+    "phone_label": "Phone",
+    "website_label": "Website",
+    "opening_hours_label": "Opening hours"
+  },
+  "footer": {
+    "contact_heading": "Contact",
+    "view_on_maps": "View on Google Maps",
+    "all_rights_reserved": "All rights reserved."
+  }
+}

@@ -262,6 +262,10 @@ async function submitAddBusiness() {
     return;
   }
 
+  // Get selected language
+  const selectedLangBtn = document.querySelector('.language-btn.active');
+  const language = selectedLangBtn ? selectedLangBtn.dataset.lang : 'fr';
+
   // Show progress view
   showModalProgress();
 
@@ -273,7 +277,7 @@ async function submitAddBusiness() {
     const fetchPromise = fetch('/api/scrape-and-enrich', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: url }),
+      body: JSON.stringify({ url: url, language: language }),
     });
 
     // Wait at least 3 seconds on step 1 (scraping takes time)
@@ -352,5 +356,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'Escape') hideAddBusinessModal();
       if (e.key === 'Enter') submitAddBusiness();
     }
+  });
+
+  // Language selector buttons
+  document.querySelectorAll('.language-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.language-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
   });
 });
