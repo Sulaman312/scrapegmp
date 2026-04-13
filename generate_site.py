@@ -28,6 +28,7 @@ import argparse
 import logging
 import shutil
 import re
+import random
 import html as html_lib
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -507,6 +508,12 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     qa = [q for q in qa if isinstance(q, dict) and (q.get("question", "").strip())]
 
     _theme = raw.get("theme", {})
+
+    # Shuffle images for initial generation (new businesses) to get variety
+    # Once user makes selections, theme.json will have values and we preserve order
+    if not _theme or not any(_theme.get(k) for k in ["hero_image", "gallery_images", "story_images"]):
+        random.shuffle(images)
+        logging.info(f"🎲 Shuffled {len(images)} images for initial random assignment")
 
     # Photo tracker to ensure unique photos across all sections
     photo_index = 0

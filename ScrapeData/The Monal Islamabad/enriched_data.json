@@ -74,66 +74,31 @@
         "description": "Our attentive staff is dedicated to providing an unparalleled dining experience for every guest.",
         "image": "",
         "link": ""
-      },
-      {
-        "icon": "thumb_up",
-        "title": "Family-Friendly",
-        "description": "A welcoming atmosphere for families, with special menus and activities for children.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "schedule",
-        "title": "Flexible Hours",
-        "description": "Open daily with extended hours to accommodate your dining needs, from lunch to late-night meals.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "payments",
-        "title": "Easy Reservations",
-        "description": "Book your table effortlessly through our online reservation system for a hassle-free experience.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "local_shipping",
-        "title": "Takeout & Delivery",
-        "description": "Enjoy your favorite dishes from The Monal at home with our convenient takeout and delivery options.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "home",
-        "title": "Cultural Ambiance",
-        "description": "Immerse yourself in a culturally rich setting that reflects the heritage of Pakistan.",
-        "image": "",
-        "link": ""
       }
     ],
     "services_cards": [
       {
         "title": "Diverse Menu",
         "description": "Our extensive menu features a wide variety of dishes, catering to every taste and preference.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0020.webp",
         "link": "#contact"
       },
       {
         "title": "Exceptional Service",
         "description": "Our attentive staff is dedicated to providing an unparalleled dining experience for every guest.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0019.webp",
         "link": "#contact"
       },
       {
         "title": "Family-Friendly",
         "description": "A welcoming atmosphere for families, with special menus and activities for children.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0014.webp",
         "link": "#contact"
       },
       {
         "title": "Flexible Hours",
         "description": "Open daily with extended hours to accommodate your dining needs, from lunch to late-night meals.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0010.webp",
         "link": "#contact"
       }
     ],
@@ -141,25 +106,25 @@
       {
         "title": "Diverse Menu",
         "description": "Our extensive menu features a wide variety of dishes, catering to every taste and preference.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0011.webp",
         "link": "#contact"
       },
       {
         "title": "Exceptional Service",
         "description": "Our attentive staff is dedicated to providing an unparalleled dining experience for every guest.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0017.webp",
         "link": "#contact"
       },
       {
         "title": "Family-Friendly",
         "description": "A welcoming atmosphere for families, with special menus and activities for children.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0019.webp",
         "link": "#contact"
       },
       {
         "title": "Flexible Hours",
         "description": "Open daily with extended hours to accommodate your dining needs, from lunch to late-night meals.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0020.webp",
         "link": "#contact"
       }
     ],
@@ -230,9 +195,9 @@
     "color3": "#F97316",
     "cta_color": "#9F1239",
     "hero_dark": "#06060F",
-    "hero_image": "images/All/0001.webp",
+    "hero_image": "images/All/0011.webp",
     "why_choose_us_image": "images/All/0003.webp",
-    "values_image": "images/All/0001.webp",
+    "values_image": "images/All/0011.webp",
     "company_image_1": "images/All/0001.webp",
     "company_image_2": "images/All/0002.webp"
   },

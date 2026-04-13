@@ -1,5 +1,5 @@
 {
-  "template": "bernard",
+  "template": "facade",
   "language": "en",
   "business": {
     "name": "Broadway Pizza - Gulberg Greens",
@@ -86,19 +86,19 @@
       {
         "title": "Online Ordering",
         "description": "Easily order your favorite dishes online for a seamless dining experience.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
         "title": "Customer Support",
         "description": "Our friendly team is always here to assist you with any inquiries or feedback.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0003.webp",
         "link": "#contact"
       },
       {
         "title": "Dine-In Experience",
         "description": "Join us at our cozy location for a delightful dine-in experience with friends and family.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0004.webp",
         "link": "#contact"
       }
     ],
@@ -112,19 +112,19 @@
       {
         "title": "Online Ordering",
         "description": "Easily order your favorite dishes online for a seamless dining experience.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
         "title": "Customer Support",
         "description": "Our friendly team is always here to assist you with any inquiries or feedback.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0003.webp",
         "link": "#contact"
       },
       {
         "title": "Dine-In Experience",
         "description": "Join us at our cozy location for a delightful dine-in experience with friends and family.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0004.webp",
         "link": "#contact"
       }
     ],
@@ -200,9 +200,9 @@
     "color3": "#1A5FB4",
     "cta_color": "#0284C7",
     "hero_dark": "#06060F",
-    "hero_image": "images/All/0001.webp",
+    "hero_image": "images/All/0016.webp",
     "why_choose_us_image": "images/All/0003.webp",
-    "values_image": "images/All/0001.webp",
+    "values_image": "images/All/0004.webp",
     "company_image_1": "images/All/0001.webp",
     "company_image_2": "images/All/0002.webp"
   },
@@ -350,10 +350,10 @@
         "11 AM–4 AM"
       ]
     },
-    "social_links": [],
     "highlights": [
       "You will receive verification code via SMS"
-    ]
+    ],
+    "social_links": []
   },
   "about_attrs": [
     "[object Object]"

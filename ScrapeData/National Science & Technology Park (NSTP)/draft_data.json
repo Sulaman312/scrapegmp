@@ -1,5 +1,5 @@
 {
-  "template": "bernard",
+  "template": "facade",
   "language": "fr",
   "business": {
     "name": "National Science & Technology Park (NSTP)",
@@ -72,34 +72,6 @@
         "icon": "lock",
         "title": "Sécurité avancée",
         "description": "Des infrastructures sécurisées pour protéger vos idées et vos innovations.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "celebration",
-        "title": "Événements et ateliers",
-        "description": "Participez à des événements réguliers pour échanger des idées et développer vos compétences.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "local_shipping",
-        "title": "Accès facile",
-        "description": "Situé à Islamabad, avec un accès facile aux principales routes et transports en commun.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "star",
-        "title": "Partenariats stratégiques",
-        "description": "Opportunités de collaboration avec des entreprises et des institutions de recherche.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "dining",
-        "title": "Espaces de détente",
-        "description": "Des zones de détente et de restauration pour favoriser le bien-être des employés.",
         "image": "",
         "link": ""
       }
@@ -223,7 +195,7 @@
     "color3": "#F59E0B",
     "cta_color": "#1E3A8A",
     "hero_dark": "#06060F",
-    "hero_image": "images/All/0001.webp",
+    "hero_image": "images/All/0010.webp",
     "why_choose_us_image": "images/All/0003.webp",
     "values_image": "images/All/0001.webp",
     "company_image_1": "images/All/0001.webp",
