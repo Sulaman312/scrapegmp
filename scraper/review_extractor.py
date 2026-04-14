@@ -15,10 +15,15 @@ from scraper.tab_extractors import click_tab
 REVIEW_CARD_SELECTOR = ', '.join([
     'div[data-review-id]',
     'div.jftiEf',
-    'div[class*="jJc9Ad"]',
-    'div:has(span.kvMYJc)',
-    'div:has(span.wiI7pd)',
 ])
+
+
+def _normalize_review_text(value: str) -> str:
+    return re.sub(r'\s+', ' ', (value or '').strip().lower())
+
+
+def _normalize_review_value(value: str) -> str:
+    return (value or '').strip().lower()
 
 
 def _find_scrollable_panel(page: Page):
@@ -264,6 +269,7 @@ def extract_all_reviews(page: Page, max_reviews: int = 20, debug_dir: str | None
     """
     reviews = []
     seen_ids: set = set()
+    seen_signatures: set = set()
 
     _dump_review_debug(page, debug_dir, '00_start_before_open')
 
@@ -515,7 +521,28 @@ def extract_all_reviews(page: Page, max_reviews: int = 20, debug_dir: str | None
                 # Use the quick_review_id we already created/checked earlier
                 review_id = quick_review_id
 
-                if not (author or text):
+                if not text:
+                    continue
+
+                normalized_author = _normalize_review_value(author)
+                normalized_date = _normalize_review_value(date)
+                normalized_text = _normalize_review_text(text)
+                rating_key = f"{rating:.1f}"
+
+                # Build robust content signatures to collapse duplicate/partial cards.
+                signature_candidates = []
+                if normalized_author and normalized_date and normalized_text:
+                    signature_candidates.append(f"a|{normalized_author}|{normalized_date}|{normalized_text}")
+                if normalized_date and normalized_text:
+                    signature_candidates.append(f"d|{normalized_date}|{rating_key}|{normalized_text}")
+                if len(normalized_text) >= 40:
+                    signature_candidates.append(f"t|{rating_key}|{normalized_text}")
+
+                if any(sig in seen_signatures for sig in signature_candidates):
+                    continue
+
+                # Incomplete cards are often nested duplicates of real cards.
+                if not normalized_author and not normalized_date and review_id and len(normalized_text) < 40:
                     continue
 
                 # Final safety check (should not hit this due to early check)
@@ -523,6 +550,8 @@ def extract_all_reviews(page: Page, max_reviews: int = 20, debug_dir: str | None
                     continue
 
                 seen_ids.add(review_id)
+                for sig in signature_candidates:
+                    seen_signatures.add(sig)
                 new_this_pass += 1
 
                 reviews.append({

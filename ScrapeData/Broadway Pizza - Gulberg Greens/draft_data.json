@@ -1,5 +1,5 @@
 {
-  "template": "facade",
+  "template": "bernard",
   "language": "en",
   "business": {
     "name": "Broadway Pizza - Gulberg Greens",
@@ -236,58 +236,10 @@
       "date": "5 months ago"
     },
     {
-      "author_name": "Atif Javed",
-      "text": "Piza is very basic! Matlab nothing special. Taste is also very very basic. But the fires are like home made fries. Seems like koi ghar me bheth k bna k kha rai. Kahi se b restaurant Wali feel Ni ai. Broadway needs to improve the taste. When …",
-      "rating": 3,
-      "date": "5 months ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "Piza is very basic! Matlab nothing special. Taste is also very very basic. But the fires are like home made fries. Seems like koi ghar me bheth k bna k kha rai. Kahi se b restaurant Wali feel Ni ai. Broadway needs to improve the taste. When …",
-      "rating": 3,
-      "date": "5 months ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "Piza is very basic! Matlab nothing special. Taste is also very very basic. But the fires are like home made fries. Seems like koi ghar me bheth k bna k kha rai. Kahi se b restaurant Wali feel Ni ai. Broadway needs to improve the taste. When …",
-      "rating": 5,
-      "date": ""
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "Piza is very basic! Matlab nothing special. Taste is also very very basic. But the fires are like home made fries. Seems like koi ghar me bheth k bna k kha rai. Kahi se b restaurant Wali feel Ni ai. Broadway needs to improve the taste. When …",
-      "rating": 5,
-      "date": ""
-    },
-    {
       "author_name": "Anas Ali",
-      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet …",
+      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet soft—and the ingredients tasted fresh.The only reason I am giving it 4 stars instead of 5 is that there’s just a little room for improvement, but overall it was a delicious and satisfying pizza. I’d definitely order it again and recommend it to anyone who enjoys bold, creamy flavors!",
       "rating": 4,
       "date": "4 months ago"
-    },
-    {
-      "author_name": "Anas Ali",
-      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet …",
-      "rating": 4,
-      "date": "4 months ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet …",
-      "rating": 4,
-      "date": "4 months ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet …",
-      "rating": 5,
-      "date": ""
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "I recently tried the Broadway Arabic Ranch Pizza, and I really enjoyed it! The creamy ranch base paired beautifully with the Arabic-style spices and toppings, creating a rich and flavorful combination. The crust was nicely baked—crispy yet …",
-      "rating": 5,
-      "date": ""
     },
     {
       "author_name": "RAJA ADNAN",
@@ -296,28 +248,76 @@
       "date": "3 months ago"
     },
     {
-      "author_name": "RAJA ADNAN",
-      "text": "Their pizza and items are very high quality amazing behavior of staff and interior is amazing amazing deals at reasonable prices very satisfied",
+      "author_name": "Saad Mehmood",
+      "text": "Great food, delicious with plenty of options especially the simple cheese slice",
       "rating": 5,
       "date": "3 months ago"
     },
     {
-      "author_name": "Anonymous",
-      "text": "Their pizza and items are very high quality amazing behavior of staff and interior is amazing amazing deals at reasonable prices very satisfied",
+      "author_name": "Hammad Khan",
+      "text": "Food is good here. The service was very quick, though they forgot to give the drink, that i reminded again, but it was all okay. The seating arrangement is okay as well. I ordered the Smokey Joe's Pasta with some potato wedges. The food quality is good.",
+      "rating": 3,
+      "date": "12 months ago"
+    },
+    {
+      "author_name": "Bilal Ahmad",
+      "text": "Really good experience. Pizzas were on point,   fresh and high quality ingredients. Service was top notch and prices were very affordable. The ambiance was also pretty lively. The only thing they can improve on is keeping the washroom a bit cleaner 😊",
       "rating": 5,
+      "date": "12 months ago"
+    },
+    {
+      "author_name": "Ahsan Shoukat",
+      "text": "I came to pick up my takeaway order, and I was told it would be ready in 15 minutes. However, it has now been over 30 minutes and I'm still waiting. I had clearly informed the staff that I couldn't wait longer than 15 minutes, but unfortunately, they didn't seem to care. Despite the delay, no one even apologized or showed any concern. Extremely disappointed with their service today. I expected better from Broadway Pizza.",
+      "rating": 3,
+      "date": "10 months ago"
+    },
+    {
+      "author_name": "Sidra Saleem",
+      "text": "I ordered the trio box the delivery was late and the pizza was mid. The pasta and pizza rolls also wasn't very good. They need alot of improvement in taste. Overall Everything was quite bland and im disappointed since I've heard great things about this brand.",
+      "rating": 3,
       "date": "3 months ago"
     },
     {
-      "author_name": "Anonymous",
-      "text": "Their pizza and items are very high quality amazing behavior of staff and interior is amazing amazing deals at reasonable prices very satisfied",
+      "author_name": "Salman Jan",
+      "text": "I ordered two unique flavours. Tarzan tikka and the west side, both were superbly amazing and their sauces were really tangy and tasty. Would highly recommend this branch. The staff is very friendly and cooperative and the taste is very excellent.",
       "rating": 5,
-      "date": ""
+      "date": "12 months ago"
     },
     {
-      "author_name": "Anonymous",
-      "text": "Their pizza and items are very high quality amazing behavior of staff and interior is amazing amazing deals at reasonable prices very satisfied",
+      "author_name": "Mohsan Hassan",
+      "text": "Ordered sharing box and it was sufficient for 2 people..quality of the pizza was good.. baked fries were tasty with the 2 dips",
       "rating": 5,
-      "date": ""
+      "date": "12 months ago"
+    },
+    {
+      "author_name": "Kamran Mukhtar",
+      "text": "Visited BroadwayPizza today with a friend for some good food and a great time. We ordered the Arabian Ranch pizza and the Appetizer box—both were served hot and tasted amazing. As the saying goes, 'a picture is worth a thousand words,' so check out the photos and see for yourself! It's a cozy spot with delicious food. Highly recommend!",
+      "rating": 5,
+      "date": "12 months ago"
+    },
+    {
+      "author_name": "Noor Ul ain",
+      "text": "Yesterday evening, when I visited the Broadway branch, I specifically asked for a thin-crust pizza and requested that it be juicy because I was with my guest and didn’t want anything to go wrong. However, they still served me a thick crust that was hard, and the pizza was not juicy either. Moreover, the manager was shouting at the staff in front of customers, which was totally unprofessional and inappropriate.",
+      "rating": 1,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "AZ Productions",
+      "text": "Broadway Pizza, Gulberg Greens Branch Open's Recently. Over All Ambiance Was Appreciatable. Inside Very Neat And Clean,Hygienic Place. Seats Were Very UnComfortable.Plz Put Some foam Or Something else So People Sit Easily. Food Quality Was Good Like Other Branches. Service Was Little Slow Than Other Branches But The Staff Were Very Professional. Ambiance 85% Service 80%",
+      "rating": 4,
+      "date": "12 months ago"
+    },
+    {
+      "author_name": "Four Stars",
+      "text": "Very disappointing pizza. The crust was hard and dry, the sauce tasted bland, and the cheese felt cheap and rubbery. Toppings were sparse and not fresh at all. It arrived cold and greasy, which completely ruined the experience. Definitely not worth the money. I will not be ordering again.",
+      "rating": 1,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "Areej Raza",
+      "text": "I ordered today from Broadway pizza . Pizza was so dry and no taste at all . Quality and taste of pizza is so poor that it's not even edible. Bread of pizza was like a roti stuff. I don't recommend any one to Oder from the gulberg branch",
+      "rating": 1,
+      "date": "9 months ago"
     }
   ],
   "review_keywords": [

@@ -107,7 +107,7 @@
       {
         "title": "Schnelle Ausführung",
         "description": "Wir garantieren eine zügige Durchführung der Arbeiten, damit Sie schnell wieder genießen können.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
@@ -119,7 +119,7 @@
       {
         "title": "Innovative Techniken",
         "description": "Unsere modernen Techniken sorgen für eine effektive und nachhaltige Renovierung Ihrer Pools.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0003.webp",
         "link": "#contact"
       }
     ],
@@ -133,7 +133,7 @@
       {
         "title": "Schnelle Ausführung",
         "description": "Wir garantieren eine zügige Durchführung der Arbeiten, damit Sie schnell wieder genießen können.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
@@ -145,7 +145,7 @@
       {
         "title": "Innovative Techniken",
         "description": "Unsere modernen Techniken sorgen für eine effektive und nachhaltige Renovierung Ihrer Pools.",
-        "image": "images/All/0001.webp",
+        "image": "images/All/0002.webp",
         "link": "#contact"
       }
     ],
@@ -246,7 +246,7 @@
     "color3": "#FB923C",
     "cta_color": "#1E40AF",
     "hero_dark": "#06060F",
-    "hero_image": "images/All/0001.webp",
+    "hero_image": "images/All/0002.webp",
     "why_choose_us_image": "images/All/0003.webp",
     "values_image": "images/All/0001.webp",
     "company_image_1": "images/All/0001.webp",
@@ -265,58 +265,10 @@
       "date": "9 months ago"
     },
     {
-      "author_name": "Mirjam",
-      "text": "We highly recommend this company for pool renovations! From the very first contact, the owner was attentive, professiona",
-      "rating": 5,
-      "date": "9 months ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "We highly recommend this company for pool renovations! From the very first contact, the owner was attentive, professiona",
-      "rating": 5,
-      "date": "9 months ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "We highly recommend this company for pool renovations! From the very first contact, the owner was attentive, professiona",
-      "rating": 5,
-      "date": ""
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "We highly recommend this company for pool renovations! From the very first contact, the owner was attentive, professiona",
-      "rating": 5,
-      "date": ""
-    },
-    {
       "author_name": "Natalia Vlasova",
       "text": "This company, and Mr. Picard, who gave his company 5 stars in BTW magazine, renovated our pool.\n\nI must say that Mr. Picard is quite the writer, and instead of fixing their mistakes and providing simple after-sales service, he sends us numerous letters with explanations.\n\nI strongly recommend that you use other companies for your projects. Pisciflor doesn't adhere to any of the rules of a reliable company.",
       "rating": 1,
       "date": "2 years ago"
-    },
-    {
-      "author_name": "Natalia Vlasova",
-      "text": "This company, and Mr. Picard, who gave his company 5 stars in BTW magazine, renovated our pool.\n\nI must say that Mr. Picard is quite the writer, and instead of fixing their mistakes and providing simple after-sales service, he sends us numerous letters with explanations.\n\nI strongly recommend that you use other companies for your projects. Pisciflor doesn't adhere to any of the rules of a reliable company.",
-      "rating": 1,
-      "date": "2 years ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "This company, and Mr. Picard, who gave his company 5 stars in BTW magazine, renovated our pool.\n\nI must say that Mr. Pic",
-      "rating": 1,
-      "date": "2 years ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "This company, and Mr. Picard, who gave his company 5 stars in BTW magazine, renovated our pool.\n\nI must say that Mr. Pic",
-      "rating": 5,
-      "date": ""
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "This company, and Mr. Picard, who gave his company 5 stars in BTW magazine, renovated our pool.\n\nI must say that Mr. Pic",
-      "rating": 5,
-      "date": ""
     },
     {
       "author_name": "Raymond Rochat",
@@ -325,28 +277,10 @@
       "date": "a year ago"
     },
     {
-      "author_name": "Raymond Rochat",
-      "text": "The plan was kept and followed closely. Extremely happy with the final result. The staff were competent and very friendl",
+      "author_name": "David Siamont",
+      "text": "A very positive experience with this company, its manager, and its staff.\n\nA responsive, efficient, and professional team.\n\nI highly recommend them.\n\nDavid",
       "rating": 5,
-      "date": "a year ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "The plan was kept and followed closely. Extremely happy with the final result. The staff were competent and very friendl",
-      "rating": 5,
-      "date": "a year ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "The plan was kept and followed closely. Extremely happy with the final result. The staff were competent and very friendl",
-      "rating": 5,
-      "date": ""
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "The plan was kept and followed closely. Extremely happy with the final result. The staff were competent and very friendl",
-      "rating": 5,
-      "date": ""
+      "date": "2 years ago"
     }
   ],
   "review_keywords": [

@@ -506,12 +506,20 @@ def get_business(name):
         return jsonify({"error": "Access denied"}), 403
 
     biz_dir = os.path.join(SCRAPE_DIR, name)
-    # Prefer the draft JSON if it exists; otherwise fall back to the
-    # last published enriched_data.json so first-time edits start from
-    # the current live content.
+    # Prefer the most recently updated JSON between draft and enriched.
+    # This avoids stale draft files overriding manually fixed enriched data.
     draft_path = os.path.join(biz_dir, "draft_data.json")
     enriched_path = os.path.join(biz_dir, "enriched_data.json")
-    src_path = draft_path if os.path.exists(draft_path) else enriched_path
+    draft_exists = os.path.exists(draft_path)
+    enriched_exists = os.path.exists(enriched_path)
+
+    if draft_exists and enriched_exists:
+        src_path = draft_path if os.path.getmtime(draft_path) >= os.path.getmtime(enriched_path) else enriched_path
+    elif draft_exists:
+        src_path = draft_path
+    else:
+        src_path = enriched_path
+
     if not os.path.exists(src_path):
         return jsonify({"error": "Not found"}), 404
     data = load_json(src_path)
@@ -568,15 +576,20 @@ def generate_website(name):
         return jsonify({"error": "Access denied"}), 403
 
     biz_dir = os.path.join(SCRAPE_DIR, name)
-    # On publish, copy the current draft into enriched_data.json so the
-    # generated static site reflects exactly the last saved draft.
+    # On publish, copy draft into enriched only when draft is newer (or
+    # enriched is missing), so stale drafts cannot re-corrupt published data.
     draft_path = os.path.join(biz_dir, "draft_data.json")
     enriched_path = os.path.join(biz_dir, "enriched_data.json")
     if os.path.exists(draft_path):
-        try:
-            shutil.copyfile(draft_path, enriched_path)
-        except Exception as exc:
-            logging.warning(f"Failed to copy draft to enriched for '{name}': {exc}")
+        draft_is_newer = (
+            (not os.path.exists(enriched_path))
+            or (os.path.getmtime(draft_path) >= os.path.getmtime(enriched_path))
+        )
+        if draft_is_newer:
+            try:
+                shutil.copyfile(draft_path, enriched_path)
+            except Exception as exc:
+                logging.warning(f"Failed to copy draft to enriched for '{name}': {exc}")
 
     # Get template from enriched data
     template = "default"

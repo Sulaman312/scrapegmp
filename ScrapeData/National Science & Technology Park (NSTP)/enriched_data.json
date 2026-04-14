@@ -74,34 +74,6 @@
         "description": "Des infrastructures sécurisées pour protéger vos idées et vos innovations.",
         "image": "",
         "link": ""
-      },
-      {
-        "icon": "celebration",
-        "title": "Événements et ateliers",
-        "description": "Participez à des événements réguliers pour échanger des idées et développer vos compétences.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "local_shipping",
-        "title": "Accès facile",
-        "description": "Situé à Islamabad, avec un accès facile aux principales routes et transports en commun.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "star",
-        "title": "Partenariats stratégiques",
-        "description": "Opportunités de collaboration avec des entreprises et des institutions de recherche.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "dining",
-        "title": "Espaces de détente",
-        "description": "Des zones de détente et de restauration pour favoriser le bien-être des employés.",
-        "image": "",
-        "link": ""
       }
     ],
     "services_cards": [
@@ -223,7 +195,7 @@
     "color3": "#F59E0B",
     "cta_color": "#1E3A8A",
     "hero_dark": "#06060F",
-    "hero_image": "images/All/0001.webp",
+    "hero_image": "images/All/0010.webp",
     "why_choose_us_image": "images/All/0003.webp",
     "values_image": "images/All/0001.webp",
     "company_image_1": "images/All/0001.webp",
@@ -259,58 +231,10 @@
       "date": "a year ago"
     },
     {
-      "author_name": "abdulmajid raza",
-      "text": "The campus in Sector H-12 Islamabad was initiated in 2008. The campus is spread over 800 acres. Includes all sports faci",
-      "rating": 5,
-      "date": "a year ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "The campus in Sector H-12 Islamabad was initiated in 2008. The campus is spread over 800 acres. Includes all sports faci",
-      "rating": 5,
-      "date": "a year ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "The campus in Sector H-12 Islamabad was initiated in 2008. The campus is spread over 800 acres. Includes all sports faci",
-      "rating": 5,
-      "date": ""
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "The campus in Sector H-12 Islamabad was initiated in 2008. The campus is spread over 800 acres. Includes all sports faci",
-      "rating": 5,
-      "date": ""
-    },
-    {
       "author_name": "Junaid Hassan",
       "text": "Loved the place, great for working and easily accessible for commuting 😀 …",
       "rating": 5,
       "date": "Edited a year ago"
-    },
-    {
-      "author_name": "Junaid Hassan",
-      "text": "Loved the place, great for working and easily accessible for commuting 😀 …",
-      "rating": 5,
-      "date": "Edited a year ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "Loved the place, great for working and easily accessible for commuting 😀 …",
-      "rating": 5,
-      "date": "Edited a year ago"
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "Loved the place, great for working and easily accessible for commuting 😀 …",
-      "rating": 5,
-      "date": ""
-    },
-    {
-      "author_name": "Anonymous",
-      "text": "Loved the place, great for working and easily accessible for commuting 😀 …",
-      "rating": 5,
-      "date": ""
     },
     {
       "author_name": "Anas Ali Khan",
@@ -319,28 +243,76 @@
       "date": "5 months ago"
     },
     {
-      "author_name": "Anas Ali Khan",
-      "text": "Great, clean, plenty of parking.\nWell equipped",
+      "author_name": "Muhammad Usman",
+      "text": "This building gives a true representation of the NUST. Adorable facade, interior, and architecture.",
       "rating": 5,
-      "date": "5 months ago"
+      "date": "3 years ago"
     },
     {
-      "author_name": "Anonymous",
-      "text": "Great, clean, plenty of parking.\nWell equipped",
+      "author_name": "Jamil Ahmad",
+      "text": "A wonderful multi-storey building for technological innovation, development and colleboration. They environment is so comfortable that it doesn't allow one to leave. There are several offices and setups of various national and international companies doing collaborative research projects. There is a cental projects display area on the ground floor where innovative and research projects/products are displayed for the visitors. I loved visiting this place. The visit was arranged through LearnOBots team leader, thanks to him.",
       "rating": 5,
-      "date": "5 months ago"
+      "date": "a year ago"
     },
     {
-      "author_name": "Anonymous",
-      "text": "Great, clean, plenty of parking.\nWell equipped",
+      "author_name": "Roshan Nadeem",
+      "text": "National science and technology park located in national university of science and technology h12 campus",
       "rating": 5,
-      "date": ""
+      "date": "6 years ago"
     },
     {
-      "author_name": "Anonymous",
-      "text": "Great, clean, plenty of parking.\nWell equipped",
+      "author_name": "Muhammad Ali",
+      "text": "Great place for technology park",
       "rating": 5,
-      "date": ""
+      "date": "a month ago"
+    },
+    {
+      "author_name": "Waheed Khizar",
+      "text": "Great place for tech startups.",
+      "rating": 4,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "Bilal Ahmed",
+      "text": "Pretty good place for finding opportunities",
+      "rating": 5,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "danish aziz",
+      "text": "Good place for research based startups, otherwise not feasibile for startups who require frequent client visits.\nAlthough Building is new, it's clean and tidy, power management is good, Air conditioning is excellent.\nServices are good but again not for startups which have requirement of daily visitors as the visitors will be annoyed by having to first stand in queue, submit their ID cards then come and have to collect it afterwards. It sounds easy, but it's hefty.",
+      "rating": 2,
+      "date": "5 years ago"
+    },
+    {
+      "author_name": "Ashar Ahsan",
+      "text": "First ever technology park in Pakistan which encourages new business ideas.",
+      "rating": 5,
+      "date": "3 years ago"
+    },
+    {
+      "author_name": "haibi niazi",
+      "text": "NSTP - It is incubation centre with cooperative staff. It has a workable building [getting alos an other buiding nearby in coming month]It is a space for new age entrepreneurs and young minds to transform their innovative ideas into viable business propositions. The primary vision is to facilitate a platform for a budding entrepreneur to start a business venture with minimum risks.",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Farooq Sultan",
+      "text": "A great ecosystem, first of its kind, in Pakistan. Follows the typical concept of a STP by bringing together industry an",
+      "rating": 5,
+      "date": "a year ago"
+    },
+    {
+      "author_name": "Sayyam Abbasi",
+      "text": "Neat and clean peaceful environment.\nManagment is very good at all",
+      "rating": 5,
+      "date": "4 years ago"
+    },
+    {
+      "author_name": "Sal Sal",
+      "text": "A great initiative. Although the price per square ft of rental space is excessively high. It should be reduced so more c",
+      "rating": 4,
+      "date": "3 years ago"
     }
   ],
   "review_keywords": [

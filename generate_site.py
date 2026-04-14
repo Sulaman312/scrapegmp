@@ -1083,7 +1083,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
 
         # Prepare testimonials from reviews
         bernard_testimonials = []
-        for review in reviews[:3]:
+        for review in reviews[:8]:
             if isinstance(review, dict) and review.get("text"):
                 bernard_testimonials.append({
                     "text": review.get("text", "")[:200],
