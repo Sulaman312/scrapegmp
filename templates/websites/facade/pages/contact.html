@@ -1,0 +1,14 @@
+{% extends "websites/facade/pages/base.html" %}
+
+{% block title %}{{ contact_page_seo_title }}{% endblock %}
+{% block description %}{{ contact_page_seo_description }}{% endblock %}
+
+{% block content %}
+
+<div style="margin-top: clamp(64px, 8vw, 96px); margin-bottom: clamp(32px, 6vw, 72px);">
+{% include 'websites/facade/components/contact_detail.html' %}
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}{% endblock %}

@@ -831,8 +831,8 @@ def preview_render_live(name):
         current_page = data.get("current_page", "home")
 
         # Check if this is a multipage template
-        if template == "bernard" and current_page in ["home", "services", "contact"]:
-            html = generate_site.build_html_page(biz_dir, template, current_page, current_page, use_draft=False)
+        if template in ["bernard", "facade"] and current_page in ["home", "services", "contact"]:
+            html = generate_site.build_html_page(biz_dir, template, current_page, current_page, use_draft=False, override_data=data)
         else:
             html = generate_site.build_html(biz_dir, use_draft=False, override_data=data, template=template)
 
@@ -871,7 +871,7 @@ def preview_website(name):
 
         try:
             # First try: render from draft (preferred for admin preview)
-            if template == "bernard" and current_page in ["home", "services", "contact"]:
+            if template in ["bernard", "facade"] and current_page in ["home", "services", "contact"]:
                 html = generate_site.build_html_page(biz_dir, template, current_page, current_page, use_draft=True)
             else:
                 html = generate_site.build_html(biz_dir, use_draft=True, template=template)
@@ -884,7 +884,7 @@ def preview_website(name):
             logging.warning(f"Draft preview failed for '{name}' (page={current_page}): {draft_exc}")
             # Fallback: render from enriched so preview still works if draft is malformed
             try:
-                if template == "bernard" and current_page in ["home", "services", "contact"]:
+                if template in ["bernard", "facade"] and current_page in ["home", "services", "contact"]:
                     html = generate_site.build_html_page(biz_dir, template, current_page, current_page, use_draft=False)
                 else:
                     html = generate_site.build_html(biz_dir, use_draft=False, template=template)

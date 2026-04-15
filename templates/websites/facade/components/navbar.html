@@ -2,17 +2,28 @@
 <nav class="navbar">
     <div class="container-fluid">
         <div class="navbar-content">
-            <a href="#hero" class="navbar-logo">
+            <a href="{{ 'index.html' if is_multipage else '#hero' }}" class="navbar-logo">
+                {% if logo_image %}
+                <img src="{{ logo_image }}" alt="{{ business_name }} Logo" style="max-height: 40px;">
+                {% else %}
                 <span class="logo-icon">🏢</span>
                 <span>{{ brand_short_name }}</span>
+                {% endif %}
             </a>
+            {% if phone %}
+            <a href="tel:{{ phone }}" class="navbar-call-btn-facade" aria-label="Call {{ business_name }}">
+                <span class="material-symbols-outlined">call</span>
+            </a>
+            {% endif %}
             <button class="hamburger" id="hamburger-facade" aria-label="{{ tr.aria.toggle_menu if tr and tr.aria else 'Toggle menu' }}">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
             <div class="navbar-links-facade" id="navbarLinksFacade">
-                {{ dynamic_nav_links }}
+                {% for link in nav_links %}
+                <a href="{{ link.href }}" {% if link.active %}class="active"{% endif %}>{{ link.label }}</a>
+                {% endfor %}
             </div>
         </div>
     </div>

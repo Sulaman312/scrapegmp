@@ -331,6 +331,15 @@ function updateTemplateAndPreview() {
   if (typeof updatePageSelector === 'function') {
     updatePageSelector();
   }
+  // Update color presets for the selected template and apply the first one
+  if (typeof updatePresetsForTemplate === 'function') {
+    updatePresetsForTemplate(selectedTemplate);
+  }
+  // Apply the first preset of the template as default color scheme
+  if (typeof PRESETS !== 'undefined' && PRESETS.length > 0 && typeof applyPreset === 'function') {
+    const firstPreset = PRESETS[0];
+    applyPreset(...firstPreset.c);
+  }
   // Use updateLivePreview to send currentData with the new template via POST
   if (typeof updateLivePreview === 'function') {
     updateLivePreview();

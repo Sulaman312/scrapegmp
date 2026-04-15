@@ -194,7 +194,7 @@ const SOCIAL_PLATFORMS = [
 // ═══════════════════════════════════════════════════════════════════════════
 
 // Templates that support multipage
-const MULTIPAGE_TEMPLATES = ['bernard'];
+const MULTIPAGE_TEMPLATES = ['bernard', 'facade'];
 
 function isTemplateMultipage(templateId) {
   return MULTIPAGE_TEMPLATES.includes(templateId);
@@ -230,25 +230,31 @@ function updatePageSelector() {
 function updateMultipageUI() {
   const templateId = getSelectedTemplateId();
   const isBernard = templateId === 'bernard';
+  const isFacade = templateId === 'facade';
   const isMulti = isMultipageTemplate;
 
   const websiteSections = ['hero', 'features', 'our-services', 'why-choose-us', 'values', 'gallery', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer', 'services-page'];
   let allowedWebsiteSections = websiteSections.slice();
 
-  if (isBernard && isMulti) {
+  if ((isBernard || isFacade) && isMulti) {
     if (currentPage === 'services') {
       allowedWebsiteSections = ['services-page'];
     } else if (currentPage === 'contact') {
       allowedWebsiteSections = ['contact'];
     } else {
-      allowedWebsiteSections = ['hero', 'features', 'our-services', 'why-choose-us', 'values', 'gallery', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer'];
+      // Home page: Bernard has our-services and why-choose-us, Facade doesn't
+      if (isBernard) {
+        allowedWebsiteSections = ['hero', 'features', 'our-services', 'why-choose-us', 'values', 'gallery', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer'];
+      } else if (isFacade) {
+        allowedWebsiteSections = ['hero', 'features', 'values', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer'];
+      }
     }
   }
 
   // Respect template-enabled sections when available (except for the forced single-section pages above)
   const enabledTemplateSections = new Set(getTemplateEnabledWebsiteSections(templateId));
   const hasTemplateRules = enabledTemplateSections.size > 0;
-  if (!(isBernard && isMulti && (currentPage === 'services' || currentPage === 'contact'))) {
+  if (!((isBernard || isFacade) && isMulti && (currentPage === 'services' || currentPage === 'contact'))) {
     if (hasTemplateRules) {
       const mapping = {
         hero: 'hero', features: 'features', values: 'values', gallery: 'gallery', videos: 'videos',
@@ -256,7 +262,13 @@ function updateMultipageUI() {
         'our-services': 'features', 'why-choose-us': 'features',
         'services-page': 'features'
       };
-      allowedWebsiteSections = allowedWebsiteSections.filter(s => enabledTemplateSections.has(mapping[s]) || s === 'hero' || s === 'footer');
+      allowedWebsiteSections = allowedWebsiteSections.filter(s => {
+        // Template-specific exclusions
+        if (isFacade && (s === 'our-services' || s === 'why-choose-us')) {
+          return false; // Facade doesn't use these sections
+        }
+        return enabledTemplateSections.has(mapping[s]) || s === 'hero' || s === 'footer';
+      });
     }
   }
 
@@ -275,13 +287,15 @@ function updateMultipageUI() {
     return !nav || nav.style.display !== 'none';
   });
 
-  const preferred = (isBernard && isMulti && currentPage === 'services')
+  const preferred = ((isBernard || isFacade) && isMulti && currentPage === 'services')
     ? 'services-page'
-    : (isBernard && isMulti && currentPage === 'contact')
+    : ((isBernard || isFacade) && isMulti && currentPage === 'contact')
       ? 'contact'
       : (isBernard && isMulti && currentPage === 'home')
         ? 'our-services'
-        : 'hero';
+        : (isFacade && isMulti && currentPage === 'home')
+          ? 'hero'
+          : 'hero';
 
   if (typeof getCurrentAdminSection === 'function' && typeof switchSection === 'function') {
     const currentSection = getCurrentAdminSection();

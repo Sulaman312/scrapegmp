@@ -1,0 +1,32 @@
+{% extends "websites/facade/pages/base.html" %}
+
+{% block title %}{{ seo_title }}{% endblock %}
+
+{% block content %}
+
+{% include 'websites/facade/components/hero.html' %}
+
+{% if about_story_left or about_story_right %}
+{% include 'websites/facade/components/about.html' %}
+{% endif %}
+
+{% if features %}
+{% include 'websites/facade/components/features_colored.html' %}
+{% endif %}
+
+{% if values %}
+{% include 'websites/facade/components/values.html' %}
+{% endif %}
+
+{% if videos %}
+{% include 'websites/facade/components/videos.html' %}
+{% endif %}
+
+{% if cta_heading %}
+{% include 'websites/facade/components/cta_banner.html' %}
+{% endif %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}

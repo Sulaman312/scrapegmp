@@ -339,13 +339,15 @@ function collectBernardServicesPageCards() {
 // Toggle Bernard-specific fields based on template selection
 function toggleBernardFields(template) {
   const isBernard = template === 'bernard';
+  const isFacade = template === 'facade';
+  const isMultipage = typeof isMultipageTemplate !== 'undefined' && isMultipageTemplate;
 
   document.querySelectorAll('.bernard-only').forEach(el => {
     el.style.display = isBernard ? '' : 'none';
   });
 
   document.querySelectorAll('.multipage-only').forEach(el => {
-    el.style.display = (isBernard && typeof isMultipageTemplate !== 'undefined' && isMultipageTemplate) ? '' : 'none';
+    el.style.display = ((isBernard || isFacade) && isMultipage) ? '' : 'none';
   });
 
   // Show/hide highlights (default templates)

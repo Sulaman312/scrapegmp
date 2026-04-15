@@ -1,0 +1,46 @@
+<!-- SERVICES DETAIL PAGE SECTION (Facade Design) -->
+<section class="section-services-detail-facade" id="services-detail">
+    <div class="container">
+        <div class="services-detail-header" data-aos="fade-up">
+            <p class="services-intro-text">{{ services_page_small_text }}</p>
+            <h2 class="section-title">{{ services_page_heading }}</h2>
+            <p class="services-description">{{ services_page_description }}</p>
+        </div>
+
+        <div class="services-detail-grid">
+            {% for service in services %}
+            <div class="service-detail-card-facade" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
+                <div class="service-detail-image-facade">
+                    <img src="{{ service.image }}" alt="{{ service.title }}" loading="lazy">
+                </div>
+                <div class="service-detail-content-facade">
+                    <h3 class="service-detail-title-facade">{{ service.title }}</h3>
+                    <p class="service-detail-description-facade">{{ service.description }}</p>
+
+                    {% if service.features %}
+                    <ul class="service-detail-features-facade">
+                        {% for feature in service.features %}
+                        <li>
+                            <span class="material-symbols-outlined">check_circle</span>
+                            {{ feature }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if service.price %}
+                    <div class="service-detail-pricing-facade">
+                        <strong>{{ tr.services.starting_at if tr and tr.services else 'Starting at' }}</strong>
+                        <p>{{ service.price }}</p>
+                    </div>
+                    {% endif %}
+
+                    <div class="service-detail-cta-facade">
+                        <a href="contact.html" class="btn btn-primary">{{ tr.services.request_quote if tr and tr.services else 'Request Quote' }}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

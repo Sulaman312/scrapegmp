@@ -101,6 +101,49 @@ def _e(text) -> str:
     return html_lib.escape(str(text or ""), quote=True)
 
 
+def _shorten_business_name(name: str, max_len: int = 25) -> str:
+    cleaned = str(name or "").strip()
+    if not cleaned:
+        return ""
+
+    for sep in [" - ", " | ", " – ", " — "]:
+        if sep in cleaned:
+            cleaned = cleaned.split(sep)[0].strip()
+
+    cleaned = re.sub(r"\s*\([^)]*\)\s*$", "", cleaned)
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+
+    for suffix in [" LLC", " Ltd", " Inc", " Corp", " GmbH", " SA", " SARL", " Sàrl"]:
+        if cleaned.endswith(suffix):
+            cleaned = cleaned[:-len(suffix)].strip()
+
+    if len(cleaned) > max_len:
+        words = cleaned.split()
+        if words:
+            shortened = words[0]
+            for word in words[1:]:
+                candidate = f"{shortened} {word}"
+                if len(candidate) <= max_len:
+                    shortened = candidate
+                else:
+                    break
+            cleaned = shortened
+
+    return cleaned[:max_len].strip()
+
+
+def _resolve_navbar_name(ai: dict, biz: dict) -> str:
+    navbar_name = _shorten_business_name(ai.get("navbar_name", ""), max_len=25)
+    if navbar_name:
+        return navbar_name
+
+    brand_short_name = _shorten_business_name(ai.get("brand_short_name", ""), max_len=25)
+    if brand_short_name:
+        return brand_short_name
+
+    return _shorten_business_name(biz.get("name", "Business"), max_len=25) or "Business"
+
+
 def _stars(rating) -> str:
     """Return filled/empty star HTML for a numeric rating."""
     if not rating:
@@ -393,7 +436,7 @@ def generate(business_dir: str, open_browser: bool = False, template: str = "def
     Uses the specified template (default: "default").
     """
     # Check if template supports multipage
-    if template == "bernard":
+    if template in ["bernard", "facade"]:
         return generate_multipage(business_dir, open_browser, template)
 
     # Single page generation
@@ -411,7 +454,7 @@ def generate(business_dir: str, open_browser: bool = False, template: str = "def
 
 
 def generate_multipage(business_dir: str, open_browser: bool = False, template: str = "bernard") -> str:
-    """Generate a multipage website for templates that support it (e.g., Bernard)."""
+    """Generate a multipage website for templates that support it (e.g., Bernard, Facade)."""
     out_dir = os.path.join(business_dir, "website")
     os.makedirs(out_dir, exist_ok=True)
 
@@ -440,12 +483,13 @@ def generate_multipage(business_dir: str, open_browser: bool = False, template: 
     return main_page
 
 
-def build_html_page(business_dir: str, template: str, page_template: str, page_key: str, use_draft: bool = False) -> str:
+def build_html_page(business_dir: str, template: str, page_template: str, page_key: str, use_draft: bool = False, override_data: dict = None) -> str:
     """Build HTML for a specific page in a multipage template."""
     return _render_jinja2_template(
         business_dir,
         template=template,
         use_draft=use_draft,
+        override_raw=override_data,
         page_template=page_template,
         current_page=page_key
     )
@@ -518,11 +562,12 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     # Photo tracker to ensure unique photos across all sections
     photo_index = 0
     def get_next_photo():
-        """Get the next unique photo and increment the counter."""
+        """Get the next unique photo and increment the counter. Cycles through images if we run out."""
         nonlocal photo_index
-        if not images or photo_index >= len(images):
+        if not images:
             return ""
-        photo = images[photo_index]
+        # Cycle through images using modulo to ensure different images are used
+        photo = images[photo_index % len(images)]
         photo_index += 1
         return photo
 
@@ -732,7 +777,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 theme_color1 = _theme.get("color1", "#10B981")
                 theme_color2 = _theme.get("color2", "#059669")
                 theme_color3 = _theme.get("color3", "#0D9488")
-                theme_cta_color = _theme.get("cta_color", theme_color1)
+                theme_cta_color = _theme.get("cta_color", "#1a1a1a")
                 theme_hero_dark = _theme.get("hero_dark", "#06060f")
                 facade_css = facade_css.replace("{{ theme_color1 }}", theme_color1)
                 facade_css = facade_css.replace("{{ theme_color2 }}", theme_color2)
@@ -836,7 +881,35 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             if reviews:
                 nav_links.append({"href": "#testimonials", "label": _tr(tr, "testimonials.small_text", "Testimonials")})
 
-    # For facade template - check using same conditions as template conditionals
+    # For facade template
+    elif template == "facade":
+        # Check if multipage mode (determined by presence of page_template parameter)
+        is_multipage = page_template is not None
+
+        if is_multipage:
+            # Multipage navigation
+            nav_links.append({"href": "index.html", "label": _tr(tr, "nav.home", "Home"), "active": current_page == "home"})
+            nav_links.append({"href": "services.html", "label": _tr(tr, "nav.services", "Services"), "active": current_page == "services"})
+            nav_links.append({"href": "contact.html", "label": _tr(tr, "nav.contact", "Contact"), "active": current_page == "contact"})
+        else:
+            # Single page navigation (old behavior, if needed for backward compatibility)
+            # About section: {% if about_story_left or about_story_right %}
+            if first_half or second_half:
+                nav_links.append({"href": "#about", "label": _tr(tr, "nav.about", "About")})
+            # Features section: {% if features %}
+            if features:
+                nav_links.append({"href": "#features", "label": _tr(tr, "nav.features", "Features")})
+            # Values section: {% if values %}
+            if values:
+                nav_links.append({"href": "#values", "label": _tr(tr, "nav.values", "Values")})
+            # Videos section: {% if videos %}
+            if videos:
+                nav_links.append({"href": "#videos", "label": _tr(tr, "nav.videos", "Videos")})
+            # Contact section: {% if address or phone or email %}
+            if biz.get("address") or biz.get("phone") or biz.get("email"):
+                nav_links.append({"href": "#contact", "label": _tr(tr, "nav.contact", "Contact")})
+
+    # For other templates (default, etc.)
     else:
         # About section: {% if about_story_left or about_story_right %}
         if first_half or second_half:
@@ -854,10 +927,13 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         if biz.get("address") or biz.get("phone") or biz.get("email"):
             nav_links.append({"href": "#contact", "label": _tr(tr, "nav.contact", "Contact")})
 
+    resolved_navbar_name = _resolve_navbar_name(ai, biz)
+
     # Build Jinja2 context
     context = {
         # Business info
         "business_name": biz.get("name", "Business"),
+        "navbar_name": resolved_navbar_name,
         "address": biz.get("address", ""),
         "phone": biz.get("phone", ""),
         "email": biz.get("email", ""),
@@ -876,7 +952,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         "seo_description": ai.get("seo_description") or subtitle[:155],
 
         # Branding for facade
-        "brand_short_name": ai.get("brand_short_name", biz.get("name", "Business")),
+        "brand_short_name": resolved_navbar_name,
 
         # Hero section - use tagline and subtitle like old renderer
         "hero_title": tagline,
@@ -933,8 +1009,8 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         "template_id": template,
     }
 
-    # Bernard template specific data
-    if template == "bernard":
+    # Bernard and facade template specific data
+    if template in ["bernard", "facade"]:
         # Format hours summary for top header
         hours_summary = ""
         hours_dict = biz.get("hours", {})
@@ -973,23 +1049,43 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         else:
             services_from_features = features[3:7] if len(features) > 3 else []
 
+        def _build_service_cards_with_images(source_cards: list[dict]) -> list[dict]:
+            prepared_cards = []
+            explicit_images = []
+            for raw_card in source_cards:
+                card_obj = raw_card if isinstance(raw_card, dict) else {}
+                explicit_image = str(card_obj.get("image", "") or "").strip()
+                if explicit_image:
+                    explicit_images.append(explicit_image)
+
+            # Auto-sequence when cards are blank or all point to the same image (e.g. 0001.webp).
+            auto_sequence_images = len(set(explicit_images)) <= 1
+
+            for raw_card in source_cards:
+                card_obj = raw_card if isinstance(raw_card, dict) else {}
+                explicit_image = str(card_obj.get("image", "") or "").strip()
+
+                if (
+                    auto_sequence_images
+                    or not explicit_image
+                    or explicit_image not in images
+                ):
+                    next_photo = get_next_photo()
+                    service_image = next_photo if next_photo else ""
+                else:
+                    service_image = explicit_image
+
+                prepared_cards.append({
+                    "image": media_prefix + service_image if service_image else "",
+                    "title": card_obj.get("title", ""),
+                    "description": card_obj.get("description", ""),
+                    "link": card_obj.get("link", "") or "#contact",
+                })
+
+            return prepared_cards
+
         # Prepare services with default images - only show real services
-        bernard_services = []
-        for idx, feat in enumerate(services_from_features):
-            feat_obj = feat if isinstance(feat, dict) else {}
-            feat_image = feat_obj.get("image", "")
-            # Use next unique photo instead of rotating through same images
-            if feat_image:
-                service_image = feat_image
-            else:
-                next_photo = get_next_photo()
-                service_image = next_photo if next_photo else ""
-            bernard_services.append({
-                "image": media_prefix + service_image if service_image else "",
-                "title": feat_obj.get("title", ""),
-                "description": feat_obj.get("description", ""),
-                "link": feat_obj.get("link", "") or "#contact"
-            })
+        bernard_services = _build_service_cards_with_images(services_from_features)
 
         # Don't pad with placeholders - only show actual services
 
@@ -998,22 +1094,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             if (isinstance(services_page_cards_raw, list) and services_page_cards_raw)
             else features[3:]
         )
-        bernard_services_page = []
-        for idx, feat in enumerate(services_page_source):
-            feat_obj = feat if isinstance(feat, dict) else {}
-            feat_image = feat_obj.get("image", "")
-            # Use next unique photo instead of rotating through same images
-            if feat_image:
-                service_image = feat_image
-            else:
-                next_photo = get_next_photo()
-                service_image = next_photo if next_photo else ""
-            bernard_services_page.append({
-                "image": media_prefix + service_image if service_image else "",
-                "title": feat_obj.get("title", ""),
-                "description": feat_obj.get("description", ""),
-                "link": feat_obj.get("link", "") or "#contact"
-            })
+        bernard_services_page = _build_service_cards_with_images(services_page_source)
 
         # Prepare about bullets - check if AI data has bullet_points first
         about_bullets = []
@@ -1153,20 +1234,29 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             "contact_page_description": ai.get("contact_page_description", "Have questions or need assistance? Fill out the form below and our team will get back to you as soon as possible."),
         })
 
-    # Generate dynamic nav links HTML for facade template
+    # Generate dynamic nav links HTML for facade template (for backward compatibility)
     if template == "facade":
         from markupsafe import Markup
         nav_html_parts = []
         for link in nav_links:
-            nav_html_parts.append(f'<a href="{link["href"]}">{link["label"]}</a>')
+            active_class = ' class="active"' if link.get("active") else ''
+            nav_html_parts.append(f'<a href="{link["href"]}"{active_class}>{link["label"]}</a>')
         context["dynamic_nav_links"] = Markup("\n            ".join(nav_html_parts))
         # Mark facade_css as safe to prevent HTML escaping
         context["facade_css"] = Markup(context["facade_css"])
+        # Add is_multipage flag for facade
+        context["is_multipage"] = page_template is not None
+        # Override secondary CTA URL for multipage mode to go to services page
+        if page_template is not None:
+            context["cta_secondary_url"] = "services.html"
 
     # Mark bernard_css as safe for bernard template
     if template == "bernard":
         from markupsafe import Markup
         context["bernard_css"] = Markup(context["bernard_css"])
+        # Override secondary CTA URL for multipage mode to go to services page
+        if page_template is not None:
+            context["cta_secondary_url"] = "services.html"
 
     # Setup Jinja2 environment
     templates_dir = os.path.join(os.path.dirname(__file__), "templates")

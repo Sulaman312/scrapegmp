@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "about": "About",
+    "services": "Services",
     "features": "Features",
     "values": "Values",
     "videos": "Videos",
@@ -16,11 +17,33 @@
   "videos": {
     "title": "Videos"
   },
+  "services": {
+    "small_text": "For individuals and professionals",
+    "heading": "Discover our services",
+    "learn_more": "Learn more",
+    "starting_at": "Starting at",
+    "request_quote": "Request Quote"
+  },
   "contact": {
     "title": "Contact Us",
+    "form_title": "Send us a message",
+    "name_label": "Name",
+    "name_placeholder": "Your name",
+    "email_label": "Email",
+    "email_placeholder": "your@email.com",
+    "phone_label": "Phone",
+    "phone_placeholder": "Your phone number",
+    "subject_label": "Subject",
+    "subject_placeholder": "How can we help?",
+    "message_label": "Message",
+    "message_placeholder": "Tell us more about your needs...",
+    "send_button": "Send Message",
+    "info_title": "Get in touch",
     "address": "Address",
+    "address_label": "Address",
     "phone": "Phone",
-    "email": "Email"
+    "email": "Email",
+    "hours_label": "Business Hours"
   },
   "footer": {
     "navigation": "Navigation",

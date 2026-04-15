@@ -1,6 +1,6 @@
 {
-  "template": "bernard",
-  "language": "de",
+  "template": "facade",
+  "language": "fr",
   "business": {
     "name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
     "place_type": "Swimming pool repair service",
@@ -13,169 +13,148 @@
     "address": "14 ZI Pré-Briand, 1510 Moudon, Switzerland",
     "description": "Rénovation de piscine ? L’expert suisse, c’est Pisciflor ! Réparation, fissures, changement de couleurs, des spécialistes à votre service.",
     "latitude": "46.6764209",
-    "longitude": "6.8113791",
-    "google_maps_url": "https://www.google.com/maps/place/PISCIFLOR+VAUD+-+Réparation+et+rénovation+piscines,+fontaines,+jacuzzis/@46.6764209,6.8113791,17z/data=!3m1!4b1!4m6!3m5!1s0x478e79aa6a47a709:0x3ee5171e2b0c6d55!8m2!3d46.6764209!4d6.813954!16s%2Fg%2F11tn5fwjyj?entry=ttu&g_ep=EgoyMDI2MDMwMS4xIKXMDSoASAFQAw%3D%3D",
+    "longitude": "6.813954",
+    "google_maps_url": "https://www.google.com/maps/place/PISCIFLOR+VAUD+-+R%C3%A9paration+et+r%C3%A9novation+piscines,+fontaines,+jacuzzis/@46.6764209,6.813954,17z/data=!3m1!4b1!4m6!3m5!1s0x478e79aa6a47a709:0x3ee5171e2b0c6d55!8m2!3d46.6764209!4d6.813954!16s%2Fg%2F11tn5fwjyj?entry=tts&g_ep=EgoyMDI2MDQxMi4wIPu8ASoASAFQAw%3D%3D&skid=8b97df61-ce33-4209-843a-e827c4f9e0a6",
     "plus_code": "MRG7+HH Moudon, Switzerland",
     "hours": {
       "monday": "Not available",
       "tuesday": "Not available",
-      "wednesday": "Not available",
+      "wednesday": "8 AM–6 PM",
       "thursday": "Not available",
       "friday": "Not available",
       "saturday": "Not available",
-      "sunday": "Closed"
+      "sunday": "Not available"
     }
   },
   "ai": {
     "brand_short_name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
-    "tagline": "Ihr Experte für Poolrenovierungen und Reparaturen",
-    "hero_subtitle": "Verleihen Sie Ihrem Pool neues Leben mit unseren professionellen Renovierungsdiensten.",
-    "cta_primary": "Jetzt Kontakt aufnehmen",
+    "tagline": "Réparez et rénovez votre piscine en un clin d'œil",
+    "hero_subtitle": "Transformez votre espace aquatique avec Pisciflor, l'expert suisse en rénovation de piscines.",
+    "cta_primary": "Demander un devis",
     "cta_primary_url": "pisciflor.ch",
-    "cta_secondary": "Mehr erfahren",
+    "cta_secondary": "Découvrez nos services",
     "cta_secondary_url": "pisciflor.ch",
-    "about_paragraph": "Die Pisciflor Vaud ist seit 1958 auf die Reparatur und Renovierung von Schwimmbecken, Fontänen und Whirlpools spezialisiert. Unser Team von Fachleuten bietet hochwertige Dienstleistungen, um Ihre Wasserlandschaft wieder in Topform zu bringen.",
-    "about_story_left": "Die Pisciflor Vaud ist seit 1958 auf die Reparatur und Renovierung von Schwimmbecken, Fontänen und Whirlpools spezialisiert.",
-    "about_story_right": "Unser Team von Fachleuten bietet hochwertige Dienstleistungen, um Ihre Wasserlandschaft wieder in Topform zu bringen.",
-    "seo_title": "Professionelle Poolrenovierung in der Schweiz | Pisciflor",
-    "seo_description": "Erleben Sie die besten Renovierungsdienste für Pools, Whirlpools und Fontänen in der Schweiz. Kontaktieren Sie Pisciflor für ein individuelles Angebot.",
+    "about_paragraph": "Depuis 1958, Pisciflor est votre partenaire de confiance pour la réparation et la rénovation de piscines en Suisse. Avec une équipe d'experts, nous nous engageons à fournir des solutions de qualité qui redonnent vie à votre piscine.",
+    "about_story_left": "Depuis 1958, Pisciflor est votre partenaire de confiance pour la réparation et la rénovation de piscines en Suisse. Avec",
+    "about_story_right": "une équipe d'experts, nous nous engageons à fournir des solutions de qualité qui redonnent vie à votre piscine.",
+    "seo_title": "Rénovation et Réparation de Piscines en Suisse | Pisciflor",
+    "seo_description": "Besoin de réparer ou rénover votre piscine ? Pisciflor, experts en Suisse, vous offre un service de qualité pour tous vos besoins aquatiques.",
     "features": [
       {
-        "icon": "verified",
-        "title": "Erfahrene Fachleute",
-        "description": "Unser Team aus Experten garantiert qualitativ hochwertige Renovierungsarbeiten für Ihre Pools.",
-        "image": "",
-        "link": ""
-      },
-      {
         "icon": "spa",
-        "title": "Umfassende Renovierungsdienste",
-        "description": "Wir bieten vollständige Renovierungen für Schwimmbecken, Whirlpools und Fontänen an.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "support_agent",
-        "title": "Kundenservice",
-        "description": "Unser freundliches Team steht Ihnen jederzeit für Fragen und Unterstützung zur Verfügung.",
+        "title": "Rénovation de piscine",
+        "description": "Redonnez vie à votre piscine avec nos techniques de rénovation avancées.",
         "image": "",
         "link": ""
       },
       {
         "icon": "checklist",
-        "title": "Individuelle Angebote",
-        "description": "Erhalten Sie ein maßgeschneidertes Angebot für Ihre spezifischen Renovierungsbedürfnisse.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "local_shipping",
-        "title": "Schnelle Ausführung",
-        "description": "Wir garantieren eine zügige Durchführung der Arbeiten, damit Sie schnell wieder genießen können.",
+        "title": "Réparation de fissures",
+        "description": "Nous réparons efficacement les fissures et les dommages pour assurer la durabilité de votre piscine.",
         "image": "",
         "link": ""
       },
       {
         "icon": "star",
-        "title": "Hochwertige Materialien",
-        "description": "Wir verwenden nur die besten Materialien für eine langlebige und ästhetische Renovierung.",
+        "title": "Changement de couleur",
+        "description": "Transformez l'apparence de votre piscine avec un nouveau gelcoat de couleur.",
         "image": "",
         "link": ""
       },
       {
-        "icon": "bolt",
-        "title": "Innovative Techniken",
-        "description": "Unsere modernen Techniken sorgen für eine effektive und nachhaltige Renovierung Ihrer Pools.",
+        "icon": "support_agent",
+        "title": "Conseils d'experts",
+        "description": "Bénéficiez de conseils personnalisés pour l'entretien et l'amélioration de votre piscine.",
         "image": "",
         "link": ""
       },
       {
-        "icon": "home",
-        "title": "Lokale Expertise",
-        "description": "Als lokales Unternehmen kennen wir die spezifischen Bedürfnisse und Herausforderungen der Region.",
+        "icon": "local_shipping",
+        "title": "Produits de qualité",
+        "description": "Nous utilisons uniquement des matériaux et produits de haute qualité pour garantir la satisfaction.",
         "image": "",
         "link": ""
       }
     ],
     "services_cards": [
       {
-        "title": "Individuelle Angebote",
-        "description": "Erhalten Sie ein maßgeschneidertes Angebot für Ihre spezifischen Renovierungsbedürfnisse.",
+        "title": "Conseils d'experts",
+        "description": "Bénéficiez de conseils personnalisés pour l'entretien et l'amélioration de votre piscine.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Schnelle Ausführung",
-        "description": "Wir garantieren eine zügige Durchführung der Arbeiten, damit Sie schnell wieder genießen können.",
+        "title": "Produits de qualité",
+        "description": "Nous utilisons uniquement des matériaux et produits de haute qualité pour garantir la satisfaction.",
         "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
-        "title": "Hochwertige Materialien",
-        "description": "Wir verwenden nur die besten Materialien für eine langlebige und ästhetische Renovierung.",
-        "image": "images/All/0001.webp",
+        "title": "Garantie locale",
+        "description": "Profitez de nos services avec une garantie locale pour votre tranquillité d'esprit.",
+        "image": "images/All/0003.webp",
         "link": "#contact"
       },
       {
-        "title": "Innovative Techniken",
-        "description": "Unsere modernen Techniken sorgen für eine effektive und nachhaltige Renovierung Ihrer Pools.",
-        "image": "images/All/0003.webp",
+        "title": "Planification flexible",
+        "description": "Choisissez des horaires de service qui s'adaptent à votre emploi du temps.",
+        "image": "images/All/0001.webp",
         "link": "#contact"
       }
     ],
     "services_page_cards": [
       {
-        "title": "Individuelle Angebote",
-        "description": "Erhalten Sie ein maßgeschneidertes Angebot für Ihre spezifischen Renovierungsbedürfnisse.",
+        "title": "Conseils d'experts",
+        "description": "Bénéficiez de conseils personnalisés pour l'entretien et l'amélioration de votre piscine.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Schnelle Ausführung",
-        "description": "Wir garantieren eine zügige Durchführung der Arbeiten, damit Sie schnell wieder genießen können.",
+        "title": "Produits de qualité",
+        "description": "Nous utilisons uniquement des matériaux et produits de haute qualité pour garantir la satisfaction.",
         "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
-        "title": "Hochwertige Materialien",
-        "description": "Wir verwenden nur die besten Materialien für eine langlebige und ästhetische Renovierung.",
+        "title": "Garantie locale",
+        "description": "Profitez de nos services avec une garantie locale pour votre tranquillité d'esprit.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Planification flexible",
+        "description": "Choisissez des horaires de service qui s'adaptent à votre emploi du temps.",
         "image": "images/All/0001.webp",
-        "link": "#contact"
-      },
-      {
-        "title": "Innovative Techniken",
-        "description": "Unsere modernen Techniken sorgen für eine effektive und nachhaltige Renovierung Ihrer Pools.",
-        "image": "images/All/0002.webp",
         "link": "#contact"
       }
     ],
     "why_choose_us_cards": [
       {
-        "icon": "verified",
-        "title": "Erfahrene Fachleute",
-        "description": "Unser Team aus Experten garantiert qualitativ hochwertige Renovierungsarbeiten für Ihre Pools."
-      },
-      {
         "icon": "spa",
-        "title": "Umfassende Renovierungsdienste",
-        "description": "Wir bieten vollständige Renovierungen für Schwimmbecken, Whirlpools und Fontänen an."
+        "title": "Rénovation de piscine",
+        "description": "Redonnez vie à votre piscine avec nos techniques de rénovation avancées."
       },
       {
-        "icon": "support_agent",
-        "title": "Kundenservice",
-        "description": "Unser freundliches Team steht Ihnen jederzeit für Fragen und Unterstützung zur Verfügung."
+        "icon": "checklist",
+        "title": "Réparation de fissures",
+        "description": "Nous réparons efficacement les fissures et les dommages pour assurer la durabilité de votre piscine."
+      },
+      {
+        "icon": "star",
+        "title": "Changement de couleur",
+        "description": "Transformez l'apparence de votre piscine avec un nouveau gelcoat de couleur."
       }
     ],
     "services_small_text": "",
     "services_heading": "",
     "why_choose_us_heading": "",
     "cta_heading": "RÉNOVATION PISCINE : EN CAS DE MAUVAIS TEMPS OU PENDANT L’HIVER",
-    "cta_subtitle": "Verleihen Sie Ihrem Pool neues Leben mit unseren professionellen Renovierungsdiensten.",
+    "cta_subtitle": "Transformez votre espace aquatique avec Pisciflor, l'expert suisse en rénovation de piscines.",
     "cta_btn_label": "",
     "cta_link": "",
     "cta_banner_btn_label": "",
     "cta_banner_btn_link": "",
-    "footer_tagline": "Die Pisciflor Vaud ist seit 1958 auf die Reparatur und Renovierung von Schwimmbecken, Fontänen und Whirlpools spezialisiert. Unser Team von Fachleuten bietet hochwertige Dienstleistungen, um Ihre Wasserlandschaft wieder in Topform zu bringen.",
+    "footer_tagline": "Depuis 1958, Pisciflor est votre partenaire de confiance pour la réparation et la rénovation de piscines en Suisse. Avec une équipe d'experts, nous nous engageons à fournir des solutions de qualité qui redonnent vie à votre piscine.",
     "footer_copyright": "© 2026 PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis. All rights reserved.",
     "values": [],
     "about_bullet_points": [],
@@ -241,12 +220,12 @@
     "title": "Rénovation piscine & entretien de piscine à coque en Suisse"
   },
   "theme": {
-    "color1": "#1E40AF",
-    "color2": "#DBEAFE",
-    "color3": "#FB923C",
-    "cta_color": "#1E40AF",
+    "color1": "#4F7DF5",
+    "color2": "#7C3AED",
+    "color3": "#06C9D4",
+    "cta_color": "#4F7DF5",
     "hero_dark": "#06060F",
-    "hero_image": "images/All/0002.webp",
+    "hero_image": "images/All/0001.webp",
     "why_choose_us_image": "images/All/0003.webp",
     "values_image": "images/All/0001.webp",
     "company_image_1": "images/All/0001.webp",

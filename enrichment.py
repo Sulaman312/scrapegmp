@@ -257,6 +257,7 @@ def enrich_with_ai(place: dict, website: dict, api_key: str, language: str = "fr
         "about_paragraph": "",
         "cta_primary": "Get Started",
         "cta_secondary": "Learn More",
+        "navbar_name": "",
         "features": [],
         "seo_title": "",
         "seo_description": "",
@@ -316,6 +317,7 @@ Generate the following in JSON format (respond ONLY with valid JSON, no markdown
   "tagline": "A punchy 6-10 word headline capturing what this business does",
   "hero_subtitle": "1-2 sentence value proposition, compelling and specific",
   "about_paragraph": "2-3 sentence paragraph about the company, professional tone",
+  "navbar_name": "Shortened business name for navbar (max 20 chars, keep core brand name only, remove legal suffixes, location details, and overly descriptive parts. Examples: 'PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis' → 'PISCIFLOR', 'John Smith Law Firm LLC - Estate Planning Services' → 'John Smith Law')",
   "cta_primary": "Primary call-to-action button text (e.g. 'Get Started', 'Book Now', 'Contact Us')",
   "cta_secondary": "Secondary CTA text (e.g. 'Learn More', 'Our Services', 'View Menu')",
   "seo_title": "SEO page title (50-60 chars)",
@@ -346,15 +348,58 @@ Make features diverse and specific to the business type."""
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7,
             max_tokens=1500,
+            response_format={"type": "json_object"}
         )
         raw = response.choices[0].message.content.strip()
         # Remove markdown code fences if present
         raw = re.sub(r"^```(?:json)?\s*", "", raw)
         raw = re.sub(r"\s*```$", "", raw)
-        ai.update(json.loads(raw))
-        logging.info("✅ AI enrichment complete")
+
+        try:
+            ai.update(json.loads(raw))
+            logging.info("✅ AI enrichment complete")
+        except json.JSONDecodeError as json_err:
+            logging.error(f"❌ JSON parsing failed: {json_err}")
+            logging.error(f"Raw OpenAI response:\n{raw[:500]}...")
+            # Try to salvage what we can with a more lenient parser
+            try:
+                # Sometimes there are trailing commas or other issues - try to fix common problems
+                fixed_raw = raw.replace(",]", "]").replace(",}", "}")
+                ai.update(json.loads(fixed_raw))
+                logging.info("✅ AI enrichment complete (with JSON fixes)")
+            except:
+                logging.error("❌ Could not parse OpenAI response even after fixes")
     except Exception as e:
         logging.error(f"❌ OpenAI call failed: {e}")
+
+    # Fallback: If navbar_name is still empty, create a cleaned version from business name
+    if not ai.get("navbar_name"):
+        business_name = place.get("name", "")
+        if business_name:
+            # Remove common patterns: location details, legal suffixes, descriptive parts
+            cleaned = business_name
+            # Remove everything after common separators like " - ", " | ", " – "
+            for sep in [" - ", " | ", " – ", " — "]:
+                if sep in cleaned:
+                    cleaned = cleaned.split(sep)[0].strip()
+            # Remove location indicators in parentheses or at the end
+            cleaned = re.sub(r'\s*\([^)]*\)\s*$', '', cleaned)
+            # Remove common legal suffixes
+            for suffix in [" LLC", " Ltd", " Inc", " Corp", " GmbH", " SA", " SARL", " Sàrl"]:
+                if cleaned.endswith(suffix):
+                    cleaned = cleaned[:-len(suffix)].strip()
+            # Limit to 25 characters max
+            if len(cleaned) > 25:
+                # Try to break at a word boundary
+                words = cleaned.split()
+                cleaned = words[0]
+                for word in words[1:]:
+                    if len(cleaned + " " + word) <= 25:
+                        cleaned += " " + word
+                    else:
+                        break
+            ai["navbar_name"] = cleaned[:25].strip()
+            logging.info(f"📝 Generated fallback navbar_name: {ai['navbar_name']}")
 
     return ai
 

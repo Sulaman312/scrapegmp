@@ -2,11 +2,12 @@
   "nav": {
     "home": "Accueil",
     "about": "À propos",
+    "services": "Prestations",
     "features": "Fonctionnalités",
     "values": "Valeurs",
     "videos": "Vidéos",
     "reviews": "Avis",
-    "contact": "Contact"
+    "contact": "Contactez-nous"
   },
   "about": {
     "label": "À propos de nous",
@@ -16,11 +17,33 @@
   "videos": {
     "title": "Vidéos"
   },
+  "services": {
+    "small_text": "Pour particuliers et professionnels",
+    "heading": "Découvrez nos services",
+    "learn_more": "En savoir plus",
+    "starting_at": "À partir de",
+    "request_quote": "Demander un devis"
+  },
   "contact": {
     "title": "Contactez-nous",
+    "form_title": "Envoyez-nous un message",
+    "name_label": "Nom",
+    "name_placeholder": "Votre nom",
+    "email_label": "E-mail",
+    "email_placeholder": "votre@email.com",
+    "phone_label": "Téléphone",
+    "phone_placeholder": "Votre numéro de téléphone",
+    "subject_label": "Sujet",
+    "subject_placeholder": "Comment pouvons-nous vous aider ?",
+    "message_label": "Message",
+    "message_placeholder": "Dites-nous en plus sur vos besoins...",
+    "send_button": "Envoyer le message",
+    "info_title": "Contactez-nous",
     "address": "Adresse",
+    "address_label": "Adresse",
     "phone": "Téléphone",
-    "email": "E-mail"
+    "email": "E-mail",
+    "hours_label": "Heures d'ouverture"
   },
   "footer": {
     "navigation": "Navigation",

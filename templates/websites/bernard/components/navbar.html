@@ -6,7 +6,7 @@
                 {% if logo_image %}
                 <img src="{{ logo_image }}" alt="{{ business_name }} Logo">
                 {% else %}
-                <span class="navbar-brand-text">{{ business_name }}</span>
+                <span class="navbar-brand-text">{{ navbar_name or business_name }}</span>
                 {% endif %}
             </a>
             {% if phone %}

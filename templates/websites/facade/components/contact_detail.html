@@ -1,0 +1,121 @@
+<!-- CONTACT DETAIL PAGE SECTION (Facade Design) -->
+<section class="section-contact-detail-facade" id="contact-detail">
+    <div class="container">
+        <div class="contact-detail-header" data-aos="fade-up">
+            <p class="contact-intro-text">{{ contact_page_small_text }}</p>
+            <h2 class="section-title">{{ contact_page_heading }}</h2>
+            <p class="contact-description">{{ contact_page_description }}</p>
+        </div>
+
+        <div class="contact-detail-grid">
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper-facade" data-aos="fade-up" data-aos-delay="0">
+                <h3 class="contact-form-title">{{ tr.contact.form_title if tr and tr.contact else 'Send us a message' }}</h3>
+                <form class="contact-form-facade" id="contactFormFacade" method="post" action="/api/public/contact" data-facade-contact-form="true" data-form-type="contact">
+                    <input type="hidden" name="business_name" value="{{ business_name }}">
+                    <input type="hidden" name="form_type" value="contact">
+
+                    <div class="form-row-facade">
+                        <div class="form-group-facade">
+                            <label for="contact-name-f">{{ tr.contact.name_label if tr and tr.contact else 'Name' }} *</label>
+                            <input type="text" id="contact-name-f" name="name" required placeholder="{{ tr.contact.name_placeholder if tr and tr.contact else 'Your name' }}">
+                        </div>
+                        <div class="form-group-facade">
+                            <label for="contact-email-f">{{ tr.contact.email_label if tr and tr.contact else 'Email' }} *</label>
+                            <input type="email" id="contact-email-f" name="email" required placeholder="{{ tr.contact.email_placeholder if tr and tr.contact else 'your@email.com' }}">
+                        </div>
+                    </div>
+
+                    <div class="form-row-facade">
+                        <div class="form-group-facade">
+                            <label for="contact-phone-f">{{ tr.contact.phone_label if tr and tr.contact else 'Phone' }}</label>
+                            <input type="tel" id="contact-phone-f" name="phone" placeholder="{{ tr.contact.phone_placeholder if tr and tr.contact else 'Your phone number' }}">
+                        </div>
+                        <div class="form-group-facade">
+                            <label for="contact-subject-f">{{ tr.contact.subject_label if tr and tr.contact else 'Subject' }} *</label>
+                            <input type="text" id="contact-subject-f" name="subject" required placeholder="{{ tr.contact.subject_placeholder if tr and tr.contact else 'How can we help?' }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group-facade">
+                        <label for="contact-message-f">{{ tr.contact.message_label if tr and tr.contact else 'Message' }} *</label>
+                        <textarea id="contact-message-f" name="message" rows="6" required placeholder="{{ tr.contact.message_placeholder if tr and tr.contact else 'Tell us more about your needs...' }}"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">
+                        {{ tr.contact.send_button if tr and tr.contact else 'Send Message' }}
+                    </button>
+                    <p class="form-status-facade" data-form-status aria-live="polite"></p>
+                </form>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="contact-info-wrapper-facade" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="contact-info-title">{{ tr.contact.info_title if tr and tr.contact else 'Get in touch' }}</h3>
+
+                <div class="contact-info-cards-facade">
+                    {% if phone %}
+                    <div class="contact-info-card-facade">
+                        <div class="contact-icon-facade">
+                            <span class="material-symbols-outlined">phone</span>
+                        </div>
+                        <div class="contact-details-facade">
+                            <h4>{{ tr.contact.phone_label if tr and tr.contact else 'Phone' }}</h4>
+                            <a href="tel:{{ phone }}">{{ phone }}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if email %}
+                    <div class="contact-info-card-facade">
+                        <div class="contact-icon-facade">
+                            <span class="material-symbols-outlined">email</span>
+                        </div>
+                        <div class="contact-details-facade">
+                            <h4>{{ tr.contact.email_label if tr and tr.contact else 'Email' }}</h4>
+                            <a href="mailto:{{ email }}">{{ email }}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if address %}
+                    <div class="contact-info-card-facade">
+                        <div class="contact-icon-facade">
+                            <span class="material-symbols-outlined">location_on</span>
+                        </div>
+                        <div class="contact-details-facade">
+                            <h4>{{ tr.contact.address_label if tr and tr.contact else 'Address' }}</h4>
+                            <p>{{ address }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if hours_summary %}
+                    <div class="contact-info-card-facade">
+                        <div class="contact-icon-facade">
+                            <span class="material-symbols-outlined">schedule</span>
+                        </div>
+                        <div class="contact-details-facade">
+                            <h4>{{ tr.contact.hours_label if tr and tr.contact else 'Business Hours' }}</h4>
+                            <p>{{ hours_summary }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if latitude and longitude %}
+                <div class="contact-map-facade" data-aos="fade-up">
+                    <iframe
+                        width="100%"
+                        height="300"
+                        style="border:0; border-radius: 16px;"
+                        loading="lazy"
+                        allowfullscreen
+                        src="https://www.google.com/maps?q={{ latitude }},{{ longitude }}&hl=en&z=14&output=embed">
+                    </iframe>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

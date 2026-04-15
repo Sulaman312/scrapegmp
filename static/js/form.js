@@ -18,48 +18,83 @@ function _deriveBernardWhyChooseCards(ai) {
   return cards;
 }
 
+function _withSequentialServiceImages(cards, images) {
+  const imagePool = Array.isArray(images) ? images.filter(Boolean) : [];
+  if (!imagePool.length || !Array.isArray(cards) || !cards.length) return cards;
+
+  const cardImages = cards
+    .map(c => (c?.image || '').trim())
+    .filter(Boolean);
+  const autoSequence = cardImages.length === 0 || new Set(cardImages).size <= 1;
+
+  let fallbackIndex = 0;
+  return cards.map((card, idx) => {
+    const current = (card?.image || '').trim();
+    let nextImage = current;
+
+    if (autoSequence || !current) {
+      nextImage = imagePool[idx % imagePool.length] || '';
+    }
+
+    if (!nextImage) {
+      nextImage = imagePool[fallbackIndex % imagePool.length] || '';
+      fallbackIndex += 1;
+    }
+
+    return {
+      ...card,
+      image: nextImage,
+    };
+  });
+}
+
 function _deriveBernardServicesCards(ai, images) {
-  const fallbackImage = (Array.isArray(images) && images.length) ? images[0] : '';
+  const imagePool = Array.isArray(images) ? images.filter(Boolean) : [];
+  const fallbackImage = imagePool.length ? imagePool[0] : '';
   if (Array.isArray(ai.services_cards) && ai.services_cards.length) {
-    const cards = ai.services_cards.slice(0, 20).map(c => ({
+    let cards = ai.services_cards.slice(0, 20).map(c => ({
       title: c?.title || '',
       description: c?.description || '',
       image: c?.image || fallbackImage,
       link: c?.link || '#contact',
     }));
     while (cards.length < 4) {
-      cards.push({ title: `Service ${cards.length + 1}`, description: '', image: fallbackImage, link: '#contact' });
+      const nextImage = imagePool.length ? imagePool[cards.length % imagePool.length] : fallbackImage;
+      cards.push({ title: `Service ${cards.length + 1}`, description: '', image: nextImage, link: '#contact' });
     }
-    return cards;
+    return _withSequentialServiceImages(cards, imagePool);
   }
   const legacy = Array.isArray(ai.features) ? ai.features : [];
-  const cards = legacy.slice(3, 7).map(f => ({
+  let cards = legacy.slice(3, 7).map(f => ({
     title: f?.title || '',
     description: f?.description || '',
     image: f?.image || fallbackImage,
     link: f?.link || '#contact',
   }));
   while (cards.length < 4) {
-    cards.push({ title: `Service ${cards.length + 1}`, description: '', image: fallbackImage, link: '#contact' });
+    const nextImage = imagePool.length ? imagePool[cards.length % imagePool.length] : fallbackImage;
+    cards.push({ title: `Service ${cards.length + 1}`, description: '', image: nextImage, link: '#contact' });
   }
-  return cards;
+  return _withSequentialServiceImages(cards, imagePool);
 }
 
 function _deriveBernardServicesPageCards(ai, images) {
-  const fallbackImage = (Array.isArray(images) && images.length) ? images[0] : '';
+  const imagePool = Array.isArray(images) ? images.filter(Boolean) : [];
+  const fallbackImage = imagePool.length ? imagePool[0] : '';
   if (Array.isArray(ai.services_page_cards) && ai.services_page_cards.length) {
-    const cards = ai.services_page_cards.slice(0, 20).map(c => ({
+    let cards = ai.services_page_cards.slice(0, 20).map(c => ({
       title: c?.title || '',
       description: c?.description || '',
       image: c?.image || fallbackImage,
       link: c?.link || '#contact',
     }));
     while (cards.length < 4) {
-      cards.push({ title: `Service ${cards.length + 1}`, description: '', image: fallbackImage, link: '#contact' });
+      const nextImage = imagePool.length ? imagePool[cards.length % imagePool.length] : fallbackImage;
+      cards.push({ title: `Service ${cards.length + 1}`, description: '', image: nextImage, link: '#contact' });
     }
-    return cards;
+    return _withSequentialServiceImages(cards, imagePool);
   }
-  return _deriveBernardServicesCards(ai, images);
+  return _withSequentialServiceImages(_deriveBernardServicesCards(ai, images), imagePool);
 }
 
 // ── Populate form from data ───────────────────────────────────────────────
