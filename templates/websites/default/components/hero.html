@@ -1,9 +1,9 @@
 <!-- HERO -->
 <section class="hero-bg dot-grid relative min-h-screen flex items-center overflow-hidden px-6 lg:px-10">
   <!-- Orbs: brand color, very low opacity so dark bg stays dominant -->
-  <div class="orb w-[600px] h-[600px] -top-40 -left-48" style="background:#10B981;opacity:.18;animation-delay:0s"></div>
-  <div class="orb w-72 h-72 bottom-20 right-16" style="background:#059669;opacity:.14;animation-delay:-6s"></div>
-  <div class="orb w-52 h-52" style="background:#0D9488;opacity:.10;top:40%;left:55%;animation-delay:-12s"></div>
+  <div class="orb w-[600px] h-[600px] -top-40 -left-48" style="background:{{ theme_color1 }};opacity:.18;animation-delay:0s"></div>
+  <div class="orb w-72 h-72 bottom-20 right-16" style="background:{{ theme_color2 }};opacity:.14;animation-delay:-6s"></div>
+  <div class="orb w-52 h-52" style="background:{{ theme_color3 }};opacity:.10;top:40%;left:55%;animation-delay:-12s"></div>
 
   <!-- Grid fills full viewport height so both columns are truly centered -->
   <div class="relative z-10 w-full min-h-screen flex flex-col justify-center">
@@ -13,7 +13,7 @@
       <!-- ── LEFT: text ── -->
       <div>
         <div class="inline-flex items-center gap-2 sec-pill sec-pill-dark mb-6" data-aos="fade-down">
-          <span class="w-2 h-2 rounded-full animate-pulse" style="background:#0D9488"></span>
+          <span class="w-2 h-2 rounded-full animate-pulse" style="background:{{ theme_color3 }}"></span>
           {{ category }} &nbsp;·&nbsp; {{ location }}
         </div>
         <h1 class="font-black leading-[1.04] tracking-[-0.025em] text-white mb-6"
@@ -33,7 +33,7 @@
         <!-- Stat chips -->
         <div class="flex flex-wrap gap-8 mt-12 pt-10 border-t border-white/[0.08]"
              data-aos="fade-up" data-aos-delay="280">
-          <div><div class="text-sm font-bold leading-none mt-0.5" style="color:#059669">{{ category }}</div><div class="text-white/35 text-[10px] uppercase tracking-widest mt-1">{{ tr.hero.sector if tr and tr.hero else 'Sector' }}</div></div>
+          <div><div class="text-sm font-bold leading-none mt-0.5" style="color:{{ theme_color2 }}">{{ category }}</div><div class="text-white/35 text-[10px] uppercase tracking-widest mt-1">{{ tr.hero.sector if tr and tr.hero else 'Sector' }}</div></div>
         </div>
       </div>
 
@@ -41,7 +41,7 @@
       <div class='hidden lg:block' data-aos='fade-left' data-aos-delay='150'>
         <div class="relative w-full">
           <!-- Soft glow behind -->
-          <div class="absolute -inset-6 rounded-3xl opacity-20 blur-3xl pointer-events-none" style="background:linear-gradient(135deg, #10B981, #07b943)"></div>
+          <div class="absolute -inset-6 rounded-3xl opacity-20 blur-3xl pointer-events-none" style="background:linear-gradient(135deg, {{ theme_color1 }}, {{ theme_color2 }})"></div>
           <!-- macOS-style browser frame -->
           <div class="relative rounded-2xl overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.75)] ring-1 ring-white/10" style="background:#0e0e0e">
             <!-- Titlebar -->

@@ -1263,6 +1263,12 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         if page_template is not None:
             context["cta_secondary_url"] = "services.html"
 
+    # Add theme colors to context for default template
+    if template == "default":
+        context["theme_color1"] = default_theme_color1
+        context["theme_color2"] = default_theme_color2
+        context["theme_color3"] = default_theme_color3
+
     # Setup Jinja2 environment
     templates_dir = os.path.join(os.path.dirname(__file__), "templates")
     env = Environment(
@@ -1277,15 +1283,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         template_path = f"websites/{template}/index.html"
 
     template_obj = env.get_template(template_path)
-    html = template_obj.render(context)
-
-    # Replace hardcoded colors in default template
-    if template == "default":
-        html = html.replace("#10B981", default_theme_color1)
-        html = html.replace("#059669", default_theme_color2)
-        html = html.replace("#0D9488", default_theme_color3)
-
-    return html
+    return template_obj.render(context)
 
 
 def _render(business_dir: str, use_draft: bool = False, override_raw: dict = None, template: str = "default") -> str:

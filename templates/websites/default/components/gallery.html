@@ -3,7 +3,7 @@
     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14" data-aos="fade-up">
       <div>
         <div class="sec-pill sec-pill-dark">{{ tr.gallery.pill if tr and tr.gallery else 'Gallery' }}</div>
-        <h2 class="text-5xl md:text-6xl font-black text-white leading-[1.08] tracking-[-0.02em]">{{ tr.gallery.heading_prefix if tr and tr.gallery else 'Discover it' }} <span style="background:linear-gradient(135deg, #10B981 0%, #059669 50%, #0D9488 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">{{ tr.gallery.heading_highlight if tr and tr.gallery else 'in action' }}</span></h2>
+        <h2 class="text-5xl md:text-6xl font-black text-white leading-[1.08] tracking-[-0.02em]">{{ tr.gallery.heading_prefix if tr and tr.gallery else 'Discover it' }} <span style="background:linear-gradient(135deg, {{ theme_color1 }} 0%, {{ theme_color2 }} 50%, {{ theme_color3 }} 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">{{ tr.gallery.heading_highlight if tr and tr.gallery else 'in action' }}</span></h2>
       </div>
       <a href='{{ cta_url }}' target='_blank' class='cta-btn text-white font-bold px-7 py-3.5 rounded-xl text-sm whitespace-nowrap shrink-0'>{{ cta_text }} →</a>
     </div>
