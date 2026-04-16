@@ -127,12 +127,12 @@ const PRESETS_BERNARD = [
 ];
 
 const PRESETS_FACADE = [
+  { name: 'Sky',        c: ['#0ea5e9', '#38bdf8', '#7dd3fc'], cta: '#000000' },
   { name: 'Ocean Blue', c: ['#4f7df5', '#7c3aed', '#06c9d4'] },
   { name: 'Emerald',    c: ['#10b981', '#059669', '#0d9488'] },
   { name: 'Sunset',     c: ['#f59e0b', '#ef4444', '#ec4899'] },
   { name: 'Purple',     c: ['#16a34a', '#8b5cf6', '#a855f7'] },
   { name: 'Fire',       c: ['#f97316', '#ef4444', '#dc2626'] },
-  { name: 'Sky',        c: ['#0ea5e9', '#38bdf8', '#7dd3fc'] },
 ];
 
 let PRESETS = PRESETS_DEFAULT;

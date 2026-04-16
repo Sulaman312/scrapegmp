@@ -51,11 +51,11 @@ function updateColorPreviews() {
   }
 }
 
-function applyPreset(c1, c2, c3) {
+function applyPreset(c1, c2, c3, cta = c1) {
   setColorPair('color1', c1);
   setColorPair('color2', c2);
   setColorPair('color3', c3);
-  setColorPair('cta', c1);
+  setColorPair('cta', cta);
   updateColorPreviews();
 }
 
@@ -108,7 +108,7 @@ function buildPresets() {
       <span style="display:block;text-align:center;font-size:.7rem;color:#64748b;margin-top:.25rem">${p.name}</span>`;
     btn.addEventListener('mouseenter', () => btn.style.borderColor = '#16a34a');
     btn.addEventListener('mouseleave', () => btn.style.borderColor = '#334155');
-    btn.onclick = () => applyPreset(...p.c);
+    btn.onclick = () => applyPreset(...p.c, p.cta);
     grid.appendChild(btn);
   });
 }

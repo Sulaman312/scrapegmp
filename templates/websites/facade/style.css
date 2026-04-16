@@ -132,7 +132,7 @@ h3 {
     color: var(--color-primary);
 }
 
-.navbar-content a:not(.navbar-logo) {
+.navbar-content a:not(.navbar-logo):not(.navbar-call-btn-facade) {
     color: var(--text-dark);
     text-decoration: none;
     font-weight: 500;
@@ -141,11 +141,11 @@ h3 {
     position: relative;
 }
 
-.navbar-content a:not(.navbar-logo):hover {
+.navbar-content a:not(.navbar-logo):not(.navbar-call-btn-facade):hover {
     color: var(--color-primary);
 }
 
-.navbar-content a:not(.navbar-logo)::after {
+.navbar-content a:not(.navbar-logo):not(.navbar-call-btn-facade)::after {
     content: '';
     position: absolute;
     bottom: -5px;
@@ -156,7 +156,7 @@ h3 {
     transition: width 0.3s ease;
 }
 
-.navbar-content a:not(.navbar-logo):hover::after {
+.navbar-content a:not(.navbar-logo):not(.navbar-call-btn-facade):hover::after {
     width: 100%;
 }
 
@@ -1229,7 +1229,7 @@ h3 {
 
 /* ── NAVBAR CALL BUTTON ─────────────────────────────────── */
 .navbar-call-btn-facade {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     width: 44px;
@@ -1244,7 +1244,6 @@ h3 {
 
 .navbar-call-btn-facade:hover {
     transform: scale(1.1);
-    box-shadow: var(--shadow-md);
 }
 
 .navbar-call-btn-facade .material-symbols-outlined {
@@ -1715,6 +1714,7 @@ h3 {
     }
 
     .navbar-call-btn-facade {
+        display: flex;
         width: 40px;
         height: 40px;
     }

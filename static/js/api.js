@@ -412,7 +412,7 @@ function updateTemplateAndPreview() {
   // Apply the first preset of the template as default color scheme
   if (typeof PRESETS !== 'undefined' && PRESETS.length > 0 && typeof applyPreset === 'function') {
     const firstPreset = PRESETS[0];
-    applyPreset(...firstPreset.c);
+    applyPreset(...firstPreset.c, firstPreset.cta);
   }
   // Use updateLivePreview to send currentData with the new template via POST
   if (typeof updateLivePreview === 'function') {

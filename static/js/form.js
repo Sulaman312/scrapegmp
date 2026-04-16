@@ -246,10 +246,18 @@ function populateForm(data) {
   setf('ai-contact_page_description', ai.contact_page_description);
 
   // Colors
-  setColorPair('color1',    theme.color1    || DEF.color1);
-  setColorPair('color2',    theme.color2    || DEF.color2);
-  setColorPair('color3',    theme.color3    || DEF.color3);
-  setColorPair('cta',       theme.cta_color || DEF.color1);
+  const defaultPreset = (selectedTemplate === 'facade' && typeof PRESETS_FACADE !== 'undefined' && PRESETS_FACADE.length)
+    ? PRESETS_FACADE[0]
+    : null;
+  const defaultColor1 = theme.color1 || (defaultPreset?.c?.[0]) || DEF.color1;
+  const defaultColor2 = theme.color2 || (defaultPreset?.c?.[1]) || DEF.color2;
+  const defaultColor3 = theme.color3 || (defaultPreset?.c?.[2]) || DEF.color3;
+  const defaultCta = theme.cta_color || (defaultPreset?.cta) || defaultColor1;
+
+  setColorPair('color1',    defaultColor1);
+  setColorPair('color2',    defaultColor2);
+  setColorPair('color3',    defaultColor3);
+  setColorPair('cta',       defaultCta);
   setColorPair('hero_dark', theme.hero_dark || DEF.hero_dark);
   updateColorPreviews();
   syncAllCtaControls();
@@ -268,6 +276,11 @@ function populateForm(data) {
 // ── Collect form data ─────────────────────────────────────────────────────
 function collectFormData() {
   const aiCurrent = (currentData && currentData.ai) ? currentData.ai : {};
+  const selectedTemplate = getf('template-select') || 'default';
+  const defaultPreset = (selectedTemplate === 'facade' && typeof PRESETS_FACADE !== 'undefined' && PRESETS_FACADE.length)
+    ? PRESETS_FACADE[0]
+    : null;
+  const fallbackColor1 = getColorVal('color1') || (defaultPreset?.c?.[0]) || DEF.color1;
   const hours = {};
   document.querySelectorAll('[data-hours]').forEach(el => {
     const v = el.value.trim();
@@ -275,10 +288,10 @@ function collectFormData() {
   });
 
   const theme = {
-    color1:    getColorVal('color1')   || DEF.color1,
-    color2:    getColorVal('color2')   || DEF.color2,
-    color3:    getColorVal('color3')   || DEF.color3,
-    cta_color: getColorVal('cta')      || getColorVal('color1') || DEF.color1,
+    color1:    fallbackColor1,
+    color2:    getColorVal('color2')   || (defaultPreset?.c?.[1]) || DEF.color2,
+    color3:    getColorVal('color3')   || (defaultPreset?.c?.[2]) || DEF.color3,
+    cta_color: getColorVal('cta')      || (defaultPreset?.cta) || fallbackColor1,
     hero_dark: getColorVal('hero_dark')|| DEF.hero_dark,
     hero_image: getHeroImage(),
     why_choose_us_image: getf('theme-why_choose_us_image') || '',
