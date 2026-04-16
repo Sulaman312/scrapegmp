@@ -56,22 +56,37 @@ def extract_weekly_hours(page: Page) -> dict:
         if not button_clicked:
             logging.warning("  ⚠ Could not find or click hours button")
 
+        # Multi-language day names (EN, DE, FR, ES, IT)
+        day_translations = {
+            'Monday': ['Monday', 'Montag', 'Lundi', 'Lunes', 'Lunedì'],
+            'Tuesday': ['Tuesday', 'Dienstag', 'Mardi', 'Martes', 'Martedì'],
+            'Wednesday': ['Wednesday', 'Mittwoch', 'Mercredi', 'Miércoles', 'Mercoledì'],
+            'Thursday': ['Thursday', 'Donnerstag', 'Jeudi', 'Jueves', 'Giovedì'],
+            'Friday': ['Friday', 'Freitag', 'Vendredi', 'Viernes', 'Venerdì'],
+            'Saturday': ['Saturday', 'Samstag', 'Samedi', 'Sábado', 'Sabato'],
+            'Sunday': ['Sunday', 'Sonntag', 'Dimanche', 'Domingo', 'Domenica']
+        }
+
         extracted_count = 0
         for day in days:
-            day_row_xpath = f'//tr[@class="y0skZc"]//td[contains(@class, "ylH6lf")]//div[text()="{day}"]/ancestor::tr'
+            day_found = False
+            for translated_day in day_translations.get(day, [day]):
+                day_row_xpath = f'//tr[@class="y0skZc"]//td[contains(@class, "ylH6lf")]//div[text()="{translated_day}"]/ancestor::tr'
 
-            if page.locator(day_row_xpath).count() > 0:
-                hours_xpath = f'{day_row_xpath}//td[@class="mxowUb"]'
-                hours_text = extract_text(page, hours_xpath)
+                if page.locator(day_row_xpath).count() > 0:
+                    hours_xpath = f'{day_row_xpath}//td[@class="mxowUb"]'
+                    hours_text = extract_text(page, hours_xpath)
 
-                if hours_text:
-                    hours_text = hours_text.replace('\n', ' ').strip()
-                    weekly_hours[day.lower()] = hours_text
-                    extracted_count += 1
-                else:
-                    weekly_hours[day.lower()] = "Not available"
-            else:
+                    if hours_text:
+                        hours_text = hours_text.replace('\n', ' ').strip()
+                        weekly_hours[day.lower()] = hours_text
+                        extracted_count += 1
+                        day_found = True
+                        break
+
+            if not day_found:
                 weekly_hours[day.lower()] = "Not available"
+                logging.debug(f"  ⚠ {day}: no row found for any translation")
 
         logging.info(f"  ✅ Hours extracted: {extracted_count}/7 days with data")
         return weekly_hours

@@ -195,23 +195,32 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
                 # Profile pics pattern: https://lh3.googleusercontent.com/a-/ALV-UjX...
                 # or: https://lh3.googleusercontent.com/a/ACg8ocI...
                 if '/a-/' in url or '/a/AC' in url or '/a/AF' in url:
-                    logging.debug(f"🚫 Filtered profile pic: {url[:100]}")
+                    logging.info(f"  🚫 Filtered profile pic: {url[:120]}")
                     return
 
                 # Filter out "People also search for" thumbnails (contain /gps-cs-s/)
                 if '/gps-cs-s/' in url:
-                    logging.debug(f"🚫 Filtered 'People also search for' thumbnail: {url[:100]}")
+                    logging.info(f"  🚫 Filtered 'People also search for' thumbnail: {url[:120]}")
                     return
 
                 # Filter out suggested business thumbnails (small images like =s408, =s640, etc)
                 # These appear in "related places" cards. Legitimate photos are usually =w or larger
                 if re.search(r'=s[0-9]{2,3}(-|$)', url):
-                    logging.debug(f"🚫 Filtered suggested business thumbnail: {url[:100]}")
+                    logging.info(f"  🚫 Filtered suggested business thumbnail: {url[:120]}")
                     return
+
+                # Filter out very small thumbnails (like =w187-h137 from related places)
+                # Only filter if both dimensions are < 500px
+                small_thumb_match = re.search(r'=w(\d+)-h(\d+)', url)
+                if small_thumb_match:
+                    width, height = int(small_thumb_match.group(1)), int(small_thumb_match.group(2))
+                    if width < 500 and height < 500:
+                        logging.info(f"  🚫 Filtered small thumbnail ({width}x{height}): {url[:120]}")
+                        return
 
                 # Only capture from Google's photo CDN (lh3-lh7)
                 if not any(f'lh{i}.googleusercontent.com' in url for i in range(3, 8)):
-                    logging.debug(f"🚫 Filtered non-photo domain: {url[:100]}")
+                    logging.info(f"  🚫 Filtered non-photo domain: {url[:120]}")
                     return
 
                 base = re.sub(r'=.*$', '', url)
@@ -219,7 +228,7 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
                     seen_base_urls.add(base)
                     cat = current_category[0]
                     category_urls.setdefault(cat, []).append(base)
-                    logging.debug(f"✅ Captured photo: {base[:100]}")
+                    logging.info(f"  ✅ Captured photo: {base[:120]}")
         except Exception:
             pass
 
