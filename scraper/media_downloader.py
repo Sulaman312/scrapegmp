@@ -146,13 +146,16 @@ def _dom_scan_images(page, seen: set, category: str, category_urls: dict) -> int
 
     added = 0
     for src in raw:
-        # Filter out unwanted images (same as network interceptor)
-        if any(x in src for x in ['/a-/', '/a/', 's32-', 's48-', 's64-', 's96-', 's128-', '/logo/', 'avatar']):
+        # Only filter out reviewer profile pictures (same as network interceptor)
+        if '/a-/' in src or '/a/AC' in src or '/a/AF' in src:
             continue
 
-        # Only capture images from lh3, lh4, lh5, lh6 (place photo domains)
-        if not any(x in src for x in ['lh3.googleusercontent.com', 'lh4.googleusercontent.com',
-                                       'lh5.googleusercontent.com', 'lh6.googleusercontent.com']):
+        # Filter out suggested business thumbnails (small images like =s408, =s640, etc)
+        if re.search(r'=s[0-9]{2,3}(-|$)', src):
+            continue
+
+        # Only capture from Google's photo CDN (lh3-lh7)
+        if not any(f'lh{i}.googleusercontent.com' in src for i in range(3, 8)):
             continue
 
         base = re.sub(r'=.*$', '', src)
@@ -188,16 +191,22 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
         try:
             url = response.url
             if 'googleusercontent.com' in url:
-                # Filter out unwanted images:
-                # - Reviewer profile pictures (contain '/a-/' or '/a/')
-                # - Small icons and UI elements (contain 's32', 's48', 's64')
-                # - Logo images (contain 'logo')
-                if any(x in url for x in ['/a-/', '/a/', 's32-', 's48-', 's64-', 's96-', 's128-', '/logo/', 'avatar']):
+                # Only filter out reviewer profile pictures (they have /a-/ or /a/ in path)
+                # Profile pics pattern: https://lh3.googleusercontent.com/a-/ALV-UjX...
+                # or: https://lh3.googleusercontent.com/a/ACg8ocI...
+                if '/a-/' in url or '/a/AC' in url or '/a/AF' in url:
+                    logging.debug(f"🚫 Filtered profile pic: {url[:100]}")
                     return
 
-                # Only capture images from lh3, lh4, lh5, lh6 (place photo domains)
-                if not any(x in url for x in ['lh3.googleusercontent.com', 'lh4.googleusercontent.com',
-                                               'lh5.googleusercontent.com', 'lh6.googleusercontent.com']):
+                # Filter out suggested business thumbnails (small images like =s408, =s640, etc)
+                # These appear in "related places" cards. Legitimate photos are usually =w or larger
+                if re.search(r'=s[0-9]{2,3}(-|$)', url):
+                    logging.debug(f"🚫 Filtered suggested business thumbnail: {url[:100]}")
+                    return
+
+                # Only capture from Google's photo CDN (lh3-lh7)
+                if not any(f'lh{i}.googleusercontent.com' in url for i in range(3, 8)):
+                    logging.debug(f"🚫 Filtered non-photo domain: {url[:100]}")
                     return
 
                 base = re.sub(r'=.*$', '', url)
@@ -205,6 +214,7 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
                     seen_base_urls.add(base)
                     cat = current_category[0]
                     category_urls.setdefault(cat, []).append(base)
+                    logging.debug(f"✅ Captured photo: {base[:100]}")
         except Exception:
             pass
 

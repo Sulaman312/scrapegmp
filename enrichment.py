@@ -333,10 +333,13 @@ Generate the following in JSON format (respond ONLY with valid JSON, no markdown
 }}
 
 CRITICAL ICON RULES:
-- Use ONLY Material Symbols icon names (NOT emojis, NOT emoji descriptions)
-- Valid examples: "workspace_premium", "speed", "security", "verified", "support_agent", "dining", "local_shipping", "schedule", "payments", "star", "thumb_up", "checklist", "lock", "bolt", "celebration", "restaurant", "coffee", "fitness_center", "spa", "directions_car", "home", "storefront", "shopping_cart", "medical_services", "school", "business_center"
+- Use ONLY valid Material Symbols icon names from Google's official icon library
+- Icons must be actual icon names with underscores, NOT plain text words
+- INVALID examples: "paint", "clean", "quality", "service" (these are plain text, not icon names)
+- VALID examples: "workspace_premium", "speed", "security", "verified", "support_agent", "dining", "local_shipping", "schedule", "payments", "star", "thumb_up", "checklist", "lock", "bolt", "celebration", "restaurant", "coffee", "fitness_center", "spa", "directions_car", "home", "storefront", "shopping_cart", "medical_services", "school", "business_center", "home_repair_service", "plumbing", "electric_bolt", "construction", "cleaning_services"
 - Choose icons that match each feature's purpose
-- NEVER use emojis or emoji descriptions like "🎯" or "trophy emoji"
+- NEVER use emojis, emoji descriptions like "🎯" or "trophy emoji", or plain text words
+- If unsure about an icon name, use a generic icon like "check_circle", "star", or "verified"
 
 Generate 8-10 features to ensure sufficient content for different page templates (some templates show 3 features, others show 6+ services).
 Make features diverse and specific to the business type."""

@@ -227,15 +227,26 @@ function renderBernardWhyChooseCards(cards) {
   bernardWhyChooseCards.forEach((card, idx) => {
     const wrap = document.createElement('div');
     wrap.className = 'feature-card';
+
+    const icoName = card.icon || 'star';
+    const isMat   = /^[a-z][a-z0-9_]{1,49}$/.test(icoName);
+    const btnInner = isMat
+      ? `<span class="material-symbols-outlined">${esc(icoName)}</span>`
+      : (icoName
+          ? `<span style="font-size:1.4rem">${esc(icoName)}</span>`
+        : `<span class="material-symbols-outlined" style="opacity:.4">add_circle_outline</span>`);
+
     wrap.innerHTML = `
       <div class="feature-card-head">
         <div class="flex items-center gap-3">
+          <button type="button" class="icon-btn" data-why-idx="${idx}" data-icon="${esc(icoName)}" onclick="openWhyChooseIconPicker(this)" title="Click to pick icon">
+            ${btnInner}
+          </button>
           <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Why Choose Card ${idx + 1}</span>
         </div>
         <button onclick="removeBernardWhyChooseCard(${idx})" class="btn-dx">Remove</button>
       </div>
       <div class="p-3 space-y-2">
-        <div><label class="fl">Icon</label><input type="text" class="fi" value="${esc(card.icon || 'star')}" placeholder="material symbol, e.g. verified" onchange="updateBernardWhyChooseCard(${idx}, 'icon', this.value)" /></div>
         <div><label class="fl">Title</label><input type="text" class="fi" value="${esc(card.title || '')}" onchange="updateBernardWhyChooseCard(${idx}, 'title', this.value)" /></div>
         <div><label class="fl">Text</label><textarea class="fi" rows="3" onchange="updateBernardWhyChooseCard(${idx}, 'description', this.value)">${esc(card.description || '')}</textarea></div>
       </div>
@@ -267,6 +278,83 @@ function collectBernardWhyChooseCards() {
       description: (c.description || '').trim(),
     }))
     .filter(c => c.title || c.description);
+}
+
+let _whyChoosePickerTarget = null;
+
+function openWhyChooseIconPicker(btn) {
+  _whyChoosePickerTarget = btn;
+  const current = btn.dataset.icon || '';
+  const idx = parseInt(btn.dataset.whyIdx);
+
+  // Reuse the same icon categories from features.js
+  const ICON_CATS = {
+    "Popular":            ["star","favorite","thumb_up","check_circle","verified","emoji_events","grade","local_fire_department","bolt","rocket_launch"],
+    "Business":           ["business","work","store","storefront","trending_up","analytics","bar_chart","attach_money","payments","account_balance","credit_card","savings","handshake","groups","person","people","support_agent","campaign","lightbulb","settings"],
+    "Food & Drink":       ["restaurant","local_cafe","local_bar","fastfood","cake","dinner_dining","breakfast_dining","coffee","local_pizza","ramen_dining","bakery_dining","lunch_dining","set_meal","brunch_dining","wine_bar","liquor","icecream","cookie"],
+    "Transport":          ["directions_car","local_taxi","two_wheeler","flight","train","directions_bus","directions_boat","electric_car","garage","local_shipping","delivery_dining","pedal_bike","moped","airport_shuttle"],
+    "Health & Fitness":   ["local_hospital","medical_services","healing","fitness_center","health_and_safety","spa","self_improvement","monitor_heart","medication","vaccines","psychology","directions_run","sports","sports_gymnastics"],
+    "Home & Place":       ["home","apartment","villa","hotel","bed","weekend","bathtub","kitchen","yard","landscape","roofing","real_estate_agent","location_city","cottage","cabin"],
+    "Technology":         ["smartphone","computer","wifi","memory","code","devices","headphones","camera","tv","tablet","laptop","print","scanner","router","electrical_services","developer_mode","terminal"],
+    "Communication":      ["phone","email","chat","message","forum","notifications","send","share","language","public","connect_without_contact","mail","sms","call"],
+    "Creative & Media":   ["palette","brush","photo_camera","image","music_note","movie","theater_comedy","auto_stories","menu_book","edit","design_services","architecture","draw","style","format_paint"],
+    "Location & Maps":    ["location_on","map","place","near_me","explore","directions","navigation","my_location","satellite","travel_explore"],
+    "Nature & Environment":["nature","local_florist","eco","park","water","wb_sunny","air","thermostat","energy_savings_leaf","grass","forest","recycling","agriculture"],
+    "Education":          ["school","science","biotech","psychology","calculate","functions","history_edu","library_books","class","quiz","model_training","emoji_objects"],
+    "Security":           ["security","lock","lock_open","shield","verified_user","admin_panel_settings","vpn_lock","key","fingerprint","policy"],
+    "Shopping":           ["shopping_cart","local_mall","shopping_bag","sell","discount","new_releases","redeem","inventory_2","category","label"],
+    "Time & Schedule":    ["access_time","schedule","calendar_today","date_range","alarm","timer","update","event","event_available","pending_actions"],
+  };
+
+  const overlay = document.createElement('div');
+  overlay.className = 'icon-picker-modal';
+  overlay.id = 'whyChooseIconPickerModal';
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+
+  let gridRows = '';
+  for (const [cat, icons] of Object.entries(ICON_CATS)) {
+    gridRows += `<div class="icon-cat-label">${cat}</div>`;
+    icons.forEach(ic => {
+      gridRows += `<div class="icon-cell${ic === current ? ' selected' : ''}" data-name="${ic}" onclick="selectWhyChooseIcon('${ic}', ${idx})" title="${ic}">
+        <span class="material-symbols-outlined">${ic}</span>
+      </div>`;
+    });
+  }
+
+  overlay.innerHTML = `
+    <div class="icon-picker-box">
+      <div class="icon-picker-head">
+        <span class="material-symbols-outlined" style="color:#16a34a">grid_view</span>
+        <span style="font-weight:700;color:#f1f5f9;font-size:.95rem">Pick an Icon</span>
+        <input class="icon-picker-search" id="whyChooseIcoSearch" placeholder="Search icons…" oninput="filterWhyChooseIcons(this.value)" autocomplete="off"/>
+        <button class="icon-picker-close" onclick="document.getElementById('whyChooseIconPickerModal').remove()" title="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div class="icon-grid" id="whyChooseIconGrid">${gridRows}</div>
+    </div>`;
+  document.body.appendChild(overlay);
+  setTimeout(() => overlay.querySelector('#whyChooseIcoSearch').focus(), 80);
+}
+
+function selectWhyChooseIcon(name, idx) {
+  if (!_whyChoosePickerTarget) return;
+  _whyChoosePickerTarget.dataset.icon = name;
+  _whyChoosePickerTarget.innerHTML = `<span class="material-symbols-outlined">${name}</span>`;
+  updateBernardWhyChooseCard(idx, 'icon', name);
+  document.getElementById('whyChooseIconPickerModal')?.remove();
+  _whyChoosePickerTarget = null;
+}
+
+function filterWhyChooseIcons(q) {
+  const grid = document.getElementById('whyChooseIconGrid');
+  if (!grid) return;
+  const term = q.toLowerCase().trim();
+  let visible = 0;
+  grid.querySelectorAll('.icon-cell').forEach(cell => {
+    const show = !term || cell.dataset.name.includes(term);
+    cell.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  grid.querySelectorAll('.icon-cat-label').forEach(l => { l.style.display = term ? 'none' : ''; });
 }
 
 function renderBernardServicesPageCards(cards) {
