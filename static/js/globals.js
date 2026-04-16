@@ -109,8 +109,8 @@ const DAY_LBL = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturd
 const DEF = { color1: '#4f7df5', color2: '#7c3aed', color3: '#06c9d4', hero_dark: '#06060f' };
 
 const PRESETS_DEFAULT = [
-  { name: 'Ocean Blue', c: ['#4f7df5', '#7c3aed', '#06c9d4'] },
   { name: 'Emerald',    c: ['#10b981', '#059669', '#0d9488'] },
+  { name: 'Ocean Blue', c: ['#4f7df5', '#7c3aed', '#06c9d4'] },
   { name: 'Sunset',     c: ['#f59e0b', '#ef4444', '#ec4899'] },
   { name: 'Purple',     c: ['#16a34a', '#8b5cf6', '#a855f7'] },
   { name: 'Fire',       c: ['#f97316', '#ef4444', '#dc2626'] },

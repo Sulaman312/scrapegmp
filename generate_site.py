@@ -799,6 +799,11 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 bernard_css = bernard_css.replace("{{ theme_color3 }}", theme_color3)
                 bernard_css = bernard_css.replace("{{ theme_cta_color }}", theme_cta_color)
 
+    # Default template color processing
+    default_theme_color1 = _theme.get("color1", "#10B981")
+    default_theme_color2 = _theme.get("color2", "#059669")
+    default_theme_color3 = _theme.get("color3", "#0D9488")
+
     # Smart tagline and subtitle logic (match old renderer)
     tagline = ai.get("tagline", "")
     if not tagline:
@@ -1272,7 +1277,15 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         template_path = f"websites/{template}/index.html"
 
     template_obj = env.get_template(template_path)
-    return template_obj.render(context)
+    html = template_obj.render(context)
+
+    # Replace hardcoded colors in default template
+    if template == "default":
+        html = html.replace("#10B981", default_theme_color1)
+        html = html.replace("#059669", default_theme_color2)
+        html = html.replace("#0D9488", default_theme_color3)
+
+    return html
 
 
 def _render(business_dir: str, use_draft: bool = False, override_raw: dict = None, template: str = "default") -> str:

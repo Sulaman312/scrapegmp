@@ -5,7 +5,7 @@
     "name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
     "place_type": "Swimming pool repair service",
     "phone": "+41 78 602 58 36",
-    "email": "",
+    "email": "info@pisciflor.ch",
     "website": "pisciflor.ch",
     "price_range": "",
     "rating": 4.2,
@@ -29,132 +29,132 @@
   "ai": {
     "brand_short_name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
     "tagline": "Rénovez votre piscine, profitez de l'été",
-    "hero_subtitle": "Des experts en rénovation de piscines à votre service pour une qualité inégalée.",
+    "hero_subtitle": "Experts en réparation et rénovation de piscines en Suisse, Pisciflor vous garantit un service de qualité.",
     "cta_primary": "Demandez un devis",
     "cta_primary_url": "pisciflor.ch",
     "cta_secondary": "Découvrez nos services",
     "cta_secondary_url": "pisciflor.ch",
-    "about_paragraph": "Depuis 1958, Pisciflor est le spécialiste en réparation et rénovation de piscines, fontaines et jacuzzis en Suisse. Notre équipe d'experts s'engage à offrir des solutions durables et esthétiques pour redonner vie à vos installations aquatiques.",
-    "about_story_left": "Depuis 1958, Pisciflor est le spécialiste en réparation et rénovation de piscines, fontaines et jacuzzis en Suisse. Notre équipe",
-    "about_story_right": "d'experts s'engage à offrir des solutions durables et esthétiques pour redonner vie à vos installations aquatiques.",
-    "seo_title": "Rénovation et réparation de piscines en Suisse | Pisciflor",
-    "seo_description": "Pisciflor, l'expert en rénovation de piscines et jacuzzis en Suisse. Réparation, décoration et conseils à votre service.",
+    "about_paragraph": "Depuis 1958, Pisciflor se spécialise dans la réparation et la rénovation de piscines en polyester. Notre équipe d'experts s'engage à offrir des solutions durables et esthétiques pour redonner vie à vos bassins.",
+    "about_story_left": "Depuis 1958, Pisciflor se spécialise dans la réparation et la rénovation de piscines en polyester. Notre équipe",
+    "about_story_right": "d'experts s'engage à offrir des solutions durables et esthétiques pour redonner vie à vos bassins.",
+    "seo_title": "Rénovation et Réparation de Piscines en Suisse - Pisciflor",
+    "seo_description": "Pisciflor, votre expert en rénovation de piscines, vous offre des solutions de qualité pour tous vos besoins de réparation en Suisse.",
     "features": [
       {
-        "icon": "home_repair_service",
-        "title": "Réparation de Piscines",
-        "description": "Solutions pour tous types de dommages, y compris fissures et cloques.",
+        "icon": "check_circle",
+        "title": "Rénovation de Piscines",
+        "description": "Transformez votre piscine avec nos services de rénovation spécialisés.",
         "image": "",
         "link": ""
       },
       {
-        "icon": "construction",
-        "title": "Rénovation Complète",
-        "description": "Rénovez votre piscine avec nos techniques modernes pour un résultat impeccable.",
+        "icon": "home_repair_service",
+        "title": "Réparation de Fissures",
+        "description": "Réparez les fissures et les défauts de votre piscine pour assurer sa longévité.",
         "image": "",
         "link": ""
       },
       {
         "icon": "palette",
         "title": "Changement de Couleur",
-        "description": "Redonnez vie à votre piscine avec des options de couleurs personnalisées.",
-        "image": "",
-        "link": ""
-      },
-      {
-        "icon": "verified",
-        "title": "Garantie Locale",
-        "description": "Profitez de nos garanties fiables pour toutes nos prestations de rénovation.",
+        "description": "Offrez un nouveau look à votre piscine avec notre service de changement de couleur.",
         "image": "",
         "link": ""
       },
       {
         "icon": "spa",
-        "title": "Entretien de Jacuzzis",
-        "description": "Service d'entretien et de réparation de jacuzzis pour un confort optimal.",
+        "title": "Rénovation de Jacuzzis",
+        "description": "Redonnez vie à votre jacuzzi avec nos solutions de rénovation adaptées.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "local_shipping",
+        "title": "Garantie Locaux",
+        "description": "Bénéficiez de garanties locales sur toutes nos rénovations et réparations.",
         "image": "",
         "link": ""
       }
     ],
     "services_cards": [
       {
-        "title": "Garantie Locale",
-        "description": "Profitez de nos garanties fiables pour toutes nos prestations de rénovation.",
+        "title": "Rénovation de Jacuzzis",
+        "description": "Redonnez vie à votre jacuzzi avec nos solutions de rénovation adaptées.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Entretien de Jacuzzis",
-        "description": "Service d'entretien et de réparation de jacuzzis pour un confort optimal.",
+        "title": "Garantie Locaux",
+        "description": "Bénéficiez de garanties locales sur toutes nos rénovations et réparations.",
         "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
-        "title": "Rénovation de Fontaines",
-        "description": "Transformez vos fontaines avec nos solutions de rénovation sur mesure.",
+        "title": "Professionnels Qualifiés",
+        "description": "Une équipe d'experts qualifiés à votre disposition pour tous vos besoins.",
         "image": "images/All/0003.webp",
         "link": "#contact"
       },
       {
         "title": "Astuces et Conseils",
-        "description": "Bénéficiez de nos conseils d'experts pour maintenir votre piscine en parfait état.",
+        "description": "Recevez des conseils d'entretien pour prolonger la vie de votre piscine.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       }
     ],
     "services_page_cards": [
       {
-        "title": "Garantie Locale",
-        "description": "Profitez de nos garanties fiables pour toutes nos prestations de rénovation.",
+        "title": "Rénovation de Jacuzzis",
+        "description": "Redonnez vie à votre jacuzzi avec nos solutions de rénovation adaptées.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Entretien de Jacuzzis",
-        "description": "Service d'entretien et de réparation de jacuzzis pour un confort optimal.",
+        "title": "Garantie Locaux",
+        "description": "Bénéficiez de garanties locales sur toutes nos rénovations et réparations.",
         "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
-        "title": "Rénovation de Fontaines",
-        "description": "Transformez vos fontaines avec nos solutions de rénovation sur mesure.",
+        "title": "Professionnels Qualifiés",
+        "description": "Une équipe d'experts qualifiés à votre disposition pour tous vos besoins.",
         "image": "images/All/0003.webp",
         "link": "#contact"
       },
       {
         "title": "Astuces et Conseils",
-        "description": "Bénéficiez de nos conseils d'experts pour maintenir votre piscine en parfait état.",
+        "description": "Recevez des conseils d'entretien pour prolonger la vie de votre piscine.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       }
     ],
     "why_choose_us_cards": [
       {
-        "icon": "home_repair_service",
-        "title": "Réparation de Piscines",
-        "description": "Solutions pour tous types de dommages, y compris fissures et cloques."
+        "icon": "check_circle",
+        "title": "Rénovation de Piscines",
+        "description": "Transformez votre piscine avec nos services de rénovation spécialisés."
       },
       {
-        "icon": "construction",
-        "title": "Rénovation Complète",
-        "description": "Rénovez votre piscine avec nos techniques modernes pour un résultat impeccable."
+        "icon": "home_repair_service",
+        "title": "Réparation de Fissures",
+        "description": "Réparez les fissures et les défauts de votre piscine pour assurer sa longévité."
       },
       {
         "icon": "palette",
         "title": "Changement de Couleur",
-        "description": "Redonnez vie à votre piscine avec des options de couleurs personnalisées."
+        "description": "Offrez un nouveau look à votre piscine avec notre service de changement de couleur."
       }
     ],
     "services_small_text": "",
     "services_heading": "",
     "why_choose_us_heading": "",
     "cta_heading": "RÉNOVATION PISCINE : EN CAS DE MAUVAIS TEMPS OU PENDANT L’HIVER",
-    "cta_subtitle": "Des experts en rénovation de piscines à votre service pour une qualité inégalée.",
+    "cta_subtitle": "Experts en réparation et rénovation de piscines en Suisse, Pisciflor vous garantit un service de qualité.",
     "cta_btn_label": "",
     "cta_link": "",
     "cta_banner_btn_label": "",
     "cta_banner_btn_link": "",
-    "footer_tagline": "Depuis 1958, Pisciflor est le spécialiste en réparation et rénovation de piscines, fontaines et jacuzzis en Suisse. Notre équipe d'experts s'engage à offrir des solutions durables et esthétiques pour redonner vie à vos installations aquatiques.",
+    "footer_tagline": "Depuis 1958, Pisciflor se spécialise dans la réparation et la rénovation de piscines en polyester. Notre équipe d'experts s'engage à offrir des solutions durables et esthétiques pour redonner vie à vos bassins.",
     "footer_copyright": "© 2026 PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis. All rights reserved.",
     "values": [],
     "about_bullet_points": [],
@@ -220,10 +220,10 @@
     "title": "Rénovation piscine & entretien de piscine à coque en Suisse"
   },
   "theme": {
-    "color1": "#4F7DF5",
-    "color2": "#7C3AED",
-    "color3": "#06C9D4",
-    "cta_color": "#4F7DF5",
+    "color1": "#10B981",
+    "color2": "#059669",
+    "color3": "#0D9488",
+    "cta_color": "#10B981",
     "hero_dark": "#06060F",
     "hero_image": "images/All/0001.webp",
     "why_choose_us_image": "images/All/0003.webp",
@@ -232,8 +232,8 @@
     "company_image_2": "images/All/0002.webp"
   },
   "images": [
-    "images/All/0001.webp",
     "images/All/0002.webp",
+    "images/All/0001.webp",
     "images/All/0003.webp"
   ],
   "reviews": [
