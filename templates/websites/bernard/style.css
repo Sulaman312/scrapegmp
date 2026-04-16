@@ -305,7 +305,7 @@ h3 {
 
 .hero-small-text {
     font-size: 0.95rem;
-    font-weight: 400;
+    font-weight: 700;
     margin-bottom: 16px;
     opacity: 0.95;
 }
@@ -930,7 +930,9 @@ h3 {
    ══════════════════════════════════════════════════════════ */
 
 .section-testimonials {
-    padding: 80px 0;
+    padding-top: 200px;
+    padding-bottom: 100px ;
+    margin: 0 !important;
     background: var(--bg-light);
 }
 
@@ -976,7 +978,7 @@ h3 {
 
 .testimonial-card {
     background: transparent;
-    padding: 8px 4px 0;
+    padding: 8px 4px;
     text-align: center;
     display: none;
     opacity: 0;
@@ -1004,16 +1006,30 @@ h3 {
     justify-content: center;
 }
 
-.testimonial-rating .material-symbols-outlined {
-    font-size: 24px;
-    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+.testimonial-rating .star-filled,
+.testimonial-rating .star-empty {
+    font-size: 0;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
 }
 
-.testimonial-rating .star-filled {
+.testimonial-rating .star-filled::before,
+.testimonial-rating .star-empty::before {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.testimonial-rating .star-filled::before {
+    content: '★';
     color: #fbbf24;
 }
 
-.testimonial-rating .star-empty {
+.testimonial-rating .star-empty::before {
+    content: '☆';
     color: #d1d5db;
 }
 

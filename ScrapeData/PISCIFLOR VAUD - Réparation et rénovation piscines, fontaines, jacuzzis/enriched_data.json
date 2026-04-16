@@ -1,20 +1,21 @@
 {
+  "template": "bernard",
   "language": "fr",
   "business": {
     "name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
     "place_type": "Swimming pool repair service",
-    "address": "14 ZI Pré-Briand, 1510 Moudon, Switzerland",
     "phone": "+41 78 602 58 36",
-    "website": "pisciflor.ch",
     "email": "",
+    "website": "pisciflor.ch",
+    "price_range": "",
     "rating": 4.2,
     "reviews_count": null,
-    "price_range": "",
-    "plus_code": "MRG7+HH Moudon, Switzerland",
+    "address": "14 ZI Pré-Briand, 1510 Moudon, Switzerland",
+    "description": "Rénovation de piscine ? L’expert suisse, c’est Pisciflor ! Réparation, fissures, changement de couleurs, des spécialistes à votre service.",
     "latitude": "46.6764209",
     "longitude": "6.813954",
     "google_maps_url": "https://www.google.com/maps/place/PISCIFLOR+VAUD+-+R%C3%A9paration+et+r%C3%A9novation+piscines,+fontaines,+jacuzzis/@46.6764209,6.813954,17z/data=!3m1!4b1!4m6!3m5!1s0x478e79aa6a47a709:0x3ee5171e2b0c6d55!8m2!3d46.6764209!4d6.813954!16s%2Fg%2F11tn5fwjyj?entry=ttu&g_ep=EgoyMDI2MDQxMy4wIKXMDSoASAFQAw%3D%3D",
-    "description": "Rénovation de piscine ? L’expert suisse, c’est Pisciflor ! Réparation, fissures, changement de couleurs, des spécialistes à votre service.",
+    "plus_code": "MRG7+HH Moudon, Switzerland",
     "hours": {
       "monday": "Not available",
       "tuesday": "Not available",
@@ -25,9 +26,124 @@
       "sunday": "Not available"
     }
   },
+  "ai": {
+    "brand_short_name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
+    "tagline": "",
+    "hero_subtitle": "",
+    "cta_primary": "Get Started",
+    "cta_primary_url": "pisciflor.ch",
+    "cta_secondary": "Learn More",
+    "cta_secondary_url": "pisciflor.ch",
+    "about_paragraph": "",
+    "about_story_left": "",
+    "about_story_right": "",
+    "seo_title": "",
+    "seo_description": "",
+    "features": [],
+    "services_cards": [
+      {
+        "title": "Service 1",
+        "description": "",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service 2",
+        "description": "",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service 3",
+        "description": "",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service 4",
+        "description": "",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "services_page_cards": [
+      {
+        "title": "Service 1",
+        "description": "",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service 2",
+        "description": "",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service 3",
+        "description": "",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service 4",
+        "description": "",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "why_choose_us_cards": [
+      {
+        "icon": "star",
+        "title": "Advantage 1",
+        "description": ""
+      },
+      {
+        "icon": "star",
+        "title": "Advantage 2",
+        "description": ""
+      },
+      {
+        "icon": "star",
+        "title": "Advantage 3",
+        "description": ""
+      }
+    ],
+    "services_small_text": "",
+    "services_heading": "",
+    "why_choose_us_heading": "",
+    "cta_heading": "RÉNOVATION PISCINE : EN CAS DE MAUVAIS TEMPS OU PENDANT L’HIVER",
+    "cta_subtitle": "",
+    "cta_btn_label": "",
+    "cta_link": "",
+    "cta_banner_btn_label": "",
+    "cta_banner_btn_link": "",
+    "footer_tagline": "",
+    "footer_copyright": "© 2026 PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis. All rights reserved.",
+    "values": [],
+    "about_bullet_points": [],
+    "services_page_seo_title": "",
+    "services_page_seo_description": "",
+    "services_page_hero_title": "",
+    "services_page_hero_subtitle": "",
+    "services_page_small_text": "",
+    "services_page_heading": "",
+    "services_page_description": "",
+    "services_cta_heading": "",
+    "services_cta_text": "",
+    "services_cta_button": "",
+    "contact_page_seo_title": "",
+    "contact_page_seo_description": "",
+    "contact_page_hero_title": "",
+    "contact_page_hero_subtitle": "",
+    "contact_page_small_text": "",
+    "contact_page_heading": "",
+    "contact_page_description": ""
+  },
+  "_raw": {
+    "years_of_experience": 0
+  },
   "website_data": {
-    "title": "Rénovation piscine & entretien de piscine à coque en Suisse",
-    "meta_description": "Rénovation de piscine ? L’expert suisse, c’est Pisciflor ! Réparation, fissures, changement de couleurs, des spécialistes à votre service.",
     "headings": [
       "Votre piscine rénovée à partir de CHF 175.-/mois*",
       "RÉPARATION ET RÉNOVATION DE PISCINES EN POLYESTER",
@@ -39,6 +155,7 @@
       "EXEMPLES DE RÉPARATION ET DE RÉNOVATION PISCINE",
       "RÉNOVATION PISCINE : EN CAS DE MAUVAIS TEMPS OU PENDANT L’HIVER"
     ],
+    "meta_description": "Rénovation de piscine ? L’expert suisse, c’est Pisciflor ! Réparation, fissures, changement de couleurs, des spécialistes à votre service.",
     "paragraphs": [
       "Problèmes d’osmose, cloques sur les parois de votre piscine ? Gelcoat abîmé , rayé, fissures ? Chez Pisciflor, nous vous proposons un service de rénovation de piscine et des produits de qualité .",
       "La société Pisciflor travaille avec des experts depuis 1958 . Spécialisée dans les revêtements de sols sans joints à base de résine synthétique, elle apporte son expertise dans l’entretien de piscines.",
@@ -54,6 +171,8 @@
       "Ajoutez des photos de la piscine (un plan large & un plan rapproché des dégats) pour permettre à nos experts de comprendre votre besoin au plus vite. Plan ou photos [file fichier filetypes:doc|docx|pdf|txt|gif|jpg|jpeg|png class:form-control limit:4 096 000]",
       "Type de fichier accepté: doc, docx, pdf, txt, gif, jpg, jpeg, png Taille de fichier maximum: 4mb"
     ],
+    "pricing_hints": [],
+    "raw_text": "Rénovation piscine & entretien de piscine à coque en Suisse Skip to content 078 602 58 36 058 502 76 12 info@pisciflor.ch Lu – Ve : 08h00 – 18h00 Demandez un devis Rénovation Réparation Décoration Astuces et conseils Demande de devis Votre piscine rénovée à partir de CHF 175.-/mois* Contactez-nous pour en savoir plus RÉPARATION ET RÉNOVATION DE PISCINES EN POLYESTER RÉNOVEZ L’HIVER POUR PROFITER DE L’ÉTÉ DES PROFESSIONNELS DE LA RÉNOVATION DE PISCINES À VOTRE DISPOSITION Problèmes d’osmose, cloques sur les parois de votre piscine ? Gelcoat abîmé , rayé, fissures ? Chez Pisciflor, nous vous proposons un service de rénovation de piscine et des produits de qualité . La société Pisciflor travaille avec des experts depuis 1958 . Spécialisée dans les revêtements de sols sans joints à base de résine synthétique, elle apporte son expertise dans l’entretien de piscines. Les produits sont sélectionnés et fabriqués par nos soins afin d’obtenir une qualité de travail et un résultat sans faille . Nous évaluons gratuitement l’étendue des travaux à réaliser et vous proposons la rénovation de piscine la plus adaptée à vos besoins ! GARANTIES LOCALES EXEMPLES DE PROBLÈMES RENCONTRÉS Quelques soient vos dégâts nos experts Pisciflor se chargent de tout et répareront votre piscine comme à ses premiers jours. Chez Pisciflor rien est impossible ! Pour une meilleure compréhension de votre besoin, prenez des photos des dégâts et envoyer les nous via le formulaire de contact . NOUS ÉVALUONS GRATUITEMENT L’ÉTENDUE DES TRAVAUX À RÉALISER CONTACTEZ-NOUS R É NOVATION PISCINE : TECHNIQUE DE PULVÉRISATION Notre équipe de spécialistes Pisciflor utilise une technique de pulvérisation lors de la rénovation de votre piscine pour un résultat optimal . Le Gelcoat assure la finition des piscines en polyester et à coques . En plus de cela, de nombreuses couleurs sont disponibles , il est agréable au toucher et donne un aspect lisse à votre piscine. application gelcoat application gelcoat EXEMPLES DE RÉPARATION ET DE RÉNOVATION PISCINE Convaincu ? Obtenez votre devis en moins de 48h CONTACTEZ-NOUS RÉNOVATION PISCINE : EN CAS DE MAUVAIS TEMPS OU PENDANT L’HIVER Notre société travaille avec les professionnels et les particuliers. Nous répondons aux normes en vigueur et disposons en interne d’un laboratoire d’analyse afin de créer nos propres produits. Nous utilisons des produits qui répondent parfaitement aux défis techniques et aux normes en vigueur. CONTACTEZ-NOUS PISCIFLOR VALAIS Route de Bas-Vièze 12 1875 - Morgins Tél.: 078 602 58 36 info@pisciflor.ch ACCÈS RAPIDE RÉNOVATION RÉPARATION COULEURS DISPONIBLES ASTUCES & CONSEILS CONTACT INSCRIPTION NEWSLETTER J'autorise la société Pisciflor à me faire parvenir les nouveautés et offres du moment. En savoir plus . © Copyright 2026 Pisciflor tous droits réservés - Mentions Légales - by www.c OO mmunication.com & www.pme-kmu.com - Conditions générales de vente Gérer le consentement aux cookies Pour offrir les meilleures expériences, nous ut",
     "services": [
       "Rénovation",
       "Réparation",
@@ -62,79 +181,49 @@
       "Demande de devis"
     ],
     "team": [],
-    "pricing_hints": [],
-    "raw_text": "Rénovation piscine & entretien de piscine à coque en Suisse Skip to content 078 602 58 36 058 502 76 12 info@pisciflor.ch Lu – Ve : 08h00 – 18h00 Demandez un devis Rénovation Réparation Décoration Astuces et conseils Demande de devis Votre piscine rénovée à partir de CHF 175.-/mois* Contactez-nous pour en savoir plus RÉPARATION ET RÉNOVATION DE PISCINES EN POLYESTER RÉNOVEZ L’HIVER POUR PROFITER DE L’ÉTÉ DES PROFESSIONNELS DE LA RÉNOVATION DE PISCINES À VOTRE DISPOSITION Problèmes d’osmose, cloques sur les parois de votre piscine ? Gelcoat abîmé , rayé, fissures ? Chez Pisciflor, nous vous proposons un service de rénovation de piscine et des produits de qualité . La société Pisciflor travaille avec des experts depuis 1958 . Spécialisée dans les revêtements de sols sans joints à base de résine synthétique, elle apporte son expertise dans l’entretien de piscines. Les produits sont sélectionnés et fabriqués par nos soins afin d’obtenir une qualité de travail et un résultat sans faille . Nous évaluons gratuitement l’étendue des travaux à réaliser et vous proposons la rénovation de piscine la plus adaptée à vos besoins ! GARANTIES LOCALES EXEMPLES DE PROBLÈMES RENCONTRÉS Quelques soient vos dégâts nos experts Pisciflor se chargent de tout et répareront votre piscine comme à ses premiers jours. Chez Pisciflor rien est impossible ! Pour une meilleure compréhension de votre besoin, prenez des photos des dégâts et envoyer les nous via le formulaire de contact . NOUS ÉVALUONS GRATUITEMENT L’ÉTENDUE DES TRAVAUX À RÉALISER CONTACTEZ-NOUS R É NOVATION PISCINE : TECHNIQUE DE PULVÉRISATION Notre équipe de spécialistes Pisciflor utilise une technique de pulvérisation lors de la rénovation de votre piscine pour un résultat optimal . Le Gelcoat assure la finition des piscines en polyester et à coques . En plus de cela, de nombreuses couleurs sont disponibles , il est agréable au toucher et donne un aspect lisse à votre piscine. application gelcoat application gelcoat EXEMPLES DE RÉPARATION ET DE RÉNOVATION PISCINE Convaincu ? Obtenez votre devis en moins de 48h CONTACTEZ-NOUS RÉNOVATION PISCINE : EN CAS DE MAUVAIS TEMPS OU PENDANT L’HIVER Notre société travaille avec les professionnels et les particuliers. Nous répondons aux normes en vigueur et disposons en interne d’un laboratoire d’analyse afin de créer nos propres produits. Nous utilisons des produits qui répondent parfaitement aux défis techniques et aux normes en vigueur. CONTACTEZ-NOUS PISCIFLOR VALAIS Route de Bas-Vièze 12 1875 - Morgins Tél.: 078 602 58 36 info@pisciflor.ch ACCÈS RAPIDE RÉNOVATION RÉPARATION COULEURS DISPONIBLES ASTUCES & CONSEILS CONTACT INSCRIPTION NEWSLETTER J'autorise la société Pisciflor à me faire parvenir les nouveautés et offres du moment. En savoir plus . © Copyright 2026 Pisciflor tous droits réservés - Mentions Légales - by www.c OO mmunication.com & www.pme-kmu.com - Conditions générales de vente Gérer le consentement aux cookies Pour offrir les meilleures expériences, nous ut"
+    "title": "Rénovation piscine & entretien de piscine à coque en Suisse"
   },
-  "ai": {
-    "tagline": "",
-    "hero_subtitle": "",
-    "about_paragraph": "",
-    "cta_primary": "Get Started",
-    "cta_secondary": "Learn More",
-    "navbar_name": "PISCIFLOR VAUD",
-    "features": [],
-    "seo_title": "",
-    "seo_description": ""
+  "theme": {
+    "color1": "#1E3A8A",
+    "color2": "#DBEAFE",
+    "color3": "#F59E0B",
+    "cta_color": "#1E3A8A",
+    "hero_dark": "#06060F",
+    "hero_image": "images/All/0001.webp",
+    "why_choose_us_image": "images/All/0003.webp",
+    "values_image": "images/All/0001.webp",
+    "company_image_1": "images/All/0001.webp",
+    "company_image_2": "images/All/0002.webp"
   },
   "images": [
     "images/All/0001.webp",
     "images/All/0002.webp",
-    "images/All/0003.webp",
-    "images/All/0004.webp",
-    "images/All/0005.webp",
-    "images/All/0006.webp",
-    "images/All/0007.webp",
-    "images/All/0008.webp",
-    "images/All/0009.webp"
+    "images/All/0003.webp"
   ],
-  "logo_colors": {
-    "dominant_color": null,
-    "palette": []
-  },
   "reviews": [
     {
-      "review_id": "Ci9DQUlRQUNvZENodHljRjlvT214V1NtMU1XVVJPYms5MWVFSjZZM2RqVUdSSVJGRRAB",
       "author_name": "Mirjam",
-      "author_url": "",
-      "rating": 5.0,
-      "date": "9 months ago",
       "text": "We highly recommend this company for pool renovations! From the very first contact, the owner was attentive, professional, and responsive. The project was completed on schedule, with meticulous attention to detail and quality, and the quote was adhered to precisely. The result exceeded our expectations. A huge thank you to the entire team for their professionalism, expertise, and especially their friendliness!",
-      "local_guide": "",
-      "likes": 0,
-      "images": "https://lh3.googleusercontent.com/a/ACg8ocIM50yDkyjLuXunsXN28dNVt7S7HbnZb0KqP_VxOT_cZ0n3kw=s800"
+      "rating": 5,
+      "date": "9 months ago"
     },
     {
-      "review_id": "ChdDSUhNMG9nS0VJQ0FnSUNadjYzYXpBRRAB",
       "author_name": "Natalia Vlasova",
-      "author_url": "",
-      "rating": 1.0,
-      "date": "2 years ago",
       "text": "This company, and Mr. Picard, who gave his company 5 stars in BTW magazine, renovated our pool.\n\nI must say that Mr. Picard is quite the writer, and instead of fixing their mistakes and providing simple after-sales service, he sends us numerous letters with explanations.\n\nI strongly recommend that you use other companies for your projects. Pisciflor doesn't adhere to any of the rules of a reliable company.",
-      "local_guide": "",
-      "likes": 2,
-      "images": "https://lh3.googleusercontent.com/a/ACg8ocIwNuu03yjmW38TbZ9_0070IVHrTnofdD17cADMLyLn_h5Nbw=s800"
+      "rating": 1,
+      "date": "2 years ago"
     },
     {
-      "review_id": "ChZDSUhNMG9nS0VJQ0FnSUNIamRlVWV3EAE",
       "author_name": "Raymond Rochat",
-      "author_url": "",
-      "rating": 5.0,
-      "date": "a year ago",
       "text": "The plan was kept and followed closely. Extremely happy with the final result. The staff were competent and very friendl",
-      "local_guide": "",
-      "likes": 2,
-      "images": "https://lh3.googleusercontent.com/a/ACg8ocJGaLA3bk-im_qgw92B7kyE2219m_j0NlqyObekxsCBEZ2Pcg=s800"
+      "rating": 5,
+      "date": "a year ago"
     },
     {
-      "review_id": "ChdDSUhNMG9nS0VJQ0FnSUNabE5HeHF3RRAB",
       "author_name": "David Siamont",
-      "author_url": "",
-      "rating": 5.0,
-      "date": "2 years ago",
       "text": "A very positive experience with this company, its manager, and its staff.\n\nA responsive, efficient, and professional team.\n\nI highly recommend them.\n\nDavid",
-      "local_guide": "",
-      "likes": 3,
-      "images": "https://lh3.googleusercontent.com/a/ACg8ocJ3Uxnhb3kRx0DzBs8WV99PaLarhdsM8VSPQfI8HONi_QKlBg=s800"
+      "rating": 5,
+      "date": "2 years ago"
     }
   ],
   "review_keywords": [
@@ -162,9 +251,20 @@
   "qa": [],
   "updates": [],
   "popular_times": {},
-  "about": {},
+  "about": {
+    "highlights": [
+      "Problèmes d’osmose, cloques sur les parois de votre piscine ? Gelcoat abîmé , rayé, fissures ? Chez Pisciflor, nous vous proposons un service de rénovation de piscine et des produits de qualité .",
+      "La société Pisciflor travaille avec des experts depuis 1958 . Spécialisée dans les revêtements de sols sans joints à base de résine synthétique, elle apporte son expertise dans l’entretien de piscines.",
+      "Les produits sont sélectionnés et fabriqués par nos soins afin d’obtenir une qualité de travail et un résultat sans faille . Nous évaluons gratuitement l’étendue des travaux à réaliser et vous proposons la rénovation de piscine la plus adaptée à vos besoins !",
+      "Quelques soient vos dégâts nos experts Pisciflor se chargent de tout et répareront votre piscine comme à ses premiers jours. Chez Pisciflor rien est impossible ! Pour une meilleure compréhension de votre besoin, prenez des photos des dégâts et envoyer les nous via le formulaire de contact ."
+    ]
+  },
   "about_attrs": [],
   "social_links": [],
   "web_results": [],
-  "related_places": []
+  "related_places": [],
+  "section_visibility": {},
+  "_has_videos": false,
+  "_video_list": [],
+  "videos": []
 }
