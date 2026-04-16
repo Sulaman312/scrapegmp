@@ -37,7 +37,8 @@
     "address_label": "Address",
     "phone_label": "Phone",
     "website_label": "Website",
-    "opening_hours_label": "Opening hours"
+    "opening_hours_label": "Opening hours",
+    "closed": "Closed"
   },
   "footer": {
     "contact_heading": "Contact",

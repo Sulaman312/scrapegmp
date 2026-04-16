@@ -49,6 +49,72 @@ def _find_scrollable_panel(page: Page):
     return None, ""
 
 
+def _click_all_carousel_button(page: Page) -> bool:
+    """
+    Click on the "All" button in the photo carousel to show all photos.
+    This removes "People also search for" thumbnails and other irrelevant images.
+    """
+    logging.info("🎯 Attempting to click 'All' carousel button...")
+
+    # Wait a bit for carousel to render
+    page.wait_for_timeout(1000)
+
+    # Try different selectors for the "All" carousel button
+    selectors = [
+        # Direct carousel button with data-carousel-index="0"
+        '//button[@data-carousel-index="0"]',
+        '//button[@class="K4UgGe"][@data-carousel-index="0"]',
+        # With aria-label variations
+        '//button[@data-carousel-index="0"][contains(@aria-label, "All")]',
+        '//button[@data-carousel-index="0"][contains(@aria-label, "Tout")]',  # French
+        '//button[@data-carousel-index="0"][contains(@aria-label, "Alle")]',  # German
+        '//button[@data-carousel-index="0"][contains(@aria-label, "Tutti")]', # Italian
+        '//button[@data-carousel-index="0"][contains(@aria-label, "Todos")]', # Spanish
+        '//button[@data-carousel-index="0"][contains(@aria-label, "全部")]',  # Chinese
+        # Inside carousel container
+        '//div[@class="fp2VUc"]//button[@data-carousel-index="0"]',
+        '//div[contains(@class, "fp2VUc")]//button[@data-carousel-index="0"]',
+        # CSS selector fallback
+        'button[data-carousel-index="0"]',
+    ]
+
+    for sel in selectors:
+        try:
+            loc = page.locator(sel)
+            count = loc.count()
+            if count > 0:
+                logging.info(f"  Found {count} carousel button(s) with selector: {sel[:80]}...")
+                # Try regular click first
+                try:
+                    loc.first.click(timeout=3000)
+                    page.wait_for_timeout(1500)
+                    logging.info("  ✅ Successfully clicked 'All' carousel button")
+                    return True
+                except Exception:
+                    # Try force click
+                    try:
+                        loc.first.click(force=True, timeout=3000)
+                        page.wait_for_timeout(1500)
+                        logging.info("  ✅ Successfully clicked 'All' carousel button (force)")
+                        return True
+                    except Exception:
+                        # Try JS click
+                        try:
+                            loc.first.evaluate('el => el.click()')
+                            page.wait_for_timeout(1500)
+                            logging.info("  ✅ Successfully clicked 'All' carousel button (JS)")
+                            return True
+                        except Exception as e:
+                            logging.debug(f"  All click methods failed: {e}")
+                            continue
+        except Exception as e:
+            logging.debug(f"  Selector failed: {sel[:80]}... - {e}")
+            continue
+
+    logging.warning("  ⚠ Could not find 'All' carousel button - continuing anyway")
+    return False
+
+
 def _open_full_photos_gallery(page: Page) -> bool:
     """Try to open the dedicated photos gallery view (not the single-photo preview)."""
     selectors = [
@@ -232,7 +298,7 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
         except Exception:
             pass
 
-    page.on('response', _on_response)
+    # DO NOT attach interceptor here - we'll attach it after navigating to the "All" view
 
     try:
         initial_scrolls = _env_int('SCRAPER_INITIAL_SCROLLS', 5, 1)
@@ -283,7 +349,16 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
         else:
             logging.info("ℹ Could not explicitly open full gallery; continuing with current photos view")
 
+        # Wait for gallery to load, THEN click "All" carousel button
         page.wait_for_timeout(1500)
+
+        # Click on "All" carousel button to show all photos and remove unwanted thumbnails
+        # This MUST be done before attaching the network interceptor
+        _click_all_carousel_button(page)
+
+        # NOW attach the network interceptor - only after we're in the clean "All" view
+        logging.info("🎧 Attaching network interceptor for image capture...")
+        page.on('response', _on_response)
 
         scrollable, panel_sel = _find_scrollable_panel(page)
         if scrollable:

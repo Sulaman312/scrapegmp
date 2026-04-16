@@ -37,7 +37,8 @@
     "address_label": "Dirección",
     "phone_label": "Teléfono",
     "website_label": "Sitio web",
-    "opening_hours_label": "Horario"
+    "opening_hours_label": "Horario",
+    "closed": "Cerrado"
   },
   "footer": {
     "contact_heading": "Contacto",

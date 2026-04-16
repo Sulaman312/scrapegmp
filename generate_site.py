@@ -670,12 +670,19 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     # Prepare opening hours for default template
     opening_hours = []
     day_labels = {"monday": "Mon", "tuesday": "Tue", "wednesday": "Wed", "thursday": "Thr", "friday": "Fri", "saturday": "Sat", "sunday": "Sun"}
+
+    # All known "closed" translations from different languages
+    closed_variations = ["closed", "fermé", "geschlossen", "cerrado", "chiuso", "not available"]
+
+    # Get translated "Closed" text for current website language
+    closed_text = _tr(tr, "contact.closed", "Closed")
+
     for day in day_order:
         hours_str = biz.get("hours", {}).get(day, "")
-        is_closed = not hours_str or hours_str.lower() in ["closed", "fermé", "not available"]
+        is_closed = not hours_str or hours_str.lower() in closed_variations
         opening_hours.append({
             "day": day_labels.get(day, day.capitalize()),
-            "hours": "Closed" if is_closed else hours_str,
+            "hours": closed_text if is_closed else hours_str,
             "is_closed": is_closed
         })
 
