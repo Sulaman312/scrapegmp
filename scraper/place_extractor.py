@@ -22,6 +22,7 @@ def extract_weekly_hours(page: Page) -> dict:
     days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
     try:
+        logging.info("🕐 Extracting opening hours...")
         hours_button_selectors = [
             '//div[@class="OMl5r hH0dDd jBYmhd"][@role="button"]',
             '//button[contains(@aria-label, "Hours")]',
@@ -37,10 +38,12 @@ def extract_weekly_hours(page: Page) -> dict:
                         try:
                             page.locator(selector).first.click(force=True, timeout=5000)
                             button_clicked = True
+                            logging.info(f"  ✅ Hours popup opened with selector: {selector[:60]}...")
                         except Exception:
                             try:
                                 page.locator(selector).first.evaluate('element => element.click()')
                                 button_clicked = True
+                                logging.info(f"  ✅ Hours popup opened via JS with selector: {selector[:60]}...")
                             except Exception:
                                 pass
 
@@ -50,6 +53,10 @@ def extract_weekly_hours(page: Page) -> dict:
                 except Exception:
                     continue
 
+        if not button_clicked:
+            logging.warning("  ⚠ Could not find or click hours button")
+
+        extracted_count = 0
         for day in days:
             day_row_xpath = f'//tr[@class="y0skZc"]//td[contains(@class, "ylH6lf")]//div[text()="{day}"]/ancestor::tr'
 
@@ -60,14 +67,17 @@ def extract_weekly_hours(page: Page) -> dict:
                 if hours_text:
                     hours_text = hours_text.replace('\n', ' ').strip()
                     weekly_hours[day.lower()] = hours_text
+                    extracted_count += 1
                 else:
                     weekly_hours[day.lower()] = "Not available"
             else:
                 weekly_hours[day.lower()] = "Not available"
 
+        logging.info(f"  ✅ Hours extracted: {extracted_count}/7 days with data")
         return weekly_hours
 
-    except Exception:
+    except Exception as e:
+        logging.error(f"  ❌ Hours extraction failed: {e}")
         return weekly_hours
 
 

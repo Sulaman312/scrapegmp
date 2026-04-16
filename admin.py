@@ -518,6 +518,21 @@ def scrape_status(job_id):
     })
 
 
+@app.route("/api/download-place-data/<path:business_name>", methods=["GET"])
+@login_required
+def download_place_data(business_name):
+    """Download place_data.json for debugging."""
+    import os
+    from flask import send_file
+
+    file_path = os.path.join("ScrapeData", business_name, "place_data.json")
+
+    if not os.path.exists(file_path):
+        return jsonify({"success": False, "error": "File not found"}), 404
+
+    return send_file(file_path, as_attachment=True, download_name="place_data.json")
+
+
 @app.route("/api/public/contact", methods=["POST"])
 def public_contact_submit():
     """Receive public Bernard contact form submissions and forward them by email."""
