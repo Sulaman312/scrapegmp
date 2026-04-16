@@ -8,6 +8,8 @@ import shutil
 import subprocess
 import sys
 import traceback
+import threading
+import uuid
 from datetime import datetime, timezone
 from email.message import EmailMessage
 from html import escape
@@ -34,6 +36,10 @@ logging.basicConfig(
 IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif', '.webp'}
 VIDEO_EXTENSIONS = {'.mp4', '.mov', '.avi'}
 ALLOWED_EXTENSIONS = IMAGE_EXTENSIONS | VIDEO_EXTENSIONS
+
+# Background job tracking for long-running scrapes
+scrape_jobs = {}
+scrape_jobs_lock = threading.Lock()
 
 
 def _save_as_webp(file_stream, dest_path: str):
@@ -385,19 +391,73 @@ def list_templates():
     }])
 
 
+def _background_scrape_worker(job_id: str, url: str, language: str, api_key: str):
+    """
+    Background worker function that performs the actual scraping and enrichment.
+    Updates the scrape_jobs dictionary with progress.
+    """
+    def update_job(status, progress=None, **kwargs):
+        with scrape_jobs_lock:
+            scrape_jobs[job_id].update({
+                'status': status,
+                'updated_at': datetime.now().isoformat(),
+                **kwargs
+            })
+            if progress is not None:
+                scrape_jobs[job_id]['progress'] = progress
+
+    try:
+        update_job('scraping', progress=10)
+        logging.info(f"[Job {job_id}] Starting scrape for URL: {url}")
+
+        # Step 1: Scrape the business data
+        logging.info(f"[Job {job_id}] Step 1/3: Scraping business data...")
+        result = scrape_place_by_url(
+            url,
+            SCRAPE_DIR,
+            extract_emails=True,
+            chrome_profile=""
+        )
+        logging.info(f"[Job {job_id}] Step 1/3: Scraping completed")
+
+        if not result or not result.get('place_data'):
+            logging.error(f"[Job {job_id}] Scraping failed - no place_data returned")
+            update_job('failed', error="Failed to scrape business data")
+            return
+
+        business_name = result['place_data'].get('name', 'Unknown')
+        output_dir = result['output_dir']
+        images_count = result.get('images_count', 0)
+
+        logging.info(f"[Job {job_id}] Scrape complete for: {business_name} ({images_count} images)")
+        update_job('enriching', progress=60, business_name=business_name)
+
+        # Step 2: Enrich with AI
+        logging.info(f"[Job {job_id}] Step 2/3: Starting AI enrichment...")
+        enriched_data = enrich(output_dir, api_key, language)
+
+        logging.info(f"[Job {job_id}] Step 2/3: AI enrichment complete for: {business_name}")
+        update_job('completed', progress=100, business_name=business_name, output_dir=output_dir)
+
+    except Exception as e:
+        logging.error(f"[Job {job_id}] ERROR: {type(e).__name__}: {e}")
+        logging.error(f"[Job {job_id}] Traceback:\n{traceback.format_exc()}")
+        update_job('failed', error=f"{type(e).__name__}: {str(e)}")
+
+
 @app.route("/api/scrape-and-enrich", methods=["POST"])
 @login_required
 def scrape_and_enrich():
     """
-    Scrape a business from Google Maps URL and enrich with AI.
-    This combines the functionality of app.py --url and enrichment.py
+    Start a background scrape job and return immediately with a job ID.
+    Client should poll /api/scrape-status/<job_id> for progress.
     """
     data = request.get_json()
     if not data or not data.get("url"):
         return jsonify({"success": False, "error": "No URL provided"}), 400
 
     url = data["url"]
-    language = data.get("language", "fr")  # Default to French
+    language = data.get("language", "fr")
 
     # OpenAI API key - must be set via environment variable
     api_key = os.environ.get("OPENAI_API_KEY", "")
@@ -407,57 +467,55 @@ def scrape_and_enrich():
             "error": "OPENAI_API_KEY environment variable is not set"
         }), 500
 
-    try:
-        logging.info(f"Starting scrape for URL: {url}")
+    # Create a unique job ID
+    job_id = str(uuid.uuid4())
 
-        # Step 1: Scrape the business data
-        logging.info("Step 1/3: Scraping business data...")
-        result = scrape_place_by_url(
-            url,
-            SCRAPE_DIR,
-            extract_emails=True,
-            chrome_profile=""
-        )
-        logging.info("Step 1/3: Scraping completed")
+    # Initialize job status
+    with scrape_jobs_lock:
+        scrape_jobs[job_id] = {
+            'job_id': job_id,
+            'status': 'queued',
+            'progress': 0,
+            'url': url,
+            'language': language,
+            'created_at': datetime.now().isoformat(),
+            'updated_at': datetime.now().isoformat()
+        }
 
-        if not result or not result.get('place_data'):
-            logging.error("Scraping failed - no place_data returned")
-            return jsonify({
-                "success": False,
-                "error": "Failed to scrape business data"
-            }), 500
+    # Start background thread
+    thread = threading.Thread(
+        target=_background_scrape_worker,
+        args=(job_id, url, language, api_key),
+        daemon=True
+    )
+    thread.start()
 
-        business_name = result['place_data'].get('name', 'Unknown')
-        output_dir = result['output_dir']
-        images_count = result.get('images_count', 0)
+    logging.info(f"Started background scrape job {job_id} for URL: {url}")
 
-        logging.info(f"Scrape complete for: {business_name} ({images_count} images)")
-        logging.info(f"Step 2/3: Starting AI enrichment...")
+    return jsonify({
+        "success": True,
+        "job_id": job_id,
+        "message": "Scrape job started. Poll /api/scrape-status/{job_id} for progress."
+    })
 
-        # Step 2: Enrich with AI
-        enriched_data = enrich(output_dir, api_key, language)
 
-        logging.info(f"Step 2/3: AI enrichment complete for: {business_name}")
-        logging.info(f"Step 3/3: Returning success response")
+@app.route("/api/scrape-status/<job_id>", methods=["GET"])
+@login_required
+def scrape_status(job_id):
+    """
+    Check the status of a background scrape job.
+    Returns: { status: 'queued'|'scraping'|'enriching'|'completed'|'failed', progress: 0-100, ... }
+    """
+    with scrape_jobs_lock:
+        job = scrape_jobs.get(job_id)
 
-        return jsonify({
-            "success": True,
-            "business_name": business_name,
-            "output_dir": output_dir,
-            "message": f"Successfully scraped and enriched {business_name}"
-        })
+    if not job:
+        return jsonify({"success": False, "error": "Job not found"}), 404
 
-    except Exception as e:
-        logging.error(f"ERROR in scrape_and_enrich: {type(e).__name__}: {e}")
-        logging.error(f"Traceback:\n{traceback.format_exc()}")
-
-        # Ensure we always return JSON, even on error
-        error_response = jsonify({
-            "success": False,
-            "error": f"{type(e).__name__}: {str(e)}"
-        })
-        error_response.status_code = 500
-        return error_response
+    return jsonify({
+        "success": True,
+        **job
+    })
 
 
 @app.route("/api/public/contact", methods=["POST"])

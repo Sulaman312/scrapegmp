@@ -268,75 +268,116 @@ async function submitAddBusiness() {
 
   // Show progress view
   showModalProgress();
-
-  // Step 1: Scraping - starts immediately
   updateModalProgress(1);
 
   try {
-    // Start the API call
-    const fetchPromise = fetch('/api/scrape-and-enrich', {
+    // Step 1: Start the background job
+    const startRes = await fetch('/api/scrape-and-enrich', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url: url, language: language }),
     });
 
-    // Wait at least 3 seconds on step 1 (scraping takes time)
-    await Promise.all([
-      fetchPromise,
-      new Promise(resolve => setTimeout(resolve, 3000))
-    ]);
+    if (!startRes.ok) {
+      const contentType = startRes.headers.get('content-type');
+      let errorMsg = `Server error (${startRes.status})`;
 
-    const res = await fetchPromise;
-
-    // Check if response is OK
-    if (!res.ok) {
-      const contentType = res.headers.get('content-type');
-      let errorMsg = `Server error (${res.status})`;
-
-      // Try to get error message from response
       if (contentType && contentType.includes('application/json')) {
         try {
-          const errorData = await res.json();
+          const errorData = await startRes.json();
           errorMsg = errorData.error || errorMsg;
         } catch (e) {
-          // JSON parsing failed, use default message
+          // JSON parsing failed
         }
       } else {
-        // Not JSON - probably HTML error page
-        const text = await res.text();
+        const text = await startRes.text();
         console.error('Non-JSON response:', text.substring(0, 200));
-        errorMsg = `Server error: received HTML instead of JSON (status ${res.status})`;
+        errorMsg = `Server error: received HTML instead of JSON (status ${startRes.status})`;
       }
 
       hideAddBusinessModal();
-      showToast('Failed: ' + errorMsg, 'error');
+      showToast('Failed to start scrape: ' + errorMsg, 'error');
       return;
     }
 
-    const result = await res.json();
+    const startResult = await startRes.json();
 
-    if (result.success) {
-      // Step 2: AI Enrichment (show this step)
-      updateModalProgress(2);
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      // Step 3: Finalizing
-      updateModalProgress(3);
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
+    if (!startResult.success) {
       hideAddBusinessModal();
-      showToast(`Business "${result.business_name}" added successfully!`, 'success');
-      await loadBusinesses();
-      await pickCompany(result.business_name);
-    } else {
-      hideAddBusinessModal();
-      showToast('Failed: ' + (result.error || 'Unknown error'), 'error');
+      showToast('Failed: ' + (startResult.error || 'Unknown error'), 'error');
+      return;
     }
+
+    const jobId = startResult.job_id;
+    console.log('Scrape job started:', jobId);
+
+    // Step 2: Poll for job completion
+    let lastProgress = 0;
+    const pollInterval = 2000; // Poll every 2 seconds
+    const maxWaitTime = 300000; // 5 minutes max
+    const startTime = Date.now();
+
+    while (Date.now() - startTime < maxWaitTime) {
+      await new Promise(resolve => setTimeout(resolve, pollInterval));
+
+      const statusRes = await fetch(`/api/scrape-status/${jobId}`);
+      if (!statusRes.ok) {
+        console.error('Failed to check job status');
+        continue;
+      }
+
+      const statusData = await statusRes.json();
+      if (!statusData.success) {
+        hideAddBusinessModal();
+        showToast('Job status error: ' + (statusData.error || 'Unknown'), 'error');
+        return;
+      }
+
+      const { status, progress, business_name, error } = statusData;
+      console.log(`Job ${jobId} status: ${status} (${progress}%)`);
+
+      // Update progress bar based on status
+      if (progress > lastProgress) {
+        lastProgress = progress;
+        if (progress < 30) {
+          updateModalProgress(1); // Scraping
+        } else if (progress < 90) {
+          updateModalProgress(2); // Enriching
+        } else {
+          updateModalProgress(3); // Finalizing
+        }
+      }
+
+      // Check if job completed
+      if (status === 'completed') {
+        updateModalProgress(3);
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        hideAddBusinessModal();
+        showToast(`Business "${business_name}" added successfully!`, 'success');
+        await loadBusinesses();
+        await pickCompany(business_name);
+        return;
+      }
+
+      // Check if job failed
+      if (status === 'failed') {
+        hideAddBusinessModal();
+        showToast('Scrape failed: ' + (error || 'Unknown error'), 'error');
+        return;
+      }
+
+      // Continue polling for queued, scraping, enriching states
+    }
+
+    // Timeout
+    hideAddBusinessModal();
+    showToast('Scrape timed out after 5 minutes. It may still be processing.', 'error');
+
   } catch (e) {
     hideAddBusinessModal();
     console.error('Scrape and enrich error:', e);
 
-    // Provide more specific error message for JSON parsing errors
     if (e.message && e.message.includes('JSON')) {
       showToast('Error: Server returned invalid response. Check console for details.', 'error');
     } else {
