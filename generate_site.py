@@ -944,6 +944,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         "phone": biz.get("phone", ""),
         "email": biz.get("email", ""),
         "website": biz.get("website", ""),
+        "website_display": biz.get("website", "").replace("https://", "").replace("http://", "").rstrip("/"),
         "latitude": biz.get("latitude", ""),
         "longitude": biz.get("longitude", ""),
         "category": biz.get("place_type", "Business"),

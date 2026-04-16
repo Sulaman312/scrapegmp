@@ -198,6 +198,11 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
                     logging.debug(f"🚫 Filtered profile pic: {url[:100]}")
                     return
 
+                # Filter out "People also search for" thumbnails (contain /gps-cs-s/)
+                if '/gps-cs-s/' in url:
+                    logging.debug(f"🚫 Filtered 'People also search for' thumbnail: {url[:100]}")
+                    return
+
                 # Filter out suggested business thumbnails (small images like =s408, =s640, etc)
                 # These appear in "related places" cards. Legitimate photos are usually =w or larger
                 if re.search(r'=s[0-9]{2,3}(-|$)', url):
