@@ -667,22 +667,19 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             "mime": mime
         })
 
-    # Prepare opening hours for default template
+    # Prepare opening hours for default template (will translate "Closed" later after tr is loaded)
     opening_hours = []
     day_labels = {"monday": "Mon", "tuesday": "Tue", "wednesday": "Wed", "thursday": "Thr", "friday": "Fri", "saturday": "Sat", "sunday": "Sun"}
 
     # All known "closed" translations from different languages
     closed_variations = ["closed", "fermé", "geschlossen", "cerrado", "chiuso", "not available"]
 
-    # Get translated "Closed" text for current website language
-    closed_text = _tr(tr, "contact.closed", "Closed")
-
     for day in day_order:
         hours_str = biz.get("hours", {}).get(day, "")
         is_closed = not hours_str or hours_str.lower() in closed_variations
         opening_hours.append({
             "day": day_labels.get(day, day.capitalize()),
-            "hours": closed_text if is_closed else hours_str,
+            "hours": "CLOSED_PLACEHOLDER" if is_closed else hours_str,  # Placeholder, will be translated later
             "is_closed": is_closed
         })
 
@@ -851,6 +848,12 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     lang_file_code = _normalize_lang_code(requested_lang)
     html_lang = _HTML_LANG_BY_FILE.get(lang_file_code, "fr")
     tr = _load_template_translations(template, lang_file_code)
+
+    # Now that tr is loaded, translate "Closed" in opening hours
+    closed_text = _tr(tr, "contact.closed", "Closed")
+    for hour_entry in opening_hours:
+        if hour_entry.get("hours") == "CLOSED_PLACEHOLDER":
+            hour_entry["hours"] = closed_text
 
     # Generate dynamic navigation links based on enabled sections
     nav_links = []

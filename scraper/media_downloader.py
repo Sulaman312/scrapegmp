@@ -354,7 +354,7 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
 
         # Click on "All" carousel button to show all photos and remove unwanted thumbnails
         # This MUST be done before attaching the network interceptor
-        _click_all_carousel_button(page)
+        carousel_clicked = _click_all_carousel_button(page)
 
         # NOW attach the network interceptor - only after we're in the clean "All" view
         logging.info("🎧 Attaching network interceptor for image capture...")
@@ -393,26 +393,33 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
         logging.info("📜 Initial scroll complete - waiting for images to load...")
         page.wait_for_timeout(1200)
 
-        KNOWN_CATEGORIES = [
-            "All", "By owner", "Videos", "Street View & 360°",
-            "Latest", "Menu", "Food & drink", "Atmosphere",
-            "Tout", "Par le propriétaire", "Vidéos", "Street View et 360°",
-            "Dernières", "Menu", "Nourriture et boissons", "Ambiance",
-            "Alle", "Vom Inhaber", "Videos", "Street View & 360°",
-            "Neueste", "Menü", "Essen & Trinken", "Atmosphäre",
-        ]
-        detected_tabs = page.evaluate(r"""
-        () => Array.from(document.querySelectorAll(
-            'button[role="tab"], div[role="tab"], button[aria-selected]'
-        )).map(b => b.textContent.trim()).filter(t => t.length > 0 && t.length < 60)
-        """) or []
-
-        categories = [c for c in KNOWN_CATEGORIES if c in detected_tabs]
-        if not categories:
-            logging.info("ℹ No category tabs detected — scraping current view only")
+        # If carousel "All" button was clicked successfully, skip category tabs
+        # Otherwise, fall back to detecting and iterating through category tabs
+        if carousel_clicked:
+            logging.info("📸 Scraping from 'All' view (carousel button clicked successfully)")
             categories = ["All"]
         else:
-            logging.info(f"📸 Tabs found: {categories}")
+            logging.info("📸 Carousel button not found - detecting category tabs as fallback...")
+            KNOWN_CATEGORIES = [
+                "All", "By owner", "Videos", "Street View & 360°",
+                "Latest", "Menu", "Food & drink", "Atmosphere",
+                "Tout", "Par le propriétaire", "Vidéos", "Street View et 360°",
+                "Dernières", "Menu", "Nourriture et boissons", "Ambiance",
+                "Alle", "Vom Inhaber", "Videos", "Street View & 360°",
+                "Neueste", "Menü", "Essen & Trinken", "Atmosphäre",
+            ]
+            detected_tabs = page.evaluate(r"""
+            () => Array.from(document.querySelectorAll(
+                'button[role="tab"], div[role="tab"], button[aria-selected]'
+            )).map(b => b.textContent.trim()).filter(t => t.length > 0 && t.length < 60)
+            """) or []
+
+            categories = [c for c in KNOWN_CATEGORIES if c in detected_tabs]
+            if not categories:
+                logging.info("ℹ No category tabs detected — scraping current view only")
+                categories = ["All"]
+            else:
+                logging.info(f"📸 Tabs found: {categories}")
 
         for category in categories:
             if time.monotonic() > deadline:
@@ -427,7 +434,9 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
             current_category[0] = category
             logging.info(f"  ▶ Category: '{category}'")
 
-            if category != "All":
+            # Skip clicking tab if it's "All" in any language (already in that view)
+            all_variations = ["All", "Tout", "Alle", "Tutti", "Todos", "全部"]
+            if category not in all_variations:
                 tab_clicked = False
                 for sel in [
                     f'//button[@role="tab"][normalize-space()="{category}"]',
