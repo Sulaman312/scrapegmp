@@ -146,6 +146,15 @@ def _dom_scan_images(page, seen: set, category: str, category_urls: dict) -> int
 
     added = 0
     for src in raw:
+        # Filter out unwanted images (same as network interceptor)
+        if any(x in src for x in ['/a-/', '/a/', 's32-', 's48-', 's64-', 's96-', 's128-', '/logo/', 'avatar']):
+            continue
+
+        # Only capture images from lh3, lh4, lh5, lh6 (place photo domains)
+        if not any(x in src for x in ['lh3.googleusercontent.com', 'lh4.googleusercontent.com',
+                                       'lh5.googleusercontent.com', 'lh6.googleusercontent.com']):
+            continue
+
         base = re.sub(r'=.*$', '', src)
         if base and base not in seen:
             seen.add(base)
@@ -179,6 +188,18 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
         try:
             url = response.url
             if 'googleusercontent.com' in url:
+                # Filter out unwanted images:
+                # - Reviewer profile pictures (contain '/a-/' or '/a/')
+                # - Small icons and UI elements (contain 's32', 's48', 's64')
+                # - Logo images (contain 'logo')
+                if any(x in url for x in ['/a-/', '/a/', 's32-', 's48-', 's64-', 's96-', 's128-', '/logo/', 'avatar']):
+                    return
+
+                # Only capture images from lh3, lh4, lh5, lh6 (place photo domains)
+                if not any(x in url for x in ['lh3.googleusercontent.com', 'lh4.googleusercontent.com',
+                                               'lh5.googleusercontent.com', 'lh6.googleusercontent.com']):
+                    return
+
                 base = re.sub(r'=.*$', '', url)
                 if base and base not in seen_base_urls:
                     seen_base_urls.add(base)
