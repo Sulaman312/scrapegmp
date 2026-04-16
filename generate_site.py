@@ -672,10 +672,11 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     day_labels = {"monday": "Mon", "tuesday": "Tue", "wednesday": "Wed", "thursday": "Thr", "friday": "Fri", "saturday": "Sat", "sunday": "Sun"}
     for day in day_order:
         hours_str = biz.get("hours", {}).get(day, "")
+        is_closed = not hours_str or hours_str.lower() in ["closed", "fermé"]
         opening_hours.append({
             "day": day_labels.get(day, day.capitalize()),
-            "hours": hours_str if hours_str and hours_str.lower() not in ["closed", "fermé"] else "",
-            "is_closed": not hours_str or hours_str.lower() in ["closed", "fermé"]
+            "hours": "Closed" if is_closed else hours_str,
+            "is_closed": is_closed
         })
 
     # Prepare about section for facade
