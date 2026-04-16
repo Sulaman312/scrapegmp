@@ -287,6 +287,32 @@ async function submitAddBusiness() {
     ]);
 
     const res = await fetchPromise;
+
+    // Check if response is OK
+    if (!res.ok) {
+      const contentType = res.headers.get('content-type');
+      let errorMsg = `Server error (${res.status})`;
+
+      // Try to get error message from response
+      if (contentType && contentType.includes('application/json')) {
+        try {
+          const errorData = await res.json();
+          errorMsg = errorData.error || errorMsg;
+        } catch (e) {
+          // JSON parsing failed, use default message
+        }
+      } else {
+        // Not JSON - probably HTML error page
+        const text = await res.text();
+        console.error('Non-JSON response:', text.substring(0, 200));
+        errorMsg = `Server error: received HTML instead of JSON (status ${res.status})`;
+      }
+
+      hideAddBusinessModal();
+      showToast('Failed: ' + errorMsg, 'error');
+      return;
+    }
+
     const result = await res.json();
 
     if (result.success) {
@@ -308,7 +334,14 @@ async function submitAddBusiness() {
     }
   } catch (e) {
     hideAddBusinessModal();
-    showToast('Error: ' + e.message, 'error');
+    console.error('Scrape and enrich error:', e);
+
+    // Provide more specific error message for JSON parsing errors
+    if (e.message && e.message.includes('JSON')) {
+      showToast('Error: Server returned invalid response. Check console for details.', 'error');
+    } else {
+      showToast('Error: ' + e.message, 'error');
+    }
   }
 }
 

@@ -411,14 +411,17 @@ def scrape_and_enrich():
         logging.info(f"Starting scrape for URL: {url}")
 
         # Step 1: Scrape the business data
+        logging.info("Step 1/3: Scraping business data...")
         result = scrape_place_by_url(
             url,
             SCRAPE_DIR,
             extract_emails=True,
             chrome_profile=""
         )
+        logging.info("Step 1/3: Scraping completed")
 
         if not result or not result.get('place_data'):
+            logging.error("Scraping failed - no place_data returned")
             return jsonify({
                 "success": False,
                 "error": "Failed to scrape business data"
@@ -426,14 +429,16 @@ def scrape_and_enrich():
 
         business_name = result['place_data'].get('name', 'Unknown')
         output_dir = result['output_dir']
+        images_count = result.get('images_count', 0)
 
-        logging.info(f"Scrape complete for: {business_name}")
-        logging.info(f"Starting AI enrichment...")
+        logging.info(f"Scrape complete for: {business_name} ({images_count} images)")
+        logging.info(f"Step 2/3: Starting AI enrichment...")
 
         # Step 2: Enrich with AI
         enriched_data = enrich(output_dir, api_key, language)
 
-        logging.info(f"AI enrichment complete for: {business_name}")
+        logging.info(f"Step 2/3: AI enrichment complete for: {business_name}")
+        logging.info(f"Step 3/3: Returning success response")
 
         return jsonify({
             "success": True,
@@ -443,12 +448,16 @@ def scrape_and_enrich():
         })
 
     except Exception as e:
-        logging.error(f"Error in scrape_and_enrich: {e}")
-        logging.error(traceback.format_exc())
-        return jsonify({
+        logging.error(f"ERROR in scrape_and_enrich: {type(e).__name__}: {e}")
+        logging.error(f"Traceback:\n{traceback.format_exc()}")
+
+        # Ensure we always return JSON, even on error
+        error_response = jsonify({
             "success": False,
-            "error": str(e)
-        }), 500
+            "error": f"{type(e).__name__}: {str(e)}"
+        })
+        error_response.status_code = 500
+        return error_response
 
 
 @app.route("/api/public/contact", methods=["POST"])
