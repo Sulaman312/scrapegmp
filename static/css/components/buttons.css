@@ -108,3 +108,12 @@
 .btn-add:hover {
   background: #052e16
 }
+
+/* Header template/page selectors: keep native dropdown options readable */
+#template-select option,
+#page-select option,
+#template-select optgroup,
+#page-select optgroup {
+  color: #000;
+  background: #fff;
+}

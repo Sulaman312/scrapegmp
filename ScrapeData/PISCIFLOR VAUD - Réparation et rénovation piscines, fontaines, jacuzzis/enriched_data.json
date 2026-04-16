@@ -1,5 +1,5 @@
 {
-  "template": "facade",
+  "template": "bernard",
   "language": "fr",
   "business": {
     "name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
@@ -9,116 +9,152 @@
     "website": "pisciflor.ch",
     "price_range": "",
     "rating": 4.2,
-    "reviews_count": null,
+    "reviews_count": 5,
     "address": "14 ZI Pré-Briand, 1510 Moudon, Switzerland",
     "description": "Rénovation de piscine ? L’expert suisse, c’est Pisciflor ! Réparation, fissures, changement de couleurs, des spécialistes à votre service.",
-    "latitude": "46.6764209",
-    "longitude": "6.813954",
-    "google_maps_url": "https://www.google.com/maps/place/PISCIFLOR+VAUD+-+R%C3%A9paration+et+r%C3%A9novation+piscines,+fontaines,+jacuzzis/@46.6764209,6.813954,17z/data=!3m1!4b1!4m6!3m5!1s0x478e79aa6a47a709:0x3ee5171e2b0c6d55!8m2!3d46.6764209!4d6.813954!16s%2Fg%2F11tn5fwjyj?entry=ttu&g_ep=EgoyMDI2MDQxMy4wIKXMDSoASAFQAw%3D%3D",
+    "latitude": "46.6763958",
+    "longitude": "6.8140115",
+    "google_maps_url": "https://www.google.com/maps/place/PISCIFLOR+VAUD+-+Réparation+et+rénovation+piscines,+fontaines,+jacuzzis/@46.6763958,6.8140115,17z/data=!4m17!1m10!3m9!1s0x478e79aa6a47a709:0x3ee5171e2b0c6d55!2sPISCIFLOR+VAUD+-+Réparation+et+rénovation+piscines,+fontaines,+jacuzzis!8m2!3d46.6764209!4d6.813954!10e5!14m1!1BCgIgARICEAE!16s%2Fg%2F11tn5fwjyj!3m5!1s0x478e79aa6a47a709:0x3ee5171e2b0c6d55!8m2!3d46.6764209!4d6.813954!16s%2Fg%2F11tn5fwjyj?entry=ttu&g_ep=EgoyMDI2MDQxMy4wIKXMDSoASAFQAw%3D%3D",
     "plus_code": "MRG7+HH Moudon, Switzerland",
     "hours": {
-      "monday": "Not available",
-      "tuesday": "Not available",
-      "wednesday": "Not available",
+      "monday": "8 AM–6 PM",
+      "tuesday": "8 AM–6 PM",
+      "wednesday": "8 AM–6 PM",
       "thursday": "8 AM–6 PM",
-      "friday": "Not available",
-      "saturday": "Not available",
-      "sunday": "Not available"
+      "friday": "8 AM–6 PM",
+      "saturday": "Closed",
+      "sunday": "Closed"
     }
   },
   "ai": {
     "brand_short_name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
-    "tagline": "",
-    "hero_subtitle": "",
-    "cta_primary": "Get Started",
+    "tagline": "Rénovez votre piscine, profitez de l'été",
+    "hero_subtitle": "Des experts en rénovation de piscines à votre service pour une qualité inégalée.",
+    "cta_primary": "Demandez un devis",
     "cta_primary_url": "pisciflor.ch",
-    "cta_secondary": "Learn More",
+    "cta_secondary": "Découvrez nos services",
     "cta_secondary_url": "pisciflor.ch",
-    "about_paragraph": "",
-    "about_story_left": "",
-    "about_story_right": "",
-    "seo_title": "",
-    "seo_description": "",
-    "features": [],
+    "about_paragraph": "Depuis 1958, Pisciflor est le spécialiste en réparation et rénovation de piscines, fontaines et jacuzzis en Suisse. Notre équipe d'experts s'engage à offrir des solutions durables et esthétiques pour redonner vie à vos installations aquatiques.",
+    "about_story_left": "Depuis 1958, Pisciflor est le spécialiste en réparation et rénovation de piscines, fontaines et jacuzzis en Suisse. Notre équipe",
+    "about_story_right": "d'experts s'engage à offrir des solutions durables et esthétiques pour redonner vie à vos installations aquatiques.",
+    "seo_title": "Rénovation et réparation de piscines en Suisse | Pisciflor",
+    "seo_description": "Pisciflor, l'expert en rénovation de piscines et jacuzzis en Suisse. Réparation, décoration et conseils à votre service.",
+    "features": [
+      {
+        "icon": "home_repair_service",
+        "title": "Réparation de Piscines",
+        "description": "Solutions pour tous types de dommages, y compris fissures et cloques.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "construction",
+        "title": "Rénovation Complète",
+        "description": "Rénovez votre piscine avec nos techniques modernes pour un résultat impeccable.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "palette",
+        "title": "Changement de Couleur",
+        "description": "Redonnez vie à votre piscine avec des options de couleurs personnalisées.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "verified",
+        "title": "Garantie Locale",
+        "description": "Profitez de nos garanties fiables pour toutes nos prestations de rénovation.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "spa",
+        "title": "Entretien de Jacuzzis",
+        "description": "Service d'entretien et de réparation de jacuzzis pour un confort optimal.",
+        "image": "",
+        "link": ""
+      }
+    ],
     "services_cards": [
       {
-        "title": "Service 1",
-        "description": "",
+        "title": "Garantie Locale",
+        "description": "Profitez de nos garanties fiables pour toutes nos prestations de rénovation.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Service 2",
-        "description": "",
+        "title": "Entretien de Jacuzzis",
+        "description": "Service d'entretien et de réparation de jacuzzis pour un confort optimal.",
         "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
-        "title": "Service 3",
-        "description": "",
+        "title": "Rénovation de Fontaines",
+        "description": "Transformez vos fontaines avec nos solutions de rénovation sur mesure.",
         "image": "images/All/0003.webp",
         "link": "#contact"
       },
       {
-        "title": "Service 4",
-        "description": "",
-        "image": "images/All/0004.webp",
+        "title": "Astuces et Conseils",
+        "description": "Bénéficiez de nos conseils d'experts pour maintenir votre piscine en parfait état.",
+        "image": "images/All/0001.webp",
         "link": "#contact"
       }
     ],
     "services_page_cards": [
       {
-        "title": "Service 1",
-        "description": "",
+        "title": "Garantie Locale",
+        "description": "Profitez de nos garanties fiables pour toutes nos prestations de rénovation.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Service 2",
-        "description": "",
+        "title": "Entretien de Jacuzzis",
+        "description": "Service d'entretien et de réparation de jacuzzis pour un confort optimal.",
         "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
-        "title": "Service 3",
-        "description": "",
+        "title": "Rénovation de Fontaines",
+        "description": "Transformez vos fontaines avec nos solutions de rénovation sur mesure.",
         "image": "images/All/0003.webp",
         "link": "#contact"
       },
       {
-        "title": "Service 4",
-        "description": "",
-        "image": "images/All/0004.webp",
+        "title": "Astuces et Conseils",
+        "description": "Bénéficiez de nos conseils d'experts pour maintenir votre piscine en parfait état.",
+        "image": "images/All/0001.webp",
         "link": "#contact"
       }
     ],
     "why_choose_us_cards": [
       {
-        "icon": "star",
-        "title": "Advantage 1",
-        "description": ""
+        "icon": "home_repair_service",
+        "title": "Réparation de Piscines",
+        "description": "Solutions pour tous types de dommages, y compris fissures et cloques."
       },
       {
-        "icon": "star",
-        "title": "Advantage 2",
-        "description": ""
+        "icon": "construction",
+        "title": "Rénovation Complète",
+        "description": "Rénovez votre piscine avec nos techniques modernes pour un résultat impeccable."
       },
       {
-        "icon": "star",
-        "title": "Advantage 3",
-        "description": ""
+        "icon": "palette",
+        "title": "Changement de Couleur",
+        "description": "Redonnez vie à votre piscine avec des options de couleurs personnalisées."
       }
     ],
     "services_small_text": "",
     "services_heading": "",
     "why_choose_us_heading": "",
     "cta_heading": "RÉNOVATION PISCINE : EN CAS DE MAUVAIS TEMPS OU PENDANT L’HIVER",
-    "cta_subtitle": "",
+    "cta_subtitle": "Des experts en rénovation de piscines à votre service pour une qualité inégalée.",
     "cta_btn_label": "",
     "cta_link": "",
     "cta_banner_btn_label": "",
     "cta_banner_btn_link": "",
-    "footer_tagline": "",
+    "footer_tagline": "Depuis 1958, Pisciflor est le spécialiste en réparation et rénovation de piscines, fontaines et jacuzzis en Suisse. Notre équipe d'experts s'engage à offrir des solutions durables et esthétiques pour redonner vie à vos installations aquatiques.",
     "footer_copyright": "© 2026 PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis. All rights reserved.",
     "values": [],
     "about_bullet_points": [],
@@ -184,10 +220,10 @@
     "title": "Rénovation piscine & entretien de piscine à coque en Suisse"
   },
   "theme": {
-    "color1": "#0EA5E9",
-    "color2": "#38BDF8",
-    "color3": "#7DD3FC",
-    "cta_color": "#000000",
+    "color1": "#1E3A8A",
+    "color2": "#DBEAFE",
+    "color3": "#F59E0B",
+    "cta_color": "#1E3A8A",
     "hero_dark": "#06060F",
     "hero_image": "images/All/0001.webp",
     "why_choose_us_image": "images/All/0003.webp",
@@ -234,19 +270,24 @@
     "Parking",
     "Pharmacies",
     "ATMs",
-    "See photos",
-    "Swimming pool repair service",
-    "Directions",
-    "Save",
-    "Nearby",
-    "Send to phone",
-    "Share",
-    "14 ZI Pré-Briand, 1510 Moudon, Switzerland",
-    "+41 78 602 58 36",
-    "MRG7+HH Moudon, Switzerland",
-    "Suggest an edit",
+    "Reviews",
     "Write a review",
-    "Learn more"
+    "Sort",
+    "All",
+    "efficient team 2",
+    "swimmingpool-sanierung 2",
+    "result 2",
+    "Mirjam3 reviews",
+    "More",
+    "Translated by Google ・ See original (French)",
+    "Like",
+    " Share",
+    "Natalia Vlasova3 reviews",
+    "Like2",
+    "Raymond Rochat1 review",
+    "David Siamont3 reviews",
+    "Like3",
+    "Goran S. Vukelic2 reviews · 1 photo"
   ],
   "qa": [],
   "updates": [],
