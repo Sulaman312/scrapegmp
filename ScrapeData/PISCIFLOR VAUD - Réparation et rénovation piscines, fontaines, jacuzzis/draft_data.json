@@ -1,5 +1,5 @@
 {
-  "template": "bernard",
+  "template": "default",
   "language": "fr",
   "business": {
     "name": "PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis",
@@ -220,10 +220,10 @@
     "title": "Rénovation piscine & entretien de piscine à coque en Suisse"
   },
   "theme": {
-    "color1": "#1E3A8A",
-    "color2": "#DBEAFE",
-    "color3": "#F59E0B",
-    "cta_color": "#1E3A8A",
+    "color1": "#4F7DF5",
+    "color2": "#7C3AED",
+    "color3": "#06C9D4",
+    "cta_color": "#4F7DF5",
     "hero_dark": "#06060F",
     "hero_image": "images/All/0001.webp",
     "why_choose_us_image": "images/All/0003.webp",
