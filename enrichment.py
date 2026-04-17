@@ -20,6 +20,7 @@ import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 from colorthief import ColorThief
+from utils.review_translator import ensure_reviews_translated
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
@@ -493,11 +494,41 @@ def enrich(business_dir: str, api_key: str = "", language: str = "fr") -> dict:
         "related_places": related,
     }
 
-    # Save
+    # Save enriched data first
     out_path = os.path.join(business_dir, "enriched_data.json")
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(enriched, f, ensure_ascii=False, indent=2)
     logging.info(f"💾 Saved enriched data → {out_path}")
+
+    # Translate reviews to the selected language only and cache them in enriched_data.json
+    if reviews:
+        try:
+            # Map language parameter to ISO 639-1 code
+            lang_code_map = {
+                "en": "en",
+                "fr": "fr",
+                "de": "de",
+                "es": "es"
+            }
+            target_lang_code = lang_code_map.get(language.lower(), "fr")
+
+            logging.info(f"🌐 Translating reviews to {target_lang_code}...")
+            ensure_reviews_translated(out_path, target_languages=[target_lang_code])
+
+            # Reload enriched data with translations
+            with open(out_path, "r", encoding="utf-8") as f:
+                enriched = json.load(f)
+
+            # Save translated reviews back to reviews.csv to override original
+            reviews_translated = enriched.get('reviews_translated', {})
+            if reviews_translated.get(target_lang_code):
+                translated_reviews = reviews_translated[target_lang_code]
+                reviews_csv_path = os.path.join(business_dir, 'reviews.csv')
+                pd.DataFrame(translated_reviews).to_csv(reviews_csv_path, index=False, encoding='utf-8-sig')
+                logging.info(f"💾 Saved translated reviews → {reviews_csv_path}")
+
+        except Exception as e:
+            logging.warning(f"⚠ Review translation failed: {e}")
 
     return enriched
 

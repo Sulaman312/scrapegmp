@@ -32,6 +32,8 @@ import random
 import html as html_lib
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from utils.review_translator import get_reviews_for_language
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 _log = logging.getLogger(__name__)
 
@@ -848,6 +850,16 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     lang_file_code = _normalize_lang_code(requested_lang)
     html_lang = _HTML_LANG_BY_FILE.get(lang_file_code, "fr")
     tr = _load_template_translations(template, lang_file_code)
+
+    # Get reviews in the website's language (translations already cached in enriched_data.json during enrichment)
+    try:
+        reviews = get_reviews_for_language(raw, lang_file_code)
+        reviews = [r for r in reviews if isinstance(r, dict) and (r.get("text", "").strip())]
+        if reviews:
+            logging.info(f"🌐 Using {len(reviews)} reviews in language: {lang_file_code}")
+    except Exception as e:
+        logging.warning(f"Could not load translated reviews: {e}, using original reviews")
+        # reviews variable already set at line 551
 
     # Now that tr is loaded, translate "Closed" in opening hours
     closed_text = _tr(tr, "contact.closed", "Closed")

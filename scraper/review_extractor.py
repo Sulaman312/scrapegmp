@@ -448,6 +448,7 @@ def extract_all_reviews(page: Page, max_reviews: int = 20, debug_dir: str | None
                     pass
 
                 rating = 0.0
+                # Try extracting rating from star aria-labels first
                 for sel in ['span.kvMYJc', 'span[role="img"][aria-label*="star"]', 'span[role="img"]']:
                     try:
                         e = elem.locator(sel)
@@ -459,6 +460,21 @@ def extract_all_reviews(page: Page, max_reviews: int = 20, debug_dir: str | None
                                 break
                     except Exception:
                         pass
+
+                # Fallback: Try extracting from text format like "5/5", "4/5", etc.
+                if rating == 0.0:
+                    for sel in ['span.fontBodyLarge.fzvQIb', 'span.fzvQIb', 'span[class*="fzvQIb"]']:
+                        try:
+                            e = elem.locator(sel)
+                            if e.count() > 0:
+                                rating_text = e.first.inner_text().strip()
+                                # Parse "X/Y" format, extract numerator (X)
+                                m = re.match(r'(\d+(?:\.\d+)?)\s*/\s*\d+', rating_text)
+                                if m:
+                                    rating = float(m.group(1))
+                                    break
+                        except Exception:
+                            pass
 
                 # Get full text (click More if needed)
                 text = text_snippet

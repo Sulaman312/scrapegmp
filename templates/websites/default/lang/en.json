@@ -9,7 +9,10 @@
   "hero": {
     "discover_features": "Discover features",
     "sector": "Sector",
-    "scroll": "Scroll"
+    "scroll": "Scroll",
+    "reviews": "reviews",
+    "name_placeholder": "Name",
+    "phone_placeholder": "Phone"
   },
   "about": {
     "pill": "About",

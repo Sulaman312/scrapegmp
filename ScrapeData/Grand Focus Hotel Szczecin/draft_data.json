@@ -1,0 +1,830 @@
+{
+  "template": "bernard",
+  "language": "fr",
+  "business": {
+    "name": "Grand Focus Hotel Szczecin",
+    "place_type": "",
+    "phone": "+48 44 333 33 33",
+    "email": "",
+    "website": "focushotels.pl",
+    "price_range": "Prices for Grand Focus Hotel Szczecin",
+    "rating": 4.7,
+    "reviews_count": null,
+    "address": "3 Maja 22, 70-215 Szczecin, Poland",
+    "description": "",
+    "latitude": "53.4206509",
+    "longitude": "14.5471424",
+    "google_maps_url": "https://www.google.com/maps/place/Grand+Focus+Hotel+Szczecin/@53.4206509,14.5471424,17z/data=!4m9!3m8!1s0x47aa0956ab44f7a9:0xda2f68caa9ab4c70!5m2!4m1!1i2!8m2!3d53.4206509!4d14.5497173!16s%2Fg%2F11r97bp285?entry=ttu&g_ep=EgoyMDI2MDQxNC4wIKXMDSoASAFQAw%3D%3D",
+    "plus_code": "CGCX+7V Szczecin, Poland",
+    "hours": {
+      "monday": "Not available",
+      "tuesday": "Not available",
+      "wednesday": "Not available",
+      "thursday": "Not available",
+      "friday": "Not available",
+      "saturday": "Not available",
+      "sunday": "Not available"
+    }
+  },
+  "ai": {
+    "brand_short_name": "Grand Focus Hotel Szczecin",
+    "tagline": "Séjournez avec confort au cœur de Szczecin",
+    "hero_subtitle": "Découvrez l'élégance et le confort au Grand Focus Hotel. Profitez d'un service exceptionnel et de chambres modernes.",
+    "cta_primary": "Réservez Maintenant",
+    "cta_primary_url": "focushotels.pl",
+    "cta_secondary": "En Savoir Plus",
+    "cta_secondary_url": "focushotels.pl",
+    "about_paragraph": "Le Grand Focus Hotel Szczecin est un établissement moderne offrant des services de qualité supérieure et un hébergement confortable. Situé au cœur de Szczecin, notre hôtel est idéal pour les voyageurs d'affaires et de loisirs.",
+    "about_story_left": "Le Grand Focus Hotel Szczecin est un établissement moderne offrant des services de qualité supérieure et un hébergement",
+    "about_story_right": "confortable. Situé au cœur de Szczecin, notre hôtel est idéal pour les voyageurs d'affaires et de loisirs.",
+    "seo_title": "Grand Focus Hotel Szczecin - Confort et Élégance",
+    "seo_description": "Séjournez au Grand Focus Hotel Szczecin pour un confort inégalé et un service exceptionnel dans un cadre moderne.",
+    "features": [
+      {
+        "icon": "star",
+        "title": "Chambres Élégantes",
+        "description": "Nos chambres sont conçues pour votre confort avec des équipements modernes et un décor élégant.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "restaurant",
+        "title": "Restaurant sur Place",
+        "description": "Profitez d'une cuisine raffinée dans notre restaurant, avec des plats préparés par des chefs talentueux.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "spa",
+        "title": "Spa et Bien-être",
+        "description": "Détendez-vous dans notre spa avec une gamme de soins relaxants et de bien-être.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "business_center",
+        "title": "Salles de Réunion",
+        "description": "Des espaces de réunion modernes et bien équipés pour vos événements professionnels.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "fitness_center",
+        "title": "Salle de Fitness",
+        "description": "Restez actif pendant votre séjour avec notre salle de fitness entièrement équipée.",
+        "image": "",
+        "link": ""
+      }
+    ],
+    "services_cards": [
+      {
+        "title": "Salles de Réunion",
+        "description": "Des espaces de réunion modernes et bien équipés pour vos événements professionnels.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Salle de Fitness",
+        "description": "Restez actif pendant votre séjour avec notre salle de fitness entièrement équipée.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Transfert Aéroport",
+        "description": "Nous offrons un service de transfert pratique depuis et vers l'aéroport pour nos clients.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service Client 24/7",
+        "description": "Notre équipe est disponible 24 heures sur 24 pour répondre à tous vos besoins.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "services_page_cards": [
+      {
+        "title": "Salles de Réunion",
+        "description": "Des espaces de réunion modernes et bien équipés pour vos événements professionnels.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Salle de Fitness",
+        "description": "Restez actif pendant votre séjour avec notre salle de fitness entièrement équipée.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Transfert Aéroport",
+        "description": "Nous offrons un service de transfert pratique depuis et vers l'aéroport pour nos clients.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Service Client 24/7",
+        "description": "Notre équipe est disponible 24 heures sur 24 pour répondre à tous vos besoins.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "why_choose_us_cards": [
+      {
+        "icon": "star",
+        "title": "Chambres Élégantes",
+        "description": "Nos chambres sont conçues pour votre confort avec des équipements modernes et un décor élégant."
+      },
+      {
+        "icon": "restaurant",
+        "title": "Restaurant sur Place",
+        "description": "Profitez d'une cuisine raffinée dans notre restaurant, avec des plats préparés par des chefs talentueux."
+      },
+      {
+        "icon": "spa",
+        "title": "Spa et Bien-être",
+        "description": "Détendez-vous dans notre spa avec une gamme de soins relaxants et de bien-être."
+      }
+    ],
+    "services_small_text": "",
+    "services_heading": "",
+    "why_choose_us_heading": "",
+    "cta_heading": "Séjournez avec confort au cœur de Szczecin",
+    "cta_subtitle": "Découvrez l'élégance et le confort au Grand Focus Hotel. Profitez d'un service exceptionnel et de chambres modernes.",
+    "cta_btn_label": "",
+    "cta_link": "",
+    "cta_banner_btn_label": "",
+    "cta_banner_btn_link": "",
+    "footer_tagline": "Le Grand Focus Hotel Szczecin est un établissement moderne offrant des services de qualité supérieure et un hébergement confortable. Situé au cœur de Szczecin, notre hôtel est idéal pour les voyageurs d'affaires et de loisirs.",
+    "footer_copyright": "© 2026 Grand Focus Hotel Szczecin. All rights reserved.",
+    "values": [],
+    "about_bullet_points": [],
+    "services_page_seo_title": "",
+    "services_page_seo_description": "",
+    "services_page_hero_title": "",
+    "services_page_hero_subtitle": "",
+    "services_page_small_text": "",
+    "services_page_heading": "",
+    "services_page_description": "",
+    "services_cta_heading": "",
+    "services_cta_text": "",
+    "services_cta_button": "",
+    "contact_page_seo_title": "",
+    "contact_page_seo_description": "",
+    "contact_page_hero_title": "",
+    "contact_page_hero_subtitle": "",
+    "contact_page_small_text": "",
+    "contact_page_heading": "",
+    "contact_page_description": ""
+  },
+  "_raw": {
+    "years_of_experience": 0
+  },
+  "website_data": {
+    "headings": [],
+    "meta_description": "",
+    "paragraphs": [],
+    "pricing_hints": [],
+    "raw_text": "",
+    "services": [],
+    "team": [],
+    "title": ""
+  },
+  "theme": {
+    "color1": "#1E3A8A",
+    "color2": "#DBEAFE",
+    "color3": "#F59E0B",
+    "cta_color": "#1E3A8A",
+    "hero_dark": "#06060F",
+    "hero_image": "images/All/0001.webp",
+    "why_choose_us_image": "images/All/0003.webp",
+    "values_image": "images/All/0001.webp",
+    "company_image_1": "images/All/0001.webp",
+    "company_image_2": "images/All/0002.webp"
+  },
+  "images": [
+    "images/All/0001.webp",
+    "images/All/0002.webp",
+    "images/All/0003.webp",
+    "images/All/0004.webp",
+    "images/All/0005.webp",
+    "images/All/0006.webp",
+    "images/All/0007.webp",
+    "images/All/0008.webp",
+    "images/All/0009.webp",
+    "images/All/0010.webp",
+    "images/All/0011.webp",
+    "images/All/0012.webp",
+    "images/All/0013.webp",
+    "images/All/0014.webp",
+    "images/All/0015.webp",
+    "images/All/0016.webp",
+    "images/All/0017.webp",
+    "images/All/0018.webp",
+    "images/All/0019.webp",
+    "images/All/0020.webp"
+  ],
+  "reviews": [
+    {
+      "author_name": "Caroline Newton",
+      "text": "A perfect stay from start to finish\n\nWe stayed at the Grand Focus Hotel in Szczecin for one night in October 2025 and were very impressed from the moment we arrived. We were celebrating a special birthday and were thrilled to be given a complimentary upgrade from a standard twin to a beautiful apartment. It was such a thoughtful gesture and made our trip feel very special.\n\nWe arrived earlier than planned after a very early flight and were welcomed straight away with early check-in, which was so appreciated. The lobby is stylish, beautifully scented and instantly welcoming. The gentleman on reception was polite, professional and friendly, setting the tone for the rest of our stay.\n\nThe apartment was spotless, modern and really spacious, with two bathrooms, Rituals toiletries, a coffee machine and welcome snacks. The bar had a great drinks selection at good prices, and although we didn’t eat in the restaurant, it looked busy and the food looked excellent.\n\nThe location is ideal, just five minutes from the main train and bus stations and perfect for exploring the city. All the staff we encountered were professional, courteous and friendly. We’d highly recommend this hotel. We left wishing we’d stayed longer but will definitely return.",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "franciner763",
+      "text": "Stayed for 3 nights with my husband and daughter, couldn’t fault the place. Right facing a tram stop, a stones throw fro",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Trip.com Member",
+      "text": "The hotel was exceptionally beautiful, clean, and modern. The staff were incredibly friendly and helpful, making our sta",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Desiree1963",
+      "text": "I was in Szczecin for the first time this month. As I checked in, the lady at the front desk gave me an upgrade because ",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Adel",
+      "text": "Wonderful stay! The staff were very friendly and helpful, and our room was spotlessly clean. The hotel itself is in a beautifully restored historic building, combining old charm with modern comfort. The restaurant was a real highlight — amazing food and a great atmosphere. Highly recommended!",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Alex Lytle",
+      "text": "Hotel was gorgeous, the staff were very helpful and friendly, and the breakfast was delicious. Our room had a great view too. Hotel is a short walk from the main train station as well",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Robert",
+      "text": "Grand Focus Hotel in Szczecin is a comfortable, well-located hotel in the city center with modern rooms, friendly staff, and good amenities. A great choice for both business and leisure stays.",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "alex",
+      "text": "Nice hotel. Very clean and quite new. The sleeping situation is okay the showering situation is very good and breakfasting was very good for a buffet breakfast. They had all kinds of stuff to masticate upon The staff are extremely kind and efficient and all the fixtures and fittings are of a good quality etc etc.",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Marcel Liebetrau",
+      "text": "We had a good stay and got nice advice and recomandation for a really good city tour of Stetin from Vukasz. He also made nice Whiskey Sour Cocktails for us.",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Cindy Coffa",
+      "text": "Hotel is neat and is in a nice area. Staff is very friendly. It felt like a senior hotel. What you see is not what you get. Did not recognize anything from the pictures on the internet, beside the front door. My room and bathroom were dated and there was no airco. But during breakfast there were sandwiches to go, what I think is a really nice gesture.",
+      "rating": 3,
+      "date": ""
+    },
+    {
+      "author_name": "Cruiser31565755557",
+      "text": "Location is excellent,room is clean and very nice design,service is very good staff are polite and kind Value is fair i ",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Robert Bowie",
+      "text": "All in all excellent one tiny negative is that the double bed was 2 singles put together with 2 single quilts should be a double quilt but otherwise fantastic",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Victorianlad",
+      "text": "Although there are stairs to negotiate from Szczecin Glowny (main railway station), this hotel is close.||The hotel rece",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Joshua Lightowler",
+      "text": "Hotel is great, with great facilities, location good breakfast, sauna and parking. Rooms are good quality.\nThe thing which let it down for me was staying in a room for 3 nights and not once did the house keeping clean my room this seems strange to me for a hotel.",
+      "rating": 3,
+      "date": ""
+    },
+    {
+      "author_name": "Arune Jasiulionyte",
+      "text": "Everything is super, but please less parfums in the air… it is suffocating and allergy inducing.",
+      "rating": 4,
+      "date": ""
+    }
+  ],
+  "review_keywords": [
+    "Nearby hotels",
+    "Restaurants",
+    "Things to do",
+    "Bars",
+    "Coffee",
+    "Pharmacies",
+    "Parking",
+    "PKR 23,937Apr 26 – 27",
+    "See photos",
+    "Prices",
+    "Directions",
+    "Save",
+    "Nearby",
+    "Share",
+    "See rooms ",
+    "More prices from PKR 23,937",
+    "3 Maja 22, 70-215 Szczecin, Poland",
+    "+48 44 333 33 33",
+    "CGCX+7V Szczecin, Poland",
+    "Suggest an edit",
+    "Add photos & videos",
+    "View more nearby hotels",
+    "More",
+    "View more amenities",
+    "Write a review",
+    "Learn more"
+  ],
+  "qa": [],
+  "updates": [],
+  "popular_times": {},
+  "about": {
+    "attributes": {
+      "Features": [
+        "Free Wi-Fi available",
+        "Breakfast available",
+        "Paid parking available",
+        "Pool unavailable",
+        "Air-conditioned available",
+        "Laundry service available",
+        "Pet-friendly available",
+        "Restaurant available",
+        "Fitness center available"
+      ]
+    },
+    "social_links": [],
+    "highlights": []
+  },
+  "about_attrs": [
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]"
+  ],
+  "social_links": [],
+  "web_results": [],
+  "related_places": [],
+  "section_visibility": {},
+  "_has_videos": false,
+  "_video_list": [],
+  "videos": [],
+  "reviews_translated": {
+    "en": [
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2tsdWRtcE9VVFZxVjNoZlNrbHVkbTVHT0hseGVHYxAB",
+        "author_name": "Caroline Newton",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "A perfect stay from start to finish\n\nWe stayed at the Grand Focus Hotel in Szczecin for one night in October 2025 and were very impressed from the moment we arrived. We were celebrating a special birthday and were thrilled to be given a complimentary upgrade from a standard twin to a beautiful apartment. It was such a thoughtful gesture and made our trip feel very special.\n\nWe arrived earlier than planned after a very early flight and were welcomed straight away with early check-in, which was so appreciated. The lobby is stylish, beautifully scented and instantly welcoming. The gentleman on reception was polite, professional and friendly, setting the tone for the rest of our stay.\n\nThe apartment was spotless, modern and really spacious, with two bathrooms, Rituals toiletries, a coffee machine and welcome snacks. The bar had a great drinks selection at good prices, and although we didn’t eat in the restaurant, it looked busy and the food looked excellent.\n\nThe location is ideal, just five minutes from the main train and bus stations and perfect for exploring the city. All the staff we encountered were professional, courteous and friendly. We’d highly recommend this hotel. We left wishing we’d stayed longer but will definitely return.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWxbFTng3V6ualv3z1U7pnfSWuWZ-w6WiWphIUxWlheODVLUcri=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VOVzlvOFctbWNHQVB3EAE",
+        "author_name": "franciner763",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Stayed for 3 nights with my husband and daughter, couldn’t fault the place. Right facing a tram stop, a stones throw fro",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0QcHwNVAhBufoo8LY9QJgA36LV2aF6lX0w2qy06Hm3sGcN-ZkjMp1R8g7n5EAkUzVe_g3g=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VJQ0FnTUNnNllXbWR3EAE",
+        "author_name": "Trip.com Member",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "The hotel was exceptionally beautiful, clean, and modern. The staff were incredibly friendly and helpful, making our sta",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0QeCck1CfANpZm9bBk3PHtP97Kh9k25HZfvq9yAWlN3BaIyjSHUPEfWkhAJmuYiJsH-_6g=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VJWDZtWVhuMWMzQlVREAE",
+        "author_name": "Desiree1963",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "I was in Szczecin for the first time this month. As I checked in, the lady at the front desk gave me an upgrade because ",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0Qczn4VDfUM6-AtEt-6oaNazFa-i9Fy6kqPVfGIlPil6vJulEYyK8t930jZwOW4hD80mzw=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xFM2NsTjNjamhSVWxkMlJTMDFSVU55YlRKSWQwRRAB",
+        "author_name": "Adel",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Wonderful stay! The staff were very friendly and helpful, and our room was spotlessly clean. The hotel itself is in a beautifully restored historic building, combining old charm with modern comfort. The restaurant was a real highlight — amazing food and a great atmosphere. Highly recommended!",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocKyYu_t663eA1kTEoB_k2LVohk7Ip4JtLfPtqvOVbGemflNN-4=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xoVVpHUk9TbDlxVEVsck1FaHdXa2d0U0VOelpIYxAB",
+        "author_name": "Alex Lytle",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Hotel was gorgeous, the staff were very helpful and friendly, and the breakfast was delicious. Our room had a great view too. Hotel is a short walk from the main train station as well",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWZ1Et_U5CO-dRKQt-9PyQUEifLbvqMakkaulIN3LTSFzq8vmUB=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21keWFEaEVWVGxuU0dsM01FaGplbVZaVEdWeE9XYxAB",
+        "author_name": "Robert",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Grand Focus Hotel in Szczecin is a comfortable, well-located hotel in the city center with modern rooms, friendly staff, and good amenities. A great choice for both business and leisure stays.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjVz-o3jn5GHZY6Y50NIMgxdCNMYGsyUFtBgqmDituTEUuZpFPgz=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2s5Q1JHbzVOaTE2VFZaR2FrZG1UeTF2WW14bFFVRRAB",
+        "author_name": "alex",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Nice hotel. Very clean and quite new. The sleeping situation is okay the showering situation is very good and breakfasting was very good for a buffet breakfast. They had all kinds of stuff to masticate upon The staff are extremely kind and efficient and all the fixtures and fittings are of a good quality etc etc.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjUJHGRM_B8VvLdRhuJncgMBO0IHbQZRu1gZp6hhHhu-VkXc9T0=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2tWV2JERmtaV05wTm5KalRqVlJkRkZTVkVwYVpGRRAB",
+        "author_name": "Marcel Liebetrau",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "We had a good stay and got nice advice and recomandation for a really good city tour of Stetin from Vukasz. He also made nice Whiskey Sour Cocktails for us.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjVMbygvQSrpmm0Gn4Grvb0n6GRW4eMyb-fqQ-m_ByL-ydEL2h99=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT20wMFZUUkpTVTFKVEhVNU56YzFOMnh0Y2xKUVQzYxAB",
+        "author_name": "Cindy Coffa",
+        "author_url": "",
+        "rating": 3.0,
+        "date": "",
+        "text": "Hotel is neat and is in a nice area. Staff is very friendly. It felt like a senior hotel. What you see is not what you get. Did not recognize anything from the pictures on the internet, beside the front door. My room and bathroom were dated and there was no airco. But during breakfast there were sandwiches to go, what I think is a really nice gesture.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocIf51ICcP2aje8Kk4YSASu9gEMCXtg5epNLOQxqZqFyGkjwsA=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VJWHQwYS1YNjRmcWV3EAE",
+        "author_name": "Cruiser31565755557",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Location is excellent,room is clean and very nice design,service is very good staff are polite and kind Value is fair i ",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0QeYuXGoFc9HnT35lAJ46cKDIsHY7nNIKUKz_f8yINNlqyrU48jCx-4ctPzihRKgde030w=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xsWWNGZGxXRm8yTkdwaVJsbFpjMEZTTTNObWRGRRAB",
+        "author_name": "Robert Bowie",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "All in all excellent one tiny negative is that the double bed was 2 singles put together with 2 single quilts should be a double quilt but otherwise fantastic",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWMMQodu8Iye32yDn3LgtMZaImhzRAjS3b7-DjrxFQ-Usmoin4mNw=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VJQ0FnTURvNzRmRVVREAE",
+        "author_name": "Victorianlad",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Although there are stairs to negotiate from Szczecin Glowny (main railway station), this hotel is close.||The hotel rece",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0QewvQXK08PhtQgCu1fT7TcdWcgcaXdOmFk48xW5xlmLo-Eqy0UOp2YqveGvl0etYz5BzA=s800"
+      },
+      {
+        "review_id": "ChdDSUhNMG9nS0VJQ0FnTURJb3VIbXB3RRAB",
+        "author_name": "Joshua Lightowler",
+        "author_url": "",
+        "rating": 3.0,
+        "date": "",
+        "text": "Hotel is great, with great facilities, location good breakfast, sauna and parking. Rooms are good quality.\nThe thing which let it down for me was staying in a room for 3 nights and not once did the house keeping clean my room this seems strange to me for a hotel.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjUejmLDfhB1Ddyt3v0UBEs76pu8Yir9EPPwD0QH4xYqleErw-I=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xaS1kyUmFPRmxUYkU5T09HOHlhR3BTYnpOV2IyYxAB",
+        "author_name": "Arune Jasiulionyte",
+        "author_url": "",
+        "rating": 4.0,
+        "date": "",
+        "text": "Everything is super, but please less parfums in the air… it is suffocating and allergy inducing.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjXcF1VKM6FH-lRkUw5ajY7nadnrgI-uBN7B_IXZMLPVAlyj_TtX=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VJQ0FnSURUN01pbEl3EAE",
+        "author_name": "Max Bashyrov",
+        "author_url": "",
+        "rating": 3.0,
+        "date": "",
+        "text": "Every my visit it gets worse.\nMy first time (private trip) was 5 stars.\nCleaning personnel touch or even throw away your things, \"check\" the fridge while you are away.\nFridges do not cool at all, btw.\nAttitude of some receptionists also leaves much to be desired.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjVOhpSmcwVQlQ2st-vz3NZx2N5syB9q1nsunlDAT_efloikLL4b=s800"
+      },
+      {
+        "review_id": "ChdDSUhNMG9nS0VJQ0FnTURvai1tMDFRRRAB",
+        "author_name": "KonradB234",
+        "author_url": "",
+        "rating": 1.0,
+        "date": "",
+        "text": "Instead of a double bed, I received a room with two single beds pushed together. During the night, the mattresses would ",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0QdCjMUwIiBikRhCLHgN_0vyGAo1GvT8DEukiKQb1ujC_eFsFjYrQ0OvLoSxPtqmCdgvFA=s800"
+      },
+      {
+        "review_id": "ChdDSUhNMG9nS0VJQ0FnSURmbXZ2azZBRRAB",
+        "author_name": "Lylly",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Staying at Gran Focus Hotel was an absolutely unforgettable experience—without a doubt, one of the best hotels I’ve ever had the pleasure of visiting! From the moment we stepped inside, we were blown away by its elegance, modern design, and attention to detail. Everything about this hotel exudes sophistication and comfort, making it a truly exceptional place to stay.\n\nThe service was nothing short of impeccable. Before our arrival, I sent an email requesting a room on the top floor to enjoy a better view, and they not only accommodated our request but went above and beyond. We were given a stunning room on the top floor with a gigantic terrace that left us speechless! It was the perfect spot to relax and take in the views—it felt like such a thoughtful touch, and we appreciated it so much.\n\nThe hotel itself is spotless, reflecting the staff’s commitment to cleanliness and maintaining high standards. Every interaction we had with the team was pleasant; they were always available, helpful, and professional. It’s clear that guest satisfaction is their top priority, and they absolutely deserve the highest rating possible for their outstanding service.\n\nAnother highlight was the sauna, which added an extra layer of relaxation to our stay. It’s included in the price, although you do need to reserve it in advance. This small detail didn’t bother us at all—it actually made the experience feel even more exclusive and personalized.\n\nAnd let me take a moment to talk about the interior design—it completely stole my heart! From the moment you walk through the doors, you’re greeted by an entrance that feels nothing short of majestic. The automatic doors that open as you step in set the tone for the modern, high-tech luxury that runs throughout the hotel. Every single detail in the décor has been carefully considered, blending contemporary style with refined elegance. It’s the kind of place that feels both modern and timeless, leaving a lasting impression.\n\nIn short, Gran Focus Hotel exceeded all of our expectations. It’s the perfect combination of luxury, comfort, and thoughtful design, with top-notch amenities and flawless service. I can’t recommend it highly enough—5 out of 5 stars without a doubt! If you’re looking for a hotel that offers both style and substance, this is the place to be. We’ll definitely be coming back!",
+        "local_guide": "",
+        "likes": 1,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjVZLucFHQR4p_JzWqqA_9UBygbklsl0nkJwoyGfLD8-xSld0JF-=s800"
+      },
+      {
+        "review_id": "ChdDSUhNMG9nS0VJQ0FnSURMal9MaTRRRRAB",
+        "author_name": "John Button",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "A first class hotel. Everything was high quality. We very much enjoyed our stay here. At check-in, we were offered a room upgrade. This \"apartment room\" made our stay even better. A livingroom, bedroom, two bathrooms, and dining area makes for a very compete and comfortable stay. The hotel's restaurant hosted us for a dinner and breakfast each day of our two night stay. Around the corner from the hotel is their fenced private parking lot, which gave our motorcycle a home for the nights. Definitely recommended. We would stay again without question.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWQAR0Tk1smuEsmHRgQ5iEIkigh3LSGjLGpXyCFV3wvHKeDaWy4=s800"
+      },
+      {
+        "review_id": "ChdDSUhNMG9nS0VJQ0FnSUN4a0syNjJBRRAB",
+        "author_name": "Vana Mavrakana",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "A very beautiful place to stay. The entrance is very impressive and welcoming, the hall very elegant and modern. The staff, of course, is very professional and helpful. The rooms clean and spacious and their bathrooms are like calling you to shower.\nI was worried that they would be noisy because the hotel is on a big street and our rooms on the first floor, but on the contrary, I had some of the best sleep ever. The beds helped to that.\nThe breakfast buffet is among the best I've seen. And the pancakes the fluffiest!\nThere is a walking distance from the city centre, but there is a bus stop literally outside the hotel's door.",
+        "local_guide": "",
+        "likes": 2,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocJYwXs9GcIbeTplV3SQmOeMVNcPY-6-Xo79BqlaTCY1PxN6Pg=s800"
+      }
+    ],
+    "fr": [
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2tsdWRtcE9VVFZxVjNoZlNrbHVkbTVHT0hseGVHYxAB",
+        "author_name": "Caroline Newton",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Un séjour parfait du début à la fin\n\nNous avons séjourné au Grand Focus Hotel à Szczecin pendant une nuit en octobre 2025 et avons été très impressionnés dès notre arrivée. Nous célébrions un anniversaire spécial et avons été ravis de recevoir un surclassement gratuit d'une chambre twin standard à un magnifique appartement. C'était un geste tellement attentionné qui a rendu notre voyage très spécial.\n\nNous sommes arrivés plus tôt que prévu après un vol très matinal et avons été accueillis immédiatement avec un enregistrement anticipé, ce qui a été très apprécié. Le hall est élégant, agréablement parfumé et instantanément accueillant. Le gentleman à la réception était poli, professionnel et amical, mettant le ton pour le reste de notre séjour.\n\nL'appartement était impeccable, moderne et vraiment spacieux, avec deux salles de bains, des produits de toilette Rituals, une machine à café et des collations de bienvenue. Le bar avait une excellente sélection de boissons à de bons prix, et bien que nous n'ayons pas mangé au restaurant, il semblait animé et la nourriture avait l'air excellente.\n\nL'emplacement est idéal, à seulement cinq minutes des principales gares ferroviaire et routière, parfait pour explorer la ville. Tout le personnel que nous avons rencontré était professionnel, courtois et amical. Nous recommandons vivement cet hôtel. Nous sommes partis en souhaitant être restés plus longtemps mais nous reviendrons sans aucun doute.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWxbFTng3V6ualv3z1U7pnfSWuWZ-w6WiWphIUxWlheODVLUcri=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VOVzlvOFctbWNHQVB3EAE",
+        "author_name": "franciner763",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Séjour de 3 nuits avec mon mari et ma fille, rien à redire sur l'endroit. Juste en face d'un arrêt de tram, à deux pas de",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0QcHwNVAhBufoo8LY9QJgA36LV2aF6lX0w2qy06Hm3sGcN-ZkjMp1R8g7n5EAkUzVe_g3g=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VJQ0FnTUNnNllXbWR3EAE",
+        "author_name": "Trip.com Member",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "L'hôtel était exceptionnellement beau, propre et moderne. Le personnel était incroyablement amical et serviable, rendant notre séjour",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0QeCck1CfANpZm9bBk3PHtP97Kh9k25HZfvq9yAWlN3BaIyjSHUPEfWkhAJmuYiJsH-_6g=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VJWDZtWVhuMWMzQlVREAE",
+        "author_name": "Desiree1963",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "J'étais à Szczecin pour la première fois ce mois-ci. En m'enregistrant, la dame à la réception m'a donné un surclassement parce que",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0Qczn4VDfUM6-AtEt-6oaNazFa-i9Fy6kqPVfGIlPil6vJulEYyK8t930jZwOW4hD80mzw=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xFM2NsTjNjamhSVWxkMlJTMDFSVU55YlRKSWQwRRAB",
+        "author_name": "Adel",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Séjour merveilleux ! Le personnel était très amical et serviable, et notre chambre était d'une propreté impeccable. L'hôtel lui-même est dans un bâtiment historique magnifiquement restauré, alliant charme ancien et confort moderne. Le restaurant était un véritable point fort — une nourriture incroyable et une excellente ambiance. Hautement recommandé !",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocKyYu_t663eA1kTEoB_k2LVohk7Ip4JtLfPtqvOVbGemflNN-4=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xoVVpHUk9TbDlxVEVsck1FaHdXa2d0U0VOelpIYxAB",
+        "author_name": "Alex Lytle",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "L'hôtel était magnifique, le personnel était très serviable et amical, et le petit-déjeuner était délicieux. Notre chambre avait également une belle vue. L'hôtel est à quelques pas de la gare principale.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWZ1Et_U5CO-dRKQt-9PyQUEifLbvqMakkaulIN3LTSFzq8vmUB=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21keWFEaEVWVGxuU0dsM01FaGplbVZaVEdWeE9XYxAB",
+        "author_name": "Robert",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Le Grand Focus Hotel à Szczecin est un hôtel confortable, bien situé dans le centre-ville, avec des chambres modernes, un personnel amical et de bonnes commodités. Un excellent choix pour les séjours d'affaires et de loisirs.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjVz-o3jn5GHZY6Y50NIMgxdCNMYGsyUFtBgqmDituTEUuZpFPgz=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2s5Q1JHbzVOaTE2VFZaR2FrZG1UeTF2WW14bFFVRRAB",
+        "author_name": "alex",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Bel hôtel. Très propre et assez nouveau. La situation de sommeil est correcte, la douche est très bonne et le petit-déjeuner était très bon pour un petit-déjeuner buffet. Ils avaient toutes sortes de choses à mâcher. Le personnel est extrêmement gentil et efficace et tous les équipements sont de bonne qualité, etc.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjUJHGRM_B8VvLdRhuJncgMBO0IHbQZRu1gZp6hhHhu-VkXc9T0=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2tWV2JERmtaV05wTm5KalRqVlJkRkZTVkVwYVpGRRAB",
+        "author_name": "Marcel Liebetrau",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Nous avons passé un bon séjour et avons reçu de bons conseils et recommandations pour une très bonne visite de la ville de Stetin de Vukasz. Il a également préparé de délicieux cocktails Whiskey Sour pour nous.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjVMbygvQSrpmm0Gn4Grvb0n6GRW4eMyb-fqQ-m_ByL-ydEL2h99=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT20wMFZUUkpTVTFKVEhVNU56YzFOMnh0Y2xKUVQzYxAB",
+        "author_name": "Cindy Coffa",
+        "author_url": "",
+        "rating": 3.0,
+        "date": "",
+        "text": "L'hôtel est propre et situé dans un joli quartier. Le personnel est très amical. On avait l'impression d'être dans un hôtel senior. Ce que vous voyez n'est pas ce que vous obtenez. Je n'ai reconnu rien des photos sur Internet, à part la porte d'entrée. Ma chambre et ma salle de bain étaient vieillissantes et il n'y avait pas de climatisation. Mais pendant le petit-déjeuner, il y avait des sandwiches à emporter, ce que je trouve être un très joli geste.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocIf51ICcP2aje8Kk4YSASu9gEMCXtg5epNLOQxqZqFyGkjwsA=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VJWHQwYS1YNjRmcWV3EAE",
+        "author_name": "Cruiser31565755557",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "L'emplacement est excellent, la chambre est propre et au design très agréable, le service est très bon, le personnel est poli et aimable. Le rapport qualité-prix est juste.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0QeYuXGoFc9HnT35lAJ46cKDIsHY7nNIKUKz_f8yINNlqyrU48jCx-4ctPzihRKgde030w=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xsWWNGZGxXRm8yTkdwaVJsbFpjMEZTTTNObWRGRRAB",
+        "author_name": "Robert Bowie",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Dans l'ensemble, excellent, un petit point négatif est que le lit double était composé de deux lits simples réunis avec deux couettes simples, il aurait dû y avoir une couette double, mais sinon, fantastique.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWMMQodu8Iye32yDn3LgtMZaImhzRAjS3b7-DjrxFQ-Usmoin4mNw=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VJQ0FnTURvNzRmRVVREAE",
+        "author_name": "Victorianlad",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Bien qu'il y ait des escaliers à négocier depuis Szczecin Glowny (gare principale), cet hôtel est proche.||La réception de l'hôtel",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0QewvQXK08PhtQgCu1fT7TcdWcgcaXdOmFk48xW5xlmLo-Eqy0UOp2YqveGvl0etYz5BzA=s800"
+      },
+      {
+        "review_id": "ChdDSUhNMG9nS0VJQ0FnTURJb3VIbXB3RRAB",
+        "author_name": "Joshua Lightowler",
+        "author_url": "",
+        "rating": 3.0,
+        "date": "",
+        "text": "L'hôtel est génial, avec de superbes installations, un bon emplacement, un bon petit-déjeuner, un sauna et un parking. Les chambres sont de bonne qualité.\nCe qui m'a déçu, c'est que j'ai séjourné dans une chambre pendant 3 nuits et que le service de nettoyage n'a pas nettoyé ma chambre une seule fois, cela me semble étrange pour un hôtel.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjUejmLDfhB1Ddyt3v0UBEs76pu8Yir9EPPwD0QH4xYqleErw-I=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xaS1kyUmFPRmxUYkU5T09HOHlhR3BTYnpOV2IyYxAB",
+        "author_name": "Arune Jasiulionyte",
+        "author_url": "",
+        "rating": 4.0,
+        "date": "",
+        "text": "Tout est super, mais s'il vous plaît, moins de parfums dans l'air… c'est étouffant et provoque des allergies.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjXcF1VKM6FH-lRkUw5ajY7nadnrgI-uBN7B_IXZMLPVAlyj_TtX=s800"
+      },
+      {
+        "review_id": "ChZDSUhNMG9nS0VJQ0FnSURUN01pbEl3EAE",
+        "author_name": "Max Bashyrov",
+        "author_url": "",
+        "rating": 3.0,
+        "date": "",
+        "text": "À chaque visite, cela devient de pire en pire.\nMa première fois (voyage privé) était 5 étoiles.\nLe personnel de nettoyage touche ou jette même vos affaires, \"vérifie\" le réfrigérateur pendant que vous êtes absent.\nLes réfrigérateurs ne refroidissent pas du tout, d'ailleurs.\nL'attitude de certains réceptionnistes laisse également beaucoup à désirer.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjVOhpSmcwVQlQ2st-vz3NZx2N5syB9q1nsunlDAT_efloikLL4b=s800"
+      },
+      {
+        "review_id": "ChdDSUhNMG9nS0VJQ0FnTURvai1tMDFRRRAB",
+        "author_name": "KonradB234",
+        "author_url": "",
+        "rating": 1.0,
+        "date": "",
+        "text": "Au lieu d'un lit double, j'ai reçu une chambre avec deux lits simples poussés ensemble. Pendant la nuit, les matelas se déplaçaient.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/local-reviews/AJMZ0QdCjMUwIiBikRhCLHgN_0vyGAo1GvT8DEukiKQb1ujC_eFsFjYrQ0OvLoSxPtqmCdgvFA=s800"
+      },
+      {
+        "review_id": "ChdDSUhNMG9nS0VJQ0FnSURmbXZ2azZBRRAB",
+        "author_name": "Lylly",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Séjourner au Grand Focus Hotel a été une expérience absolument inoubliable—sans aucun doute, l'un des meilleurs hôtels que j'ai jamais eu le plaisir de visiter ! Dès que nous avons franchi la porte, nous avons été émerveillés par son élégance, son design moderne et son attention aux détails. Tout dans cet hôtel respire la sophistication et le confort, en faisant un endroit vraiment exceptionnel pour séjourner.\n\nLe service était tout simplement impeccable. Avant notre arrivée, j'ai envoyé un e-mail demandant une chambre au dernier étage pour profiter d'une meilleure vue, et ils ont non seulement répondu à notre demande mais ont également dépassé nos attentes. Nous avons eu une chambre magnifique au dernier étage avec une terrasse gigantesque qui nous a laissés sans voix ! C'était l'endroit parfait pour se détendre et profiter des vues—c'était un geste tellement attentionné, et nous l'avons beaucoup apprécié.\n\nL'hôtel lui-même est impeccable, reflétant l'engagement du personnel envers la propreté et le maintien de normes élevées. Chaque interaction que nous avons eue avec l'équipe a été agréable ; ils étaient toujours disponibles, serviables et professionnels. Il est clair que la satisfaction des clients est leur priorité absolue, et ils méritent absolument la meilleure note possible pour leur service exceptionnel.\n\nUn autre point fort était le sauna, qui a ajouté une couche supplémentaire de relaxation à notre séjour. Il est inclus dans le prix, bien que vous deviez le réserver à l'avance. Ce petit détail ne nous a pas du tout dérangés—cela a en fait rendu l'expérience encore plus exclusive et personnalisée.\n\nEt permettez-moi de prendre un moment pour parler du design intérieur—il m'a complètement conquis ! Dès que vous franchissez les portes, vous êtes accueilli par une entrée qui semble rien de moins que majestueuse. Les portes automatiques qui s'ouvrent lorsque vous entrez donnent le ton pour le luxe moderne et high-tech qui règne dans tout l'hôtel. Chaque détail dans la décoration a été soigneusement pensé, alliant style contemporain et élégance raffinée. C'est le genre d'endroit qui semble à la fois moderne et intemporel, laissant une impression durable.\n\nEn résumé, le Grand Focus Hotel a dépassé toutes nos attentes. C'est la combinaison parfaite de luxe, de confort et de design réfléchi, avec des équipements de premier ordre et un service impeccable. Je ne peux pas le recommander assez—5 sur 5 étoiles sans aucun doute ! Si vous cherchez un hôtel qui offre à la fois style et substance, c'est l'endroit où il faut être. Nous reviendrons sans aucun doute !",
+        "local_guide": "",
+        "likes": 1,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjVZLucFHQR4p_JzWqqA_9UBygbklsl0nkJwoyGfLD8-xSld0JF-=s800"
+      },
+      {
+        "review_id": "ChdDSUhNMG9nS0VJQ0FnSURMal9MaTRRRRAB",
+        "author_name": "John Button",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Un hôtel de première classe. Tout était de haute qualité. Nous avons beaucoup apprécié notre séjour ici. À l'enregistrement, on nous a proposé un surclassement. Cette \"chambre appartement\" a rendu notre séjour encore meilleur. Un salon, une chambre, deux salles de bains et un coin repas font un séjour très complet et confortable. Le restaurant de l'hôtel nous a accueillis pour un dîner et un petit-déjeuner chaque jour de notre séjour de deux nuits. Juste au coin de l'hôtel se trouve leur parking privé clôturé, qui a donné à notre moto un abri pour les nuits. Recommandé sans hésitation. Nous reviendrions sans question.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWQAR0Tk1smuEsmHRgQ5iEIkigh3LSGjLGpXyCFV3wvHKeDaWy4=s800"
+      },
+      {
+        "review_id": "ChdDSUhNMG9nS0VJQ0FnSUN4a0syNjJBRRAB",
+        "author_name": "Vana Mavrakana",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "",
+        "text": "Un endroit très beau pour séjourner. L'entrée est très impressionnante et accueillante, le hall est très élégant et moderne. Le personnel, bien sûr, est très professionnel et serviable. Les chambres sont propres et spacieuses et leurs salles de bains sont comme vous appelant à prendre une douche.\nJ'avais peur qu'elles soient bruyantes car l'hôtel est sur une grande rue et nos chambres au premier étage, mais au contraire, j'ai eu certains des meilleurs sommeils de ma vie. Les lits y ont contribué.\nLe buffet du petit-déjeuner est parmi les meilleurs que j'ai vus. Et les pancakes sont les plus moelleux !\nIl y a une distance de marche du centre-ville, mais il y a un arrêt de bus littéralement devant la porte de l'hôtel.",
+        "local_guide": "",
+        "likes": 2,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocJYwXs9GcIbeTplV3SQmOeMVNcPY-6-Xo79BqlaTCY1PxN6Pg=s800"
+      }
+    ]
+  }
+}

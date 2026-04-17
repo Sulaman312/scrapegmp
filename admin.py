@@ -642,6 +642,12 @@ def save_business(name):
     data = request.get_json()
     if data is None:
         return jsonify({"error": "Invalid JSON body"}), 400
+
+    # Preserve reviews_translated from enriched_data.json so translations aren't lost
+    enriched_data = load_json(enriched_path)
+    if enriched_data.get('reviews_translated'):
+        data['reviews_translated'] = enriched_data['reviews_translated']
+
     save_json(draft_path, data)
     return jsonify({"success": True})
 
@@ -669,7 +675,16 @@ def generate_website(name):
         )
         if draft_is_newer:
             try:
-                shutil.copyfile(draft_path, enriched_path)
+                # Load draft and current enriched
+                draft_data = load_json(draft_path)
+                enriched_data = load_json(enriched_path) if os.path.exists(enriched_path) else {}
+
+                # Preserve reviews_translated from enriched if draft doesn't have it
+                if enriched_data.get('reviews_translated') and not draft_data.get('reviews_translated'):
+                    draft_data['reviews_translated'] = enriched_data['reviews_translated']
+
+                # Save draft as enriched
+                save_json(enriched_path, draft_data)
             except Exception as exc:
                 logging.warning(f"Failed to copy draft to enriched for '{name}': {exc}")
 

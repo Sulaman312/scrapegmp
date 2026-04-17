@@ -314,7 +314,7 @@ async function submitAddBusiness() {
     // Step 2: Poll for job completion
     let lastProgress = 0;
     const pollInterval = 2000; // Poll every 2 seconds
-    const maxWaitTime = 300000; // 5 minutes max
+    const maxWaitTime = 600000; // 10 minutes max
     const startTime = Date.now();
 
     while (Date.now() - startTime < maxWaitTime) {
@@ -372,7 +372,7 @@ async function submitAddBusiness() {
 
     // Timeout
     hideAddBusinessModal();
-    showToast('Scrape timed out after 5 minutes. It may still be processing.', 'error');
+    showToast('Scrape timed out after 10 minutes. It may still be processing.', 'error');
 
   } catch (e) {
     hideAddBusinessModal();

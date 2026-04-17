@@ -334,6 +334,7 @@ h3 {
 .story-image img {
     width: 100%;
     max-width: 520px;
+    max-height: 350px;
     border-radius: 14px;
     box-shadow: var(--shadow-lg);
     object-fit: cover;
@@ -519,6 +520,7 @@ h3 {
     transform: translate(0, 0);
     width: min(64%, 690px);
     height: auto;
+    max-height: 400px;
     object-fit: cover;
     transition: transform 0.6s ease-out;
 }

@@ -9,7 +9,10 @@
   "hero": {
     "discover_features": "Descubrir funciones",
     "sector": "Sector",
-    "scroll": "Desplazar"
+    "scroll": "Desplazar",
+    "reviews": "reseñas",
+    "name_placeholder": "Nombre",
+    "phone_placeholder": "Teléfono"
   },
   "about": {
     "pill": "Sobre nosotros",
