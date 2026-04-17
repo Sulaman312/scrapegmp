@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -369,8 +369,8 @@ h3 {
 }
 
 .rating-star-icon {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
 }
 
 .rating-star-icon.filled {
@@ -1880,12 +1880,17 @@ h3 {
     <div class="container">
         <div class="top-header-content">
             
-            <a href="tel:+48 44 333 33 33" class="top-header-item top-header-link">
+            <a href="tel:+92 330 5695690" class="top-header-item top-header-link">
                 <span class="material-symbols-outlined">phone</span>
-                <span>+48 44 333 33 33</span>
+                <span>+92 330 5695690</span>
             </a>
             
             
+            
+            <div class="top-header-item">
+                <span class="material-symbols-outlined">schedule</span>
+                <span>7 AM–11 PM</span>
+            </div>
             
         </div>
     </div>
@@ -1897,11 +1902,11 @@ h3 {
         <div class="navbar-content">
             <a href="index.html" class="navbar-logo">
                 
-                <span class="navbar-brand-text">Grand Focus Hotel</span>
+                <span class="navbar-brand-text">Jacked Fitness Arena</span>
                 
             </a>
             
-            <a href="tel:+48 44 333 33 33" class="navbar-call-btn" aria-label="Call Grand Focus Hotel Szczecin">
+            <a href="tel:+92 330 5695690" class="navbar-call-btn" aria-label="Call Jacked Fitness Arena">
                 <span class="material-symbols-outlined">call</span>
             </a>
             
@@ -1912,11 +1917,11 @@ h3 {
             </button>
             <div class="navbar-links" id="navbarLinks">
                 
-                <a href="index.html" >Accueil</a>
+                <a href="index.html" >Home</a>
                 
-                <a href="services.html" >Prestations</a>
+                <a href="services.html" class="active">Services</a>
                 
-                <a href="contact.html" class="active">Contactez-nous</a>
+                <a href="contact.html" >Contact</a>
                 
             </div>
         </div>
@@ -1925,103 +1930,92 @@ h3 {
 
 
 
+
 <div style="margin-bottom: clamp(32px, 6vw, 72px);">
-<!-- CONTACT DETAIL PAGE SECTION -->
-<section class="section-contact-detail section-padding" id="contact-detail">
-    <div class="container-wide">
+<!-- SERVICES DETAIL PAGE SECTION -->
+<section class="section-services-detail section-padding" id="services-detail">
+    <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <p class="contact-small-text"></p>
-            <h2 class="contact-heading"></h2>
-            <p class="contact-page-description"></p>
+            <p class="services-small-text"></p>
+            <h2 class="services-heading"></h2>
+            <p class="services-page-description"></p>
         </div>
 
-        <div class="contact-grid">
-            <!-- Contact Form -->
-            <div class="contact-form-container" data-aos="fade-right">
-                <h3>Envoyez-nous un message</h3>
-                <form class="contact-form" id="contactForm" method="post" action="/api/public/contact" data-bernard-contact-form="true" data-form-type="contact">
-                    <input type="hidden" name="business_name" value="Grand Focus Hotel Szczecin">
-                    <input type="hidden" name="form_type" value="contact">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="contact-name">Nom *</label>
-                            <input type="text" id="contact-name" name="name" required placeholder="Votre nom">
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-email">E-mail *</label>
-                            <input type="email" id="contact-email" name="email" required placeholder="votre@email.com">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="contact-phone">Téléphone</label>
-                            <input type="tel" id="contact-phone" name="phone" placeholder="Votre numéro de téléphone">
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-subject">Sujet *</label>
-                            <input type="text" id="contact-subject" name="subject" required placeholder="Comment pouvons-nous vous aider ?">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-message">Message *</label>
-                        <textarea id="contact-message" name="message" rows="6" required placeholder="Dites-nous en plus sur vos besoins..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-large">Envoyer le message</button>
-                    <p class="form-status" data-form-status aria-live="polite"></p>
-                </form>
-            </div>
-
-            <!-- Contact Information -->
-            <div class="contact-info-container" data-aos="fade-left">
-                <h3>Contactez-nous</h3>
-
-                <div class="contact-info-cards">
-                    
-                    <div class="contact-info-card">
-                        <div class="contact-icon">
-                            <span class="material-symbols-outlined">phone</span>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Téléphone</h4>
-                            <a href="tel:+48 44 333 33 33">+48 44 333 33 33</a>
-                        </div>
-                    </div>
-                    
-
-                    
-
-                    
-                    <div class="contact-info-card">
-                        <div class="contact-icon">
-                            <span class="material-symbols-outlined">location_on</span>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Adresse</h4>
-                            <p>3 Maja 22, 70-215 Szczecin, Poland</p>
-                        </div>
-                    </div>
-                    
-
-                    
+        <div class="services-detail-grid">
+            
+            
+            <div class="service-detail-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="service-detail-image">
+                    <img src="/media/Jacked Fitness Arena/images/All/0001.webp" alt="Easy Online Shopping">
                 </div>
+                <div class="service-detail-content">
+                    <h3>Easy Online Shopping</h3>
+                    <p class="service-detail-description">Experience hassle-free shopping with a user-friendly interface and secure checkout.</p>
 
-                
-                <div class="contact-map" data-aos="fade-up">
-                    <iframe
-                        width="100%"
-                        height="300"
-                        style="border:0; border-radius: 12px;"
-                        loading="lazy"
-                        allowfullscreen
-                        src="https://www.google.com/maps?q=53.4206509,14.5471424&hl=en&z=14&output=embed">
-                    </iframe>
+                    
+
+                    
+
+                    <a href="#contact" class="btn btn-primary">Request Quote</a>
                 </div>
-                
             </div>
+            
+            
+            <div class="service-detail-card reverse" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-detail-image">
+                    <img src="/media/Jacked Fitness Arena/images/All/0002.webp" alt="Customer Support">
+                </div>
+                <div class="service-detail-content">
+                    <h3>Customer Support</h3>
+                    <p class="service-detail-description">Our dedicated support team is here to assist you with any questions or concerns.</p>
+
+                    
+
+                    
+
+                    <a href="#contact" class="btn btn-primary">Request Quote</a>
+                </div>
+            </div>
+            
+            
+            <div class="service-detail-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-detail-image">
+                    <img src="/media/Jacked Fitness Arena/images/All/0003.webp" alt="Diverse Product Range">
+                </div>
+                <div class="service-detail-content">
+                    <h3>Diverse Product Range</h3>
+                    <p class="service-detail-description">From protein powders to pre-workouts, find everything you need to enhance your fitness routine.</p>
+
+                    
+
+                    
+
+                    <a href="#contact" class="btn btn-primary">Request Quote</a>
+                </div>
+            </div>
+            
+            
+            <div class="service-detail-card reverse" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-detail-image">
+                    <img src="/media/Jacked Fitness Arena/images/All/0004.webp" alt="Exclusive Deals">
+                </div>
+                <div class="service-detail-content">
+                    <h3>Exclusive Deals</h3>
+                    <p class="service-detail-description">Take advantage of our special promotions and discounts to save on your favorite products.</p>
+
+                    
+
+                    
+
+                    <a href="#contact" class="btn btn-primary">Request Quote</a>
+                </div>
+            </div>
+            
         </div>
     </div>
 </section>
 </div>
+
 
 
 
@@ -2031,8 +2025,8 @@ h3 {
         <div class="footer-grid">
             <!-- Company Info -->
             <div class="footer-company">
-                <h3>Grand Focus Hotel Szczecin</h3>
-                <p>Le Grand Focus Hotel Szczecin est un établissement moderne offrant des services de qualité supérieure et un hébergement confortable. Situé au cœur de Szczecin, notre hôtel est idéal pour les voyageurs d&#39;affaires et de loisirs.</p>
+                <h3>Jacked Fitness Arena</h3>
+                <p>At Jacked Nutrition, we are dedicated to providing high-quality supplements to fitness enthusiasts across Pakistan. Our carefully curated selection ensures you have access to the best products that support your health and fitness journey.</p>
             </div>
 
             <!-- Contact -->
@@ -2041,36 +2035,41 @@ h3 {
                 
                 <div class="footer-contact-item">
                     <span class="material-symbols-outlined">location_on</span>
-                    <span>3 Maja 22, 70-215 Szczecin, Poland</span>
+                    <span>Main Margalla Rd, Golra E-11, Islamabad, 44000, Pakistan</span>
                 </div>
                 
                 
-                <a href="tel:+48 44 333 33 33" class="footer-contact-item footer-contact-link">
+                <a href="tel:+92 330 5695690" class="footer-contact-item footer-contact-link">
                     <span class="material-symbols-outlined">phone</span>
-                    <span>+48 44 333 33 33</span>
+                    <span>+92 330 5695690</span>
                 </a>
                 
                 
+                
+                <div class="footer-contact-item">
+                    <span class="material-symbols-outlined">schedule</span>
+                    <span>7 AM–11 PM</span>
+                </div>
                 
             </div>
 
             <!-- Links -->
             <div class="footer-links">
-                <h4>Liens rapides</h4>
+                <h4>Quick Links</h4>
                 <ul>
                     
-                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="index.html">Home</a></li>
                     
-                    <li><a href="services.html">Prestations</a></li>
+                    <li><a href="services.html">Services</a></li>
                     
-                    <li><a href="contact.html">Contactez-nous</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                     
                 </ul>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <p class="footer-copyright">© 2026 Grand Focus Hotel Szczecin. All rights reserved.</p>
+            <p class="footer-copyright">© 2026 Jacked Fitness Arena. All rights reserved.</p>
         </div>
     </div>
 </footer>
@@ -2186,7 +2185,6 @@ h3 {
   });
 
   
-
 </script>
 
 </body>

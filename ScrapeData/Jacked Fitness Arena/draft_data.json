@@ -1,0 +1,458 @@
+{
+  "template": "bernard",
+  "language": "en",
+  "business": {
+    "name": "Jacked Fitness Arena",
+    "place_type": "Fitness center",
+    "phone": "+92 330 5695690",
+    "email": "",
+    "website": "jackednutrition.pk",
+    "price_range": "",
+    "rating": 4.5,
+    "reviews_count": 434,
+    "address": "Main Margalla Rd, Golra E-11, Islamabad, 44000, Pakistan",
+    "description": "Jacked Nutrition, an online supplement store, offers high-quality supplements in Pakistan. A wide range of protein, creatine, pre-workout, mass gainer & more",
+    "latitude": "33.687261",
+    "longitude": "72.9479223",
+    "google_maps_url": "https://www.google.com/maps/place/Jacked+Fitness+Arena/@33.687261,72.9479223,14.17z/data=!4m15!1m8!3m7!1s0x38dfbfd07891722f:0x6059515c3bdb02b6!2sIslamabad,+Pakistan!3b1!8m2!3d33.699619!4d73.036187!16zL20vMGRoZDU!3m5!1s0x38dfbd567e64ea73:0x1500bc0518b53d42!8m2!3d33.6890355!4d72.9780238!16s%2Fg%2F11mh_5ttm9?entry=ttu&g_ep=EgoyMDI2MDQxNC4wIKXMDSoASAFQAw%3D%3D",
+    "plus_code": "MXQH+J6 Islamabad, Pakistan",
+    "hours": {
+      "monday": "7 AM–11 PM",
+      "tuesday": "7 AM–11 PM",
+      "wednesday": "7 AM–11 PM",
+      "thursday": "7 AM–11 PM",
+      "friday": "7 AM–11 PM",
+      "saturday": "1–11 PM",
+      "sunday": "3–9 PM"
+    }
+  },
+  "ai": {
+    "brand_short_name": "Jacked Fitness Arena",
+    "tagline": "Elevate Your Fitness Journey with Quality Supplements",
+    "hero_subtitle": "Unlock your potential with Pakistan's top supplement store. Shop now for authentic products that fuel your fitness goals.",
+    "cta_primary": "Shop Now",
+    "cta_primary_url": "jackednutrition.pk",
+    "cta_secondary": "Explore Our Collections",
+    "cta_secondary_url": "jackednutrition.pk",
+    "about_paragraph": "At Jacked Nutrition, we are dedicated to providing high-quality supplements to fitness enthusiasts across Pakistan. Our carefully curated selection ensures you have access to the best products that support your health and fitness journey.",
+    "about_story_left": "At Jacked Nutrition, we are dedicated to providing high-quality supplements to fitness enthusiasts across Pakistan. Our",
+    "about_story_right": "carefully curated selection ensures you have access to the best products that support your health and fitness journey.",
+    "seo_title": "Top Quality Supplements in Pakistan | Jacked Nutrition",
+    "seo_description": "Discover a wide range of authentic supplements at Jacked Nutrition, Pakistan's leading online store. Free shipping on orders over Rs.2,000!",
+    "features": [
+      {
+        "icon": "local_shipping",
+        "title": "Free Shipping",
+        "description": "Enjoy free shipping on orders over Rs.2,000, delivered right to your doorstep.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "verified",
+        "title": "100% Authentic Products",
+        "description": "We guarantee that all our supplements are genuine and sourced from trusted brands.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "star",
+        "title": "Top Rated Supplements",
+        "description": "Browse our best-sellers, highly rated by our satisfied customers for their quality and effectiveness.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "shopping_cart",
+        "title": "Easy Online Shopping",
+        "description": "Experience hassle-free shopping with a user-friendly interface and secure checkout.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "support_agent",
+        "title": "Customer Support",
+        "description": "Our dedicated support team is here to assist you with any questions or concerns.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "fitness_center",
+        "title": "Diverse Product Range",
+        "description": "From protein powders to pre-workouts, find everything you need to enhance your fitness routine.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "celebration",
+        "title": "Exclusive Deals",
+        "description": "Take advantage of our special promotions and discounts to save on your favorite products.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "schedule",
+        "title": "Timely Deliveries",
+        "description": "We ensure prompt delivery so you can start your fitness journey without delay.",
+        "image": "",
+        "link": ""
+      }
+    ],
+    "services_cards": [
+      {
+        "title": "Easy Online Shopping",
+        "description": "Experience hassle-free shopping with a user-friendly interface and secure checkout.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Customer Support",
+        "description": "Our dedicated support team is here to assist you with any questions or concerns.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Diverse Product Range",
+        "description": "From protein powders to pre-workouts, find everything you need to enhance your fitness routine.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Exclusive Deals",
+        "description": "Take advantage of our special promotions and discounts to save on your favorite products.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "services_page_cards": [
+      {
+        "title": "Easy Online Shopping",
+        "description": "Experience hassle-free shopping with a user-friendly interface and secure checkout.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Customer Support",
+        "description": "Our dedicated support team is here to assist you with any questions or concerns.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Diverse Product Range",
+        "description": "From protein powders to pre-workouts, find everything you need to enhance your fitness routine.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Exclusive Deals",
+        "description": "Take advantage of our special promotions and discounts to save on your favorite products.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "why_choose_us_cards": [
+      {
+        "icon": "local_shipping",
+        "title": "Free Shipping",
+        "description": "Enjoy free shipping on orders over Rs.2,000, delivered right to your doorstep."
+      },
+      {
+        "icon": "verified",
+        "title": "100% Authentic Products",
+        "description": "We guarantee that all our supplements are genuine and sourced from trusted brands."
+      },
+      {
+        "icon": "star",
+        "title": "Top Rated Supplements",
+        "description": "Browse our best-sellers, highly rated by our satisfied customers for their quality and effectiveness."
+      }
+    ],
+    "services_small_text": "",
+    "services_heading": "",
+    "why_choose_us_heading": "",
+    "cta_heading": "Elevate Your Fitness Journey with Quality Supplements",
+    "cta_subtitle": "Unlock your potential with Pakistan's top supplement store. Shop now for authentic products that fuel your fitness goals.",
+    "cta_btn_label": "",
+    "cta_link": "",
+    "cta_banner_btn_label": "",
+    "cta_banner_btn_link": "",
+    "footer_tagline": "At Jacked Nutrition, we are dedicated to providing high-quality supplements to fitness enthusiasts across Pakistan. Our carefully curated selection ensures you have access to the best products that support your health and fitness journey.",
+    "footer_copyright": "© 2026 Jacked Fitness Arena. All rights reserved.",
+    "values": [],
+    "about_bullet_points": [],
+    "services_page_seo_title": "",
+    "services_page_seo_description": "",
+    "services_page_hero_title": "",
+    "services_page_hero_subtitle": "",
+    "services_page_small_text": "",
+    "services_page_heading": "",
+    "services_page_description": "",
+    "services_cta_heading": "",
+    "services_cta_text": "",
+    "services_cta_button": "",
+    "contact_page_seo_title": "",
+    "contact_page_seo_description": "",
+    "contact_page_hero_title": "",
+    "contact_page_hero_subtitle": "",
+    "contact_page_small_text": "",
+    "contact_page_heading": "",
+    "contact_page_description": ""
+  },
+  "_raw": {
+    "years_of_experience": 0
+  },
+  "website_data": {
+    "headings": [
+      "Pakistan’s Fitness Revolution Begins with Jacked Nutrition.",
+      "Your cart is currently empty.",
+      "Shop By Collection",
+      "Top Brands",
+      "Stacks By  Goals",
+      "Shop the Feed",
+      "Let customers speak for us.",
+      "27129 Verified Reviews."
+    ],
+    "meta_description": "Jacked Nutrition, an online supplement store, offers high-quality supplements in Pakistan. A wide range of protein, creatine, pre-workout, mass gainer & more",
+    "paragraphs": [
+      "Not sure where to start? Try these collections:",
+      "This site uses cookies for better user experience and analytics.",
+      "We started with a simple idea in 2012, to change the perspective on how people from Pakistan approach fitness. We started without an investment with just $10 in the pocket in a small room with a big dream to serve our people. Today, Jacked Nutrition presents seven retail stores, a leading online presence, and the largest gym in Pakistan. We started with one person and one goal at a time and aim to provide the best fitness experience. For us, it’s always been about helping people live better and reach their full potential.",
+      "ISO JACKED WHEY PROTEIN - ULTRA-PREMIUM WHEY BLEND",
+      "Fuel Your Fitness – Tailored for Your Goals",
+      "Build lean muscle, boost strength, and enhance recovery. 💪",
+      "Burn fat, boost metabolism, and stay lean with every workout. 🔥",
+      "Gain mass, build strength, and power up like a beast! 💪",
+      "Fuel strength, endurance, and recovery for peak performance.💪",
+      "Stay active, feel great, and live a healthier life every day. 🌿",
+      "Showcasing how Jacked Nutrition fuels every goal, every grind.",
+      "Sameer Gud product bets quality I recommended it110%",
+      "Wajid Excellent product, 100% recommended.",
+      "Huzaifa the product was amazing I would recommend it",
+      "Shahraiz Amazing, original and authentic supliment 🤝 and mostly recommend from me ✨ and thankx to jacked Nutritions for creatine ❤️",
+      "Arsh Excellent multivitamin for gym and daily health! 💪✨\nI’ve been using MuscleTech Platinum Multivitamin for a while now and it’s honestly one of the best multis for active people. It gives a solid blend of 18 essential vitamins and minerals, plus added amino and herbal support, which makes it perfect for gym-goers and anyone with an active lifestyle.",
+      "Hasnain Yeah,it’s a very fine quality product. 100% recommended",
+      "Shehryar Authentic product , packaging was good , timely delivered",
+      "Syed Shahrukh Premium quality creatine with smooth blending and consistent results.\nImpressed by the effectiveness and reliability of Jacked Nutrition.",
+      "Ahmad Hii I m taking jacked nutrition micronised creatine from 15 days, its like really very good. I m feeling the improved strenght evertime during workout. I recommend it 100%"
+    ],
+    "pricing_hints": [
+      "Pakistan’s Fitness Revolution Begins with Jacked Nutrition. Our Story We started with a simple idea in 2012, to change the perspective on how people from Pakistan approach fitness. We started without an investment with just $10 in the pocket in a small room with a big dream to serve our people. Today, Jacked Nutrition presents seven retail stores, a leading online presence, and the largest gym in Pakistan. We started with one person and one goal at a time and aim to provide the best fitness expe"
+    ],
+    "raw_text": "Pakistan's No.1 Online Supplements Store | Jacked Nutrition Γ Skip to content Facebook Instagram YouTube TikTok 🛡️ 100% Authentic | Free Shipping Pause slideshow Play slideshow Page 1 Page 2 Home Shop Shop Deals & Offers Our Stores Farmalabs Online Training Program Jacked University Login Facebook Instagram YouTube TikTok Search Site navigation Jacked Nutrition Jacked Nutrition Home Shop Deals & Offers Our Stores Farmalabs Online Training Program Jacked University Search Login Cart 0 Site navigation Cart 0 Recently viewed Cart Your cart is currently empty. Not sure where to start? Try these collections: Buy Authentic Supplements in Pakistan Spend Rs.2,000.00 more to reach free shipping! Order note Order special instructions Order note Apply Tax included and shipping calculated at checkout Subtotal Rs.0.00 PKR Check out View cart Recently viewed Search Search Clear Protein Performance Weight Management Vitamins & Health Gym Accessories We use cookies This site uses cookies for better user experience and analytics. Accept Decline Home Menu Search Shop 0 Cart Account Pakistan’s Fitness Revolution Begins with Jacked Nutrition. Our Story We started with a simple idea in 2012, to change the perspective on how people from Pakistan approach fitness. We started without an investment with just $10 in the pocket in a small room with a big dream to serve our people. Today, Jacked Nutrition presents seven retail stores, a leading online presence, and the largest gym in Pakistan. We started with one person and one goal at a time and aim to provide the best fitness experience. For us, it’s always been about helping people live better and reach their full potential. Shop By Collection Protein Creatine Pre-Workout Multivitamins Mass Gainer Fat Burners View 4.7 Trending Save 10% Choose options Vendor: Jacked Nutrition ISO JACKED WHEY PROTEIN - ULTRA-PREMIUM WHEY BLEND Sale price From Rs.945.00 Regular price Rs.1,050.00 27 Gram Protein Per Serving Enhances Performance Fuel Your Workouts Builds Muscle Support Muscle Recovery Enhances Recovery Muscle Repair & Growth View 4.6 Best Seller Save 20% Choose options Vendor: Jacked Nutrition JACKED BROWN RICE PROTEIN Sale price From Rs.5,800.00 Regular price Rs.7,250.00 24 Gram Protein Per Serving Builds Muscle Support Muscle Recovery Enhances Recovery Muscle Repair & Growth Enhances Performance Fuel Your Workouts View 4.8 Trending Save 10% Choose options Vendor: kevin levrone KL GOLD ISO Sale price From Rs.29,205.00 Regular price Rs.32,450.00 25 Gram Protein Per Serving Boost Metabolism Enhances Body Efficiency View 4.6 Save 20% Choose options Vendor: Blade Sport BLADE ANABOLIC WHEY Sale price Rs.25,560.00 Regular price Rs.31,950.00 30 Gram Protein Per Serving Enhances Recovery Muscle Repair & Growth View 4.8 Save 10% Choose options Vendor: kevin levrone ANABOLIC ISO WHEY Sale price From Rs.28,305.00 Regular price Rs.31,450.00 30 Gram Protein Per Serving Enhances Recovery Muscle Repair & Growth Boost Metabolism Enhances Bo",
+    "services": [
+      "Sameer Gud product bets quality I recommended it110%",
+      "Wajid Excellent product, 100% recommended.",
+      "Tanveer Excellent product, I recommend",
+      "Huzaifa the product was amazing I would recommend it",
+      "Talha Excellent Product love it ❤️",
+      "Hasnain Yeah,it’s a very fine quality product. 100% recommended",
+      "Shehryar Authentic product , packaging was good , timely delivered",
+      "Muhammad I like the taste 👍 recommend",
+      "Jazim Excellent product",
+      "Shahab Excellent product must recommend",
+      "Muhammad Excellent and authentic product, definitely recommended",
+      "Track Your Order",
+      "Submit a  Complaint",
+      "Product Authentication",
+      "Contact Us",
+      "Terms of service",
+      "Disclaimer & Privacy Policy",
+      "Jacked Fitness Arena",
+      "Our Team",
+      "Calorie Calculator"
+    ],
+    "team": [
+      "Our Story",
+      "Protein Per Serving",
+      "Fuel Your Workouts",
+      "Support Muscle Recovery",
+      "Muscle Repair & Growth",
+      "Enhances Body Efficiency",
+      "Trusted Names in Nutrition & Fitness",
+      "Fuel Your Fitness – Tailored for Your Goals",
+      "Lean Muscle 8",
+      "Weight Loss 6"
+    ],
+    "title": "Pakistan's No.1 Online Supplements Store | Jacked Nutrition"
+  },
+  "theme": {
+    "color1": "#1E3A8A",
+    "color2": "#DBEAFE",
+    "color3": "#F59E0B",
+    "cta_color": "#1E3A8A",
+    "hero_dark": "#06060F",
+    "hero_image": "images/All/0001.webp",
+    "why_choose_us_image": "images/All/0003.webp",
+    "values_image": "images/All/0001.webp",
+    "company_image_1": "images/All/0001.webp",
+    "company_image_2": "images/All/0002.webp"
+  },
+  "images": [
+    "images/All/0001.webp",
+    "images/All/0002.webp",
+    "images/All/0003.webp",
+    "images/All/0004.webp",
+    "images/All/0005.webp",
+    "images/All/0006.webp",
+    "images/All/0007.webp",
+    "images/All/0008.webp",
+    "images/All/0009.webp",
+    "images/All/0010.webp",
+    "images/All/0011.webp",
+    "images/All/0012.webp",
+    "images/All/0013.webp",
+    "images/All/0014.webp",
+    "images/All/0015.webp",
+    "images/All/0016.webp",
+    "images/All/0017.webp",
+    "images/All/0018.webp",
+    "images/All/0019.webp",
+    "images/All/0020.webp"
+  ],
+  "reviews": [
+    {
+      "author_name": "Haniya Fatima",
+      "text": "Been coming here since 4 months now. The pool is perfect size for beginners, I enjoy alot here. The pool staff is super friendly and helpful especially sir mudassar. He taught me how to swim, he was very helpful and supportive i learned swimming within a week, my experience here has been AMAZING so far. Overall staff is also very friendly I love hanging out with them they’re very fun people!! The ambiance and cleanliness is also a 10/10. Recently joined the gym aswell and i love it here.",
+      "rating": 5,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "Wajiha Batool",
+      "text": "I’ve been training at Jacked for 4 months now, and hands down, it’s the best gym in Islamabad! The equipment is top-notch, and the staff is super helpful. The cleanliness is always on point, and the overall vibe of the gym makes it such a motivating place to work out. I also love that they offer a separate time for ladies, ensuring total privacy for women. Although it would be best if they had extended hours for women, however, I’ve never had any issues in my 4 months here. Highly recommend this gym to anyone looking for a great fitness experience within a budget!",
+      "rating": 5,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "Samar Ahmed",
+      "text": "I began swimming three months ago with no prior experience. I was fortunate to meet Sir Muddasir, a humble and educated instructor. His technique and calm behavior made my swimming journey amazing. As a beginner, he created an environment that boosted my confidence, enabling me to swim on my own. He taught me various techniques and water safety skills. I am happy to have learned from him. Please note that the ladies' shower room and lighting require attention and maintenance. The front desk staff is very helpful and kind. I recommend everyone join, as it is a safe and good facility.",
+      "rating": 4,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "Shazia Abbasi",
+      "text": "the water is cold in the pool and the geyser we’ve been complaining for so long about this I brought my daughter today and she got sick because of this cold water. We come to the pool to relax and chill in the warm water but instead we’re greeted with cold water and sickness. The management is absolutely terrible there is no temperature control whatsoever and it’s a very chilly season so this should be controlled and cold water should be avoided.",
+      "rating": 2,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "FAIZAN HAIDER",
+      "text": "Honestly\nThe gym’s always clean, the equipment is solid, and the vibe keeps you motivated. The trainers are cool and act",
+      "rating": 4,
+      "date": "2 months ago"
+    },
+    {
+      "author_name": "Shehryar iqbal",
+      "text": "Excellent gym with well-maintained machines and a clean atmosphere. Trainers are professional and supportive, always ready to help. The environment keeps you motivated, whether you’re a beginner or experienced. Totally worth it!",
+      "rating": 5,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "Maha Khan",
+      "text": "My sister and I were guided by Miss Ayesha at the Jacked fitness gym to take a three-month swimming package after being clearly told that the membership could be frozen anytime. Based on this assurance, we paid for the deal. I only attended for three days due to college and school, but when I requested a one-month freeze, it was refused, and new conditions (valid only for February) were mentioned which were never disclosed at the time of purchase. Neither a freeze nor a refund was offered, despite minimal usage. This feels misleading and unprofessional, and I hope the management ensures clearer communication and fair treatment of customers. I request either a refund or a proper freeze of my unused month.",
+      "rating": 1,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "home",
+      "text": "Me and my sister were clearly promised by Miss Ayesha at Jacked Fitness Gym that the three-month swimming package could be frozen anytime, which is why we paid for it. After attending for only three days due to college and school, my request for a one-month freeze was flatly denied, and completely new rules (only valid for February) were suddenly invented—rules that were never mentioned at the time of purchase. Despite almost zero usage, the gym refused both a freeze and a refund. This is misleading, dishonest, and highly unprofessional behavior. Changing terms after taking payment is unacceptable. I demand either a full refund or a proper freeze of my unused month.",
+      "rating": 1,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "CLUBHOUSE SEASON-1",
+      "text": "Hey i am coming to jfa and taking student package here prices are less and the service is best. The staff specially csr maam ayesha is so humble and kind to serve. Highly satisfied will always prefer coming here and suggest everyone to join jacked arena",
+      "rating": 5,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "Zaynah Sikandar",
+      "text": "Good need and clean gym. Love the swimming pool speacially the pool temperature the water remain warm which is a the rea",
+      "rating": 5,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "Maliha Shafiq",
+      "text": "My swimming classes with Dr. Mudasir Iqbal He is very nice and give proper classes, teach very nicely it's honorable for me to have This kind of coach",
+      "rating": 5,
+      "date": "2 months ago"
+    },
+    {
+      "author_name": "ayesha zia",
+      "text": "hey! for me they're multiple reasons to join jfa first of all is hygienic and clean environment, secondly the welcoming behavior of staff and lastly the elite class aesthetic theme of gym creates the vibe and it’s fun working out here.😍💪🏻 highly satisfied and will suggest everyone to join jacked fitness arena …",
+      "rating": 5,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "Muhammad Usman",
+      "text": "Hello i am jacked member since last year, love the ambiance and the professional behaviour of the managment literally they treat you like a family, Pool is my favorite part 😍🏊 thankyou for providing quailty service and mainting the standards would recommend everyone 💪🔥 …",
+      "rating": 5,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "alishba iqbal",
+      "text": "Hi, I am so happy to share my sons swimming experience here at jacked fitness club... The pool environment n hygiene was really commendable, not for a single day we faced an issue. We exclusively came after Sir mudassir Iqbal the swimming coach there, who had trained other kids in our family too... As my little one was always so damn scared of even stepping into pool but the man is really professional and I saw my son enjoying independent swimming with so much confidence in a month... They were so happy with the sir as he was humble and supportive with them and they were not ready to learn from anyone else in town. Whoever wants him as a coach won't regret... Highly recommended!",
+      "rating": 5,
+      "date": "10 months ago"
+    },
+    {
+      "author_name": "Usman Khan",
+      "text": "I recently joined jacked fitness arena and i am satisfied with the services, special thanks to maam ayesha who made a bu",
+      "rating": 5,
+      "date": "3 months ago"
+    }
+  ],
+  "review_keywords": [
+    "Restaurants",
+    "Hotels",
+    "Things to do",
+    "Transit",
+    "Parking",
+    "Pharmacies",
+    "ATMs",
+    "Reviews",
+    "Write a review",
+    "Sort",
+    "All",
+    "swimming lessons 15",
+    "pool 55",
+    "clean pool 6",
+    "swimming package 2",
+    "elite class gym 2",
+    "fitness arena 10",
+    "ladies timings 2",
+    "sauna 5",
+    "cooperative staff 8",
+    "swimming techniques 2",
+    "Haniya Fatima2 reviews",
+    "More",
+    "Like",
+    " Share",
+    "Wajiha Batool1 review",
+    "Samar AhmedLocal Guide · 37 reviews · 32 photos",
+    "Shazia Abbasi2 reviews",
+    "FAIZAN HAIDER1 review",
+    "Shehryar iqbal4 reviews",
+    "Maha Khan3 reviews",
+    "home1 review",
+    "CLUBHOUSE SEASON-12 reviews",
+    "Zaynah Sikandar1 review"
+  ],
+  "qa": [],
+  "updates": [],
+  "popular_times": {},
+  "about": {
+    "highlights": [
+      "Not sure where to start? Try these collections:",
+      "This site uses cookies for better user experience and analytics.",
+      "We started with a simple idea in 2012, to change the perspective on how people from Pakistan approach fitness. We started without an investment with just $10 in the pocket in a small room with a big dream to serve our people. Today, Jacked Nutrition presents seven retail stores, a leading online presence, and the largest gym in Pakistan. We started with one person and one goal at a time and aim to provide the best fitness experience. For us, it’s always been about helping people live better and reach their full potential.",
+      "ISO JACKED WHEY PROTEIN - ULTRA-PREMIUM WHEY BLEND"
+    ]
+  },
+  "about_attrs": [],
+  "social_links": [],
+  "web_results": [],
+  "related_places": [],
+  "section_visibility": {},
+  "_has_videos": false,
+  "_video_list": [],
+  "videos": []
+}

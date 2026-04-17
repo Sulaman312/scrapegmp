@@ -346,44 +346,39 @@ h3 {
 
 .rating-badge-content {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.rating-badge-score {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    line-height: 1;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
 }
 
 .rating-badge-stars {
     display: flex;
-    gap: 2px;
+    gap: 4px;
     align-items: center;
 }
 
-.rating-badge-stars .rating-star {
-    font-size: 14px;
-    line-height: 1;
+.rating-star-icon {
+    width: 24px;
+    height: 24px;
 }
 
-.rating-badge-stars .rating-star.filled {
-    color: #f59e0b;
+.rating-star-icon.filled {
+    fill: #fbbf24;
+    stroke: #000;
+    stroke-width: 0.5;
 }
 
-.rating-badge-stars .rating-star.half {
-    color: #f59e0b;
-}
-
-.rating-badge-stars .rating-star.empty {
-    color: #d1d5db;
+.rating-star-icon.empty {
+    fill: #f3f4f6;
+    stroke: #000;
+    stroke-width: 0.5;
 }
 
 .rating-badge-count {
-    font-size: 0.75rem;
-    color: #6b7280;
+    font-size: 0.875rem;
+    color: #1f2937;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .btn {
@@ -1403,10 +1398,6 @@ h3 {
         margin-top: 20px;
         padding: 10px 14px;
         gap: 10px;
-    }
-
-    .rating-badge-score {
-        font-size: 1.25rem;
     }
 
     h2 {

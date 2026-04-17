@@ -536,6 +536,9 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         "longitude": place_raw.get("longitude", ""),
         "hours": {d: place_raw.get(d, "") for d in day_order},
     }
+    # Always ensure reviews_count is available from place_raw if missing from enriched data
+    if not biz.get("reviews_count"):
+        biz["reviews_count"] = place_raw.get("reviews_count")
     ai = raw.get("ai", {})
 
     biz_slug = os.path.basename(business_dir.rstrip("/\\"))
