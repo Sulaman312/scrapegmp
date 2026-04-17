@@ -1,10 +1,120 @@
 import logging
+import re
 
 from playwright.sync_api import Page
 
 from scraper.models import Place
 from scraper.utils import extract_text, extract_coordinates_from_url
 from scraper.email_extractor import extract_email_from_website
+
+
+REVIEW_CONTEXT_KEYWORDS = [
+    'review', 'reviews', 'avis', 'rezension', 'reseñ', 'recension', 'avalia',
+    'отзы', '评价', '리뷰', 'bewertung', 'opini', 'comentario',
+]
+
+
+def _parse_reviews_count_from_text(raw: str) -> int | None:
+    if not raw:
+        return None
+    candidates = re.findall(r'\d[\d\s.,\u00a0\u202f]*', raw)
+    best = None
+    for token in candidates:
+        digits = re.sub(r'\D', '', token)
+        if not digits:
+            continue
+        value = int(digits)
+        if best is None or value > best:
+            best = value
+    return best
+
+
+def _parse_reviews_average_from_text(raw: str) -> float | None:
+    if not raw:
+        return None
+
+    # Common forms: "4.4", "4,4", "4.4/5", "4,4 sur 5"
+    match = re.search(r'([0-5](?:[.,]\d)?)\s*(?:/\s*5)?', raw)
+    if not match:
+        return None
+
+    token = match.group(1).replace(',', '.')
+    try:
+        value = float(token)
+    except Exception:
+        return None
+    if 0.0 <= value <= 5.0:
+        return value
+    return None
+
+
+def _extract_reviews_summary_multilang(page: Page) -> tuple[float | None, int | None]:
+    """Best-effort multilingual extraction of average rating and reviews count."""
+    selectors = [
+        '//div[@class="TIHn2 "]//div[@class="fontBodyMedium dmRWX"]',
+        '//button[contains(@aria-label, "review") or contains(@aria-label, "Review")]',
+        '//button[contains(@aria-label, "avis") or contains(@aria-label, "Avis")]',
+        '//button[contains(@aria-label, "rese") or contains(@aria-label, "Rez")]',
+        '//button[contains(@aria-label, "отзы") or contains(@aria-label, "评价") or contains(@aria-label, "리뷰")]',
+    ]
+
+    snippets: list[str] = []
+    for selector in selectors:
+        try:
+            loc = page.locator(selector)
+            count = min(loc.count(), 3)
+            for i in range(count):
+                text = (loc.nth(i).inner_text() or '').strip()
+                if text:
+                    snippets.append(text)
+                aria = (loc.nth(i).get_attribute('aria-label') or '').strip()
+                if aria:
+                    snippets.append(aria)
+        except Exception:
+            continue
+
+    try:
+        dom_texts = page.evaluate(
+            """
+            () => {
+                const out = [];
+                const nodes = document.querySelectorAll('button,[role="button"],span,div');
+                const limit = Math.min(nodes.length, 1200);
+                for (let i = 0; i < limit; i++) {
+                    const el = nodes[i];
+                    const aria = (el.getAttribute && el.getAttribute('aria-label')) || '';
+                    const txt = (el.textContent || '').trim();
+                    if (aria) out.push(aria);
+                    if (txt && txt.length <= 120) out.push(txt);
+                }
+                return out;
+            }
+            """
+        )
+        if isinstance(dom_texts, list):
+            snippets.extend([str(t) for t in dom_texts if t])
+    except Exception:
+        pass
+
+    rating_value = None
+    count_value = None
+    for snippet in snippets:
+        low = snippet.lower()
+        if not any(k in low for k in REVIEW_CONTEXT_KEYWORDS):
+            continue
+
+        parsed_rating = _parse_reviews_average_from_text(snippet)
+        if rating_value is None and parsed_rating is not None:
+            rating_value = parsed_rating
+
+        parsed_count = _parse_reviews_count_from_text(snippet)
+        if parsed_count is not None and (count_value is None or parsed_count > count_value):
+            count_value = parsed_count
+
+        if rating_value is not None and count_value is not None:
+            break
+
+    return rating_value, count_value
 
 
 def extract_weekly_hours(page: Page) -> dict:
@@ -128,18 +238,29 @@ def extract_place(page: Page, google_maps_url: str = "", browser=None, extract_e
     reviews_count_raw = extract_text(page, reviews_count_xpath)
     if reviews_count_raw:
         try:
-            temp = reviews_count_raw.replace('\xa0', '').replace('(', '').replace(')', '').replace(',', '')
-            place.reviews_count = int(temp)
+            parsed_count = _parse_reviews_count_from_text(reviews_count_raw)
+            if parsed_count is not None:
+                place.reviews_count = parsed_count
         except Exception as e:
             logging.warning(f"Failed to parse reviews count: {e}")
 
     reviews_avg_raw = extract_text(page, reviews_average_xpath)
     if reviews_avg_raw:
         try:
-            temp = reviews_avg_raw.replace(' ', '').replace(',', '.')
-            place.reviews_average = float(temp)
+            parsed_avg = _parse_reviews_average_from_text(reviews_avg_raw)
+            if parsed_avg is not None:
+                place.reviews_average = parsed_avg
         except Exception as e:
             logging.warning(f"Failed to parse reviews average: {e}")
+
+    if place.reviews_average is None or place.reviews_count is None:
+        fallback_avg, fallback_count = _extract_reviews_summary_multilang(page)
+        if place.reviews_average is None and fallback_avg is not None:
+            place.reviews_average = fallback_avg
+            logging.info(f"  ✅ Rating fallback parsed (multilang): {place.reviews_average}")
+        if place.reviews_count is None and fallback_count is not None:
+            place.reviews_count = fallback_count
+            logging.info(f"  ✅ Reviews fallback parsed (multilang): {place.reviews_count}")
 
     for idx, info_xpath in enumerate([info1, info2, info3]):
         info_raw = extract_text(page, info_xpath)
