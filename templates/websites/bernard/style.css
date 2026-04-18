@@ -35,6 +35,7 @@ body {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -344,41 +345,11 @@ h3 {
     flex-shrink: 0;
 }
 
-.rating-badge-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-}
-
-.rating-badge-stars {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-}
-
-.rating-star-icon {
-    width: 24px;
-    height: 24px;
-}
-
-.rating-star-icon.filled {
-    fill: #fbbf24;
-    stroke: #000;
-    stroke-width: 0.5;
-}
-
-.rating-star-icon.empty {
-    fill: #f3f4f6;
-    stroke: #000;
-    stroke-width: 0.5;
-}
-
-.rating-badge-count {
-    font-size: 0.875rem;
-    color: #1f2937;
-    font-weight: 500;
-    white-space: nowrap;
+.rating-badge-score {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
 }
 
 .btn {

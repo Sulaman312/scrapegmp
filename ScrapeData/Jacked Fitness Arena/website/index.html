@@ -46,6 +46,7 @@ body {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -355,41 +356,11 @@ h3 {
     flex-shrink: 0;
 }
 
-.rating-badge-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-}
-
-.rating-badge-stars {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-}
-
-.rating-star-icon {
-    width: 24px;
-    height: 24px;
-}
-
-.rating-star-icon.filled {
-    fill: #fbbf24;
-    stroke: #000;
-    stroke-width: 0.5;
-}
-
-.rating-star-icon.empty {
-    fill: #f3f4f6;
-    stroke: #000;
-    stroke-width: 0.5;
-}
-
-.rating-badge-count {
-    font-size: 0.875rem;
-    color: #1f2937;
-    font-weight: 500;
-    white-space: nowrap;
+.rating-badge-score {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
 }
 
 .btn {
@@ -1956,56 +1927,7 @@ h3 {
                                     <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                                 </svg>
                             </div>
-                            <div class="rating-badge-content">
-                                <div class="rating-badge-stars">
-                                    
-                                    
-                                        
-                                            <!-- Fully filled star -->
-                                            <svg class="rating-star-icon filled" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                            </svg>
-                                        
-                                    
-                                        
-                                            <!-- Fully filled star -->
-                                            <svg class="rating-star-icon filled" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                            </svg>
-                                        
-                                    
-                                        
-                                            <!-- Fully filled star -->
-                                            <svg class="rating-star-icon filled" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                            </svg>
-                                        
-                                    
-                                        
-                                            <!-- Fully filled star -->
-                                            <svg class="rating-star-icon filled" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                            </svg>
-                                        
-                                    
-                                        
-                                            <!-- Partially filled star (calculate percentage) -->
-                                            
-                                            <svg class="rating-star-icon partial" style="--fill-percent: 50%" width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <defs>
-                                                    <linearGradient id="grad-5" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                        <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
-                                                        <stop offset="50%" style="stop-color:#fbbf24;stop-opacity:1" />
-                                                        <stop offset="50%" style="stop-color:#f3f4f6;stop-opacity:1" />
-                                                        <stop offset="100%" style="stop-color:#f3f4f6;stop-opacity:1" />
-                                                    </linearGradient>
-                                                </defs>
-                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="url(#grad-5)" stroke="#000" stroke-width="0.5"/>
-                                            </svg>
-                                        
-                                    
-                                </div>
-                            </div>
+                            <div class="rating-badge-score">4.5</div>
                         </div>
                         
                     </div>
