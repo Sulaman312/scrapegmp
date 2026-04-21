@@ -22,6 +22,7 @@ from functools import wraps
 
 import generate_site
 from scraper.scraper import scrape_place_by_url
+from scraper.re_scraper import re_scrape_business_data
 from enrichment import enrich
 
 # Load environment variables from .env file
@@ -650,6 +651,60 @@ def save_business(name):
 
     save_json(draft_path, data)
     return jsonify({"success": True})
+
+
+@app.route("/api/business/<name>/re-scrape", methods=["POST"])
+@login_required
+def re_scrape_business(name):
+    """Re-scrape dynamic data (hours, contact, location) from Google Maps"""
+    if not has_business_access(name):
+        return jsonify({"error": "Access denied"}), 403
+
+    biz_dir = os.path.join(SCRAPE_DIR, name)
+    enriched_path = os.path.join(biz_dir, "enriched_data.json")
+    draft_path = os.path.join(biz_dir, "draft_data.json")
+
+    if not os.path.exists(enriched_path):
+        return jsonify({"error": "Business not found"}), 404
+
+    try:
+        # Load existing data
+        enriched_data = load_json(enriched_path)
+        google_maps_url = enriched_data.get('business', {}).get('google_maps_url')
+
+        if not google_maps_url:
+            return jsonify({"error": "No Google Maps URL found for this business"}), 400
+
+        # Re-scrape dynamic data
+        logging.info(f"Re-scraping business: {name}")
+        new_data = re_scrape_business_data(google_maps_url, extract_emails=True)
+
+        # Update business fields in enriched data
+        if 'business' not in enriched_data:
+            enriched_data['business'] = {}
+
+        enriched_data['business']['phone'] = new_data['phone']
+        enriched_data['business']['email'] = new_data['email']
+        enriched_data['business']['address'] = new_data['address']
+        enriched_data['business']['latitude'] = new_data['latitude']
+        enriched_data['business']['longitude'] = new_data['longitude']
+        enriched_data['business']['plus_code'] = new_data['plus_code']
+        enriched_data['business']['hours'] = new_data['hours']
+
+        # Save to both enriched and draft
+        save_json(enriched_path, enriched_data)
+        save_json(draft_path, enriched_data)
+
+        logging.info(f"Re-scrape completed for: {name}")
+        return jsonify({
+            "success": True,
+            "message": "Business data re-scraped successfully",
+            "updated": new_data
+        })
+
+    except Exception as e:
+        logging.error(f"Re-scrape failed for {name}: {e}")
+        return jsonify({"error": str(e)}), 500
 
 
 # ──────────────────────────────────────────────────────────────

@@ -158,7 +158,7 @@ def extract_weekly_hours(page: Page) -> dict:
                                 pass
 
                         if button_clicked:
-                            page.wait_for_timeout(1000)
+                            page.wait_for_timeout(5000)
                             break
                 except Exception:
                     continue
@@ -177,6 +177,32 @@ def extract_weekly_hours(page: Page) -> dict:
             'Sunday': ['Sunday', 'Sonntag', 'Dimanche', 'Domingo', 'Domenica']
         }
 
+        # Try to scroll the hours popup to ensure all days are visible
+        try:
+            page.evaluate("""
+                () => {
+                    const table = document.querySelector('table.eK4R0e');
+                    if (table) {
+                        const container = table.closest('div');
+                        if (container) container.scrollTop = 0;
+                    }
+                }
+            """)
+            page.wait_for_timeout(500)
+        except:
+            pass
+
+        # Debug: Check what day text actually exists in the popup
+        try:
+            all_rows = page.locator('//tr[@class="y0skZc"]').all()
+            logging.info(f"  🔍 Found {len(all_rows)} rows in hours table")
+            for i, row in enumerate(all_rows[:7]):
+                day_text = row.locator('//td[contains(@class, "ylH6lf")]').inner_text() if row.locator('//td[contains(@class, "ylH6lf")]').count() > 0 else "?"
+                hours_text = row.locator('//td[@class="mxowUb"]').inner_text() if row.locator('//td[@class="mxowUb"]').count() > 0 else "?"
+                logging.info(f"  🔍 Row {i}: Day='{day_text}' Hours='{hours_text}'")
+        except Exception as e:
+            logging.warning(f"  ⚠ Debug extraction failed: {e}")
+
         extracted_count = 0
         for day in days:
             day_found = False
@@ -192,11 +218,12 @@ def extract_weekly_hours(page: Page) -> dict:
                         weekly_hours[day.lower()] = hours_text
                         extracted_count += 1
                         day_found = True
+                        logging.debug(f"  ✓ {day}: {hours_text}")
                         break
 
             if not day_found:
                 weekly_hours[day.lower()] = "Not available"
-                logging.debug(f"  ⚠ {day}: no row found for any translation")
+                logging.warning(f"  ⚠ {day}: no row found for any translation")
 
         logging.info(f"  ✅ Hours extracted: {extracted_count}/7 days with data")
         return weekly_hours
