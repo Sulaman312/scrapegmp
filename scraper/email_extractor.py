@@ -3,6 +3,26 @@ from urllib.parse import urljoin
 
 from scraper.utils import extract_email_from_text
 
+DEFAULT_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/124.0.0.0 Safari/537.36"
+)
+
+
+def _apply_stealth(page):
+    """Apply stealth mode to hide webdriver detection"""
+    try:
+        page.add_init_script(
+            """
+            Object.defineProperty(navigator, 'webdriver', {
+                get: () => undefined,
+            });
+            """
+        )
+    except Exception:
+        pass
+
 
 def extract_email_from_website(website_url: str, browser) -> str:
     """
@@ -38,8 +58,14 @@ def extract_email_from_website(website_url: str, browser) -> str:
     try:
         logging.info(f"🔍 Attempting to extract email from: {website_url}")
 
-        email_page = browser.new_page()
+        email_page = browser.new_page(
+            user_agent=DEFAULT_USER_AGENT,
+            locale="en-US",
+            timezone_id="Asia/Karachi",
+        )
+        email_page.set_viewport_size({"width": 1366, "height": 900})
         email_page.set_default_timeout(10000)
+        _apply_stealth(email_page)
 
         try:
             email_page.goto(website_url, timeout=12000, wait_until="domcontentloaded")
