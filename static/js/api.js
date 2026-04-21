@@ -432,12 +432,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (menuOpen && !document.getElementById('companyDropdown').contains(e.target)) closeCompanyMenu();
   });
 
-  // Add keyboard listener for modal
+  // Close re-scrape modal when clicking outside
+  document.getElementById('reScrapeModal')?.addEventListener('click', e => {
+    if (e.target.id === 'reScrapeModal') hideReScrapeModal();
+  });
+
+  // Add keyboard listener for modals
   document.addEventListener('keydown', e => {
-    const modal = document.getElementById('addBusinessModal');
-    if (modal && !modal.classList.contains('hidden')) {
+    const addModal = document.getElementById('addBusinessModal');
+    const rescrapeModal = document.getElementById('reScrapeModal');
+
+    if (addModal && !addModal.classList.contains('hidden')) {
       if (e.key === 'Escape') hideAddBusinessModal();
       if (e.key === 'Enter') submitAddBusiness();
+    }
+
+    if (rescrapeModal && !rescrapeModal.classList.contains('hidden')) {
+      if (e.key === 'Escape') hideReScrapeModal();
+      if (e.key === 'Enter') confirmReScrape();
     }
   });
 
@@ -451,12 +463,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ── Re-scrape ─────────────────────────────────────────────────────────────
-async function reScrapeData() {
+function reScrapeData() {
   if (!currentBusiness) return;
+  document.getElementById('reScrapeModal').classList.remove('hidden');
+}
 
-  if (!confirm('Re-scrape opening hours, contact info, and location from Google Maps?\n\nThis will update the current data while preserving all AI-generated content.')) {
-    return;
-  }
+function hideReScrapeModal() {
+  document.getElementById('reScrapeModal').classList.add('hidden');
+}
+
+async function confirmReScrape() {
+  hideReScrapeModal();
 
   const btn = document.getElementById('btnReScrape');
   setBtn(btn, '<div class="spinner"></div>', 'Re-scraping…', true);
