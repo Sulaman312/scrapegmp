@@ -54,6 +54,7 @@ app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
+app.config['SERVER_NAME'] = os.getenv('SERVER_NAME', None)  # Set to your domain for subdomain routing
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SCRAPE_DIR = os.path.join(BASE_DIR, "ScrapeData")
 
@@ -261,6 +262,73 @@ def has_ai_data(enriched_path):
         return False
 
 
+def get_subdomain_and_business():
+    """
+    Extract subdomain from the request and determine if it's admin or a business site.
+    Returns: (subdomain, business_name, is_admin)
+
+    Examples:
+    - admin.example.com → ('admin', None, True)
+    - businessname.example.com → ('businessname', 'businessname', False)
+    - localhost:8000 → (None, None, True)  # Treat as admin for local dev
+    """
+    host = request.host.lower()
+
+    # For local development (localhost or IP addresses), treat as admin
+    if 'localhost' in host or host.startswith('127.0.0.1') or host.startswith('192.168.'):
+        return (None, None, True)
+
+    # Split host to get subdomain
+    parts = host.split(':')[0].split('.')  # Remove port, then split by dots
+
+    # If it's just domain.com (2 parts), treat as admin
+    if len(parts) <= 2:
+        return (None, None, True)
+
+    # If it's subdomain.domain.com (3+ parts), extract subdomain
+    subdomain = parts[0]
+
+    # Check if it's the admin subdomain
+    if subdomain == 'admin':
+        return (subdomain, None, True)
+
+    # Otherwise, treat subdomain as business name
+    # Normalize the subdomain to match folder names (replace hyphens with spaces, capitalize)
+    business_name = subdomain.replace('-', ' ').title()
+
+    # Check if this business exists in ScrapeData
+    if os.path.exists(os.path.join(SCRAPE_DIR, business_name)):
+        return (subdomain, business_name, False)
+
+    # Also try the subdomain as-is (in case it's already properly formatted)
+    if os.path.exists(os.path.join(SCRAPE_DIR, subdomain)):
+        return (subdomain, subdomain, False)
+
+    # If business doesn't exist, treat as admin (will 404 later)
+    return (subdomain, None, True)
+
+
+def get_business_url(business_name):
+    """
+    Generate the public URL for a business.
+    Returns subdomain-based URL if BASE_DOMAIN is set, otherwise falls back to /site/ path.
+
+    Examples:
+    - With BASE_DOMAIN='example.com': 'https://businessname.example.com'
+    - Without BASE_DOMAIN: '/site/BusinessName/'
+    """
+    base_domain = os.getenv('BASE_DOMAIN', None)
+
+    if base_domain:
+        # Convert business name to subdomain format (lowercase, spaces to hyphens)
+        subdomain = business_name.lower().replace(' ', '-')
+        protocol = 'https' if os.getenv('USE_HTTPS', 'true').lower() == 'true' else 'http'
+        return f"{protocol}://{subdomain}.{base_domain}"
+    else:
+        # Fallback to old /site/ format for local development
+        return f"/site/{business_name}/"
+
+
 # ──────────────────────────────────────────────────────────────
 #  Pages
 # ──────────────────────────────────────────────────────────────
@@ -277,6 +345,33 @@ def no_cache(response):
 def log_request():
     if request.path.startswith("/site/"):
         print(f" [REQUEST] {request.method} {request.path!r}", flush=True)
+
+
+@app.before_request
+def handle_subdomain_routing():
+    """
+    Handle wildcard subdomain routing:
+    - admin.domain.com → serve admin panel
+    - businessname.domain.com → serve business website
+    - domain.com → serve admin panel (for backward compatibility)
+    """
+    subdomain, business_name, is_admin = get_subdomain_and_business()
+
+    # Log subdomain routing for debugging
+    print(f" [SUBDOMAIN] host={request.host} subdomain={subdomain} business={business_name} is_admin={is_admin}", flush=True)
+
+    # If it's admin or root domain, let normal routes handle it
+    if is_admin:
+        return None
+
+    # If it's a business subdomain, serve the business website
+    if business_name:
+        # Skip this handler for API, media, and static routes
+        if request.path.startswith('/api/') or request.path.startswith('/media/') or request.path.startswith('/static/'):
+            return None
+
+        # Serve the business website
+        return serve_business_subdomain(business_name)
 
 
 # ──────────────────────────────────────────────────────────────
@@ -346,6 +441,7 @@ def list_businesses():
                 "name": name,
                 "has_website": os.path.exists(os.path.join(folder, "website", "index.html")),
                 "has_ai": has_ai_data(enriched),
+                "url": get_business_url(name),  # Add public URL
             })
     return jsonify(businesses)
 
@@ -1072,6 +1168,73 @@ def preview_static(name, subpath):
 
 
 # ──────────────────────────────────────────────────────────────
+#  Subdomain business site handler
+# ──────────────────────────────────────────────────────────────
+
+def serve_business_subdomain(business_name):
+    """
+    Serve business website from subdomain (businessname.domain.com)
+    This function is called by the before_request handler for business subdomains.
+    """
+    biz_dir = os.path.join(SCRAPE_DIR, business_name)
+    website_dir = os.path.join(biz_dir, "website")
+
+    # Determine which file to serve based on path
+    path = request.path.lstrip('/')
+
+    # Default to index.html if no path specified
+    if not path or path == '':
+        path = 'index.html'
+    # Append index.html if path is a directory
+    elif path.endswith('/'):
+        path = path + 'index.html'
+
+    # Normalize path to prevent traversal attacks
+    path = os.path.normpath(path).replace("\\", "/")
+    if path.startswith("../") or path == "..":
+        return ("<h2>Invalid path.</h2>", 404)
+
+    index_path = os.path.join(website_dir, "index.html")
+    if not os.path.isfile(index_path):
+        return (
+            "<h2 style='font-family:sans-serif;padding:2rem'>"
+            f"No website generated yet for {business_name}. "
+            "Please contact the administrator.</h2>",
+            404,
+        )
+
+    target_path = os.path.join(website_dir, path)
+    if not os.path.isfile(target_path):
+        # Try with .html extension
+        if not path.endswith('.html'):
+            target_path_html = os.path.join(website_dir, path + '.html')
+            if os.path.isfile(target_path_html):
+                target_path = target_path_html
+            else:
+                return ("<h2>Page not found.</h2>", 404)
+        else:
+            return ("<h2>Page not found.</h2>", 404)
+
+    try:
+        # For HTML files, rewrite relative media paths
+        if path.lower().endswith(".html"):
+            with open(target_path, "r", encoding="utf-8") as f:
+                html = f.read()
+            # Rewrite media paths to use absolute /media/ paths
+            html = html.replace('"../', f'"/media/{business_name}/')
+            html = html.replace("'../", f"'/media/{business_name}/")
+            resp = make_response(html)
+            resp.headers["Content-Type"] = "text/html; charset=utf-8"
+            return resp
+
+        # Non-HTML assets
+        return send_from_directory(website_dir, path)
+    except Exception as exc:
+        logging.warning(f"Failed to serve subdomain site for '{business_name}/{path}': {exc}")
+        return ("<h2>Error loading website.</h2>", 500)
+
+
+# ──────────────────────────────────────────────────────────────
 #  Published site – ONLY the last generated website (no draft)
 #
 #  Serves ScrapeData/<name>/website/index.html. This file is
@@ -1080,6 +1243,9 @@ def preview_static(name, subpath):
 #
 #  Use a single <path:subpath> rule so /site/Digimidi, /site/Digimidi/,
 #  and /site/Digimidi/index.html all hit this view (avoids Flask slash 404s).
+#
+#  NOTE: This route is kept for backward compatibility. With wildcard domains,
+#  businesses should be accessed via businessname.domain.com instead.
 # ──────────────────────────────────────────────────────────────
 
 @app.route("/site/<path:subpath>")
