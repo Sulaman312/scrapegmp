@@ -270,42 +270,71 @@ def get_subdomain_and_business():
     Examples:
     - admin.example.com → ('admin', None, True)
     - businessname.example.com → ('businessname', 'businessname', False)
-    - localhost:8000 → (None, None, True)  # Treat as admin for local dev
+    - localhost:8000 → (None, None, True)  # Treat as admin for local dev without BASE_DOMAIN
+    - admin.localhost:8000 → ('admin', None, True)  # Local testing with subdomains
     """
     host = request.host.lower()
 
-    # For local development (localhost or IP addresses), treat as admin
-    if 'localhost' in host or host.startswith('127.0.0.1') or host.startswith('192.168.'):
+    # Remove port from host
+    host_without_port = host.split(':')[0]
+
+    # If BASE_DOMAIN is not set, treat all requests as admin (legacy mode)
+    base_domain = os.getenv('BASE_DOMAIN', '').strip()
+    if not base_domain:
+        return (None, None, True)
+
+    # For bare localhost or IP without subdomain, treat as admin
+    if host_without_port in ['localhost', '127.0.0.1'] or host_without_port.startswith('192.168.'):
         return (None, None, True)
 
     # Split host to get subdomain
-    parts = host.split(':')[0].split('.')  # Remove port, then split by dots
+    parts = host_without_port.split('.')
 
-    # If it's just domain.com (2 parts), treat as admin
-    if len(parts) <= 2:
+    # If it's just the base domain (e.g., "localhost" or "example.com"), treat as admin
+    if host_without_port == base_domain:
         return (None, None, True)
 
-    # If it's subdomain.domain.com (3+ parts), extract subdomain
-    subdomain = parts[0]
+    # For localhost testing: admin.localhost or business.localhost
+    if base_domain == 'localhost':
+        if len(parts) >= 2:
+            subdomain = parts[0]
+            if subdomain == 'admin':
+                return (subdomain, None, True)
+            # Treat as business subdomain
+            business_name = subdomain.replace('-', ' ').title()
+            if os.path.exists(os.path.join(SCRAPE_DIR, business_name)):
+                return (subdomain, business_name, False)
+            if os.path.exists(os.path.join(SCRAPE_DIR, subdomain)):
+                return (subdomain, subdomain, False)
+            # Business doesn't exist, but still treat as business subdomain (will 404)
+            return (subdomain, business_name, False)
 
-    # Check if it's the admin subdomain
-    if subdomain == 'admin':
-        return (subdomain, None, True)
+    # For production domains (e.g., example.com, yourdomain.com)
+    # Expected format: subdomain.example.com
+    if len(parts) < 2:
+        return (None, None, True)
 
-    # Otherwise, treat subdomain as business name
-    # Normalize the subdomain to match folder names (replace hyphens with spaces, capitalize)
-    business_name = subdomain.replace('-', ' ').title()
+    # Extract subdomain (everything before the base domain)
+    # For admin.example.com: subdomain = 'admin'
+    # For business.example.com: subdomain = 'business'
+    base_parts = base_domain.split('.')
+    if len(parts) > len(base_parts):
+        subdomain = '.'.join(parts[:-len(base_parts)])
 
-    # Check if this business exists in ScrapeData
-    if os.path.exists(os.path.join(SCRAPE_DIR, business_name)):
+        if subdomain == 'admin':
+            return (subdomain, None, True)
+
+        # Treat as business subdomain
+        business_name = subdomain.replace('-', ' ').title()
+        if os.path.exists(os.path.join(SCRAPE_DIR, business_name)):
+            return (subdomain, business_name, False)
+        if os.path.exists(os.path.join(SCRAPE_DIR, subdomain)):
+            return (subdomain, subdomain, False)
+        # Business doesn't exist, but still treat as business subdomain (will 404)
         return (subdomain, business_name, False)
 
-    # Also try the subdomain as-is (in case it's already properly formatted)
-    if os.path.exists(os.path.join(SCRAPE_DIR, subdomain)):
-        return (subdomain, subdomain, False)
-
-    # If business doesn't exist, treat as admin (will 404 later)
-    return (subdomain, None, True)
+    # Fallback: treat as admin
+    return (None, None, True)
 
 
 def get_business_url(business_name):
