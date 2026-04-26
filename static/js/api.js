@@ -60,6 +60,8 @@ async function pickCompany(name) {
   if (name === currentBusiness) return;
   currentBusiness = name;
   const biz = allBusinesses.find(b => b.name === name) || {};
+  // Store the business URL for later use
+  window.currentBusinessUrl = biz.url || `/site/${encodeURIComponent(name)}/`;
   document.getElementById('companyBtnLabel').textContent = name;
   document.getElementById('companyDot').className = `dot ${biz.has_website ? 'bg-green-500' : 'bg-slate-500'}`;
   try {
@@ -166,7 +168,9 @@ async function generateWebsite() {
 // Opens the PUBLISHED site only (last generated). Not the draft preview.
 function previewWebsite() {
   if (currentBusiness) {
-    window.open(`/site/${encodeURIComponent(currentBusiness)}/`, '_blank');
+    // Use the subdomain URL if available, otherwise fall back to /site/ path
+    const url = window.currentBusinessUrl || `/site/${encodeURIComponent(currentBusiness)}/`;
+    window.open(url, '_blank');
   }
 }
 
