@@ -273,6 +273,8 @@ def get_subdomain_and_business():
     - localhost:8000 → (None, None, True)  # Treat as admin for local dev without BASE_DOMAIN
     - admin.localhost:8000 → ('admin', None, True)  # Local testing with subdomains
     """
+    import re
+
     host = request.host.lower()
 
     # Remove port from host
@@ -300,14 +302,19 @@ def get_subdomain_and_business():
             subdomain = parts[0]
             if subdomain == 'admin':
                 return (subdomain, None, True)
-            # Treat as business subdomain
-            business_name = subdomain.replace('-', ' ').title()
-            if os.path.exists(os.path.join(SCRAPE_DIR, business_name)):
-                return (subdomain, business_name, False)
-            if os.path.exists(os.path.join(SCRAPE_DIR, subdomain)):
-                return (subdomain, subdomain, False)
-            # Business doesn't exist, but still treat as business subdomain (will 404)
-            return (subdomain, business_name, False)
+            # Try to match subdomain to actual business folder
+            if os.path.exists(SCRAPE_DIR):
+                for business_folder in os.listdir(SCRAPE_DIR):
+                    if not os.path.isdir(os.path.join(SCRAPE_DIR, business_folder)):
+                        continue
+                    # Generate subdomain from business folder name
+                    expected_subdomain = business_folder.lower().replace(' ', '-')
+                    expected_subdomain = re.sub(r'[^a-z0-9-]', '', expected_subdomain)
+                    expected_subdomain = re.sub(r'-+', '-', expected_subdomain).strip('-')
+                    if expected_subdomain == subdomain:
+                        return (subdomain, business_folder, False)
+            # Business doesn't exist
+            return (subdomain, None, False)
 
     # For production domains (e.g., example.com, yourdomain.com)
     # Expected format: subdomain.example.com
@@ -324,14 +331,19 @@ def get_subdomain_and_business():
         if subdomain == 'admin':
             return (subdomain, None, True)
 
-        # Treat as business subdomain
-        business_name = subdomain.replace('-', ' ').title()
-        if os.path.exists(os.path.join(SCRAPE_DIR, business_name)):
-            return (subdomain, business_name, False)
-        if os.path.exists(os.path.join(SCRAPE_DIR, subdomain)):
-            return (subdomain, subdomain, False)
-        # Business doesn't exist, but still treat as business subdomain (will 404)
-        return (subdomain, business_name, False)
+        # Try to match subdomain to actual business folder
+        if os.path.exists(SCRAPE_DIR):
+            for business_folder in os.listdir(SCRAPE_DIR):
+                if not os.path.isdir(os.path.join(SCRAPE_DIR, business_folder)):
+                    continue
+                # Generate subdomain from business folder name
+                expected_subdomain = business_folder.lower().replace(' ', '-')
+                expected_subdomain = re.sub(r'[^a-z0-9-]', '', expected_subdomain)
+                expected_subdomain = re.sub(r'-+', '-', expected_subdomain).strip('-')
+                if expected_subdomain == subdomain:
+                    return (subdomain, business_folder, False)
+        # Business doesn't exist
+        return (subdomain, None, False)
 
     # Fallback: treat as admin
     return (None, None, True)
@@ -351,6 +363,11 @@ def get_business_url(business_name):
     if base_domain:
         # Convert business name to subdomain format (lowercase, spaces to hyphens)
         subdomain = business_name.lower().replace(' ', '-')
+        # Remove invalid characters (only allow a-z, 0-9, and hyphens)
+        import re
+        subdomain = re.sub(r'[^a-z0-9-]', '', subdomain)
+        # Remove consecutive hyphens and trim hyphens from start/end
+        subdomain = re.sub(r'-+', '-', subdomain).strip('-')
         protocol = 'https' if os.getenv('USE_HTTPS', 'true').lower() == 'true' else 'http'
         return f"{protocol}://{subdomain}.{base_domain}"
     else:
