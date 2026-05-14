@@ -52,96 +52,6 @@ def _apply_stealth(page):
         pass
 
 
-def _scraper_headless() -> bool:
-    env_headful = os.getenv("SCRAPER_HEADFUL", "").strip().lower()
-    if env_headful in {"1", "true", "yes", "on"}:
-        return False
-    return not DEBUG_HEADFUL_MODE
-
-
-def _system_chromium_executable() -> str:
-    configured = os.getenv("PLAYWRIGHT_CHROMIUM_EXECUTABLE", "").strip()
-    if configured and os.path.exists(configured):
-        return configured
-
-    cache_root = Path.home() / ".cache" / "ms-playwright"
-    for pattern in (
-        "chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell",
-        "chromium-*/chrome-linux64/chrome",
-    ):
-        for candidate in sorted(cache_root.glob(pattern), reverse=True):
-            if candidate.is_file() and os.access(candidate, os.X_OK):
-                return str(candidate)
-
-    for candidate in (
-        "chromium",
-        "chromium-browser",
-        "google-chrome",
-        "google-chrome-stable",
-    ):
-        found = shutil.which(candidate)
-        if found:
-            return found
-    return ""
-
-
-def _launch_chromium(p, *, headless: bool, args: list[str] | None = None, **kwargs):
-    launch_args = args or []
-    try:
-        return p.chromium.launch(headless=headless, args=launch_args, **kwargs)
-    except Exception as exc:
-        fallback = _system_chromium_executable()
-        missing_browser = "Executable doesn't exist" in str(exc) or "playwright install" in str(exc)
-        if not fallback or not missing_browser:
-            raise
-        logging.warning(
-            "⚠ Playwright bundled Chromium is missing; falling back to system browser: %s",
-            fallback,
-        )
-        return p.chromium.launch(
-            executable_path=fallback,
-            headless=headless,
-            args=launch_args,
-            **kwargs,
-        )
-
-
-def _accept_google_consent(page):
-    for sel in [
-        'button:has-text("Accept all")',
-        'button:has-text("I agree")',
-        'button:has-text("Reject all")',
-        '//button[contains(., "Accept")]',
-        '//button[contains(@aria-label, "Accept")]',
-        'form[action*="consent"] button',
-    ]:
-        try:
-            if page.locator(sel).count() > 0:
-                page.locator(sel).first.click()
-                page.wait_for_timeout(2000)
-                return True
-        except Exception:
-            continue
-    return False
-
-
-def _has_maps_place_panel(page) -> bool:
-    try:
-        return page.locator('h1.DUwDvf').count() > 0
-    except Exception:
-        return False
-
-
-def _resolve_to_maps_place(page, url: str) -> str:
-    """Open a direct Google Maps URL and return the final browser URL."""
-    logging.info(f"🗺  Opening: {url}")
-    page.goto(url, timeout=60000)
-    page.wait_for_timeout(5000)
-    _accept_google_consent(page)
-    logging.info(f"🧭 Current page after navigation: {page.url}")
-    return page.url
-
-
 def check_end_of_list(page) -> bool:
     """Check if we've reached the end of the list."""
     end_message_patterns = [
@@ -175,7 +85,8 @@ def scrape_places_until_end(search_for: str, output_path: str, max_results: int 
     with sync_playwright() as p:
         logging.info(f"🖥 Platform: {platform.system()}")
 
-        is_headless = _scraper_headless()
+        # Force headless mode on all platforms
+        is_headless = True
 
         if platform.system() == "Windows":
             browser_path = r"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
@@ -183,11 +94,7 @@ def scrape_places_until_end(search_for: str, output_path: str, max_results: int 
             browser = p.chromium.launch(executable_path=browser_path, headless=is_headless)
         else:
             logging.info(f"🌐 Launching Chromium (headless={is_headless})")
-            browser = _launch_chromium(
-                p,
-                headless=is_headless,
-                args=['--no-sandbox', '--disable-setuid-sandbox'],
-            )
+            browser = p.chromium.launch(headless=is_headless, args=['--no-sandbox', '--disable-setuid-sandbox'])
 
         logging.info("✅ Browser launched successfully")
         page = browser.new_page(
@@ -637,7 +544,7 @@ def scrape_place_by_url(
                     logging.warning("⚠ Could not find Default profile — using profile dir directly")
                     profile_copy = chrome_profile
 
-                is_headless = _scraper_headless()
+                is_headless = True
                 if platform.system() == "Windows":
                     browser_path = r"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
                     context = p.chromium.launch_persistent_context(
@@ -651,12 +558,8 @@ def scrape_place_by_url(
                         args=["--profile-directory=Default"],
                     )
                 else:
-                    executable_path = _system_chromium_executable() or None
-                    if executable_path:
-                        logging.info(f"🌐 Using system Chromium for persistent context: {executable_path}")
                     context = p.chromium.launch_persistent_context(
                         user_data_dir=profile_copy,
-                        executable_path=executable_path,
                         headless=is_headless,
                         viewport={"width": 1366, "height": 900},
                         user_agent=DEFAULT_USER_AGENT,
@@ -679,18 +582,14 @@ def scrape_place_by_url(
             _apply_stealth(page)
             browser = None
         else:
-            is_headless = _scraper_headless()
+            is_headless = True
             if platform.system() == "Windows":
                 browser_path = r"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
                 logging.info(f"🌐 Launching Chrome: {browser_path} (headless={is_headless})")
                 browser = p.chromium.launch(executable_path=browser_path, headless=is_headless)
             else:
                 logging.info(f"🌐 Launching Chromium (headless={is_headless})")
-                browser = _launch_chromium(
-                    p,
-                    headless=is_headless,
-                    args=['--no-sandbox', '--disable-setuid-sandbox'],
-                )
+                browser = p.chromium.launch(headless=is_headless, args=['--no-sandbox', '--disable-setuid-sandbox'])
             page = browser.new_page(
                 user_agent=DEFAULT_USER_AGENT,
                 locale="en-US",
@@ -700,7 +599,23 @@ def scrape_place_by_url(
             _apply_stealth(page)
 
         try:
-            url = _resolve_to_maps_place(page, url)
+            logging.info(f"🗺  Opening: {url}")
+            page.goto(url, timeout=60000)
+            page.wait_for_timeout(5000)
+
+            for sel in [
+                'button:has-text("Accept all")',
+                'button:has-text("I agree")',
+                '//button[contains(., "Accept")]',
+                'form[action*="consent"] button',
+            ]:
+                try:
+                    if page.locator(sel).count() > 0:
+                        page.locator(sel).first.click()
+                        page.wait_for_timeout(2000)
+                        break
+                except Exception:
+                    continue
 
             try:
                 page.wait_for_selector('h1.DUwDvf', timeout=20000)
@@ -717,10 +632,6 @@ def scrape_place_by_url(
             logging.info("=" * 70)
 
             place = extract_place(page, url, browser, extract_emails)
-            if not place.name:
-                raise RuntimeError(
-                    f"Could not extract a business name from the resolved page. Final URL: {page.url}"
-                )
             result['place_data'] = asdict(place)
             logging.info(f"✅ Name    : {place.name}")
             logging.info(f"   Address : {place.address}")
@@ -887,8 +798,21 @@ def scrape_place_by_url(
             logging.info("STEP 3 — Downloading all images")
             logging.info("=" * 70)
 
-            url = _resolve_to_maps_place(page, url)
-            page.wait_for_timeout(1500)
+            page.goto(url, timeout=60000)
+            page.wait_for_timeout(4000)
+
+            for sel in [
+                'button:has-text("Accept all")',
+                'button:has-text("I agree")',
+                '//button[contains(., "Accept")]',
+            ]:
+                try:
+                    if page.locator(sel).count() > 0:
+                        page.locator(sel).first.click()
+                        page.wait_for_timeout(1500)
+                        break
+                except Exception:
+                    continue
 
             images_dir = os.path.join(place_dir, 'images')
             images_count = collect_and_download_images(page, images_dir)
@@ -903,11 +827,9 @@ def scrape_place_by_url(
 
         except KeyboardInterrupt:
             logging.warning("⚠ Interrupted by user (Ctrl+C)")
-            raise
         except Exception as e:
             logging.error(f"❌ Fatal error during single-place scrape: {e}")
             logging.error(traceback.format_exc())
-            raise
         finally:
             try:
                 if context is not None:
