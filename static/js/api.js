@@ -312,28 +312,8 @@ async function submitAddBusiness() {
     return;
   }
 
-  let parsedUrl;
-  try {
-    parsedUrl = new URL(url);
-  } catch (e) {
-    showToast('Please enter a valid Google Maps or Google share URL', 'error');
-    return;
-  }
-
-  const host = parsedUrl.hostname.replace(/^www\./, '').toLowerCase();
-  const isSupportedGoogleUrl = (
-    (host === 'google.com' && (
-      parsedUrl.pathname.startsWith('/maps') ||
-      parsedUrl.pathname.startsWith('/search')
-    )) ||
-    host === 'maps.google.com' ||
-    host === 'share.google' ||
-    host === 'maps.app.goo.gl' ||
-    host === 'goo.gl'
-  );
-
-  if (!isSupportedGoogleUrl) {
-    showToast('Please enter a valid Google Maps or Google share URL', 'error');
+  if (!url.includes('google.com/maps')) {
+    showToast('Please enter a valid Google Maps URL', 'error');
     return;
   }
 

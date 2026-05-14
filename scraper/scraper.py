@@ -8,10 +8,8 @@ import time
 import traceback
 from dataclasses import asdict
 from pathlib import Path
-from urllib.parse import parse_qs, quote, unquote, urlparse
 
 import pandas as pd
-import requests
 from playwright.sync_api import sync_playwright
 
 from scraper.media_downloader import collect_and_download_images, collect_videos
@@ -134,188 +132,14 @@ def _has_maps_place_panel(page) -> bool:
         return False
 
 
-def _click_first_maps_result(page) -> bool:
-    selectors = [
-        'a[href*="google.com/maps/place"]',
-        'a[href*="/maps/place"]',
-        'a[href*="google.com/maps?"]',
-        'a[href*="/maps?"]',
-        'a:has(img[alt^="Map of"])',
-        'a:has(img[src*="google.com/maps"])',
-        'a[aria-label*="Map"]',
-        'a[aria-label*="Maps"]',
-    ]
-    for selector in selectors:
-        try:
-            loc = page.locator(selector)
-            if loc.count() <= 0:
-                continue
-            logging.info(f"🧭 Opening Maps result via selector: {selector}")
-            loc.first.click(timeout=10000)
-            try:
-                page.wait_for_load_state("domcontentloaded", timeout=10000)
-            except Exception:
-                pass
-            page.wait_for_timeout(3000)
-            return True
-        except Exception as exc:
-            logging.debug(f"Maps result click failed for {selector}: {exc}")
-            continue
-    return False
-
-
-def _extract_google_search_query(current_url: str) -> str:
-    parsed = urlparse(current_url)
-    params = parse_qs(parsed.query)
-
-    if "/sorry/" in parsed.path and params.get("continue"):
-        return _extract_google_search_query(unquote(params["continue"][0]))
-
-    query = (params.get("q") or [""])[0].strip()
-    if query:
-        return query
-    return _extract_maps_place_query(current_url)
-
-
-def _extract_maps_place_query(current_url: str) -> str:
-    parsed = urlparse(current_url)
-    host = parsed.netloc.lower()
-    if "google." not in host and "goo.gl" not in host:
-        return ""
-
-    path = unquote(parsed.path or "")
-    marker = "/maps/place/"
-    if marker in path:
-        tail = path.split(marker, 1)[1]
-        name = tail.split("/", 1)[0]
-        name = name.replace("+", " ").strip()
-        if name and not name.startswith("data="):
-            return name
-
-    marker = "/maps/search/"
-    if marker in path:
-        tail = path.split(marker, 1)[1]
-        name = tail.split("/", 1)[0]
-        name = name.replace("+", " ").strip()
-        if name:
-            return name
-    return ""
-
-
-def _is_google_sorry_page(current_url: str) -> bool:
-    parsed = urlparse(current_url)
-    return parsed.netloc.endswith("google.com") and "/sorry/" in parsed.path
-
-
-def _open_maps_search_from_query(page, query: str) -> bool:
-    if not query:
-        return False
-
-    maps_url = _maps_search_url(query)
-    logging.info(f"🧭 Opening direct Google Maps search from share redirect query: {query}")
-    page.goto(maps_url, timeout=60000)
-    page.wait_for_timeout(5000)
-    _accept_google_consent(page)
-
-    if _has_maps_place_panel(page):
-        logging.info("✅ Direct Maps search opened a place panel")
-        return True
-
-    if _click_first_maps_result(page):
-        try:
-            page.wait_for_selector('h1.DUwDvf', timeout=20000)
-            logging.info("✅ Direct Maps search result opened a place panel")
-            return True
-        except Exception:
-            return _has_maps_place_panel(page)
-
-    return False
-
-
-def _maps_search_url(query: str) -> str:
-    return f"https://www.google.com/maps/search/{quote(query)}"
-
-
-def _pre_resolve_google_share_url(url: str) -> str:
-    parsed = urlparse(url)
-    host = parsed.netloc.lower().removeprefix("www.")
-    maps_place_query = _extract_maps_place_query(url)
-    if host.endswith("google.com") and maps_place_query:
-        maps_url = _maps_search_url(maps_place_query)
-        logging.info(f"🧭 Normalized Google Maps place URL to direct Maps search: {maps_url}")
-        return maps_url
-
-    if host not in {"share.google", "goo.gl", "maps.app.goo.gl"}:
-        return url
-
-    try:
-        logging.info(f"🧭 Pre-resolving Google share URL before headless browser navigation: {url}")
-        response = requests.get(
-            url,
-            headers={"User-Agent": DEFAULT_USER_AGENT},
-            allow_redirects=True,
-            timeout=15,
-        )
-        final_url = response.url
-        logging.info(f"🧭 Share URL HTTP-resolved to: {final_url}")
-    except Exception as exc:
-        logging.warning(f"⚠ Share URL HTTP pre-resolve failed; using original URL: {exc}")
-        return url
-
-    final_parsed = urlparse(final_url)
-    if final_parsed.netloc.endswith("google.com") and final_parsed.path.startswith("/maps"):
-        return final_url
-
-    query = _extract_google_search_query(final_url)
-    if query:
-        maps_url = _maps_search_url(query)
-        logging.info(f"🧭 Converted share redirect query to direct Maps search: {maps_url}")
-        return maps_url
-
-    return final_url or url
-
-
 def _resolve_to_maps_place(page, url: str) -> str:
-    """
-    Accepts normal Maps URLs plus Google share/search URLs and navigates to the
-    actual Maps place page before extraction starts.
-    """
-    url = _pre_resolve_google_share_url(url)
+    """Open a direct Google Maps URL and return the final browser URL."""
     logging.info(f"🗺  Opening: {url}")
     page.goto(url, timeout=60000)
     page.wait_for_timeout(5000)
     _accept_google_consent(page)
-    logging.info(f"🧭 Current page after initial navigation: {page.url}")
-
-    if _has_maps_place_panel(page):
-        return page.url
-
-    query = _extract_google_search_query(page.url)
-    if query and _open_maps_search_from_query(page, query):
-        return page.url
-
-    for attempt in range(3):
-        logging.info(f"🧭 Maps place panel not loaded; resolving Maps result (attempt {attempt + 1}/3)")
-        if not _click_first_maps_result(page):
-            break
-        _accept_google_consent(page)
-        try:
-            page.wait_for_selector('h1.DUwDvf', timeout=20000)
-            logging.info("✅ Resolved share/search URL to Maps place page")
-            return page.url
-        except Exception:
-            if _has_maps_place_panel(page):
-                return page.url
-
-    if _is_google_sorry_page(page.url):
-        raise RuntimeError(
-            "Google anti-bot verification blocked the share link before Maps could load. "
-            "Provide the direct Google Maps place URL or retry the share URL later."
-        )
-
-    raise RuntimeError(
-        f"Could not resolve this URL to a Google Maps place page. Final URL: {page.url}"
-    )
+    logging.info(f"🧭 Current page after navigation: {page.url}")
+    return page.url
 
 
 def check_end_of_list(page) -> bool:
