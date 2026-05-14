@@ -1,0 +1,480 @@
+{
+  "template": "facade",
+  "language": "en",
+  "business": {
+    "name": "Hotel Red Line",
+    "place_type": "",
+    "phone": "+92 315 9817522",
+    "email": "",
+    "website": "hotelredline.com",
+    "price_range": "Prices for Hotel Red Line",
+    "rating": 4.1,
+    "reviews_count": 864,
+    "address": "Golra More CMT, Road, H-13, Islamabad, 46000, Pakistan",
+    "description": "Hotel Redline in Islamabad, located Golra More CMT Road near the airport, Daewoo terminal, and the motorway. Book now!",
+    "latitude": "33.6248409",
+    "longitude": "72.9699579",
+    "google_maps_url": "https://www.google.com/maps/place/Hotel+Red+Line/@33.6248409,72.9699579,17z/data=!4m17!1m7!3m6!1s0x38df97580e183907:0xc1e32c66dd20b6b2!2sCheezious+Golra+Mor+Branch!8m2!3d33.6248409!4d72.9699579!16s%2Fg%2F11rfby8p_n!3m8!1s0x38df97fa1d9f55b3:0x4091773fc4e0185a!5m2!4m1!1i2!8m2!3d33.6262743!4d72.9699206!16s%2Fg%2F11g_ql303r?entry=ttu&g_ep=EgoyMDI2MDUxMi4wIKXMDSoASAFQAw%3D%3D",
+    "plus_code": "JXG9+GX Islamabad, Pakistan",
+    "hours": {
+      "monday": "Not available",
+      "tuesday": "Not available",
+      "wednesday": "Not available",
+      "thursday": "Not available",
+      "friday": "Not available",
+      "saturday": "Not available",
+      "sunday": "Not available"
+    }
+  },
+  "ai": {
+    "brand_short_name": "Hotel Red Line",
+    "tagline": "Luxury and Comfort Awaits You",
+    "hero_subtitle": "Experience unparalleled hospitality in the heart of Islamabad.",
+    "cta_primary": "Book Now",
+    "cta_primary_url": "hotelredline.com",
+    "cta_secondary": "Our Services",
+    "cta_secondary_url": "hotelredline.com",
+    "about_paragraph": "Hotel Red Line is committed to providing an exceptional stay with a blend of luxury and convenience. Located near key transport hubs, we cater to both business and leisure travelers seeking comfort and accessibility.",
+    "about_story_left": "Hotel Red Line is committed to providing an exceptional stay with a blend of luxury and convenience. Located",
+    "about_story_right": "near key transport hubs, we cater to both business and leisure travelers seeking comfort and accessibility.",
+    "seo_title": "Hotel Red Line - Luxury Accommodation in Islamabad",
+    "seo_description": "Discover Hotel Red Line in Islamabad for luxurious stays near the airport. Book your room today for an unforgettable experience.",
+    "features": [
+      {
+        "icon": "room_service",
+        "title": "In-Room Dining",
+        "description": "Enjoy a variety of gourmet meals delivered right to your room, 24/7.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "fitness_center",
+        "title": "Fitness Center",
+        "description": "Stay active during your stay with our fully equipped fitness center.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "wifi",
+        "title": "Free Wi-Fi",
+        "description": "Stay connected with complimentary high-speed Wi-Fi available throughout the hotel.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "business_center",
+        "title": "Business Services",
+        "description": "Access essential business services, including meeting rooms and printing.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "spa",
+        "title": "Spa & Wellness",
+        "description": "Relax and rejuvenate with our on-site spa services designed for your comfort.",
+        "image": "",
+        "link": ""
+      }
+    ],
+    "services_cards": [
+      {
+        "title": "Business Services",
+        "description": "Access essential business services, including meeting rooms and printing.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Spa & Wellness",
+        "description": "Relax and rejuvenate with our on-site spa services designed for your comfort.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Airport Transfers",
+        "description": "Convenient transportation to and from the airport and nearby terminals.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Event Hosting",
+        "description": "Host your events in our elegant spaces, perfect for weddings and conferences.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "services_page_cards": [
+      {
+        "title": "Business Services",
+        "description": "Access essential business services, including meeting rooms and printing.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Spa & Wellness",
+        "description": "Relax and rejuvenate with our on-site spa services designed for your comfort.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Airport Transfers",
+        "description": "Convenient transportation to and from the airport and nearby terminals.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Event Hosting",
+        "description": "Host your events in our elegant spaces, perfect for weddings and conferences.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "why_choose_us_cards": [
+      {
+        "icon": "room_service",
+        "title": "In-Room Dining",
+        "description": "Enjoy a variety of gourmet meals delivered right to your room, 24/7."
+      },
+      {
+        "icon": "fitness_center",
+        "title": "Fitness Center",
+        "description": "Stay active during your stay with our fully equipped fitness center."
+      },
+      {
+        "icon": "wifi",
+        "title": "Free Wi-Fi",
+        "description": "Stay connected with complimentary high-speed Wi-Fi available throughout the hotel."
+      }
+    ],
+    "services_small_text": "",
+    "services_heading": "",
+    "why_choose_us_heading": "",
+    "cta_heading": "Par Night / 7,000 PKR + tax",
+    "cta_subtitle": "Experience unparalleled hospitality in the heart of Islamabad.",
+    "cta_btn_label": "",
+    "cta_link": "",
+    "cta_banner_btn_label": "",
+    "cta_banner_btn_link": "",
+    "footer_tagline": "Hotel Red Line is committed to providing an exceptional stay with a blend of luxury and convenience. Located near key transport hubs, we cater to both business and leisure travelers seeking comfort and accessibility.",
+    "footer_copyright": "© 2026 Hotel Red Line. All rights reserved.",
+    "values": [],
+    "about_bullet_points": [],
+    "services_page_seo_title": "",
+    "services_page_seo_description": "",
+    "services_page_hero_title": "",
+    "services_page_hero_subtitle": "",
+    "services_page_small_text": "",
+    "services_page_heading": "",
+    "services_page_description": "",
+    "services_cta_heading": "",
+    "services_cta_text": "",
+    "services_cta_button": "",
+    "contact_page_seo_title": "",
+    "contact_page_seo_description": "",
+    "contact_page_hero_title": "",
+    "contact_page_hero_subtitle": "",
+    "contact_page_small_text": "",
+    "contact_page_heading": "",
+    "contact_page_description": ""
+  },
+  "_raw": {
+    "years_of_experience": 0
+  },
+  "website_data": {
+    "headings": [
+      "Welcome to Hotel",
+      "Redline",
+      "Welcome to Hotel Redline",
+      "Hotel Redline?",
+      "Last Minute Deals",
+      "Book Now",
+      "Par Night / 5,000 PKR + tax",
+      "Par Night / 6,000 PKR + tax",
+      "Par Night / 7,000 PKR + tax",
+      "Par Night / 8,000 PKR + tax",
+      "Par Night / 18,000 PKR + tax",
+      "What's Nearby?",
+      "Stay close to everything you need",
+      "Shopping Centre",
+      "Public Transportation",
+      "ATM Service",
+      "Hospital or Clinic",
+      "All just 2 KM away, with access to top travel services like",
+      "Faisal Movers",
+      "Daewoo"
+    ],
+    "meta_description": "Hotel Redline in Islamabad, located Golra More CMT Road near the airport, Daewoo terminal, and the motorway. Book now!",
+    "paragraphs": [
+      "At Hotel Redline , we combine luxury, comfort, and convenience to provide an unforgettable experience. Whether you’re here for business or leisure, our hotel is strategically located to keep you close to the essentials.",
+      "At Hotel Redline , we combine luxury, comfort, and convenience to provide an unforgettable experience.",
+      "Prime Location : Just minutes from business hubs and tourist attractions, ensuring convenience for travelers.",
+      "Affordable Luxury : Enjoy modern rooms at competitive rates without compromising on comfort.",
+      "Top-Notch Facilities : Relax with air-conditioned rooms, free high-speed Wi-Fi, and seamless room service.",
+      "This is one of the best hotels we stayed in. Room was large with a sitting area. The room was very, very clean and modern.",
+      "Overall stay was pleasant. Breakfast was perfectly fine and location was also amazing.",
+      "Beautiful convenient location and secure polite staff reasonable and wonderful stay will surely visit again. I Liked everything.",
+      "At Hotel Redline , we pride ourselves on providing a blend of luxury, comfort, and exceptional service.",
+      "📩 info@hotelredline.com 📞 0315 9817522 ☎️ 051-2315053  |  051-2315021",
+      "Hotel Red Line, Golra More CMT Road, Islamabad, Pakistan.",
+      "For inquiries, bookings, or further information, please get in touch:",
+      "📌 Location : Hotel Red Line, Golra More CMT Road, Islamabad, Pakistan.",
+      "Hotel Red Line journey began with a vision to provide top-quality hospitality services to both local and international guests.",
+      "With over 25 years of experience in the hospitality industry, our CEO, Tariq Mehmood , has built this hotel with a focus on excellence, ensuring the highest standard of service and comfort for our guests.",
+      "The name “ Red Line ” symbolizes our commitment to offering unmatched hospitality that stands out, always striving to go above and beyond for every guest.",
+      "At Hotel Red Line, we are dedicated to providing exceptional services, from the quality of our 35 top-tier rooms to the convenience of our various facilities. Whether it’s luxurious accommodations, dining at our in-house restaurant, or holding meetings in our business areas, we aim to exceed expectations.",
+      "With our range of modern amenities and personalized services, we ensure every guest enjoys a memorable stay, whether you’re here for a short visit or an extended stay. The nearby attractions and facilities make Hotel Red Line the perfect base to explore both cities.",
+      "Join us for a truly comfortable and welcoming experience where your satisfaction is our top priority."
+    ],
+    "pricing_hints": [],
+    "raw_text": "Red Line – Hotel Redline Islamabad Home Rooms Single Bedroom Double Deluxe Master Bedroom Deluxe Triple Bedroom Double Twin Bedroom Suite Bedroom Services Gallery About Us Contact Menu Home Rooms Single Bedroom Double Deluxe Master Bedroom Deluxe Triple Bedroom Double Twin Bedroom Suite Bedroom Services Gallery About Us Contact Search Search Close this search box. +92 (315) 9817522 whatsapp Welcome to Hotel Redline Welcome to Hotel Redline At Hotel Redline , we combine luxury, comfort, and convenience to provide an unforgettable experience. Whether you’re here for business or leisure, our hotel is strategically located to keep you close to the essentials. At Hotel Redline , we combine luxury, comfort, and convenience to provide an unforgettable experience. Booking Now Room's Single Bedroom Double Deluxe Master Bedroom Deluxe Triple Bedroom Double Twin Bedroom Suite Bedroom Check in Check out Guests Book Now Why Choose Hotel Redline? Prime Location : Just minutes from business hubs and tourist attractions, ensuring convenience for travelers. Affordable Luxury : Enjoy modern rooms at competitive rates without compromising on comfort. Top-Notch Facilities : Relax with air-conditioned rooms, free high-speed Wi-Fi, and seamless room service. Hotel Red Line Last Minute Deals Book Now Single Bedroom 1 Guest 16 Ft 220+ Reviews Par Night / 5,000 PKR + tax More Details Book Now Double Twin Bedroom 2 Guest 16 Ft 220+ Reviews Par Night / 6,000 PKR + tax More Details Book Now Double Deluxe Master Bedroom 2 Guest 23 Ft 320+ Reviews Par Night / 7,000 PKR + tax More Details Book Now Deluxe Triple Bedroom 3 Guest 50 Ft 120+ Reviews Par Night / 8,000 PKR + tax More Details Book Now Suite Bedroom 4 Guest 23 Ft 320+ Reviews Par Night / 18,000 PKR + tax More Details Hotel Red Line What's Nearby? 8 KM Islamabad Airport 200 Meters EME College 4 KM NUST University 400 Meters Quaid-e-Azam Hospital 3 KM Saddar Rawalpindi 5 KM Golra Sharif Museum 1.3 KM Haji Camp 6 KM NESCOM 3.2 KM Railway Station Luxury and Convenience at Your Doorstep Stay close to everything you need Shopping Centre Public Transportation ATM Service Hospital or Clinic All just 2 KM away, with access to top travel services like Faisal Movers Daewoo Bilal Travels Skyways Road Master Kohistan Testimonial Our Success Stories Noor Rajab This is one of the best hotels we stayed in. Room was large with a sitting area. The room was very, very clean and modern. Fiza Overall stay was pleasant. Breakfast was perfectly fine and location was also amazing. Hammad Beautiful convenient location and secure polite staff reasonable and wonderful stay will surely visit again. I Liked everything. About us At Hotel Redline , we pride ourselves on providing a blend of luxury, comfort, and exceptional service. Contact 📩 info@hotelredline.com 📞 0315 9817522 ☎️ 051-2315053 | 051-2315021 Location Hotel Red Line, Golra More CMT Road, Islamabad, Pakistan. Booking Form App's Facebook-f Tiktok Youtube Instagram © 2024 Hotel Redline. ",
+    "services": [
+      "Single Bedroom",
+      "Double Deluxe Master Bedroom",
+      "Deluxe Triple Bedroom",
+      "Double Twin Bedroom",
+      "Suite Bedroom",
+      "Services",
+      "Gallery",
+      "About Us",
+      "Contact",
+      "1 Guest",
+      "220+ Reviews",
+      "2 Guest",
+      "320+ Reviews",
+      "3 Guest",
+      "120+ Reviews",
+      "4 Guest"
+    ],
+    "team": [
+      "Hotel Redline",
+      "Why Choose",
+      "Prime Location",
+      "Affordable Luxury",
+      "Top-Notch Facilities",
+      "Single Bedroom",
+      "Double Twin Bedroom",
+      "Double Deluxe Master Bedroom",
+      "Deluxe Triple Bedroom",
+      "Suite Bedroom"
+    ],
+    "title": "Red Line  – Hotel Redline Islamabad"
+  },
+  "theme": {
+    "color1": "#F97316",
+    "color2": "#EF4444",
+    "color3": "#DC2626",
+    "cta_color": "#F97316",
+    "hero_dark": "#06060F",
+    "hero_image": "images/All/0001.webp",
+    "why_choose_us_image": "images/All/0003.webp",
+    "values_image": "images/All/0001.webp",
+    "company_image_1": "images/All/0001.webp",
+    "company_image_2": "images/All/0002.webp"
+  },
+  "images": [
+    "images/All/0001.webp",
+    "images/All/0002.webp",
+    "images/All/0003.webp",
+    "images/All/0004.webp",
+    "images/All/0005.webp",
+    "images/All/0006.webp",
+    "images/All/0007.webp",
+    "images/All/0008.webp",
+    "images/All/0009.webp",
+    "images/All/0010.webp",
+    "images/All/0011.webp",
+    "images/All/0012.webp",
+    "images/All/0013.webp",
+    "images/All/0014.webp",
+    "images/All/0015.webp",
+    "images/All/0016.webp",
+    "images/All/0017.webp",
+    "images/All/0018.webp",
+    "images/All/0019.webp",
+    "images/All/0020.webp"
+  ],
+  "reviews": [
+    {
+      "author_name": "Ahsan Farooq",
+      "text": "Great place great people. Stayed twice recently check in was smooth handed us keys before settling room price. Staff was very friendly and helpful to move stuff in and out of the building. Had security guard watching our cars parked outside of the building. Check in around evening time person on reception desk was very nice and friendly will definitely recommend. ☺️",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "J Morrow",
+      "text": "This Hotel is interesting. All of the front desk staff, the bellboys, security, and the owner were very accommodating to me and I appreciate them very much. Unfortunately as an American traveller, the inconsistent wifi (strong when it was working but not always working) and the power going out multiple times a day (no tv, had to charge phone in the hotel lobby) was completely unacceptable. Hot water for showers is not available until after 7pm.\n\nThe room was clean, furniture was nice. The price is very very cheap. If they can get their wifi and power situation under control, I will give this hotel 10 stars.",
+      "rating": 3,
+      "date": ""
+    },
+    {
+      "author_name": "Abdulrahim Javaid",
+      "text": "I checked in at Redline Hotel on 5 February at 11:00 PM for one night. My stay was extremely unpleasant due to continuous loud noise from the lobby at 3:00 AM, followed again at 7:30 AM, caused by staff speaking loudly with no regard for guests.\n\nWhen I contacted reception, they denied any noise. I then went to the desk and requested the manager, but was told the manager was unavailable. The staff were unprofessional, dismissive, and unwilling to take responsibility, insisting the customer was wrong.\n\nThis hotel failed to provide basic comfort, quiet, and professional service. I do not recommend it.",
+      "rating": 1,
+      "date": ""
+    },
+    {
+      "author_name": "Arslan munir",
+      "text": "I spent a really good time at this hotel.\nThe ambiance is great and very welcoming.\nRooms are clean, spacious, and comfortable.\nThere’s no noise pollution, which made it very relaxing.\nOverall, it was a peaceful and enjoyable stay.",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Saqib Shahzad",
+      "text": "I had a great stay at Hotel Red Line last year in summer. When I traveled to Pakistan and Iam  planing once again to stay here while i will travel to Pakistan next month .The room was clean and cozy, and the staff was super friendly and helpful. Definitely good value for the price!\nOnly thing about parking . Not so much space for parking.",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Hasan Khan",
+      "text": "I recently stayed at this hotel and now i am sharing my personal feedback firstly the room was very clean more than my expectations washroom were neat & clean but the main point to be focused is staff\nStaff is very unprofessional and unaware of hospitality industry they don't even know how to deal with a guest especially the man standing on reception at night he was very pathetic and rude and his communication skills zero.kindly change this staff and hire some professional bcz this will damage your position in hospitality industry.dont take my feedback personally i just share my experience that i having with redline hotel I am just highlighting the things that should be corrected",
+      "rating": 2,
+      "date": ""
+    },
+    {
+      "author_name": "Kais",
+      "text": "Overall good to stay and below is summary\nRooms : Pillows,blanket dirty: 5/10\nLocation : Average 6.5/10\nService : Good 7.4/10\nSingle King bed stay rate : 7K  Per night , quite high as per facilities\nThey provided water with charge on me\nShampoo and soap available in WR\nWifi Ok to reach",
+      "rating": 4,
+      "date": ""
+    },
+    {
+      "author_name": "Mehvish jabeen (Mehvish Jabeen)",
+      "text": "worst service.phly  hm ny online booking ki jab gy waha tu 7000 nae 25000 hm sy magy. i will not recommend anyone.beware ‼️",
+      "rating": 1,
+      "date": ""
+    },
+    {
+      "author_name": "Sumaiyaa zeeshan",
+      "text": "We had great experience at hotel redline. After ling train journey. Food was ready when we reached at hotel bcz we already ordered. Food taste was average. Rooms was clean and cozy. Washrooms were clean. Hot water wwas available. Wifi was working. Ac was working .Safe enviornment. Overall good stay. We just stayed for one night before heading forward to north areas.",
+      "rating": 4,
+      "date": ""
+    },
+    {
+      "author_name": "TECHNICAL SERVICES EST EST",
+      "text": "I recently stayed at redline hotel and wanted to share some feedback. While I appreciated the good breakfast and comfortable room temperature, I was disappointed with certain aspects of my stay.\n\nCleanliness: The room service and cleaning were below expectations. There was a persistent bad smell in the bathrooms, and during the morning cleaning of other rooms, the corridors were filled with an unpleasant odor. Washrooms were not tidy as well.\n\nI hope you can address these concerns to improve the experience for future guests.",
+      "rating": 1,
+      "date": ""
+    },
+    {
+      "author_name": "Shah Abdul Latif Hse Consultant",
+      "text": "Hotel Red Line is a modern hospitality establishment known for its blend of comfort and convenience. Located strategically in a vibrant area, it caters to both business and leisure travelers. The hotel features well-appointed rooms equipped with modern amenities, ensuring a relaxing stay. Guests can enjoy a variety of services, including a restaurant offering diverse cuisine, a fitness center, and meeting facilities. The attentive staff is dedicated to providing exceptional service, creating a welcoming atmosphere. With its commitment to quality and customer satisfaction, Hotel Red Line has established itself as a preferred choice for visitors seeking a memorable experience.",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Sherry Pervez",
+      "text": "Things were pretty nice the rooms were Great and so was the cleanliness\nBut their billing structure for mini bar sucks\nI was pushed to pay double for the coke cans which I already paid in advanced my mood got spoil due to miscommunication between waiter and receptionist\nNeways just check the bills properly to avoid any issues",
+      "rating": 4,
+      "date": ""
+    },
+    {
+      "author_name": "Talha Qadeer",
+      "text": "I booked 2 rooms in Redline hotel on my recent visit to Islamabad with family. My experience was amazingly so good with hotel and their staff. I was in contact with their owner and shift manager throughout the entire booking process and trust me their dealing made it so easier.\nWhile my stay time there, i felt secure within and even outside the hotel premises.\nStaff was available 24/7 and always ready to serve in case of any request from ourside.\nGood thing about hotel is that it is near to Motorway approach, so it is a good spot for travelers to stay there.\nFood was cooked with heart. Breakfast was good though.\nOverall i am very satisfied and highly recommended facility.",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Asob Ndbdksh",
+      "text": "I checked out the Red Line Hotel and let me tell you, it's 🔥! The moment you step into the lobby, you're greeted with a vibrant and modern atmosphere. The staff is super friendly and always ready to assist you with a big smile. The rooms are cozy and stylishly decorated, making you feel right at home.\n\nOne of the highlights of the hotel is the rooftop pool. It offers breathtaking views of the city skyline, and it's the perfect spot to relax and soak up the sun. And if you're a foodie like me, you'll be thrilled with the delicious options at the hotel's restaurant. From mouthwatering breakfasts to gourmet dinners, they've got it all covered.\n\nThe location is also a major plus. Situated in the heart of the city, you'll find yourself just steps away from the best attractions, shops, and restaurants. It's so convenient!\n\nOverall, I would definitely recommend the Red Line Hotel for an amazing stay. It's a combination of comfort, style, and great service. I hope you get the chance to experience it yourself! 😄🏨",
+      "rating": 5,
+      "date": ""
+    },
+    {
+      "author_name": "Its A Leo Thing.",
+      "text": "I booked a room at Hotel Red Line for a 1-night emergency stay with my family after seeing it on Booking.com, where the price was listed as 6,000 to 7,000 per night. However, when I arrived, the bearded manager at the counter charged me 8,200, claiming it was a \"discounted price.\"\n\nI was given a standard room, but the manager insisted it was a deluxe room, which seemed like an attempt to overcharge me. The overall experience was disappointing, and one of the staff members made an inappropriate comment, which added to the discomfort.\n\nI would not recommend this hotel, especially for emergency stays, as it felt unprofessional and unwelcoming.",
+      "rating": 1,
+      "date": ""
+    }
+  ],
+  "review_keywords": [
+    "Nearby hotels",
+    "Restaurants",
+    "Things to do",
+    "Bars",
+    "Coffee",
+    "Pharmacies",
+    "Parking",
+    "Prices",
+    "Reviews",
+    "Write a review",
+    "Sort",
+    "All",
+    "luxury rooms 6",
+    "cooperative staff 18",
+    "executive suite 2",
+    "cozy room 5",
+    "cooperative owner 16",
+    "proximity to motorway 2",
+    "proximity to airport 2",
+    "free wifi 8",
+    "clean rooms 40",
+    "prime location 7",
+    "Ahsan Farooq2 reviews",
+    "More",
+    "Like",
+    " Share",
+    "J MorrowLocal Guide · 10 reviews · 8 photos",
+    "Abdulrahim Javaid1 review",
+    "Arslan munir2 reviews",
+    "Saqib Shahzad1 review · 1 photo",
+    "Hasan Khan1 review",
+    "KaisLocal Guide · 169 reviews · 59 photos",
+    "0:06",
+    "Mehvish jabeen (Mehvish Jabeen)1 review · 1 photo",
+    "Sumaiyaa zeeshanLocal Guide · 92 reviews · 116 photos",
+    "TECHNICAL SERVICES EST EST4 reviews · 1 photo"
+  ],
+  "qa": [],
+  "updates": [],
+  "popular_times": {},
+  "about": {
+    "attributes": {
+      "Features": [
+        "Free Wi-Fi available",
+        "Free breakfast available",
+        "Free parking available",
+        "Accessible available",
+        "Pool unavailable",
+        "Air-conditioned available",
+        "Laundry service available",
+        "Business center available",
+        "Pet-friendly unavailable",
+        "Room service available",
+        "Restaurant unavailable",
+        "Airport shuttle unavailable",
+        "Fitness center unavailable",
+        "Golf course available",
+        "Smoke-free available"
+      ]
+    },
+    "social_links": [],
+    "highlights": [
+      "At Hotel Redline , we combine luxury, comfort, and convenience to provide an unforgettable experience. Whether you’re here for business or leisure, our hotel is strategically located to keep you close to the essentials.",
+      "At Hotel Redline , we combine luxury, comfort, and convenience to provide an unforgettable experience.",
+      "Prime Location : Just minutes from business hubs and tourist attractions, ensuring convenience for travelers.",
+      "Affordable Luxury : Enjoy modern rooms at competitive rates without compromising on comfort."
+    ]
+  },
+  "about_attrs": [
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]",
+    "[object Object]"
+  ],
+  "social_links": [],
+  "web_results": [],
+  "related_places": [],
+  "section_visibility": {},
+  "_has_videos": false,
+  "_video_list": [],
+  "videos": []
+}
