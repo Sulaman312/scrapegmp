@@ -11,6 +11,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, quote, unquote, urlparse
 
 import pandas as pd
+import requests
 from playwright.sync_api import sync_playwright
 
 from scraper.media_downloader import collect_and_download_images, collect_videos
@@ -185,7 +186,7 @@ def _open_maps_search_from_query(page, query: str) -> bool:
     if not query:
         return False
 
-    maps_url = f"https://www.google.com/maps/search/{quote(query)}"
+    maps_url = _maps_search_url(query)
     logging.info(f"🧭 Opening direct Google Maps search from share redirect query: {query}")
     page.goto(maps_url, timeout=60000)
     page.wait_for_timeout(5000)
@@ -206,11 +207,49 @@ def _open_maps_search_from_query(page, query: str) -> bool:
     return False
 
 
+def _maps_search_url(query: str) -> str:
+    return f"https://www.google.com/maps/search/{quote(query)}"
+
+
+def _pre_resolve_google_share_url(url: str) -> str:
+    parsed = urlparse(url)
+    host = parsed.netloc.lower().removeprefix("www.")
+    if host not in {"share.google", "goo.gl", "maps.app.goo.gl"}:
+        return url
+
+    try:
+        logging.info(f"🧭 Pre-resolving Google share URL before headless browser navigation: {url}")
+        response = requests.get(
+            url,
+            headers={"User-Agent": DEFAULT_USER_AGENT},
+            allow_redirects=True,
+            timeout=15,
+        )
+        final_url = response.url
+        logging.info(f"🧭 Share URL HTTP-resolved to: {final_url}")
+    except Exception as exc:
+        logging.warning(f"⚠ Share URL HTTP pre-resolve failed; using original URL: {exc}")
+        return url
+
+    final_parsed = urlparse(final_url)
+    if final_parsed.netloc.endswith("google.com") and final_parsed.path.startswith("/maps"):
+        return final_url
+
+    query = _extract_google_search_query(final_url)
+    if query:
+        maps_url = _maps_search_url(query)
+        logging.info(f"🧭 Converted share redirect query to direct Maps search: {maps_url}")
+        return maps_url
+
+    return final_url or url
+
+
 def _resolve_to_maps_place(page, url: str) -> str:
     """
     Accepts normal Maps URLs plus Google share/search URLs and navigates to the
     actual Maps place page before extraction starts.
     """
+    url = _pre_resolve_google_share_url(url)
     logging.info(f"🗺  Opening: {url}")
     page.goto(url, timeout=60000)
     page.wait_for_timeout(5000)
@@ -240,7 +279,7 @@ def _resolve_to_maps_place(page, url: str) -> str:
     if _is_google_sorry_page(page.url):
         raise RuntimeError(
             "Google anti-bot verification blocked the share link before Maps could load. "
-            "Retry in headful mode or provide the direct Google Maps place URL."
+            "Provide the direct Google Maps place URL or retry the share URL later."
         )
 
     raise RuntimeError(
@@ -1009,9 +1048,11 @@ def scrape_place_by_url(
 
         except KeyboardInterrupt:
             logging.warning("⚠ Interrupted by user (Ctrl+C)")
+            raise
         except Exception as e:
             logging.error(f"❌ Fatal error during single-place scrape: {e}")
             logging.error(traceback.format_exc())
+            raise
         finally:
             try:
                 if context is not None:
