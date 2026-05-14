@@ -262,6 +262,10 @@ def enrich_with_ai(place: dict, website: dict, api_key: str, language: str = "fr
         "features": [],
         "seo_title": "",
         "seo_description": "",
+        "services_page_seo_title": "",
+        "services_page_seo_description": "",
+        "contact_page_seo_title": "",
+        "contact_page_seo_description": "",
     }
 
     if not api_key:
@@ -323,6 +327,10 @@ Generate the following in JSON format (respond ONLY with valid JSON, no markdown
   "cta_secondary": "Secondary CTA text (e.g. 'Learn More', 'Our Services', 'View Menu')",
   "seo_title": "SEO page title (50-60 chars)",
   "seo_description": "SEO meta description (120-155 chars)",
+  "services_page_seo_title": "SEO page title for the services page (50-60 chars, service-focused)",
+  "services_page_seo_description": "SEO meta description for the services page (120-155 chars, mention services/offers)",
+  "contact_page_seo_title": "SEO page title for the contact page (50-60 chars, contact/location-focused)",
+  "contact_page_seo_description": "SEO meta description for the contact page (120-155 chars, invite users to call, visit, or request information)",
   "features": [
     {{
       "icon": "material_symbol_name",
@@ -351,7 +359,7 @@ Make features diverse and specific to the business type."""
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7,
-            max_tokens=1500,
+            max_tokens=1800,
             response_format={"type": "json_object"}
         )
         raw = response.choices[0].message.content.strip()
@@ -404,6 +412,28 @@ Make features diverse and specific to the business type."""
                         break
             ai["navbar_name"] = cleaned[:25].strip()
             logging.info(f"📝 Generated fallback navbar_name: {ai['navbar_name']}")
+
+    business_name = place.get("name", "") or ai.get("navbar_name") or "Business"
+    place_type = place.get("place_type", "") or "services"
+    address = place.get("address", "")
+    location = address.split(",")[-1].strip() if address and "," in address else address
+    location_suffix = f" in {location}" if location else ""
+
+    seo_fallbacks = {
+        "services_page_seo_title": f"{business_name} Services{location_suffix}"[:60],
+        "services_page_seo_description": (
+            f"Discover the services and solutions offered by {business_name}. "
+            f"Contact the team for details, availability, and support."
+        )[:155],
+        "contact_page_seo_title": f"Contact {business_name}{location_suffix}"[:60],
+        "contact_page_seo_description": (
+            f"Contact {business_name} for information about {place_type}. "
+            f"Call, visit, or send a message to get assistance."
+        )[:155],
+    }
+    for key, fallback in seo_fallbacks.items():
+        if not ai.get(key):
+            ai[key] = fallback
 
     return ai
 

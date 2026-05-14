@@ -1258,8 +1258,8 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             "testimonials_heading": ai.get("testimonials_heading", _tr(tr, "testimonials.heading", "What our clients say")),
             "testimonials": bernard_testimonials,
             # Services Page Data
-            "services_page_seo_title": ai.get("services_page_seo_title", f"{biz.get('name', '')} - Our Services"),
-            "services_page_seo_description": ai.get("services_page_seo_description", f"Discover all the services offered by {biz.get('name', '')}"),
+            "services_page_seo_title": ai.get("services_page_seo_title") or f"{biz.get('name', '')} - Our Services",
+            "services_page_seo_description": ai.get("services_page_seo_description") or f"Discover all the services offered by {biz.get('name', '')}",
             "services_page_hero_title": ai.get("services_page_hero_title", "Our Services"),
             "services_page_hero_subtitle": ai.get("services_page_hero_subtitle", "Comprehensive solutions tailored to your needs"),
             "services_page_small_text": ai.get("services_page_small_text", "What we offer"),
@@ -1269,8 +1269,8 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             "services_cta_text": ai.get("services_cta_text", "Contact us today for a free consultation and personalized quote."),
             "services_cta_button": ai.get("services_cta_button", "Get a Quote"),
             # Contact Page Data
-            "contact_page_seo_title": ai.get("contact_page_seo_title", f"Contact {biz.get('name', '')}"),
-            "contact_page_seo_description": ai.get("contact_page_seo_description", f"Get in touch with {biz.get('name', '')}. We're here to help!"),
+            "contact_page_seo_title": ai.get("contact_page_seo_title") or f"Contact {biz.get('name', '')}",
+            "contact_page_seo_description": ai.get("contact_page_seo_description") or f"Get in touch with {biz.get('name', '')}. We're here to help!",
             "contact_page_hero_title": ai.get("contact_page_hero_title", "Contact Us"),
             "contact_page_hero_subtitle": ai.get("contact_page_hero_subtitle", "We'd love to hear from you"),
             "contact_page_small_text": ai.get("contact_page_small_text", "Get in touch"),

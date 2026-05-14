@@ -220,10 +220,17 @@ function populateForm(data) {
   // SEO
   setf('ai-seo_title',       ai.seo_title);
   setf('ai-seo_description', ai.seo_description);
+  const seoBusinessName = biz.name || ai.navbar_name || 'Business';
+  const seoLocation = (biz.address || '').split(',').map(part => part.trim()).filter(Boolean).pop() || '';
+  const seoLocationSuffix = seoLocation ? ` in ${seoLocation}` : '';
+  const servicesSeoTitleFallback = `${seoBusinessName} Services${seoLocationSuffix}`.slice(0, 60);
+  const servicesSeoDescriptionFallback = `Discover the services and solutions offered by ${seoBusinessName}. Contact the team for details, availability, and support.`.slice(0, 155);
+  const contactSeoTitleFallback = `Contact ${seoBusinessName}${seoLocationSuffix}`.slice(0, 60);
+  const contactSeoDescriptionFallback = `Contact ${seoBusinessName} for information about ${biz.place_type || 'services'}. Call, visit, or send a message to get assistance.`.slice(0, 155);
 
   // Services Page
-  setf('ai-services_page_seo_title', ai.services_page_seo_title);
-  setf('ai-services_page_seo_description', ai.services_page_seo_description);
+  setf('ai-services_page_seo_title', ai.services_page_seo_title || servicesSeoTitleFallback);
+  setf('ai-services_page_seo_description', ai.services_page_seo_description || servicesSeoDescriptionFallback);
   setf('ai-services_page_hero_title', ai.services_page_hero_title);
   setf('ai-services_page_hero_subtitle', ai.services_page_hero_subtitle);
   setf('ai-services_page_small_text', ai.services_page_small_text);
@@ -234,8 +241,8 @@ function populateForm(data) {
   setf('ai-services_cta_button', ai.services_cta_button);
 
   // Contact Page
-  setf('ai-contact_page_seo_title', ai.contact_page_seo_title);
-  setf('ai-contact_page_seo_description', ai.contact_page_seo_description);
+  setf('ai-contact_page_seo_title', ai.contact_page_seo_title || contactSeoTitleFallback);
+  setf('ai-contact_page_seo_description', ai.contact_page_seo_description || contactSeoDescriptionFallback);
   setf('ai-contact_page_hero_title', ai.contact_page_hero_title);
   setf('ai-contact_page_hero_subtitle', ai.contact_page_hero_subtitle);
   setf('ai-contact_page_small_text', ai.contact_page_small_text);
