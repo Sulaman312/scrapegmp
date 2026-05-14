@@ -705,19 +705,20 @@ h3 {
 
 .years-badge {
     position: absolute;
-    bottom: 30px;
-    right: -30px;
+    top: 24px;
+    right: 24px;
     width: 140px;
     height: 140px;
-    background: var(--color-accent);
+    background: var(--color-primary);
     border: 6px solid var(--bg-light);
     border-radius: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--text-light);
+    color: var(--color-accent);
     box-shadow: var(--shadow-lg);
+    z-index: 2;
 }
 
 .years-number {

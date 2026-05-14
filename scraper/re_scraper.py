@@ -1,6 +1,9 @@
 """Re-scrape dynamic business data from Google Maps (hours, contact, location)"""
 import logging
+import os
+import shutil
 from dataclasses import asdict
+from pathlib import Path
 from playwright.sync_api import sync_playwright
 from scraper.place_extractor import extract_place
 
@@ -24,6 +27,52 @@ def _apply_stealth(page):
         pass
 
 
+def _system_chromium_executable() -> str:
+    configured = os.getenv("PLAYWRIGHT_CHROMIUM_EXECUTABLE", "").strip()
+    if configured and os.path.exists(configured):
+        return configured
+
+    cache_root = Path.home() / ".cache" / "ms-playwright"
+    for pattern in (
+        "chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell",
+        "chromium-*/chrome-linux64/chrome",
+    ):
+        for candidate in sorted(cache_root.glob(pattern), reverse=True):
+            if candidate.is_file() and os.access(candidate, os.X_OK):
+                return str(candidate)
+
+    for candidate in (
+        "chromium",
+        "chromium-browser",
+        "google-chrome",
+        "google-chrome-stable",
+    ):
+        found = shutil.which(candidate)
+        if found:
+            return found
+    return ""
+
+
+def _launch_chromium(p, *, headless: bool, args: list[str] | None = None):
+    launch_args = args or []
+    try:
+        return p.chromium.launch(headless=headless, args=launch_args)
+    except Exception as exc:
+        fallback = _system_chromium_executable()
+        missing_browser = "Executable doesn't exist" in str(exc) or "playwright install" in str(exc)
+        if not fallback or not missing_browser:
+            raise
+        logging.warning(
+            "⚠ Playwright bundled Chromium is missing; falling back to system browser: %s",
+            fallback,
+        )
+        return p.chromium.launch(
+            executable_path=fallback,
+            headless=headless,
+            args=launch_args,
+        )
+
+
 def re_scrape_business_data(google_maps_url: str, extract_emails: bool = True) -> dict:
     """
     Re-scrape only dynamic fields from Google Maps using exact same logic as original scraper.
@@ -32,7 +81,7 @@ def re_scrape_business_data(google_maps_url: str, extract_emails: bool = True) -
     logging.info(f"🔄 Re-scraping dynamic data from: {google_maps_url}")
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True, args=['--no-sandbox', '--disable-setuid-sandbox'])
+        browser = _launch_chromium(p, headless=True, args=['--no-sandbox', '--disable-setuid-sandbox'])
         page = browser.new_page(
             user_agent=DEFAULT_USER_AGENT,
             locale="en-US",

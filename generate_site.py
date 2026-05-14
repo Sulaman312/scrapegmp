@@ -264,6 +264,15 @@ def _shift_hue(hex_color: str, degrees: float) -> str:
     return f"#{int(nr*255):02x}{int(ng*255):02x}{int(nb*255):02x}"
 
 
+def _hex_to_rgb_triplet(hex_color: str, fallback: str = "16, 185, 129") -> str:
+    value = str(hex_color or "").strip().lstrip("#")
+    if len(value) == 3:
+        value = "".join(ch * 2 for ch in value)
+    if not re.fullmatch(r"[0-9a-fA-F]{6}", value):
+        return fallback
+    return f"{int(value[0:2], 16)}, {int(value[2:4], 16)}, {int(value[4:6], 16)}"
+
+
 def _find_images(images_dir):
     results = []
     if not os.path.isdir(images_dir):
@@ -792,6 +801,9 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 facade_css = facade_css.replace("{{ theme_color1 }}", theme_color1)
                 facade_css = facade_css.replace("{{ theme_color2 }}", theme_color2)
                 facade_css = facade_css.replace("{{ theme_color3 }}", theme_color3)
+                facade_css = facade_css.replace("{{ theme_color1_rgb }}", _hex_to_rgb_triplet(theme_color1))
+                facade_css = facade_css.replace("{{ theme_color2_rgb }}", _hex_to_rgb_triplet(theme_color2, "5, 150, 105"))
+                facade_css = facade_css.replace("{{ theme_color3_rgb }}", _hex_to_rgb_triplet(theme_color3, "13, 148, 136"))
                 facade_css = facade_css.replace("{{ theme_cta_color }}", theme_cta_color)
                 facade_css = facade_css.replace("{{ theme_hero_dark }}", theme_hero_dark)
 
@@ -1232,7 +1244,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 else media_prefix + get_next_photo() if images else ""
             ),
             "about_image": media_prefix + (story_img_1 if story_img_1 else get_next_photo()),
-            "years_of_experience": raw.get("years_of_experience", 0),
+            "years_of_experience": (raw.get("_raw") or {}).get("years_of_experience") or raw.get("years_of_experience", 0),
             "about_small_text": ai.get("about_small_text", _tr(tr, "about.small_text", "À propos")),
             "about_heading": ai.get("about_heading", _tr(tr, "about.heading", "Your trusted company")),
             "about_description": about_text,

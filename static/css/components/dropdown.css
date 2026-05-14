@@ -59,6 +59,11 @@
   overflow: hidden
 }
 
+.company-option-main {
+  min-width: 0;
+  flex: 1
+}
+
 .company-option .text-slate-200 {
   white-space: nowrap;
   overflow: hidden;
@@ -71,6 +76,38 @@
 
 .company-option.selected {
   background: #052e16
+}
+
+.company-delete-btn {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border: 1px solid rgba(248, 113, 113, .25);
+  border-radius: .375rem;
+  color: #f87171;
+  background: rgba(248, 113, 113, .08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: .82;
+  transition: background .15s, border-color .15s, opacity .15s
+}
+
+.company-delete-btn:hover {
+  opacity: 1;
+  background: rgba(248, 113, 113, .18);
+  border-color: rgba(248, 113, 113, .45)
+}
+
+.company-delete-btn svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round
 }
 
 .company-option-add {

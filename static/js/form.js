@@ -220,9 +220,6 @@ function populateForm(data) {
   // SEO
   setf('ai-seo_title',       ai.seo_title);
   setf('ai-seo_description', ai.seo_description);
-  ['ai-seo_title', 'ai-seo_description'].forEach(id =>
-    document.getElementById(id).dispatchEvent(new Event('input'))
-  );
 
   // Services Page
   setf('ai-services_page_seo_title', ai.services_page_seo_title);
@@ -244,6 +241,17 @@ function populateForm(data) {
   setf('ai-contact_page_small_text', ai.contact_page_small_text);
   setf('ai-contact_page_heading', ai.contact_page_heading);
   setf('ai-contact_page_description', ai.contact_page_description);
+  [
+    'ai-seo_title',
+    'ai-seo_description',
+    'ai-services_page_seo_title',
+    'ai-services_page_seo_description',
+    'ai-contact_page_seo_title',
+    'ai-contact_page_seo_description'
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.dispatchEvent(new Event('input'));
+  });
 
   // Colors
   const defaultPreset = (selectedTemplate === 'facade' && typeof PRESETS_FACADE !== 'undefined' && PRESETS_FACADE.length)

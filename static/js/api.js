@@ -34,10 +34,19 @@ function renderCompanyMenu() {
   const businessItems = allBusinesses.map(b => `
     <div class="company-option ${currentBusiness === b.name ? 'selected' : ''}" onclick="pickCompany('${escAttr(b.name)}')">
       <span class="dot ${b.has_website ? 'bg-green-500' : 'bg-slate-500'}"></span>
-      <div>
+      <div class="company-option-main">
         <div class="font-medium text-slate-200">${esc(b.name)}</div>
         <div class="text-xs text-slate-500 mt-0.5">${b.has_ai ? '✦ AI enriched' : 'Not enriched'} · ${b.has_website ? 'Site ready' : 'No site'}</div>
       </div>
+      <button type="button" class="company-delete-btn" title="Delete business" onclick="deleteBusiness(event, '${escAttr(b.name)}')">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 6h18"/>
+          <path d="M8 6V4h8v2"/>
+          <path d="M19 6l-1 14H6L5 6"/>
+          <path d="M10 11v5"/>
+          <path d="M14 11v5"/>
+        </svg>
+      </button>
     </div>`).join('');
 
   const addButton = `
@@ -96,6 +105,43 @@ async function pickCompany(name) {
     }
   } catch (e) {
     showToast('Failed to load: ' + e.message, 'error');
+  }
+}
+
+async function deleteBusiness(event, name) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const ok = window.confirm(`Delete "${name}" and all scraped data, images, videos, drafts, and generated website files?`);
+  if (!ok) return;
+
+  try {
+    const res = await fetch(`/api/business/${encodeURIComponent(name)}`, { method: 'DELETE' });
+    const result = await res.json();
+    if (!res.ok || !result.success) {
+      throw new Error(result.error || 'Delete failed');
+    }
+
+    if (currentBusiness === name) {
+      currentBusiness = null;
+      currentData = null;
+      window.currentBusinessUrl = '';
+      document.getElementById('companyBtnLabel').textContent = 'Select Business';
+      document.getElementById('companyDot').className = 'dot bg-slate-500';
+      document.getElementById('emptyState').classList.remove('hidden');
+      document.getElementById('navHint').classList.remove('hidden');
+      document.getElementById('sectionNav').classList.add('hidden');
+      document.getElementById('btnSave').disabled = true;
+      document.getElementById('btnGenerate').disabled = true;
+      document.getElementById('btnReScrape').disabled = true;
+      if (typeof _pvReset === 'function') _pvReset();
+    }
+
+    showToast('Business deleted', 'success');
+    await loadBusinesses();
+    openCompanyMenu();
+  } catch (e) {
+    showToast('Delete failed: ' + e.message, 'error');
   }
 }
 
@@ -179,6 +225,7 @@ function setupSEOCounters() {
   const counter = (id, lid, w, o) => {
     const inp = document.getElementById(id);
     const lbl = document.getElementById(lid);
+    if (!inp || !lbl) return;
     inp.addEventListener('input', () => {
       const n = inp.value.length;
       lbl.textContent = `${n} characters`;
@@ -187,6 +234,10 @@ function setupSEOCounters() {
   };
   counter('ai-seo_title',       'seoTitleCount', 50, 60);
   counter('ai-seo_description', 'seoDescCount',  150, 160);
+  counter('ai-services_page_seo_title',       'servicesSeoTitleCount', 50, 60);
+  counter('ai-services_page_seo_description', 'servicesSeoDescCount',  150, 160);
+  counter('ai-contact_page_seo_title',        'contactSeoTitleCount', 50, 60);
+  counter('ai-contact_page_seo_description',  'contactSeoDescCount',  150, 160);
 }
 
 // ── Add Business Modal ────────────────────────────────────────────────────
@@ -261,8 +312,28 @@ async function submitAddBusiness() {
     return;
   }
 
-  if (!url.includes('google.com/maps')) {
-    showToast('Please enter a valid Google Maps URL', 'error');
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(url);
+  } catch (e) {
+    showToast('Please enter a valid Google Maps or Google share URL', 'error');
+    return;
+  }
+
+  const host = parsedUrl.hostname.replace(/^www\./, '').toLowerCase();
+  const isSupportedGoogleUrl = (
+    (host === 'google.com' && (
+      parsedUrl.pathname.startsWith('/maps') ||
+      parsedUrl.pathname.startsWith('/search')
+    )) ||
+    host === 'maps.google.com' ||
+    host === 'share.google' ||
+    host === 'maps.app.goo.gl' ||
+    host === 'goo.gl'
+  );
+
+  if (!isSupportedGoogleUrl) {
+    showToast('Please enter a valid Google Maps or Google share URL', 'error');
     return;
   }
 

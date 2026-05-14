@@ -1,5 +1,5 @@
 {
-  "template": "bernard",
+  "template": "facade",
   "language": "en",
   "business": {
     "name": "The Monal Islamabad",
@@ -177,7 +177,7 @@
     "contact_page_description": ""
   },
   "_raw": {
-    "years_of_experience": 0
+    "years_of_experience": 9
   },
   "website_data": {
     "headings": [],
@@ -190,10 +190,10 @@
     "title": "The Monal Restaurant - Pakistan's Premier Dining Experience"
   },
   "theme": {
-    "color1": "#9F1239",
-    "color2": "#FCE7F3",
-    "color3": "#F97316",
-    "cta_color": "#9F1239",
+    "color1": "#F97316",
+    "color2": "#EF4444",
+    "color3": "#DC2626",
+    "cta_color": "#F97316",
     "hero_dark": "#06060F",
     "hero_image": "images/All/0011.webp",
     "why_choose_us_image": "images/All/0003.webp",

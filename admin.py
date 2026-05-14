@@ -911,6 +911,32 @@ def generate_website(name):
         return jsonify({"success": False, "error": str(e)})
 
 
+@app.route("/api/business/<name>", methods=["DELETE"])
+@login_required
+def delete_business(name):
+    """Delete a business folder and all scraped/generated data for it."""
+    if not has_business_access(name):
+        return jsonify({"success": False, "error": "Access denied"}), 403
+
+    if not os.path.exists(SCRAPE_DIR) or name not in os.listdir(SCRAPE_DIR):
+        return jsonify({"success": False, "error": "Business not found"}), 404
+
+    # Resolve by exact folder name and ensure the target stays inside ScrapeData.
+    biz_dir = os.path.realpath(os.path.join(SCRAPE_DIR, name))
+    scrape_root = os.path.realpath(SCRAPE_DIR)
+    if not biz_dir.startswith(scrape_root + os.sep) or not os.path.isdir(biz_dir):
+        return jsonify({"success": False, "error": "Invalid business path"}), 400
+
+    try:
+        shutil.rmtree(biz_dir)
+        logging.info("Deleted business and data folder: %s", name)
+        return jsonify({"success": True})
+    except Exception as exc:
+        logging.error("Failed to delete business '%s': %s", name, exc)
+        logging.error(traceback.format_exc())
+        return jsonify({"success": False, "error": "Failed to delete business"}), 500
+
+
 # ──────────────────────────────────────────────────────────────
 #  API – upload images / videos
 # ──────────────────────────────────────────────────────────────

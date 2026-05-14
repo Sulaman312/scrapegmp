@@ -8,6 +8,7 @@ import time
 import traceback
 from dataclasses import asdict
 from pathlib import Path
+from urllib.parse import parse_qs, quote, unquote, urlparse
 
 import pandas as pd
 from playwright.sync_api import sync_playwright
@@ -52,6 +53,201 @@ def _apply_stealth(page):
         pass
 
 
+def _scraper_headless() -> bool:
+    env_headful = os.getenv("SCRAPER_HEADFUL", "").strip().lower()
+    if env_headful in {"1", "true", "yes", "on"}:
+        return False
+    return not DEBUG_HEADFUL_MODE
+
+
+def _system_chromium_executable() -> str:
+    configured = os.getenv("PLAYWRIGHT_CHROMIUM_EXECUTABLE", "").strip()
+    if configured and os.path.exists(configured):
+        return configured
+
+    cache_root = Path.home() / ".cache" / "ms-playwright"
+    for pattern in (
+        "chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell",
+        "chromium-*/chrome-linux64/chrome",
+    ):
+        for candidate in sorted(cache_root.glob(pattern), reverse=True):
+            if candidate.is_file() and os.access(candidate, os.X_OK):
+                return str(candidate)
+
+    for candidate in (
+        "chromium",
+        "chromium-browser",
+        "google-chrome",
+        "google-chrome-stable",
+    ):
+        found = shutil.which(candidate)
+        if found:
+            return found
+    return ""
+
+
+def _launch_chromium(p, *, headless: bool, args: list[str] | None = None, **kwargs):
+    launch_args = args or []
+    try:
+        return p.chromium.launch(headless=headless, args=launch_args, **kwargs)
+    except Exception as exc:
+        fallback = _system_chromium_executable()
+        missing_browser = "Executable doesn't exist" in str(exc) or "playwright install" in str(exc)
+        if not fallback or not missing_browser:
+            raise
+        logging.warning(
+            "⚠ Playwright bundled Chromium is missing; falling back to system browser: %s",
+            fallback,
+        )
+        return p.chromium.launch(
+            executable_path=fallback,
+            headless=headless,
+            args=launch_args,
+            **kwargs,
+        )
+
+
+def _accept_google_consent(page):
+    for sel in [
+        'button:has-text("Accept all")',
+        'button:has-text("I agree")',
+        'button:has-text("Reject all")',
+        '//button[contains(., "Accept")]',
+        '//button[contains(@aria-label, "Accept")]',
+        'form[action*="consent"] button',
+    ]:
+        try:
+            if page.locator(sel).count() > 0:
+                page.locator(sel).first.click()
+                page.wait_for_timeout(2000)
+                return True
+        except Exception:
+            continue
+    return False
+
+
+def _has_maps_place_panel(page) -> bool:
+    try:
+        return page.locator('h1.DUwDvf').count() > 0
+    except Exception:
+        return False
+
+
+def _click_first_maps_result(page) -> bool:
+    selectors = [
+        'a[href*="google.com/maps/place"]',
+        'a[href*="/maps/place"]',
+        'a[href*="google.com/maps?"]',
+        'a[href*="/maps?"]',
+        'a:has(img[alt^="Map of"])',
+        'a:has(img[src*="google.com/maps"])',
+        'a[aria-label*="Map"]',
+        'a[aria-label*="Maps"]',
+    ]
+    for selector in selectors:
+        try:
+            loc = page.locator(selector)
+            if loc.count() <= 0:
+                continue
+            logging.info(f"🧭 Opening Maps result via selector: {selector}")
+            loc.first.click(timeout=10000)
+            try:
+                page.wait_for_load_state("domcontentloaded", timeout=10000)
+            except Exception:
+                pass
+            page.wait_for_timeout(3000)
+            return True
+        except Exception as exc:
+            logging.debug(f"Maps result click failed for {selector}: {exc}")
+            continue
+    return False
+
+
+def _extract_google_search_query(current_url: str) -> str:
+    parsed = urlparse(current_url)
+    params = parse_qs(parsed.query)
+
+    if "/sorry/" in parsed.path and params.get("continue"):
+        return _extract_google_search_query(unquote(params["continue"][0]))
+
+    query = (params.get("q") or [""])[0].strip()
+    if query:
+        return query
+    return ""
+
+
+def _is_google_sorry_page(current_url: str) -> bool:
+    parsed = urlparse(current_url)
+    return parsed.netloc.endswith("google.com") and "/sorry/" in parsed.path
+
+
+def _open_maps_search_from_query(page, query: str) -> bool:
+    if not query:
+        return False
+
+    maps_url = f"https://www.google.com/maps/search/{quote(query)}"
+    logging.info(f"🧭 Opening direct Google Maps search from share redirect query: {query}")
+    page.goto(maps_url, timeout=60000)
+    page.wait_for_timeout(5000)
+    _accept_google_consent(page)
+
+    if _has_maps_place_panel(page):
+        logging.info("✅ Direct Maps search opened a place panel")
+        return True
+
+    if _click_first_maps_result(page):
+        try:
+            page.wait_for_selector('h1.DUwDvf', timeout=20000)
+            logging.info("✅ Direct Maps search result opened a place panel")
+            return True
+        except Exception:
+            return _has_maps_place_panel(page)
+
+    return False
+
+
+def _resolve_to_maps_place(page, url: str) -> str:
+    """
+    Accepts normal Maps URLs plus Google share/search URLs and navigates to the
+    actual Maps place page before extraction starts.
+    """
+    logging.info(f"🗺  Opening: {url}")
+    page.goto(url, timeout=60000)
+    page.wait_for_timeout(5000)
+    _accept_google_consent(page)
+    logging.info(f"🧭 Current page after initial navigation: {page.url}")
+
+    if _has_maps_place_panel(page):
+        return page.url
+
+    query = _extract_google_search_query(page.url)
+    if query and _open_maps_search_from_query(page, query):
+        return page.url
+
+    for attempt in range(3):
+        logging.info(f"🧭 Maps place panel not loaded; resolving Maps result (attempt {attempt + 1}/3)")
+        if not _click_first_maps_result(page):
+            break
+        _accept_google_consent(page)
+        try:
+            page.wait_for_selector('h1.DUwDvf', timeout=20000)
+            logging.info("✅ Resolved share/search URL to Maps place page")
+            return page.url
+        except Exception:
+            if _has_maps_place_panel(page):
+                return page.url
+
+    if _is_google_sorry_page(page.url):
+        raise RuntimeError(
+            "Google anti-bot verification blocked the share link before Maps could load. "
+            "Retry in headful mode or provide the direct Google Maps place URL."
+        )
+
+    raise RuntimeError(
+        f"Could not resolve this URL to a Google Maps place page. Final URL: {page.url}"
+    )
+
+
 def check_end_of_list(page) -> bool:
     """Check if we've reached the end of the list."""
     end_message_patterns = [
@@ -85,8 +281,7 @@ def scrape_places_until_end(search_for: str, output_path: str, max_results: int 
     with sync_playwright() as p:
         logging.info(f"🖥 Platform: {platform.system()}")
 
-        # Force headless mode on all platforms
-        is_headless = True
+        is_headless = _scraper_headless()
 
         if platform.system() == "Windows":
             browser_path = r"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
@@ -94,7 +289,11 @@ def scrape_places_until_end(search_for: str, output_path: str, max_results: int 
             browser = p.chromium.launch(executable_path=browser_path, headless=is_headless)
         else:
             logging.info(f"🌐 Launching Chromium (headless={is_headless})")
-            browser = p.chromium.launch(headless=is_headless, args=['--no-sandbox', '--disable-setuid-sandbox'])
+            browser = _launch_chromium(
+                p,
+                headless=is_headless,
+                args=['--no-sandbox', '--disable-setuid-sandbox'],
+            )
 
         logging.info("✅ Browser launched successfully")
         page = browser.new_page(
@@ -544,7 +743,7 @@ def scrape_place_by_url(
                     logging.warning("⚠ Could not find Default profile — using profile dir directly")
                     profile_copy = chrome_profile
 
-                is_headless = True
+                is_headless = _scraper_headless()
                 if platform.system() == "Windows":
                     browser_path = r"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
                     context = p.chromium.launch_persistent_context(
@@ -558,8 +757,12 @@ def scrape_place_by_url(
                         args=["--profile-directory=Default"],
                     )
                 else:
+                    executable_path = _system_chromium_executable() or None
+                    if executable_path:
+                        logging.info(f"🌐 Using system Chromium for persistent context: {executable_path}")
                     context = p.chromium.launch_persistent_context(
                         user_data_dir=profile_copy,
+                        executable_path=executable_path,
                         headless=is_headless,
                         viewport={"width": 1366, "height": 900},
                         user_agent=DEFAULT_USER_AGENT,
@@ -582,14 +785,18 @@ def scrape_place_by_url(
             _apply_stealth(page)
             browser = None
         else:
-            is_headless = True
+            is_headless = _scraper_headless()
             if platform.system() == "Windows":
                 browser_path = r"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
                 logging.info(f"🌐 Launching Chrome: {browser_path} (headless={is_headless})")
                 browser = p.chromium.launch(executable_path=browser_path, headless=is_headless)
             else:
                 logging.info(f"🌐 Launching Chromium (headless={is_headless})")
-                browser = p.chromium.launch(headless=is_headless, args=['--no-sandbox', '--disable-setuid-sandbox'])
+                browser = _launch_chromium(
+                    p,
+                    headless=is_headless,
+                    args=['--no-sandbox', '--disable-setuid-sandbox'],
+                )
             page = browser.new_page(
                 user_agent=DEFAULT_USER_AGENT,
                 locale="en-US",
@@ -599,23 +806,7 @@ def scrape_place_by_url(
             _apply_stealth(page)
 
         try:
-            logging.info(f"🗺  Opening: {url}")
-            page.goto(url, timeout=60000)
-            page.wait_for_timeout(5000)
-
-            for sel in [
-                'button:has-text("Accept all")',
-                'button:has-text("I agree")',
-                '//button[contains(., "Accept")]',
-                'form[action*="consent"] button',
-            ]:
-                try:
-                    if page.locator(sel).count() > 0:
-                        page.locator(sel).first.click()
-                        page.wait_for_timeout(2000)
-                        break
-                except Exception:
-                    continue
+            url = _resolve_to_maps_place(page, url)
 
             try:
                 page.wait_for_selector('h1.DUwDvf', timeout=20000)
@@ -632,6 +823,10 @@ def scrape_place_by_url(
             logging.info("=" * 70)
 
             place = extract_place(page, url, browser, extract_emails)
+            if not place.name:
+                raise RuntimeError(
+                    f"Could not extract a business name from the resolved page. Final URL: {page.url}"
+                )
             result['place_data'] = asdict(place)
             logging.info(f"✅ Name    : {place.name}")
             logging.info(f"   Address : {place.address}")
@@ -798,21 +993,8 @@ def scrape_place_by_url(
             logging.info("STEP 3 — Downloading all images")
             logging.info("=" * 70)
 
-            page.goto(url, timeout=60000)
-            page.wait_for_timeout(4000)
-
-            for sel in [
-                'button:has-text("Accept all")',
-                'button:has-text("I agree")',
-                '//button[contains(., "Accept")]',
-            ]:
-                try:
-                    if page.locator(sel).count() > 0:
-                        page.locator(sel).first.click()
-                        page.wait_for_timeout(1500)
-                        break
-                except Exception:
-                    continue
+            url = _resolve_to_maps_place(page, url)
+            page.wait_for_timeout(1500)
 
             images_dir = os.path.join(place_dir, 'images')
             images_count = collect_and_download_images(page, images_dir)
