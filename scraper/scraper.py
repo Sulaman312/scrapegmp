@@ -174,6 +174,31 @@ def _extract_google_search_query(current_url: str) -> str:
     query = (params.get("q") or [""])[0].strip()
     if query:
         return query
+    return _extract_maps_place_query(current_url)
+
+
+def _extract_maps_place_query(current_url: str) -> str:
+    parsed = urlparse(current_url)
+    host = parsed.netloc.lower()
+    if "google." not in host and "goo.gl" not in host:
+        return ""
+
+    path = unquote(parsed.path or "")
+    marker = "/maps/place/"
+    if marker in path:
+        tail = path.split(marker, 1)[1]
+        name = tail.split("/", 1)[0]
+        name = name.replace("+", " ").strip()
+        if name and not name.startswith("data="):
+            return name
+
+    marker = "/maps/search/"
+    if marker in path:
+        tail = path.split(marker, 1)[1]
+        name = tail.split("/", 1)[0]
+        name = name.replace("+", " ").strip()
+        if name:
+            return name
     return ""
 
 
@@ -214,6 +239,12 @@ def _maps_search_url(query: str) -> str:
 def _pre_resolve_google_share_url(url: str) -> str:
     parsed = urlparse(url)
     host = parsed.netloc.lower().removeprefix("www.")
+    maps_place_query = _extract_maps_place_query(url)
+    if host.endswith("google.com") and maps_place_query:
+        maps_url = _maps_search_url(maps_place_query)
+        logging.info(f"🧭 Normalized Google Maps place URL to direct Maps search: {maps_url}")
+        return maps_url
+
     if host not in {"share.google", "goo.gl", "maps.app.goo.gl"}:
         return url
 
