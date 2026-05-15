@@ -1,5 +1,5 @@
 {
-  "template": "facade",
+  "template": "bernard",
   "language": "en",
   "business": {
     "name": "The Monal Islamabad",
@@ -158,8 +158,8 @@
     "footer_copyright": "© 2026 The Monal Islamabad. All rights reserved.",
     "values": [],
     "about_bullet_points": [],
-    "services_page_seo_title": "",
-    "services_page_seo_description": "",
+    "services_page_seo_title": "The Monal Islamabad Services in Pakistan",
+    "services_page_seo_description": "Discover the services and solutions offered by The Monal Islamabad. Contact the team for details, availability, and support.",
     "services_page_hero_title": "",
     "services_page_hero_subtitle": "",
     "services_page_small_text": "",
@@ -168,8 +168,8 @@
     "services_cta_heading": "",
     "services_cta_text": "",
     "services_cta_button": "",
-    "contact_page_seo_title": "",
-    "contact_page_seo_description": "",
+    "contact_page_seo_title": "Contact The Monal Islamabad in Pakistan",
+    "contact_page_seo_description": "Contact The Monal Islamabad for information about Restaurant. Call, visit, or send a message to get assistance.",
     "contact_page_hero_title": "",
     "contact_page_hero_subtitle": "",
     "contact_page_small_text": "",
@@ -190,10 +190,10 @@
     "title": "The Monal Restaurant - Pakistan's Premier Dining Experience"
   },
   "theme": {
-    "color1": "#F97316",
-    "color2": "#EF4444",
-    "color3": "#DC2626",
-    "cta_color": "#F97316",
+    "color1": "#1E3A8A",
+    "color2": "#DBEAFE",
+    "color3": "#F59E0B",
+    "cta_color": "#1E3A8A",
     "hero_dark": "#06060F",
     "hero_image": "images/All/0011.webp",
     "why_choose_us_image": "images/All/0003.webp",

@@ -1,0 +1,264 @@
+{
+  "template": "bernard",
+  "language": "fr",
+  "business": {
+    "name": "Avis Conso",
+    "place_type": "Internet marketing service",
+    "phone": "+41 21 502 76 17",
+    "email": "",
+    "website": "avis-conso.ch",
+    "price_range": "",
+    "rating": null,
+    "reviews_count": null,
+    "address": "ZI Pré-Briand 14, 1510 Moudon, Switzerland",
+    "description": "",
+    "latitude": "46.8435065",
+    "longitude": "6.5081358",
+    "google_maps_url": "https://www.google.com/maps/place/Avis+Conso/@46.8435065,6.5081358,8z/data=!4m6!3m5!1s0x478dd59451ba97fb:0x2fa4cfdbb0f1d6b6!8m2!3d46.675839!4d6.8111239!16s%2Fg%2F11p6wn_y9x?entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D",
+    "plus_code": "MRG6+8C Moudon, Switzerland",
+    "hours": {
+      "monday": "Not available",
+      "tuesday": "Not available",
+      "wednesday": "Not available",
+      "thursday": "Not available",
+      "friday": "8 AM–6 PM",
+      "saturday": "Not available",
+      "sunday": "Not available"
+    }
+  },
+  "ai": {
+    "brand_short_name": "Avis Conso",
+    "tagline": "Boostez votre visibilité en ligne efficacement",
+    "hero_subtitle": "Nous vous aidons à atteindre vos objectifs marketing grâce à des stratégies numériques personnalisées.",
+    "cta_primary": "Commencez maintenant",
+    "cta_primary_url": "avis-conso.ch",
+    "cta_secondary": "Découvrez nos services",
+    "cta_secondary_url": "avis-conso.ch",
+    "about_paragraph": "Avis Conso est une agence spécialisée dans le marketing internet, offrant des solutions sur mesure pour améliorer la présence en ligne de nos clients. Notre équipe d'experts se consacre à fournir des résultats tangibles et à établir des relations durables avec nos partenaires.",
+    "about_story_left": "Avis Conso est une agence spécialisée dans le marketing internet, offrant des solutions sur mesure pour améliorer la présence en ligne de nos",
+    "about_story_right": "clients. Notre équipe d'experts se consacre à fournir des résultats tangibles et à établir des relations durables avec nos partenaires.",
+    "seo_title": "Avis Conso - Services de marketing digital en Suisse",
+    "seo_description": "Découvrez Avis Conso, votre expert en marketing digital en Suisse. Augmentez votre visibilité et attirez plus de clients.",
+    "features": [
+      {
+        "icon": "search",
+        "title": "Optimisation SEO",
+        "description": "Améliorez votre classement dans les moteurs de recherche grâce à nos techniques d'optimisation avancées.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "social_distance",
+        "title": "Gestion des réseaux sociaux",
+        "description": "Développez votre présence sur les réseaux sociaux avec des contenus engageants et stratégiques.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "analytics",
+        "title": "Analyse de données",
+        "description": "Nous fournissons des rapports détaillés pour suivre l'efficacité de vos campagnes marketing.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "campaign",
+        "title": "Publicité en ligne",
+        "description": "Augmentez votre visibilité avec des campagnes publicitaires ciblées sur les plateformes digitales.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "email",
+        "title": "Marketing par e-mail",
+        "description": "Atteignez vos clients directement dans leur boîte mail avec des campagnes personnalisées.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "web",
+        "title": "Création de sites web",
+        "description": "Développez un site web professionnel et attrayant qui reflète votre marque et attire vos clients.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "support_agent",
+        "title": "Support client",
+        "description": "Notre équipe est là pour vous aider à chaque étape de votre parcours marketing.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "check_circle",
+        "title": "Stratégies personnalisées",
+        "description": "Chaque entreprise est unique. Nous élaborons des stratégies sur mesure pour répondre à vos besoins spécifiques.",
+        "image": "",
+        "link": ""
+      }
+    ],
+    "services_cards": [
+      {
+        "title": "Publicité en ligne",
+        "description": "Augmentez votre visibilité avec des campagnes publicitaires ciblées sur les plateformes digitales.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Marketing par e-mail",
+        "description": "Atteignez vos clients directement dans leur boîte mail avec des campagnes personnalisées.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Création de sites web",
+        "description": "Développez un site web professionnel et attrayant qui reflète votre marque et attire vos clients.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Support client",
+        "description": "Notre équipe est là pour vous aider à chaque étape de votre parcours marketing.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "services_page_cards": [
+      {
+        "title": "Publicité en ligne",
+        "description": "Augmentez votre visibilité avec des campagnes publicitaires ciblées sur les plateformes digitales.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Marketing par e-mail",
+        "description": "Atteignez vos clients directement dans leur boîte mail avec des campagnes personnalisées.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Création de sites web",
+        "description": "Développez un site web professionnel et attrayant qui reflète votre marque et attire vos clients.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Support client",
+        "description": "Notre équipe est là pour vous aider à chaque étape de votre parcours marketing.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "why_choose_us_cards": [
+      {
+        "icon": "search",
+        "title": "Optimisation SEO",
+        "description": "Améliorez votre classement dans les moteurs de recherche grâce à nos techniques d'optimisation avancées."
+      },
+      {
+        "icon": "social_distance",
+        "title": "Gestion des réseaux sociaux",
+        "description": "Développez votre présence sur les réseaux sociaux avec des contenus engageants et stratégiques."
+      },
+      {
+        "icon": "analytics",
+        "title": "Analyse de données",
+        "description": "Nous fournissons des rapports détaillés pour suivre l'efficacité de vos campagnes marketing."
+      }
+    ],
+    "services_small_text": "",
+    "services_heading": "",
+    "why_choose_us_heading": "",
+    "cta_heading": "Boostez votre visibilité en ligne efficacement",
+    "cta_subtitle": "Nous vous aidons à atteindre vos objectifs marketing grâce à des stratégies numériques personnalisées.",
+    "cta_btn_label": "",
+    "cta_link": "",
+    "cta_banner_btn_label": "",
+    "cta_banner_btn_link": "",
+    "footer_tagline": "Avis Conso est une agence spécialisée dans le marketing internet, offrant des solutions sur mesure pour améliorer la présence en ligne de nos clients. Notre équipe d'experts se consacre à fournir des résultats tangibles et à établir des relations durables avec nos partenaires.",
+    "footer_copyright": "© 2026 Avis Conso. All rights reserved.",
+    "values": [],
+    "about_bullet_points": [],
+    "services_page_seo_title": "Services de marketing digital - Avis Conso",
+    "services_page_seo_description": "Explorez nos services de marketing digital, y compris SEO, gestion des réseaux sociaux et plus, pour booster votre activité.",
+    "services_page_hero_title": "",
+    "services_page_hero_subtitle": "",
+    "services_page_small_text": "",
+    "services_page_heading": "",
+    "services_page_description": "",
+    "services_cta_heading": "",
+    "services_cta_text": "",
+    "services_cta_button": "",
+    "contact_page_seo_title": "Contactez Avis Conso - Marketing digital",
+    "contact_page_seo_description": "Pour toute question ou information, contactez-nous ou visitez notre bureau à Moudon, en Suisse.",
+    "contact_page_hero_title": "",
+    "contact_page_hero_subtitle": "",
+    "contact_page_small_text": "",
+    "contact_page_heading": "",
+    "contact_page_description": ""
+  },
+  "_raw": {
+    "years_of_experience": 0
+  },
+  "website_data": {
+    "headings": [],
+    "meta_description": "",
+    "paragraphs": [],
+    "pricing_hints": [],
+    "raw_text": "",
+    "services": [],
+    "team": [],
+    "title": ""
+  },
+  "theme": {
+    "color1": "#1E3A8A",
+    "color2": "#DBEAFE",
+    "color3": "#F59E0B",
+    "cta_color": "#1E3A8A",
+    "hero_dark": "#06060F",
+    "hero_image": "images/All/0001.webp",
+    "why_choose_us_image": "images/All/0003.webp",
+    "values_image": "images/All/0001.webp",
+    "company_image_1": "images/All/0001.webp",
+    "company_image_2": "images/All/0002.webp"
+  },
+  "images": [
+    "images/All/0001.webp",
+    "images/All/0002.webp",
+    "images/All/0003.webp",
+    "images/All/0004.webp",
+    "images/All/0005.webp",
+    "images/All/0006.webp"
+  ],
+  "reviews": [],
+  "review_keywords": [
+    "See photos",
+    "Internet marketing service",
+    "Directions",
+    "Save",
+    "Nearby",
+    "Send to phone",
+    "Share",
+    "ZI Pré-Briand 14, 1510 Moudon, Switzerland",
+    "+41 21 502 76 17",
+    "MRG6+8C Moudon, Switzerland",
+    "Suggest an edit",
+    "Add photos & videos",
+    "Write a review",
+    "Learn more"
+  ],
+  "qa": [],
+  "updates": [],
+  "popular_times": {},
+  "about": {
+    "highlights": []
+  },
+  "about_attrs": [],
+  "social_links": [],
+  "web_results": [],
+  "related_places": [],
+  "section_visibility": {},
+  "_has_videos": false,
+  "_video_list": [],
+  "videos": []
+}

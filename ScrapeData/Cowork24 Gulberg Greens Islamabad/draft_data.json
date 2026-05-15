@@ -1,0 +1,865 @@
+{
+  "template": "bernard",
+  "language": "fr",
+  "business": {
+    "name": "Cowork24 Gulberg Greens Islamabad",
+    "place_type": "Coworking space",
+    "phone": "+92 316 5134161",
+    "email": "info@cowork24.pk",
+    "website": "cowork24.pk",
+    "price_range": "",
+    "rating": 5,
+    "reviews_count": null,
+    "address": "Skypark One, S Ave Rd, above D-Watson, Gulberg Greens Gulberg Greens Block B Gulberg, Islamabad, 44000, Pakistan",
+    "description": "Cowork24 offers affordable coworking space in Islamabad and Rawalpindi with private offices, flexible workspaces, and meeting rooms.",
+    "latitude": "33.6024262",
+    "longitude": "73.1398033",
+    "google_maps_url": "https://www.google.com/maps/place/Cowork24+Gulberg+Greens+Islamabad/@33.6024262,73.1398033,15z/data=!4m7!3m6!1s0x38dfedc3059ae2db:0x7650084366376f7f!8m2!3d33.6024262!4d73.1588577!15sCghjb3dvcmsyNFoKIghjb3dvcmsyNJIBD2Nvd29ya2luZ19zcGFjZeABAA!16s%2Fg%2F11xwb92r7c?entry=tts&g_ep=EgoyMDI2MDUxMi4wIPu8ASoASAFQAw%3D%3D&skid=f8e77833-7908-48ca-a916-f45b6f14df19",
+    "plus_code": "J525+XG Islamabad, Pakistan",
+    "hours": {
+      "monday": "Not available",
+      "tuesday": "Not available",
+      "wednesday": "Not available",
+      "thursday": "Not available",
+      "friday": "Open 24 hours",
+      "saturday": "Not available",
+      "sunday": "Not available"
+    }
+  },
+  "ai": {
+    "brand_short_name": "Cowork24 Gulberg Greens Islamabad",
+    "tagline": "Espaces de coworking abordables à Islamabad",
+    "hero_subtitle": "Profitez d'un environnement de travail flexible et dynamique pour propulser votre entreprise.",
+    "cta_primary": "Réservez Maintenant",
+    "cta_primary_url": "cowork24.pk",
+    "cta_secondary": "Découvrez Nos Services",
+    "cta_secondary_url": "cowork24.pk",
+    "about_paragraph": "Cowork24 est un espace de coworking moderne situé à Gulberg Greens, Islamabad, offrant des bureaux privés, des espaces partagés et des salles de réunion. Notre mission est de fournir un environnement de travail inspirant et économique pour les freelances et les petites entreprises.",
+    "about_story_left": "Cowork24 est un espace de coworking moderne situé à Gulberg Greens, Islamabad, offrant des bureaux privés, des espaces partagés et des salles",
+    "about_story_right": "de réunion. Notre mission est de fournir un environnement de travail inspirant et économique pour les freelances et les petites entreprises.",
+    "seo_title": "Espaces de coworking économiques à Islamabad | Cowork24",
+    "seo_description": "Cowork24 offre des espaces de coworking abordables à Islamabad avec bureaux privés et salles de réunion. Réservez votre espace dès aujourd'hui.",
+    "features": [
+      {
+        "icon": "business_center",
+        "title": "Bureaux Privés",
+        "description": "Profitez d'un espace de travail privé parfaitement adapté à vos besoins professionnels.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "workspace_premium",
+        "title": "Espaces Partagés",
+        "description": "Rejoignez une communauté dynamique dans nos espaces de travail partagés et collaboratifs.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "meeting_room",
+        "title": "Salles de Réunion",
+        "description": "Réservez des salles de réunion entièrement équipées pour vos présentations et conférences.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "high_quality",
+        "title": "Internet Haut Débit",
+        "description": "Restez connecté avec notre connexion Internet rapide et fiable, idéale pour le travail à distance.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "lock",
+        "title": "Sécurité 24/7",
+        "description": "Profitez d'un environnement de travail sécurisé avec un accès contrôlé et une surveillance continue.",
+        "image": "",
+        "link": ""
+      }
+    ],
+    "services_cards": [
+      {
+        "title": "Internet Haut Débit",
+        "description": "Restez connecté avec notre connexion Internet rapide et fiable, idéale pour le travail à distance.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Sécurité 24/7",
+        "description": "Profitez d'un environnement de travail sécurisé avec un accès contrôlé et une surveillance continue.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Alimentation Ininterrompue",
+        "description": "Ne laissez pas les coupures de courant perturber votre travail grâce à notre système d'alimentation de secours.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Assistance Personnalisée",
+        "description": "Bénéficiez d'un soutien professionnel pour toutes vos questions et besoins en matière de coworking.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "services_page_cards": [
+      {
+        "title": "Internet Haut Débit",
+        "description": "Restez connecté avec notre connexion Internet rapide et fiable, idéale pour le travail à distance.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Sécurité 24/7",
+        "description": "Profitez d'un environnement de travail sécurisé avec un accès contrôlé et une surveillance continue.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Alimentation Ininterrompue",
+        "description": "Ne laissez pas les coupures de courant perturber votre travail grâce à notre système d'alimentation de secours.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Assistance Personnalisée",
+        "description": "Bénéficiez d'un soutien professionnel pour toutes vos questions et besoins en matière de coworking.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      }
+    ],
+    "why_choose_us_cards": [
+      {
+        "icon": "business_center",
+        "title": "Bureaux Privés",
+        "description": "Profitez d'un espace de travail privé parfaitement adapté à vos besoins professionnels."
+      },
+      {
+        "icon": "workspace_premium",
+        "title": "Espaces Partagés",
+        "description": "Rejoignez une communauté dynamique dans nos espaces de travail partagés et collaboratifs."
+      },
+      {
+        "icon": "meeting_room",
+        "title": "Salles de Réunion",
+        "description": "Réservez des salles de réunion entièrement équipées pour vos présentations et conférences."
+      }
+    ],
+    "services_small_text": "",
+    "services_heading": "",
+    "why_choose_us_heading": "",
+    "cta_heading": "10 Benefits of Co-working Spaces for Remote Workers",
+    "cta_subtitle": "Profitez d'un environnement de travail flexible et dynamique pour propulser votre entreprise.",
+    "cta_btn_label": "",
+    "cta_link": "",
+    "cta_banner_btn_label": "",
+    "cta_banner_btn_link": "",
+    "footer_tagline": "Cowork24 est un espace de coworking moderne situé à Gulberg Greens, Islamabad, offrant des bureaux privés, des espaces partagés et des salles de réunion. Notre mission est de fournir un environnement de travail inspirant et économique pour les freelances et les petites entreprises.",
+    "footer_copyright": "© 2026 Cowork24 Gulberg Greens Islamabad. All rights reserved.",
+    "values": [],
+    "about_bullet_points": [],
+    "services_page_seo_title": "Services de coworking à Islamabad | Cowork24",
+    "services_page_seo_description": "Découvrez nos services variés de coworking à Islamabad, incluant bureaux privés, salles de réunion et espaces de travail flexibles.",
+    "services_page_hero_title": "",
+    "services_page_hero_subtitle": "",
+    "services_page_small_text": "",
+    "services_page_heading": "",
+    "services_page_description": "",
+    "services_cta_heading": "",
+    "services_cta_text": "",
+    "services_cta_button": "",
+    "contact_page_seo_title": "Contactez Cowork24 à Islamabad",
+    "contact_page_seo_description": "Contactez-nous pour réserver votre espace de coworking à Islamabad ou visitez-nous à Gulberg Greens.",
+    "contact_page_hero_title": "",
+    "contact_page_hero_subtitle": "",
+    "contact_page_small_text": "",
+    "contact_page_heading": "",
+    "contact_page_description": ""
+  },
+  "_raw": {
+    "years_of_experience": 5
+  },
+  "website_data": {
+    "headings": [
+      "Economical & Delightful \ncoworking environment in \nvicinity of Islamabad",
+      "Grow with Us",
+      "Rent a conference & meeting room",
+      "+92-316-5134161",
+      "Coworking During a Pandemic: Business Tips",
+      "Coworking Benefits for Freelancers & SMBs",
+      "How Freelancers Use Coworking to Land Clients",
+      "How a Co-working Space Can Turn Your Startup Into Success?",
+      "10 Benefits of Co-working Spaces for Remote Workers",
+      "Women Entrepreneurs in Pakistan",
+      "5 Best coworking spaces in Islamabad",
+      "Best Coworking Spaces in Islamabad",
+      "Benefits of Diversity and Inclusion at Work"
+    ],
+    "meta_description": "Cowork24 offers affordable coworking space in Islamabad and Rawalpindi with private offices, flexible workspaces, and meeting rooms.",
+    "paragraphs": [
+      "Private offices, shared workspaces, and meeting rooms available in I-10, Gulberg, and PWD Islamabad.",
+      "Cowork24 offers a cordial environment that boosts productivity, innovation, and collaboration. We provide office services from brainstorming conference rooms to work desks and leisure spaces. True to our community-building vision, we provide ample opportunities for personal growth and community connection.",
+      "Join Cowork to Increase Your Productivity Freedom",
+      "Cowork24 fosters a productive, innovative, and collaborative atmosphere. We have honed our skills in providing what you need for a fulfilling work experience from conference rooms for brainstorming to workstations and recreation areas. Our location grants you access to creative minds, cutting-edge ideas, talented individuals, and lower real estate expenses.",
+      "Cowork24 is not just for startups and freelancers. We also cater to multinationals and large corporations. Many well-established companies have utilized or are currently using our comprehensive workspace services.",
+      "Absolutely! Cowork24 is fully equipped to handle large teams, even those exceeding  members. We offer custom desk layouts, white labeling, and private IT and networking infrastructure, all tailored to meet your specific needs.",
+      "Joining Cowork24 offers the flexibility startups need after closing a funding round. As your team size may fluctuate, Cowork24 allows you to easily scale your workspace up or down based on demand. This adaptability helps you stay focused on growth without the fixed costs and commitments of a private office.",
+      "Yes, Cowork24 is fully equipped to support 24/6 operations. We have extensive experience hosting mission-critical teams, including Network Operations Centers and live support teams, ensuring uninterrupted service and reliability.",
+      "Excellent coworking space, offering all essential facilities for a productive work environment. Highly recommended for professionals seeking a comfortable and well-equipped workspace. Just pack your bag and enjoy the office feel in sharing space or in a private office.",
+      "Amazing working environment . 👏 Recommended because I am a part of this Amazing initiative since last 6 months",
+      "Cowork24 is an ideal place for anyone looking for a flexible, well-designed workspace that encourages productivity and creativity. Highly recommended!",
+      "Great CoWorking Space with plenty of Amenities",
+      "Cowork24 is Islamabad’s best economical Coworking space that is available 24/6.",
+      "All Rights Reserved - Cowork24.pk Copyright © 2025",
+      "CoWork24 is Islamabad’s best economical CoWorking space that is available 24 from Monday to Saturday."
+    ],
+    "pricing_hints": [],
+    "raw_text": "Coworking Space in Islamabad | Flexible Offices – Cowork24 Home Services Branches Cowork I-10 Cowork Gulberg Cowork Executive Cowork Premium Gallery Blogs Contact Home Services Branches Cowork I-10 Cowork Gulberg Cowork Executive Cowork Premium Gallery Blogs Contact Menu Home Services Branches Cowork I-10 Cowork Gulberg Cowork Executive Cowork Premium Gallery Blogs Contact +92-316-5134161 Economical & Delightful coworking environment in vicinity of Islamabad Book a TOUR Name Email Location PWD I-10/3 Gulberg Phone Number Message Send Message Grow with Us Private offices, shared workspaces, and meeting rooms available in I-10, Gulberg, and PWD Islamabad. We are open now! Book an officE Premium and Suitable workspace for your Business & Startup Cowork24 offers a cordial environment that boosts productivity, innovation, and collaboration. We provide office services from brainstorming conference rooms to work desks and leisure spaces. True to our community-building vision, we provide ample opportunities for personal growth and community connection. 14 Seats are available High speed internet Uninterruptible power supply Fully Airconditioned rooms Office boy service Fully equipped kitchen Book a Tour Our Coworking Spaces I-10/3 Islamabad Gulberg Greens Islamabad PWD Executive Branch PWD Premium Branch Join Cowork to Increase Your Productivity Freedom Trusted & comfortable space for creative people Cowork24 fosters a productive, innovative, and collaborative atmosphere. We have honed our skills in providing what you need for a fulfilling work experience from conference rooms for brainstorming to workstations and recreation areas. Our location grants you access to creative minds, cutting-edge ideas, talented individuals, and lower real estate expenses. Book a Tour Best Coworking Space in Islamabad Is Cowork24 just for small businesses, or can larger companies rent space too? Cowork24 is not just for startups and freelancers. We also cater to multinationals and large corporations. Many well-established companies have utilized or are currently using our comprehensive workspace services. My team size is 150+ people. Does Cowork24 cater to teams this large? Absolutely! Cowork24 is fully equipped to handle large teams, even those exceeding members. We offer custom desk layouts, white labeling, and private IT and networking infrastructure, all tailored to meet your specific needs. Why join Cowork24 instead of opening a private office as a new startup? Joining Cowork24 offers the flexibility startups need after closing a funding round. As your team size may fluctuate, Cowork24 allows you to easily scale your workspace up or down based on demand. This adaptability helps you stay focused on growth without the fixed costs and commitments of a private office. Does Cowork24 support 24/6 operations with enhanced service? Yes, Cowork24 is fully equipped to support 24/6 operations. We have extensive experience hosting mission-critical teams, including Network Operation",
+    "services": [
+      "Services",
+      "Branches Cowork I-10 Cowork Gulberg Cowork Executive Cowork Premium",
+      "Cowork I-10",
+      "Cowork Gulberg",
+      "Cowork Executive",
+      "Cowork Premium",
+      "Gallery",
+      "Contact",
+      "High speed internet",
+      "Uninterruptible power supply",
+      "Fully Airconditioned rooms",
+      "Office boy service",
+      "Fully equipped kitchen",
+      "Address : Plot # 78, St. 06, I-10/3, Islamabad.",
+      "Address : Skypark One, Main Gulberg Expressway, Islamabad",
+      "Address : Plot # 6 , Block C opposite MCB Bank  PWD , Islamabad",
+      "+92-316-5134161",
+      "+92-333-5289532",
+      "[email protected]"
+    ],
+    "team": [
+      "Join Cowork to Increase Your Productivity Freedom",
+      "Coworking During a Pandemic: Business Tips",
+      "Coworking Benefits for Freelancers & SMBs",
+      "How Freelancers Use Coworking to Land Clients",
+      "Women Entrepreneurs in Pakistan",
+      "Best Coworking Spaces in Islamabad",
+      "Muhammad Naveed Ramzan",
+      "Hafiz Iqrar",
+      "Ch Taiba",
+      "Great CoWorking Space with plenty of Amenities"
+    ],
+    "title": "Coworking Space in Islamabad | Flexible Offices – Cowork24"
+  },
+  "theme": {
+    "color1": "#1E3A8A",
+    "color2": "#DBEAFE",
+    "color3": "#F59E0B",
+    "cta_color": "#1E3A8A",
+    "hero_dark": "#06060F",
+    "hero_image": "images/All/0001.webp",
+    "why_choose_us_image": "images/All/0003.webp",
+    "values_image": "images/All/0011.webp",
+    "company_image_1": "images/All/0001.webp",
+    "company_image_2": "images/All/0002.webp"
+  },
+  "images": [
+    "images/All/0001.webp",
+    "images/All/0002.webp",
+    "images/All/0003.webp",
+    "images/All/0004.webp",
+    "images/All/0005.webp",
+    "images/All/0006.webp",
+    "images/All/0007.webp",
+    "images/All/0008.webp",
+    "images/All/0009.webp",
+    "images/All/0010.webp",
+    "images/All/0011.webp",
+    "images/All/0012.webp",
+    "images/All/0013.webp",
+    "images/All/0014.webp",
+    "images/All/0015.webp",
+    "images/All/0016.webp",
+    "images/All/0017.webp",
+    "images/All/0018.webp",
+    "images/All/0019.webp",
+    "images/All/0020.webp"
+  ],
+  "reviews": [
+    {
+      "author_name": "Muhammad Bilal",
+      "text": "Cowork24 at Gulberg Greens is a beautifully designed coworking space. The aesthetics are modern and welcoming, and the o",
+      "rating": 5,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "Laiba Waseem",
+      "text": "Cowork24 Gulberg is such a premium site with all the amenities you could ask for. From shared spaces to conference rooms",
+      "rating": 5,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "Shahwaiz Imran",
+      "text": "I had the chance to visit at Cowork24 Gulberg and it’s truly an impressive space. The environment is modern, professional, and designed to boost productivity, while the staff are friendly and supportive. With reliable internet, comfortable seating, and well-equipped meeting rooms, it’s the perfect spot for both individual focus and team collaboration.",
+      "rating": 5,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "Meerish Raza",
+      "text": "Cowork 24 is awesome! Clean, comfy, and quiet with fast internet. Staff is super friendly, and the meeting rooms are gre",
+      "rating": 5,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "shah sadiq",
+      "text": "Outstanding coworking experience in Islamabad!\n\nI had an excellent experience at Cowork24 Gulberg Greens. The workspace is modern, well-maintained, and designed for productivity. Internet speed is reliable, seating is comfortable, and the overall environment is professional and quiet.\n\nThe staff is courteous, and the location in Gulberg Greens is convenient. A great option for professionals, remote workers, and startups looking for a high-quality coworking space in Islamabad. Highly recommended.",
+      "rating": 5,
+      "date": "4 months ago"
+    },
+    {
+      "author_name": "SHAHAB AHMED KIYANI",
+      "text": "I visited Cowork24 Gulberg today and was impressed by its modern design, welcoming staff, and productive atmosphere. The",
+      "rating": 5,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "Abdul Wahid",
+      "text": "Excellent facility. I was in Pakistan for five weeks and needed a safe, reliable place where I could work smoothly without interruptions. I found this facility through an online search, and the sign-up process was seamless.\n\nSyed Zain, who manages the facility, is exceptional—warm, welcoming, and incredibly attentive. He went above and beyond to ensure my stay was comfortable and enjoyable. The support staff was equally cooperative, helpful, and friendly.\n\nI highly recommend this space to anyone—individuals or businesses—looking for a clean, secure, and well-maintained environment to carry out their day-to-day work.",
+      "rating": 5,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "Malik Hummayun",
+      "text": "Cowork24 is one of the best co-working in twin cities. Their approach to invest their resources for community is commend",
+      "rating": 5,
+      "date": "3 months ago"
+    },
+    {
+      "author_name": "xadaf kazmi",
+      "text": "I recently secured my office at Cowork24 Gulberg, and I couldn't be happier with my decision. This space truly stands out as a premium business environment that combines luxury, comfort, and professionalism in the best way possible.\n\nFrom fully equipped offices and high-end meeting rooms to beautifully designed common areas, every corner reflects attention to detail and quality. The ambiance is vibrant yet peaceful—perfect for staying productive while feeling relaxed and inspired. The views are remarkable and really add to the overall experience.\n\nWhat impressed me most is the exceptional management and support staff. They are welcoming, efficient, and always available to assist. You can clearly see the effort and vision behind this place; the owner has truly created a world-class workspace.\n\nAlhamdulillah, I am extremely satisfied with my office here. If you're looking for a professional setup with top-tier amenities and a premium community, I highly recommend visiting Cowork24 Gulberg and experiencing it for yourself. Whether you're a business owner, freelancer, or growing team — this place is a game changer.",
+      "rating": 5,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "Aqsa Batool",
+      "text": "Cowork24 Gulberg offers the perfect mix of comfort and productivity. Modern setup, great staff, and a cafe that adds to ",
+      "rating": 5,
+      "date": "5 months ago"
+    },
+    {
+      "author_name": "Omair Rafique",
+      "text": "I recently joined Cowork24 in Gulberg, Islamabad, and it’s an ideal workspace for software engineers and software teams. The location is excellent, offering a great view and easy accessibility. Their fully soundproof rooms provide the perfect environment for coding, calls, and focused development work better than what I’ve experienced in other coworking spaces. The staff is professional and very supportive, and the workspace is always neat and well-maintained. If you’re looking for a productive, quiet, and professional setup for your software projects or tech team, Cowork24 is definitely one of the best options in the area.",
+      "rating": 5,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "Hamaad Hamaad",
+      "text": "I’ve had a great experience working at Cowork24 in Gulberg Greens. The environment is modern, clean, and perfectly designed for productivity. The staff is always friendly and supportive, making it easy to focus and get things done. I really appreciate the reliable internet, comfortable seating, and overall professional atmosphere. It’s an ideal place for anyone looking for a peaceful yet motivating space to work.",
+      "rating": 5,
+      "date": "6 months ago"
+    },
+    {
+      "author_name": "Mrs.Syed Ali",
+      "text": "Securing my office at Cowork24 Gulberg has been an incredible experience. The space blends luxury, comfort, and professionalism beautifully—every corner is thoughtfully designed. The ambiance, views, and facilities are top-notch, and the management team is exceptionally supportive and professional. Alhamdulillah, I couldn’t be happier. If you’re looking for a premium, world-class workspace, Cowork24 is the place to be!",
+      "rating": 5,
+      "date": "Edited 6 months ago"
+    },
+    {
+      "author_name": "muhib jutt",
+      "text": "Great coworking space with a professional environment and excellent management. The internet is fast, the staff is respo",
+      "rating": 5,
+      "date": "5 months ago"
+    },
+    {
+      "author_name": "Omer Danish",
+      "text": "Great coworking space, clean, modern, and productive! Fast Wi-Fi, friendly staff, and a great cafe with a view. Highly r",
+      "rating": 5,
+      "date": "6 months ago"
+    }
+  ],
+  "review_keywords": [
+    "Restaurants",
+    "Hotels",
+    "Things to do",
+    "Transit",
+    "Parking",
+    "Pharmacies",
+    "ATMs",
+    "See photos",
+    "Coworking space",
+    "Directions",
+    "Save",
+    "Nearby",
+    "Send to phone",
+    "Share",
+    "+92 316 5134161",
+    "J525+XG Islamabad, Pakistan",
+    "Suggest an edit",
+    "Write a review",
+    "Learn more"
+  ],
+  "qa": [],
+  "updates": [],
+  "popular_times": {},
+  "about": {
+    "highlights": [
+      "Private offices, shared workspaces, and meeting rooms available in I-10, Gulberg, and PWD Islamabad.",
+      "Cowork24 offers a cordial environment that boosts productivity, innovation, and collaboration. We provide office services from brainstorming conference rooms to work desks and leisure spaces. True to our community-building vision, we provide ample opportunities for personal growth and community connection.",
+      "Join Cowork to Increase Your Productivity Freedom",
+      "Cowork24 fosters a productive, innovative, and collaborative atmosphere. We have honed our skills in providing what you need for a fulfilling work experience from conference rooms for brainstorming to workstations and recreation areas. Our location grants you access to creative minds, cutting-edge ideas, talented individuals, and lower real estate expenses."
+    ]
+  },
+  "about_attrs": [],
+  "social_links": [],
+  "web_results": [],
+  "related_places": [],
+  "section_visibility": {},
+  "_has_videos": false,
+  "_video_list": [],
+  "videos": [],
+  "reviews_translated": {
+    "en": [
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2pFeU1GSlpVMnhwVURKaVJuTmZlWFk1YnpGRlVrRRAB",
+        "author_name": "Muhammad Bilal",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "4 months ago",
+        "text": "Cowork24 at Gulberg Greens is a beautifully designed coworking space. The aesthetics are modern and welcoming, and the o",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWxrQjBQU6-F439pI2CrtXVk-3EdqDPmEq3NmGWzSDcwFX-T8Fw=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2paWGNuRjBOREZxTjFWRU5tZENOMTg0TjBsVlQyYxAB",
+        "author_name": "Laiba Waseem",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "Cowork24 Gulberg is such a premium site with all the amenities you could ask for. From shared spaces to conference rooms",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocIFFvwsrI_hnErwmGHzQFiNllAUEj8zv0TqXMhudQVMcfp55g=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21vMU5FbGpZVkI2VUdOcVZEUm5NRlI0VVVweGJuYxAB",
+        "author_name": "Shahwaiz Imran",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "I had the chance to visit at Cowork24 Gulberg and it’s truly an impressive space. The environment is modern, professional, and designed to boost productivity, while the staff are friendly and supportive. With reliable internet, comfortable seating, and well-equipped meeting rooms, it’s the perfect spot for both individual focus and team collaboration.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjVRu4agY9ONPtnp9lQyG1pt9FaZI9h0aPhrpY4BL9ZbZbGeZS8=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2w4dE9GOXVhRVpJTms5NlJsbDRNVTVvT1VsNlJFRRAB",
+        "author_name": "Meerish Raza",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "Cowork 24 is awesome! Clean, comfy, and quiet with fast internet. Staff is super friendly, and the meeting rooms are gre",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocLMuusROx0vbMzfE0tJNfVimE2I4ckbRKXTIJMitShXz0037Q=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21wbk9GcHhabW93Y0dJM1RuQldUakV4VWxKWVEzYxAB",
+        "author_name": "shah sadiq",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "4 months ago",
+        "text": "Outstanding coworking experience in Islamabad!\n\nI had an excellent experience at Cowork24 Gulberg Greens. The workspace is modern, well-maintained, and designed for productivity. Internet speed is reliable, seating is comfortable, and the overall environment is professional and quiet.\n\nThe staff is courteous, and the location in Gulberg Greens is convenient. A great option for professionals, remote workers, and startups looking for a high-quality coworking space in Islamabad. Highly recommended.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocIhCwoKt2GQA-sjq0zBmzWNWDxVvMo7AsJIDigSi3xSQAGqZA=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21SZmFEWlRURFJVYkZCRFJXSldkblZxZHpoclVXYxAB",
+        "author_name": "SHAHAB AHMED KIYANI",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "I visited Cowork24 Gulberg today and was impressed by its modern design, welcoming staff, and productive atmosphere. The",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocKMarOoNehaa8cYE232xvBGf7r0YmeZOXjmb8K-CgCJDfIHMg=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT25wMVVuZGZiVmN6TkdaRlRuUkNUbGxvYkdkemRsRRAB",
+        "author_name": "Abdul Wahid",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "3 months ago",
+        "text": "Excellent facility. I was in Pakistan for five weeks and needed a safe, reliable place where I could work smoothly without interruptions. I found this facility through an online search, and the sign-up process was seamless.\n\nSyed Zain, who manages the facility, is exceptional—warm, welcoming, and incredibly attentive. He went above and beyond to ensure my stay was comfortable and enjoyable. The support staff was equally cooperative, helpful, and friendly.\n\nI highly recommend this space to anyone—individuals or businesses—looking for a clean, secure, and well-maintained environment to carry out their day-to-day work.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjU7D0fFxBnnRphNUo2VoxOStJFxgy7T8QN8KPOLttX3mOB933XT0g=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2pKRmVXdE1ObkZFVkdKQ1dEUjJNVEpJVXpWNlJrRRAB",
+        "author_name": "Malik Hummayun",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "3 months ago",
+        "text": "Cowork24 is one of the best co-working in twin cities. Their approach to invest their resources for community is commend",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjU6MFijgnUlGzwoFKn8e6QHgX9l0GCkf4gpPoKLIhyGm2vhc_ecyQ=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2w4dE9XMUdjbkJ4WDJvdFNEQjVURnB4TUU1eVpXYxAB",
+        "author_name": "xadaf kazmi",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "I recently secured my office at Cowork24 Gulberg, and I couldn't be happier with my decision. This space truly stands out as a premium business environment that combines luxury, comfort, and professionalism in the best way possible.\n\nFrom fully equipped offices and high-end meeting rooms to beautifully designed common areas, every corner reflects attention to detail and quality. The ambiance is vibrant yet peaceful—perfect for staying productive while feeling relaxed and inspired. The views are remarkable and really add to the overall experience.\n\nWhat impressed me most is the exceptional management and support staff. They are welcoming, efficient, and always available to assist. You can clearly see the effort and vision behind this place; the owner has truly created a world-class workspace.\n\nAlhamdulillah, I am extremely satisfied with my office here. If you're looking for a professional setup with top-tier amenities and a premium community, I highly recommend visiting Cowork24 Gulberg and experiencing it for yourself. Whether you're a business owner, freelancer, or growing team — this place is a game changer.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjXdbyR84ZhoSRW5wdazPZgkb6AJvqZxUwRkxnn5B71Bw1uMyic=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT25KNWVrOWtTRmt3WTFCNlFXTTRTRGhUY2tkQ2FsRRAB",
+        "author_name": "Aqsa Batool",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "5 months ago",
+        "text": "Cowork24 Gulberg offers the perfect mix of comfort and productivity. Modern setup, great staff, and a cafe that adds to ",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWg6qQ9B117NMDHGDTaCnWkRijb5wM7uFf7ri0a2PFLGkrwlk9z=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2tFNU9XRkZOekpOYWxOdE1saHlVV1YxVUhWWFlXYxAB",
+        "author_name": "Omair Rafique",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "I recently joined Cowork24 in Gulberg, Islamabad, and it’s an ideal workspace for software engineers and software teams. The location is excellent, offering a great view and easy accessibility. Their fully soundproof rooms provide the perfect environment for coding, calls, and focused development work better than what I’ve experienced in other coworking spaces. The staff is professional and very supportive, and the workspace is always neat and well-maintained. If you’re looking for a productive, quiet, and professional setup for your software projects or tech team, Cowork24 is definitely one of the best options in the area.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocIMhi6a1EEYrlhq4L9kCtVS-yN4S3X2MV9eYN15hhiV8MOwKw=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2tJNE5VdDRUVGx0WVZodWNuUkdSMWRVYUZWbVNYYxAB",
+        "author_name": "Hamaad Hamaad",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "I’ve had a great experience working at Cowork24 in Gulberg Greens. The environment is modern, clean, and perfectly designed for productivity. The staff is always friendly and supportive, making it easy to focus and get things done. I really appreciate the reliable internet, comfortable seating, and overall professional atmosphere. It’s an ideal place for anyone looking for a peaceful yet motivating space to work.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocI_8UftkfJQbllGSgIC9MpmprIx8GBlrmBUa2rN-UFcrHttWg=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xGV00ybEpjV2hZYjFWRWNIRkRjWE10U2tGM1ZXYxAB",
+        "author_name": "Mrs.Syed Ali",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "Edited 6 months ago",
+        "text": "Securing my office at Cowork24 Gulberg has been an incredible experience. The space blends luxury, comfort, and professionalism beautifully—every corner is thoughtfully designed. The ambiance, views, and facilities are top-notch, and the management team is exceptionally supportive and professional. Alhamdulillah, I couldn’t be happier. If you’re looking for a premium, world-class workspace, Cowork24 is the place to be!",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjV4b5ykQrLItB94IH13HMdwx8Y6z_XvSwuBzipaQtwpKdrpj0w=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2kxRFgzcFlWbU5ZUmtodlVWVkVkRk0yZHkxSWFtYxAB",
+        "author_name": "muhib jutt",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "5 months ago",
+        "text": "Great coworking space with a professional environment and excellent management. The internet is fast, the staff is respo",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocK-WxwyjJgTUBhtttwcfx-G9X9RyX_vQicWBMX9MAWvQDjMew=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xWU1dsVTRiSHBrZVVkQ1ZqVjJhSGcxUjFScFJtYxAB",
+        "author_name": "Omer Danish",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "Great coworking space, clean, modern, and productive! Fast Wi-Fi, friendly staff, and a great cafe with a view. Highly r",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocJEM4JekwVp4Q87LsuKRTK5kFRRL_TjAOFJAOq9XA30hLRL1NA=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21wV1FrYzVlVTVGTVhoWE1sUkpMV0pYY21WZmRFRRAB",
+        "author_name": "Asheer Fatima",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "3 months ago",
+        "text": "CoWork24 in Gulberg Islamabad offers a professional and well-maintained workspace with a calm, focused.\nThe staff is cooperative and responsive to members’ needs.\nA great option for freelancers and small teams looking for a productive setup in a prime location.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocJkR2bYLWX3Vf3cjDLC1PHuifHjbiszzJ6wUp9hK4SFIMxk3g=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2t4T1R6SjBjV0pTV1hOT2FrMXVabmh6WjB4b1JIYxAB",
+        "author_name": "Shahid Abbas",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "Islamabad's most premium co-working space with exceptional service and matchless cafe.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWZ0t_5s_qUvm3Uc2LK8nDf9rYak19c2rq_rRNn9Tnnmr8ZabAd=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21wekxYSkdhbVI2TXpOSldVbDRkbFpFVG5WeVRGRRAB",
+        "author_name": "Malik Faisal",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "Alhamdulillah I am extremely pleased with this space cowork24 It’s a wonderful place with a great staff and the owner ha",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocIrQLoY_RqOvjLFfDwvYrfIoufGDsgPN-JF3oded8cQKvYX_w=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT214YVFVWkJVa04yTkhZMlMzSnBhRVF5UWxoWlNVRRAB",
+        "author_name": "Rida Zain",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "Edited 4 months ago",
+        "text": "If you’re looking for a coworking space.Do give these guys a try, they’re one of the most professional teams I’ve come across and are super easy to work with. The office is spacious, beautifully designed, and equipped with all the modern facilities you need for a productive day. The atmosphere is calm and inspiring, making it a great place to focus and collaborate.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocLD8stDrG1YCy0-UNR9gy4-DFiykK_Afp5eJ9vW4rICefL-pg=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2pCaGFrTTNWMXBOUzNjMk1IWndhRXRvYkRKdWRYYxAB",
+        "author_name": "Aman Sameer",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "arguably the best space to work! the atmosphere and vibe makes it the top spot in the twin cities.\nmy fav part has to be",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjXMTrN1jeIFu2nNNa2SHPY98u-2J38mlBH1saFZdmUhtDWKs8GW=s800"
+      }
+    ],
+    "fr": [
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2pFeU1GSlpVMnhwVURKaVJuTmZlWFk1YnpGRlVrRRAB",
+        "author_name": "Muhammad Bilal",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "4 months ago",
+        "text": "Cowork24 à Gulberg Greens est un espace de coworking magnifiquement conçu. L'esthétique est moderne et accueillante, et le o",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWxrQjBQU6-F439pI2CrtXVk-3EdqDPmEq3NmGWzSDcwFX-T8Fw=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2paWGNuRjBOREZxTjFWRU5tZENOMTg0TjBsVlQyYxAB",
+        "author_name": "Laiba Waseem",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "Cowork24 Gulberg est un site de premier choix avec toutes les commodités que vous pourriez demander. Des espaces partagés aux salles de conférence",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocIFFvwsrI_hnErwmGHzQFiNllAUEj8zv0TqXMhudQVMcfp55g=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21vMU5FbGpZVkI2VUdOcVZEUm5NRlI0VVVweGJuYxAB",
+        "author_name": "Shahwaiz Imran",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "J'ai eu la chance de visiter Cowork24 Gulberg et c'est vraiment un espace impressionnant. L'environnement est moderne, professionnel et conçu pour stimuler la productivité, tandis que le personnel est amical et serviable. Avec un internet fiable, des sièges confortables et des salles de réunion bien équipées, c'est l'endroit parfait pour se concentrer individuellement et collaborer en équipe.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjVRu4agY9ONPtnp9lQyG1pt9FaZI9h0aPhrpY4BL9ZbZbGeZS8=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2w4dE9GOXVhRVpJTms5NlJsbDRNVTVvT1VsNlJFRRAB",
+        "author_name": "Meerish Raza",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "Cowork 24 est génial ! Propre, confortable et calme avec un internet rapide. Le personnel est super amical, et les salles de réunion sont gre",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocLMuusROx0vbMzfE0tJNfVimE2I4ckbRKXTIJMitShXz0037Q=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21wbk9GcHhabW93Y0dJM1RuQldUakV4VWxKWVEzYxAB",
+        "author_name": "shah sadiq",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "4 months ago",
+        "text": "Expérience de coworking exceptionnelle à Islamabad !\n\nJ'ai eu une excellente expérience à Cowork24 Gulberg Greens. L'espace de travail est moderne, bien entretenu et conçu pour la productivité. La vitesse de l'internet est fiable, les sièges sont confortables et l'environnement général est professionnel et calme.\n\nLe personnel est courtois, et l'emplacement à Gulberg Greens est pratique. Une excellente option pour les professionnels, les travailleurs à distance et les startups à la recherche d'un espace de coworking de haute qualité à Islamabad. Hautement recommandé.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocIhCwoKt2GQA-sjq0zBmzWNWDxVvMo7AsJIDigSi3xSQAGqZA=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21SZmFEWlRURFJVYkZCRFJXSldkblZxZHpoclVXYxAB",
+        "author_name": "SHAHAB AHMED KIYANI",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "J'ai visité Cowork24 Gulberg aujourd'hui et j'ai été impressionné par son design moderne, son personnel accueillant et son atmosphère productive. Le",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocKMarOoNehaa8cYE232xvBGf7r0YmeZOXjmb8K-CgCJDfIHMg=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT25wMVVuZGZiVmN6TkdaRlRuUkNUbGxvYkdkemRsRRAB",
+        "author_name": "Abdul Wahid",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "3 months ago",
+        "text": "Excellente installation. J'étais au Pakistan pendant cinq semaines et j'avais besoin d'un endroit sûr et fiable où je pouvais travailler sans interruptions. J'ai trouvé cette installation grâce à une recherche en ligne, et le processus d'inscription était sans faille.\n\nSyed Zain, qui gère l'installation, est exceptionnel—chaleureux, accueillant et incroyablement attentif. Il a fait tout son possible pour s'assurer que mon séjour soit confortable et agréable. Le personnel de soutien était également coopératif, utile et amical.\n\nJe recommande vivement cet espace à quiconque—individus ou entreprises—cherchant un environnement propre, sécurisé et bien entretenu pour mener à bien leur travail quotidien.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjU7D0fFxBnnRphNUo2VoxOStJFxgy7T8QN8KPOLttX3mOB933XT0g=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2pKRmVXdE1ObkZFVkdKQ1dEUjJNVEpJVXpWNlJrRRAB",
+        "author_name": "Malik Hummayun",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "3 months ago",
+        "text": "Cowork24 est l'un des meilleurs espaces de coworking dans les villes jumelles. Leur approche d'investir leurs ressources pour la communauté est louable.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjU6MFijgnUlGzwoFKn8e6QHgX9l0GCkf4gpPoKLIhyGm2vhc_ecyQ=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2w4dE9XMUdjbkJ4WDJvdFNEQjVURnB4TUU1eVpXYxAB",
+        "author_name": "xadaf kazmi",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "J'ai récemment sécurisé mon bureau à Cowork24 Gulberg, et je ne pourrais pas être plus heureux de ma décision. Cet espace se distingue vraiment comme un environnement commercial premium qui allie luxe, confort et professionnalisme de la meilleure façon possible.\n\nDes bureaux entièrement équipés et des salles de réunion haut de gamme aux espaces communs magnifiquement conçus, chaque coin reflète une attention aux détails et à la qualité. L'ambiance est vibrante mais paisible—parfaite pour rester productif tout en se sentant détendu et inspiré. Les vues sont remarquables et ajoutent vraiment à l'expérience globale.\n\nCe qui m'a le plus impressionné, c'est la gestion exceptionnelle et le personnel de soutien. Ils sont accueillants, efficaces et toujours disponibles pour aider. On peut clairement voir l'effort et la vision derrière cet endroit ; le propriétaire a vraiment créé un espace de travail de classe mondiale.\n\nAlhamdulillah, je suis extrêmement satisfait de mon bureau ici. Si vous recherchez un cadre professionnel avec des commodités de premier ordre et une communauté premium, je recommande vivement de visiter Cowork24 Gulberg et de l'expérimenter par vous-même. Que vous soyez propriétaire d'entreprise, freelance ou équipe en croissance — cet endroit est un véritable changement de jeu.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjXdbyR84ZhoSRW5wdazPZgkb6AJvqZxUwRkxnn5B71Bw1uMyic=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT25KNWVrOWtTRmt3WTFCNlFXTTRTRGhUY2tkQ2FsRRAB",
+        "author_name": "Aqsa Batool",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "5 months ago",
+        "text": "Cowork24 Gulberg offre le mélange parfait de confort et de productivité. Configuration moderne, excellent personnel, et un café qui ajoute à",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWg6qQ9B117NMDHGDTaCnWkRijb5wM7uFf7ri0a2PFLGkrwlk9z=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2tFNU9XRkZOekpOYWxOdE1saHlVV1YxVUhWWFlXYxAB",
+        "author_name": "Omair Rafique",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "J'ai récemment rejoint Cowork24 à Gulberg, Islamabad, et c'est un espace de travail idéal pour les ingénieurs logiciels et les équipes de logiciels. L'emplacement est excellent, offrant une belle vue et un accès facile. Leurs salles entièrement insonorisées offrent l'environnement parfait pour coder, passer des appels et travailler sur des développements concentrés, mieux que ce que j'ai expérimenté dans d'autres espaces de coworking. Le personnel est professionnel et très solidaire, et l'espace de travail est toujours propre et bien entretenu. Si vous recherchez un cadre productif, calme et professionnel pour vos projets logiciels ou votre équipe technique, Cowork24 est définitivement l'une des meilleures options de la région.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocIMhi6a1EEYrlhq4L9kCtVS-yN4S3X2MV9eYN15hhiV8MOwKw=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2tJNE5VdDRUVGx0WVZodWNuUkdSMWRVYUZWbVNYYxAB",
+        "author_name": "Hamaad Hamaad",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "J'ai eu une excellente expérience de travail à Cowork24 à Gulberg Greens. L'environnement est moderne, propre et parfaitement conçu pour la productivité. Le personnel est toujours amical et serviable, ce qui facilite la concentration et l'accomplissement des tâches. J'apprécie vraiment l'internet fiable, les sièges confortables et l'atmosphère professionnelle générale. C'est un endroit idéal pour quiconque cherche un espace paisible mais motivant pour travailler.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocI_8UftkfJQbllGSgIC9MpmprIx8GBlrmBUa2rN-UFcrHttWg=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xGV00ybEpjV2hZYjFWRWNIRkRjWE10U2tGM1ZXYxAB",
+        "author_name": "Mrs.Syed Ali",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "Edited 6 months ago",
+        "text": "Sécuriser mon bureau à Cowork24 Gulberg a été une expérience incroyable. L'espace allie luxe, confort et professionnalisme de manière magnifique—chaque coin est soigneusement conçu. L'ambiance, les vues et les installations sont de premier ordre, et l'équipe de direction est exceptionnellement solidaire et professionnelle. Alhamdulillah, je ne pourrais pas être plus heureux. Si vous recherchez un espace de travail premium et de classe mondiale, Cowork24 est l'endroit où il faut être !",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjV4b5ykQrLItB94IH13HMdwx8Y6z_XvSwuBzipaQtwpKdrpj0w=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2kxRFgzcFlWbU5ZUmtodlVWVkVkRk0yZHkxSWFtYxAB",
+        "author_name": "muhib jutt",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "5 months ago",
+        "text": "Super espace de coworking avec un environnement professionnel et une excellente gestion. L'internet est rapide, le personnel est réactif",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocK-WxwyjJgTUBhtttwcfx-G9X9RyX_vQicWBMX9MAWvQDjMew=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2xWU1dsVTRiSHBrZVVkQ1ZqVjJhSGcxUjFScFJtYxAB",
+        "author_name": "Omer Danish",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "Super espace de coworking, propre, moderne et productif ! Wi-Fi rapide, personnel amical, et un excellent café avec vue. Hautement r",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocJEM4JekwVp4Q87LsuKRTK5kFRRL_TjAOFJAOq9XA30hLRL1NA=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21wV1FrYzVlVTVGTVhoWE1sUkpMV0pYY21WZmRFRRAB",
+        "author_name": "Asheer Fatima",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "3 months ago",
+        "text": "CoWork24 à Gulberg Islamabad offre un espace de travail professionnel et bien entretenu avec un environnement calme et concentré.\nLe personnel est coopératif et réactif aux besoins des membres.\nUne excellente option pour les freelances et les petites équipes à la recherche d'un cadre productif dans un emplacement privilégié.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocJkR2bYLWX3Vf3cjDLC1PHuifHjbiszzJ6wUp9hK4SFIMxk3g=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2t4T1R6SjBjV0pTV1hOT2FrMXVabmh6WjB4b1JIYxAB",
+        "author_name": "Shahid Abbas",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "L'espace de coworking le plus premium d'Islamabad avec un service exceptionnel et un café inégalé.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjWZ0t_5s_qUvm3Uc2LK8nDf9rYak19c2rq_rRNn9Tnnmr8ZabAd=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT21wekxYSkdhbVI2TXpOSldVbDRkbFpFVG5WeVRGRRAB",
+        "author_name": "Malik Faisal",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "Alhamdulillah, je suis extrêmement satisfait de cet espace cowork24. C'est un endroit merveilleux avec un excellent personnel et le propriétaire a",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocIrQLoY_RqOvjLFfDwvYrfIoufGDsgPN-JF3oded8cQKvYX_w=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT214YVFVWkJVa04yTkhZMlMzSnBhRVF5UWxoWlNVRRAB",
+        "author_name": "Rida Zain",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "Edited 4 months ago",
+        "text": "Si vous recherchez un espace de coworking. N'hésitez pas à essayer ces gars, ils sont l'une des équipes les plus professionnelles que j'ai rencontrées et sont super faciles à travailler. Le bureau est spacieux, magnifiquement conçu et équipé de toutes les installations modernes dont vous avez besoin pour une journée productive. L'atmosphère est calme et inspirante, ce qui en fait un excellent endroit pour se concentrer et collaborer.",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a/ACg8ocLD8stDrG1YCy0-UNR9gy4-DFiykK_Afp5eJ9vW4rICefL-pg=s800"
+      },
+      {
+        "review_id": "Ci9DQUlRQUNvZENodHljRjlvT2pCaGFrTTNWMXBOUzNjMk1IWndhRXRvYkRKdWRYYxAB",
+        "author_name": "Aman Sameer",
+        "author_url": "",
+        "rating": 5.0,
+        "date": "6 months ago",
+        "text": "sans doute le meilleur espace de travail ! L'atmosphère et l'ambiance en font le meilleur endroit dans les villes jumelles.\nMa partie préférée doit être",
+        "local_guide": "",
+        "likes": 0,
+        "images": "https://lh3.googleusercontent.com/a-/ALV-UjXMTrN1jeIFu2nNNa2SHPY98u-2J38mlBH1saFZdmUhtDWKs8GW=s800"
+      }
+    ]
+  }
+}

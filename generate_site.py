@@ -98,6 +98,30 @@ def _tr(translations: dict, key_path: str, fallback: str = "") -> str:
     return value if isinstance(value, str) else fallback
 
 
+def _format_time_for_24h_locale(hours_text: str, lang_file_code: str) -> str:
+    """Convert AM/PM opening hours to 24h display for French and German sites."""
+    if lang_file_code not in {"fr", "gn"} or not hours_text:
+        return hours_text
+
+    def repl(match):
+        hour = int(match.group(1))
+        minute = int(match.group(2) or "0")
+        meridiem = match.group(3).upper().replace(".", "")
+        if meridiem == "PM" and hour != 12:
+            hour += 12
+        elif meridiem == "AM" and hour == 12:
+            hour = 0
+        return f"{hour}h{minute:02d}"
+
+    formatted = re.sub(
+        r"\b(\d{1,2})(?::(\d{2}))?\s*([AP]\.?M\.?)\b",
+        repl,
+        str(hours_text),
+        flags=re.IGNORECASE,
+    )
+    return re.sub(r"\s*[–—]\s*", " - ", formatted)
+
+
 def _e(text) -> str:
     """HTML-escape a value."""
     return html_lib.escape(str(text or ""), quote=True)
@@ -881,6 +905,8 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     for hour_entry in opening_hours:
         if hour_entry.get("hours") == "CLOSED_PLACEHOLDER":
             hour_entry["hours"] = closed_text
+        elif not hour_entry.get("is_closed"):
+            hour_entry["hours"] = _format_time_for_24h_locale(hour_entry.get("hours", ""), lang_file_code)
 
     # Generate dynamic navigation links based on enabled sections
     nav_links = []
@@ -1063,7 +1089,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             # For now, just use the first available day if data exists
             for day, time in hours_dict.items():
                 if time and time.lower() not in ["not available", "closed", "fermé"]:
-                    hours_summary = time
+                    hours_summary = _format_time_for_24h_locale(time, lang_file_code)
                     break
 
         # Split features into advantages/services, with dedicated Bernard data preferred
@@ -1298,8 +1324,9 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
     if template == "bernard":
         from markupsafe import Markup
         context["bernard_css"] = Markup(context["bernard_css"])
-        # Override secondary CTA URL for multipage mode to go to services page
+        # In multipage Bernard sites, hero CTAs should stay within our generated site.
         if page_template is not None:
+            context["cta_primary_url"] = "contact.html"
             context["cta_secondary_url"] = "services.html"
 
     # Add theme colors to context for default template
