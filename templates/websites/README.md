@@ -11,10 +11,9 @@ Each template consists of:
 - `facade`: Corporate-focused external template with config-driven sections
 
 ## Section Rendering Rules
-- Sections only render when both conditions pass:
-  1. Enabled in template config (`template.json`)
-  2. Data exists (`_has_section_data`) and section visibility allows it
-- Empty reviews/videos/faq sections are skipped automatically
+- Sections render from the Jinja templates for the selected template/page.
+- Admin visibility is saved in `section_visibility` and applied by `generate_site.py` before template rendering.
+- Empty media-driven sections such as videos/gallery are skipped automatically when their context lists are empty.
 
 ## Gallery Variants
 - `grid`: Shows all images in a responsive grid (up to configured max)

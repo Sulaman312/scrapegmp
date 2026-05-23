@@ -320,76 +320,18 @@ def _find_videos(videos_dir):
     return results
 
 
-def load_template_config(template_id: str) -> dict:
-    """Load a template's configuration from template.json with safe defaults."""
-    config_path = os.path.join(
-        os.path.dirname(__file__),
-        "templates", "websites", template_id, "template.json"
-    )
-    if os.path.isfile(config_path):
-        try:
-            with open(config_path, "r", encoding="utf-8") as f:
-                loaded = json.load(f)
-                if isinstance(loaded, dict):
-                    return loaded
-        except Exception as exc:
-            _log.warning(f"Failed to load template config for '{template_id}': {exc}")
-
-    return {
-        "id": template_id,
-        "sections": {"enabled": [], "configs": {}},
-        "theme": {"color_mode": "solid"},
-    }
+def _section_visibility_aliases(section_key: str) -> list[str]:
+    key = str(section_key or "").strip()
+    return list(dict.fromkeys([
+        key,
+        key.replace("-", "_"),
+        key.replace("_", "-"),
+    ]))
 
 
-def _is_section_enabled(section_id: str, template_config: dict) -> bool:
-    enabled = (template_config.get("sections") or {}).get("enabled") or []
-    if not enabled:
-        return True
-    return section_id in enabled
-
-
-def _has_section_data(section_type: str, data: dict) -> bool:
-    """Validate whether a section has renderable data."""
-    if section_type == "reviews":
-        reviews = data.get("reviews", [])
-        return bool(reviews and any((r.get("text") or "").strip() for r in reviews if isinstance(r, dict)))
-
-    if section_type == "videos":
-        videos = data.get("videos", [])
-        return bool(videos and len(videos) > 0)
-
-    if section_type in {"gallery", "gallery_alt", "portfolio"}:
-        images = data.get("images", [])
-        return bool(images and len(images) > 0)
-
-    if section_type == "faq":
-        qa = data.get("qa", [])
-        return bool(qa and any((q.get("question") or "").strip() for q in qa if isinstance(q, dict)))
-
-    if section_type in {"features", "services", "process"}:
-        features = data.get("features") or data.get("ai", {}).get("features", [])
-        return bool(features and len(features) > 0)
-
-    if section_type == "about":
-        ai = data.get("ai", {})
-        return bool((ai.get("about_paragraph") or "").strip())
-
-    if section_type == "contact":
-        biz = data.get("business", {})
-        return bool((biz.get("address") or "").strip() or (biz.get("phone") or "").strip() or (biz.get("email") or "").strip())
-
-    if section_type in {"stats", "testimonials"}:
-        biz = data.get("business", {})
-        if section_type == "stats":
-            return bool(biz.get("rating") or biz.get("reviews_count"))
-        reviews = data.get("reviews", [])
-        return bool(reviews and len(reviews) >= 1)
-
-    if section_type in {"cta", "footer", "hero", "navbar", "top_header"}:
-        return True
-
-    return False
+def _is_section_visible(raw: dict, section_key: str) -> bool:
+    visibility = (raw or {}).get("section_visibility") or {}
+    return not any(visibility.get(alias) is False for alias in _section_visibility_aliases(section_key))
 
 
 def _build_gallery_grid(images: list, media_prefix: str, max_images: int = 16, title: str = "Gallery") -> str:
@@ -908,25 +850,39 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         elif not hour_entry.get("is_closed"):
             hour_entry["hours"] = _format_time_for_24h_locale(hour_entry.get("hours", ""), lang_file_code)
 
+    show_keywords = _is_section_visible(raw, "keywords")
+    show_features = _is_section_visible(raw, "features")
+    show_gallery = _is_section_visible(raw, "gallery")
+    show_videos = _is_section_visible(raw, "videos")
+    show_about = _is_section_visible(raw, "about")
+    show_values = _is_section_visible(raw, "values")
+    show_reviews = _is_section_visible(raw, "reviews")
+    show_contact = _is_section_visible(raw, "contact")
+    show_cta = _is_section_visible(raw, "cta")
+    show_our_services = _is_section_visible(raw, "our_services")
+    show_why_choose_us = _is_section_visible(raw, "why_choose_us")
+    show_services_page = _is_section_visible(raw, "services_page")
+
     # Generate dynamic navigation links based on enabled sections
     nav_links = []
 
     # For default template - check using the same conditions as the template uses
     if template == "default":
         # Keywords section shown if keywords exist
-        if keywords:
+        if show_keywords and keywords:
             nav_links.append({"href": "#keywords", "label": _tr(tr, "nav.reviews", "Reviews")})
         # Features section shown if features exist
-        if features:
+        if show_features and features:
             nav_links.append({"href": "#features", "label": _tr(tr, "nav.features", "Features")})
         # Gallery section shown if gallery_images exist
-        if gallery_images:
+        if show_gallery and gallery_images:
             nav_links.append({"href": "#gallery", "label": _tr(tr, "nav.gallery", "Gallery")})
         # Videos section shown if videos exist
-        if videos:
+        if show_videos and videos:
             nav_links.append({"href": "#videos", "label": _tr(tr, "nav.videos", "Videos")})
         # Contact is always shown in default template
-        nav_links.append({"href": "#contact", "label": _tr(tr, "nav.contact", "Contact")})
+        if show_contact:
+            nav_links.append({"href": "#contact", "label": _tr(tr, "nav.contact", "Contact")})
 
     # For bernard template
     elif template == "bernard":
@@ -941,13 +897,13 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         else:
             # Single page navigation (old behavior)
             nav_links.append({"href": "#home", "label": _tr(tr, "nav.home", "Home")})
-            if features:
+            if show_features and features:
                 nav_links.append({"href": "#advantages", "label": "Advantages"})
-            if ai.get("about_paragraph"):
+            if show_about and ai.get("about_paragraph"):
                 nav_links.append({"href": "#about", "label": _tr(tr, "about.small_text", "About")})
-            if features:
+            if show_our_services and features:
                 nav_links.append({"href": "#services", "label": _tr(tr, "nav.services", "Services")})
-            if reviews:
+            if show_reviews and reviews:
                 nav_links.append({"href": "#testimonials", "label": _tr(tr, "testimonials.small_text", "Testimonials")})
 
     # For facade template
@@ -963,37 +919,37 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         else:
             # Single page navigation (old behavior, if needed for backward compatibility)
             # About section: {% if about_story_left or about_story_right %}
-            if first_half or second_half:
+            if show_about and (first_half or second_half):
                 nav_links.append({"href": "#about", "label": _tr(tr, "nav.about", "About")})
             # Features section: {% if features %}
-            if features:
+            if show_features and features:
                 nav_links.append({"href": "#features", "label": _tr(tr, "nav.features", "Features")})
             # Values section: {% if values %}
-            if values:
+            if show_values and values:
                 nav_links.append({"href": "#values", "label": _tr(tr, "nav.values", "Values")})
             # Videos section: {% if videos %}
-            if videos:
+            if show_videos and videos:
                 nav_links.append({"href": "#videos", "label": _tr(tr, "nav.videos", "Videos")})
             # Contact section: {% if address or phone or email %}
-            if biz.get("address") or biz.get("phone") or biz.get("email"):
+            if show_contact and (biz.get("address") or biz.get("phone") or biz.get("email")):
                 nav_links.append({"href": "#contact", "label": _tr(tr, "nav.contact", "Contact")})
 
     # For other templates (default, etc.)
     else:
         # About section: {% if about_story_left or about_story_right %}
-        if first_half or second_half:
+        if show_about and (first_half or second_half):
             nav_links.append({"href": "#about", "label": _tr(tr, "nav.about", "About")})
         # Features section: {% if features %}
-        if features:
+        if show_features and features:
             nav_links.append({"href": "#features", "label": _tr(tr, "nav.features", "Features")})
         # Values section: {% if values %}
-        if values:
+        if show_values and values:
             nav_links.append({"href": "#values", "label": _tr(tr, "nav.values", "Values")})
         # Videos section: {% if videos %}
-        if videos:
+        if show_videos and videos:
             nav_links.append({"href": "#videos", "label": _tr(tr, "nav.videos", "Videos")})
         # Contact section: {% if address or phone or email %}
-        if biz.get("address") or biz.get("phone") or biz.get("email"):
+        if show_contact and (biz.get("address") or biz.get("phone") or biz.get("email")):
             nav_links.append({"href": "#contact", "label": _tr(tr, "nav.contact", "Contact")})
 
     resolved_navbar_name = _resolve_navbar_name(ai, biz)
@@ -1044,21 +1000,23 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         "maps_embed_url": f"https://maps.google.com/maps?q={biz.get('latitude', '')},{biz.get('longitude', '')}&z=15&output=embed" if biz.get("latitude") and biz.get("longitude") else "",
 
         # Sections data
-        "keywords": keywords,
-        "features": features,
+        "keywords": keywords if show_keywords else [],
+        "features": features if show_features else [],
         "features_title": _tr(tr, "features.title", "Everything you need"),
         "features_subtitle": _tr(tr, "features.subtitle", "Designed for demanding professionals."),
         "features_intro_text": _tr(tr, "features.intro", "We offer a comprehensive range of professional features designed to meet your needs"),
-        "gallery_images": gallery_images,
-        "videos": videos,
+        "gallery_images": gallery_images if show_gallery else [],
+        "videos": videos if show_videos else [],
         "opening_hours": opening_hours,
+        "show_contact": show_contact,
+        "show_cta": show_cta,
 
         # Facade-specific
-        "about_story_left": first_half,
-        "about_story_right": second_half,
+        "about_story_left": first_half if show_about else "",
+        "about_story_right": second_half if show_about else "",
         "story_image_1": media_prefix + story_img_1 if story_img_1 else "",
         "story_image_2": media_prefix + story_img_2 if story_img_2 else "",
-        "values": values,
+        "values": values if show_values else [],
         "values_image": values_image,
         "facade_css": facade_css,
         "nav_links": nav_links,
@@ -1251,6 +1209,12 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             ]
 
         # Bernard-specific context additions
+        rendered_services = bernard_services_page if current_page == "services" else bernard_services
+        if current_page == "services" and not show_services_page:
+            rendered_services = []
+        elif current_page != "services" and not show_our_services:
+            rendered_services = []
+
         context.update({
             "bernard_css": bernard_css,
             "hours_summary": hours_summary,
@@ -1262,27 +1226,28 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             "form_heading": ai.get("form_heading", _tr(tr, "hero.form_heading", "Have any question?")),
             "form_button_text": ai.get("form_button_text", _tr(tr, "hero.form_button", "Je souhaite être rappelé")),
             "service_link_label": _tr(tr, "services.learn_more", "Learn more"),
-            "advantages": advantages,
+            "advantages": advantages if show_features else [],
             "why_choose_us_heading": ai.get("why_choose_us_heading") or _tr(tr, "why_choose.heading", "Why Choose Us?"),
             "why_choose_us_image": (
                 media_prefix + _theme.get("why_choose_us_image")
-                if _theme.get("why_choose_us_image")
-                else media_prefix + get_next_photo() if images else ""
+                if show_why_choose_us and _theme.get("why_choose_us_image")
+                else media_prefix + get_next_photo() if show_why_choose_us and images else ""
             ),
             "about_image": media_prefix + (story_img_1 if story_img_1 else get_next_photo()),
             "years_of_experience": (raw.get("_raw") or {}).get("years_of_experience") or raw.get("years_of_experience", 0),
             "about_small_text": ai.get("about_small_text", _tr(tr, "about.small_text", "À propos")),
             "about_heading": ai.get("about_heading", _tr(tr, "about.heading", "Your trusted company")),
-            "about_description": about_text,
+            "about_description": about_text if show_about else "",
             "about_bullets": about_bullets,
             "services_small_text": ai.get("services_small_text") or _tr(tr, "services.small_text", "For individuals and professionals"),
             "services_heading": ai.get("services_heading") or _tr(tr, "services.heading", "Discover our services"),
-            "services": bernard_services_page if current_page == "services" else bernard_services,
+            "services": rendered_services,
             "values_heading": ai.get("values_heading", "Who are our clients"),
-            "values_list": values_list,
+            "values_list": values_list if show_values else [],
             "testimonials_small_text": ai.get("testimonials_small_text", _tr(tr, "testimonials.small_text", "Testimonials")),
             "testimonials_heading": ai.get("testimonials_heading", _tr(tr, "testimonials.heading", "What our clients say")),
-            "testimonials": bernard_testimonials,
+            "testimonials": bernard_testimonials if show_reviews else [],
+            "show_contact": show_contact,
             # Services Page Data
             "services_page_seo_title": ai.get("services_page_seo_title") or f"{biz.get('name', '')} - Our Services",
             "services_page_seo_description": ai.get("services_page_seo_description") or f"Discover all the services offered by {biz.get('name', '')}",
@@ -1319,6 +1284,9 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         # Override secondary CTA URL for multipage mode to go to services page
         if page_template is not None:
             context["cta_secondary_url"] = "services.html"
+        if not show_cta:
+            context["cta_heading"] = ""
+            context["cta_banner_title"] = ""
 
     # Mark bernard_css as safe for bernard template
     if template == "bernard":

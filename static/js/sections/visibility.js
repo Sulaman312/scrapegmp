@@ -1,103 +1,101 @@
-// ── Section definitions ────────────────────────────────────────────────────
-const VIS_SECTIONS = [
-  {
-    key:      'features',
-    label:    'Features',
-    desc:     'Feature cards and attributes bento grid',
-    svg:      '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
-    navLabel: 'Features',
-  },
-  {
-    key:      'values',
-    label:    'Values',
-    desc:     'Floating value cards around center image',
-    svg:      '<path d="M12 2l2.6 5.27L20.5 8l-4.25 4.14L17.2 18 12 15.27 6.8 18l.95-5.86L3.5 8l5.9-.73L12 2z"/>',
-    navLabel: 'Values',
-  },
-  {
-    key:      'gallery',
-    label:    'Photo Gallery',
-    desc:     'Image gallery with hover zoom effects',
-    svg:      '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>',
-    navLabel: 'Gallery',
-  },
-  {
-    key:         'videos',
-    label:       'Videos',
-    desc:        'Embedded video player section',
-    svg:         '<polygon points="5 3 19 12 5 21 5 3"/>',
-    navLabel:    'Videos',
-    noDataHint:  'Upload videos in the Videos panel to enable this section.',
-  },
-  {
-    key:      'about',
-    label:    'About & Highlights',
-    desc:     'About paragraph with bullet point highlights',
-    svg:      '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>',
-    navLabel: null,
-  },
-  {
-    key:      'reviews',
-    label:    'Client Reviews',
-    desc:     'Customer testimonials grid with star ratings',
-    svg:      '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>',
-    navLabel: 'Reviews',
-  },
-  {
-    key:      'popular_times',
-    label:    'Popular Times',
-    desc:     'Busy hours bar chart per day of the week',
-    svg:      '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
-    navLabel: 'Availability',
-  },
-  {
-    key:      'contact',
-    label:    'Contact & Map',
-    desc:     'Contact details, opening hours and Google Map',
-    svg:      '<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.85 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>',
-    navLabel: 'Contact',
-  },
-  {
-    key:      'cta',
-    label:    'Call to Action Banner',
-    desc:     'Full-width gradient CTA section with button',
-    svg:      '<path d="M13 10V3L4 14h7v7l9-11h-7z"/>',
-    navLabel: null,
-  },
-  {
-    key:      'keywords',
-    label:    'Keywords Marquee',
-    desc:     'Auto-scrolling review keyword tags strip',
-    svg:      '<line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/>',
-    navLabel: null,
-  },
-];
-
 function _getVisibleTemplateSections() {
-  return VIS_SECTIONS.filter(s => typeof isTemplateSectionEnabled === 'function' ? isTemplateSectionEnabled(s.key) : true);
+  if (typeof getRenderedWebsiteSections === 'function') {
+    return getRenderedWebsiteSections(getSelectedTemplateId(), currentPage);
+  }
+  return [];
+}
+
+function _visibilityAliases(key) {
+  const aliases = new Set([key]);
+  aliases.add(String(key).replace(/-/g, '_'));
+  aliases.add(String(key).replace(/_/g, '-'));
+  return Array.from(aliases);
+}
+
+function _isSectionVisibleByUser(key) {
+  const vis = (currentData && currentData.section_visibility) || {};
+  return !_visibilityAliases(key).some(alias => vis[alias] === false);
+}
+
+function _setSectionVisibilityValue(key, shown) {
+  if (!currentData.section_visibility) currentData.section_visibility = {};
+  const canonical = String(key).replace(/-/g, '_');
+  currentData.section_visibility[canonical] = shown;
+  _visibilityAliases(key).forEach(alias => {
+    if (alias !== canonical && Object.prototype.hasOwnProperty.call(currentData.section_visibility, alias)) {
+      delete currentData.section_visibility[alias];
+    }
+  });
 }
 
 function _syncSidebarWithVisibility() {
-  if (!currentData) return;
-  const vis = currentData.section_visibility || {};
-  _getVisibleTemplateSections().forEach((section) => {
-    const nav = document.getElementById(`nav-${section.key}`);
-    if (!nav) return;
-    const hasData = _hasContent(section.key, currentData);
-    const showInSidebar = vis[section.key] !== false && hasData;
-    nav.style.display = showInSidebar ? '' : 'none';
+  syncAdminSidebarSections();
+}
+
+function syncAdminSidebarSections() {
+  const templateId = getSelectedTemplateId();
+  const pageKey = typeof normalizeTemplatePage === 'function'
+    ? normalizeTemplatePage(templateId, currentPage)
+    : (currentPage || 'home');
+  const renderedSections = _getVisibleTemplateSections();
+  const allowedAdmin = new Set(ALWAYS_ADMIN_SECTIONS || ['media', 'visibility', 'design', 'seo']);
+
+  if (pageKey === 'home') {
+    (ALWAYS_HOME_SECTIONS || ['hero', 'footer']).forEach(sectionKey => allowedAdmin.add(sectionKey));
+  }
+
+  renderedSections.forEach(section => {
+    if (_hasContent(section.key, currentData || {}) && _isSectionVisibleByUser(section.key)) {
+      allowedAdmin.add(section.adminKey || section.key);
+    }
   });
+
+  ACTIVE_ADMIN_SECTIONS = [];
+  ADMIN_SECTIONS.forEach(sectionKey => {
+    const shouldShow = allowedAdmin.has(sectionKey);
+    const nav = document.getElementById(`nav-${sectionKey}`);
+    const panel = document.getElementById(`panel-${sectionKey}`);
+    if (nav) nav.style.display = shouldShow ? '' : 'none';
+    if (panel && !shouldShow) panel.classList.add('hidden');
+    if (shouldShow) ACTIVE_ADMIN_SECTIONS.push(sectionKey);
+  });
+
+  const currentSection = typeof getCurrentAdminSection === 'function' ? getCurrentAdminSection() : '';
+  if (currentSection && !ACTIVE_ADMIN_SECTIONS.includes(currentSection) && typeof switchSection === 'function') {
+    const fallback = pageKey === 'services' && ACTIVE_ADMIN_SECTIONS.includes('services-page')
+      ? 'services-page'
+      : pageKey === 'contact' && ACTIVE_ADMIN_SECTIONS.includes('contact')
+        ? 'contact'
+        : ACTIVE_ADMIN_SECTIONS.includes('hero')
+          ? 'hero'
+          : ACTIVE_ADMIN_SECTIONS[0];
+    if (fallback) switchSection(fallback);
+  }
 }
 
 // ── Content availability check — mirrors generate_site.py's conditions ────
 function _hasContent(key, data) {
   const ai  = data.ai       || {};
   const biz = data.business || {};
+  const templateId = getSelectedTemplateId();
   switch (key) {
     case 'features':
+      return !!(ai.features && ai.features.length > 0);
+    case 'our_services':
       return !!(
-        (ai.features   && ai.features.length   > 0) ||
-        (data.about_attrs && data.about_attrs.length > 0)
+        (ai.services_cards && ai.services_cards.some(c => c && (c.title || c.description || c.image))) ||
+        (ai.features && ai.features.length > 3)
+      );
+    case 'why_choose_us':
+      return !!(
+        ((ai.why_choose_us_cards && ai.why_choose_us_cards.length) || (ai.features && ai.features.length)) &&
+        (data.images && data.images.length)
+      );
+    case 'services_page':
+      return !!(
+        (ai.services_page_cards && ai.services_page_cards.some(c => c && (c.title || c.description || c.image))) ||
+        (ai.services_cards && ai.services_cards.some(c => c && (c.title || c.description || c.image))) ||
+        (ai.features && ai.features.length > 0)
       );
     case 'values':
       return !!(
@@ -110,20 +108,22 @@ function _hasContent(key, data) {
       // _has_videos is injected by admin.py (filesystem scan)
       return !!data._has_videos;
     case 'about':
-      return !!(
-        (ai.about_paragraph && ai.about_paragraph.length > 60) ||
-        (ai.hero_subtitle   && ai.hero_subtitle.length   > 40)
-      );
+      return !!((ai.about_paragraph || '').trim());
     case 'reviews':
-      return !!(data.reviews && data.reviews.some(r => (r.text || '').trim()));
-    case 'popular_times':
-      return !!(data.popular_times && Object.keys(data.popular_times).length > 0);
+      return templateId === 'bernard' || !!(data.reviews && data.reviews.some(r => (r.text || '').trim()));
     case 'contact':
-      return true; // always renders (address / phone always present)
+      return !!((biz.address || '').trim() || (biz.phone || '').trim() || (biz.email || '').trim());
     case 'cta':
-      return !!(biz.website || ai.cta_link || ai.cta_primary);
+      return true;
     case 'keywords':
-      return !!(data.review_keywords && data.review_keywords.filter(k => k.length > 2).length > 0);
+      return !!(
+        (biz.place_type || '').trim() ||
+        (biz.address || '').trim() ||
+        (biz.phone || '').trim() ||
+        (biz.plus_code || '').trim() ||
+        (ai.keywords && ai.keywords.length) ||
+        (data.review_keywords && data.review_keywords.filter(k => String(k).length > 2).length)
+      );
     default:
       return true;
   }
@@ -189,11 +189,15 @@ function renderVisibilityToggles() {
   const container = document.getElementById('sectionToggles');
   if (!container || !currentData) return;
 
-  const vis = currentData.section_visibility || {};
   container.innerHTML = _getVisibleTemplateSections().map(s => {
     const has = _hasContent(s.key, currentData);
-    return _visBuildRow(s, vis[s.key] !== false, has);
+    return _visBuildRow(s, _isSectionVisibleByUser(s.key), has);
   }).join('');
+
+  const heroRow = document.getElementById('visHeroRow');
+  if (heroRow && typeof normalizeTemplatePage === 'function') {
+    heroRow.style.display = normalizeTemplatePage(getSelectedTemplateId(), currentPage) === 'home' ? '' : 'none';
+  }
 
   _syncVisibilityPreview();
   _syncSidebarWithVisibility();
@@ -205,11 +209,9 @@ function toggleSection(key) {
   // Guard: do nothing if section has no content
   if (!_hasContent(key, currentData)) return;
 
-  if (!currentData.section_visibility) currentData.section_visibility = {};
-
   // flip: undefined/true → false, false → true
-  const newVal = currentData.section_visibility[key] === false;
-  currentData.section_visibility[key] = newVal;
+  const newVal = !_isSectionVisibleByUser(key);
+  _setSectionVisibilityValue(key, newVal);
 
   const shown = newVal;
 
@@ -280,7 +282,7 @@ function _syncVisibilityPreview() {
   const linksEl = document.getElementById('visNavLinks');
   if (linksEl) {
     linksEl.innerHTML = _getVisibleTemplateSections()
-      .filter(s => s.navLabel && vis[s.key] !== false && _hasContent(s.key, currentData))
+      .filter(s => s.navLabel && _isSectionVisibleByUser(s.key) && _hasContent(s.key, currentData))
       .map(s => `<span class="vis-nav-link">${s.navLabel}</span>`)
       .join('');
   }

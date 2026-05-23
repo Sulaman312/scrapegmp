@@ -9,6 +9,210 @@ const ADMIN_SECTIONS = ['hero', 'features', 'our-services', 'why-choose-us', 'va
 let ACTIVE_ADMIN_SECTIONS = ADMIN_SECTIONS.slice();
 let TEMPLATE_DEFS = {};
 
+const ALWAYS_ADMIN_SECTIONS = ['media', 'visibility', 'design', 'seo'];
+const ALWAYS_HOME_SECTIONS = ['hero', 'footer'];
+
+const RENDERED_WEBSITE_SECTIONS = {
+  default: {
+    home: [
+      {
+        key: 'keywords',
+        adminKey: 'reviews',
+        label: 'Keywords Marquee',
+        desc: 'Auto-scrolling review keyword tags strip',
+        navLabel: 'Keywords',
+        svg: '<line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/>',
+      },
+      {
+        key: 'features',
+        adminKey: 'features',
+        label: 'Features',
+        desc: 'Feature cards and attributes grid',
+        navLabel: 'Features',
+        svg: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+      },
+      {
+        key: 'gallery',
+        adminKey: 'gallery',
+        label: 'Photo Gallery',
+        desc: 'Image gallery with hover zoom effects',
+        navLabel: 'Gallery',
+        svg: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>',
+      },
+      {
+        key: 'videos',
+        adminKey: 'videos',
+        label: 'Videos',
+        desc: 'Embedded video player section',
+        navLabel: 'Videos',
+        noDataHint: 'Upload videos in the Videos panel to enable this section.',
+        svg: '<polygon points="5 3 19 12 5 21 5 3"/>',
+      },
+      {
+        key: 'contact',
+        adminKey: 'contact',
+        label: 'Contact & Map',
+        desc: 'Contact details, opening hours and Google Map',
+        navLabel: 'Contact',
+        svg: '<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.85 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>',
+      },
+      {
+        key: 'cta',
+        adminKey: 'cta',
+        label: 'Call to Action Banner',
+        desc: 'Full-width CTA section with button',
+        navLabel: null,
+        svg: '<path d="M13 10V3L4 14h7v7l9-11h-7z"/>',
+      },
+    ],
+  },
+  bernard: {
+    home: [
+      {
+        key: 'features',
+        adminKey: 'features',
+        label: 'Advantages',
+        desc: 'Top advantage cards below the hero',
+        navLabel: 'Advantages',
+        svg: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+      },
+      {
+        key: 'about',
+        adminKey: 'about',
+        label: 'About',
+        desc: 'About text, image, and bullet points',
+        navLabel: 'About',
+        svg: '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+      },
+      {
+        key: 'our_services',
+        adminKey: 'our-services',
+        label: 'Our Services',
+        desc: 'Home page service cards',
+        navLabel: 'Services',
+        svg: '<path d="M4 7h16M4 12h16M4 17h10"/>',
+      },
+      {
+        key: 'why_choose_us',
+        adminKey: 'why-choose-us',
+        label: 'Why Choose Us',
+        desc: 'Advantage feature block with background image',
+        navLabel: 'Why Choose Us',
+        svg: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>',
+      },
+      {
+        key: 'reviews',
+        adminKey: 'reviews',
+        label: 'Testimonials',
+        desc: 'Customer review carousel',
+        navLabel: 'Testimonials',
+        svg: '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>',
+      },
+    ],
+    services: [
+      {
+        key: 'services_page',
+        adminKey: 'services-page',
+        label: 'Services Page',
+        desc: 'Service detail cards and service page copy',
+        navLabel: 'Services',
+        svg: '<path d="M9 12h6M9 8h6M9 16h6M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>',
+      },
+    ],
+    contact: [
+      {
+        key: 'contact',
+        adminKey: 'contact',
+        label: 'Contact Page',
+        desc: 'Contact form, details, hours and map',
+        navLabel: 'Contact',
+        svg: '<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.85 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>',
+      },
+    ],
+  },
+  facade: {
+    home: [
+      {
+        key: 'about',
+        adminKey: 'about',
+        label: 'Company Story',
+        desc: 'Two-column company story with selected images',
+        navLabel: 'About',
+        svg: '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+      },
+      {
+        key: 'features',
+        adminKey: 'features',
+        label: 'Features',
+        desc: 'Colored feature cards',
+        navLabel: 'Features',
+        svg: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+      },
+      {
+        key: 'values',
+        adminKey: 'values',
+        label: 'Values',
+        desc: 'Value cards section',
+        navLabel: 'Values',
+        svg: '<path d="M12 2l2.6 5.27L20.5 8l-4.25 4.14L17.2 18 12 15.27 6.8 18l.95-5.86L3.5 8l5.9-.73L12 2z"/>',
+      },
+      {
+        key: 'videos',
+        adminKey: 'videos',
+        label: 'Videos',
+        desc: 'Embedded video player section',
+        navLabel: 'Videos',
+        noDataHint: 'Upload videos in the Videos panel to enable this section.',
+        svg: '<polygon points="5 3 19 12 5 21 5 3"/>',
+      },
+      {
+        key: 'cta',
+        adminKey: 'cta',
+        label: 'Call to Action Banner',
+        desc: 'Full-width CTA section with button',
+        navLabel: null,
+        svg: '<path d="M13 10V3L4 14h7v7l9-11h-7z"/>',
+      },
+    ],
+    services: [
+      {
+        key: 'services_page',
+        adminKey: 'services-page',
+        label: 'Services Page',
+        desc: 'Service detail cards and service page copy',
+        navLabel: 'Services',
+        svg: '<path d="M9 12h6M9 8h6M9 16h6M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>',
+      },
+    ],
+    contact: [
+      {
+        key: 'contact',
+        adminKey: 'contact',
+        label: 'Contact Page',
+        desc: 'Contact form, details, hours and map',
+        navLabel: 'Contact',
+        svg: '<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.85 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>',
+      },
+    ],
+  },
+};
+
+function normalizeTemplatePage(templateId, page) {
+  if (templateId === 'default') return 'home';
+  return ['home', 'services', 'contact'].includes(page) ? page : 'home';
+}
+
+function getRenderedWebsiteSections(templateId, page) {
+  const tid = templateId || getSelectedTemplateId();
+  const pageKey = normalizeTemplatePage(tid, page || currentPage || 'home');
+  const byTemplate = RENDERED_WEBSITE_SECTIONS[tid] || RENDERED_WEBSITE_SECTIONS.default;
+  return ((byTemplate && byTemplate[pageKey]) || []).map(section => ({ ...section }));
+}
+
+function getRenderedWebsiteSectionKeys(templateId, page) {
+  return getRenderedWebsiteSections(templateId, page).map(section => section.key);
+}
+
 const TEMPLATE_SECTION_TO_ADMIN = {
   hero: 'hero',
   features: 'features',
@@ -45,48 +249,11 @@ function getActiveTemplateWebsiteSections() {
 }
 
 function isTemplateSectionEnabled(sectionKey) {
-  const enabled = getActiveTemplateWebsiteSections();
-  if (!enabled.length) return true;
-  return enabled.includes(sectionKey);
+  return getRenderedWebsiteSectionKeys().includes(sectionKey);
 }
 
 function applyTemplateSections(templateId) {
   const tid = templateId || getSelectedTemplateId();
-  const enabledSet = new Set(getTemplateEnabledWebsiteSections(tid));
-  const hasExplicitTemplateSections = enabledSet.size > 0;
-  const alwaysVisible = new Set(['hero', 'footer', 'visibility', 'design', 'seo']);
-
-  const panelToTemplateSection = {
-    features: 'features',
-    'our-services': 'features',
-    'why-choose-us': 'features',
-    values: 'values',
-    gallery: 'gallery',
-    videos: 'videos',
-    about: 'about',
-    reviews: 'reviews',
-    contact: 'contact',
-    cta: 'cta',
-    'services-page': 'features',
-  };
-
-  ACTIVE_ADMIN_SECTIONS = [];
-
-  ADMIN_SECTIONS.forEach((sectionKey) => {
-    const navEl = document.getElementById(`nav-${sectionKey}`);
-    const panelEl = document.getElementById(`panel-${sectionKey}`);
-    const tplSection = panelToTemplateSection[sectionKey];
-    const enabledByTemplate = alwaysVisible.has(sectionKey)
-      || !hasExplicitTemplateSections
-      || !tplSection
-      || enabledSet.has(tplSection);
-
-    if (navEl) navEl.style.display = enabledByTemplate ? '' : 'none';
-    if (panelEl && !enabledByTemplate) panelEl.classList.add('hidden');
-
-    if (enabledByTemplate) ACTIVE_ADMIN_SECTIONS.push(sectionKey);
-  });
-
   if (typeof toggleCompanyImageSelectors === 'function') {
     toggleCompanyImageSelectors(tid);
   }
@@ -97,6 +264,12 @@ function applyTemplateSections(templateId) {
 
   // Update color presets for template
   updatePresetsForTemplate(tid);
+
+  if (typeof syncAdminSidebarSections === 'function') {
+    syncAdminSidebarSections();
+  } else {
+    ACTIVE_ADMIN_SECTIONS = ADMIN_SECTIONS.slice();
+  }
 
   const currentSection = (typeof getCurrentAdminSection === 'function') ? getCurrentAdminSection() : 'hero';
   if (!ACTIVE_ADMIN_SECTIONS.includes(currentSection) && ACTIVE_ADMIN_SECTIONS.length && typeof switchSection === 'function') {
@@ -225,6 +398,9 @@ function updatePageSelector() {
 
   // Show/hide multipage-specific nav items and panels
   updateMultipageUI();
+  if (typeof renderVisibilityToggles === 'function') {
+    renderVisibilityToggles();
+  }
 }
 
 function updateMultipageUI() {
@@ -232,60 +408,9 @@ function updateMultipageUI() {
   const isBernard = templateId === 'bernard';
   const isFacade = templateId === 'facade';
   const isMulti = isMultipageTemplate;
-
-  const websiteSections = ['hero', 'features', 'our-services', 'why-choose-us', 'values', 'gallery', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer', 'services-page'];
-  let allowedWebsiteSections = websiteSections.slice();
-
-  if ((isBernard || isFacade) && isMulti) {
-    if (currentPage === 'services') {
-      allowedWebsiteSections = ['services-page'];
-    } else if (currentPage === 'contact') {
-      allowedWebsiteSections = ['contact'];
-    } else {
-      // Home page: Bernard has our-services and why-choose-us, Facade doesn't
-      if (isBernard) {
-        allowedWebsiteSections = ['hero', 'features', 'our-services', 'why-choose-us', 'values', 'gallery', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer'];
-      } else if (isFacade) {
-        allowedWebsiteSections = ['hero', 'features', 'values', 'videos', 'about', 'reviews', 'contact', 'cta', 'footer'];
-      }
-    }
+  if (typeof syncAdminSidebarSections === 'function') {
+    syncAdminSidebarSections();
   }
-
-  // Respect template-enabled sections when available (except for the forced single-section pages above)
-  const enabledTemplateSections = new Set(getTemplateEnabledWebsiteSections(templateId));
-  const hasTemplateRules = enabledTemplateSections.size > 0;
-  if (!((isBernard || isFacade) && isMulti && (currentPage === 'services' || currentPage === 'contact'))) {
-    if (hasTemplateRules) {
-      const mapping = {
-        hero: 'hero', features: 'features', values: 'values', gallery: 'gallery', videos: 'videos',
-        about: 'about', reviews: 'reviews', contact: 'contact', cta: 'cta', footer: 'footer',
-        'our-services': 'features', 'why-choose-us': 'features',
-        'services-page': 'features'
-      };
-      allowedWebsiteSections = allowedWebsiteSections.filter(s => {
-        // Template-specific exclusions
-        if (isFacade && (s === 'our-services' || s === 'why-choose-us')) {
-          return false; // Facade doesn't use these sections
-        }
-        return enabledTemplateSections.has(mapping[s]) || s === 'hero' || s === 'footer';
-      });
-    }
-  }
-
-  const visibleSet = new Set(allowedWebsiteSections);
-  ADMIN_SECTIONS.forEach(sectionKey => {
-    const nav = document.getElementById(`nav-${sectionKey}`);
-    const panel = document.getElementById(`panel-${sectionKey}`);
-    const isWebsite = websiteSections.includes(sectionKey);
-    const shouldShow = !isWebsite || visibleSet.has(sectionKey);
-    if (nav) nav.style.display = shouldShow ? '' : 'none';
-    if (panel && !shouldShow) panel.classList.add('hidden');
-  });
-
-  ACTIVE_ADMIN_SECTIONS = ADMIN_SECTIONS.filter(sectionKey => {
-    const nav = document.getElementById(`nav-${sectionKey}`);
-    return !nav || nav.style.display !== 'none';
-  });
 
   const preferred = ((isBernard || isFacade) && isMulti && currentPage === 'services')
     ? 'services-page'
@@ -318,6 +443,9 @@ function changeCurrentPage() {
 
   // Update multipage UI to show/hide appropriate nav items
   updateMultipageUI();
+  if (typeof renderVisibilityToggles === 'function') {
+    renderVisibilityToggles();
+  }
 
   // Update preview to show the selected page
   if (typeof updateLivePreview === 'function') {

@@ -5,9 +5,11 @@
 
 {% block content %}
 
+{% if show_contact %}
 <div style="margin-bottom: clamp(32px, 6vw, 72px);">
 {% include 'websites/bernard/components/contact_detail.html' %}
 </div>
+{% endif %}
 
 {% endblock %}
 
