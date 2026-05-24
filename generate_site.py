@@ -762,16 +762,12 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 theme_color1 = _theme.get("color1", "#10B981")
                 theme_color2 = _theme.get("color2", "#059669")
                 theme_color3 = _theme.get("color3", "#0D9488")
-                theme_cta_color = _theme.get("cta_color", "#1a1a1a")
-                theme_hero_dark = _theme.get("hero_dark", "#06060f")
                 facade_css = facade_css.replace("{{ theme_color1 }}", theme_color1)
                 facade_css = facade_css.replace("{{ theme_color2 }}", theme_color2)
                 facade_css = facade_css.replace("{{ theme_color3 }}", theme_color3)
                 facade_css = facade_css.replace("{{ theme_color1_rgb }}", _hex_to_rgb_triplet(theme_color1))
                 facade_css = facade_css.replace("{{ theme_color2_rgb }}", _hex_to_rgb_triplet(theme_color2, "5, 150, 105"))
                 facade_css = facade_css.replace("{{ theme_color3_rgb }}", _hex_to_rgb_triplet(theme_color3, "13, 148, 136"))
-                facade_css = facade_css.replace("{{ theme_cta_color }}", theme_cta_color)
-                facade_css = facade_css.replace("{{ theme_hero_dark }}", theme_hero_dark)
 
     elif template == "bernard":
         css_file = os.path.join(os.path.dirname(__file__), "templates", "websites", template, "style.css")
@@ -781,11 +777,9 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 theme_color1 = _theme.get("color1", "#2563EB")
                 theme_color2 = _theme.get("color2", "#93C5FD")
                 theme_color3 = _theme.get("color3", "#F59E0B")
-                theme_cta_color = _theme.get("cta_color", theme_color1)
                 bernard_css = bernard_css.replace("{{ theme_color1 }}", theme_color1)
                 bernard_css = bernard_css.replace("{{ theme_color2 }}", theme_color2)
                 bernard_css = bernard_css.replace("{{ theme_color3 }}", theme_color3)
-                bernard_css = bernard_css.replace("{{ theme_cta_color }}", theme_cta_color)
 
     # Default template color processing
     default_theme_color1 = _theme.get("color1", "#10B981")

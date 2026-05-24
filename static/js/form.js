@@ -264,18 +264,20 @@ function populateForm(data) {
   const defaultPreset = (selectedTemplate === 'facade' && typeof PRESETS_FACADE !== 'undefined' && PRESETS_FACADE.length)
     ? PRESETS_FACADE[0]
     : null;
-  const defaultColor1 = theme.color1 || (defaultPreset?.c?.[0]) || DEF.color1;
-  const defaultColor2 = theme.color2 || (defaultPreset?.c?.[1]) || DEF.color2;
-  const defaultColor3 = theme.color3 || (defaultPreset?.c?.[2]) || DEF.color3;
-  const defaultCta = theme.cta_color || (defaultPreset?.cta) || defaultColor1;
+  const templateMain = typeof getMainPaletteForTemplate === 'function'
+    ? getMainPaletteForTemplate(selectedTemplate)
+    : null;
+  const defaultColor1 = theme.color1 || templateMain?.color1 || (defaultPreset?.c?.[0]) || DEF.color1;
+  const defaultColor2 = theme.color2 || templateMain?.color2 || (defaultPreset?.c?.[1]) || DEF.color2;
+  const defaultColor3 = theme.color3 || templateMain?.color3 || (defaultPreset?.c?.[2]) || DEF.color3;
 
   setColorPair('color1',    defaultColor1);
   setColorPair('color2',    defaultColor2);
   setColorPair('color3',    defaultColor3);
-  setColorPair('cta',       defaultCta);
-  setColorPair('hero_dark', theme.hero_dark || DEF.hero_dark);
   updateColorPreviews();
-  syncAllCtaControls();
+  if (typeof populatePersonalization === 'function') {
+    populatePersonalization(data.personalization || null, data._has_personalization !== false && !!data.personalization);
+  }
 
   // Logo-based colors
   if (typeof loadLogoColors === 'function') {
@@ -306,8 +308,6 @@ function collectFormData() {
     color1:    fallbackColor1,
     color2:    getColorVal('color2')   || (defaultPreset?.c?.[1]) || DEF.color2,
     color3:    getColorVal('color3')   || (defaultPreset?.c?.[2]) || DEF.color3,
-    cta_color: getColorVal('cta')      || (defaultPreset?.cta) || fallbackColor1,
-    hero_dark: getColorVal('hero_dark')|| DEF.hero_dark,
     hero_image: getHeroImage(),
     why_choose_us_image: getf('theme-why_choose_us_image') || '',
   };
@@ -316,6 +316,24 @@ function collectFormData() {
   }
   if (typeof getCompanyStoryImages === 'function') {
     Object.assign(theme, getCompanyStoryImages());
+  }
+  const personalization = typeof collectPersonalization === 'function'
+    ? collectPersonalization()
+    : ((currentData && currentData.personalization) || {});
+  if (personalization && typeof personalization === 'object') {
+    personalization.colors = personalization.colors || {};
+    personalization.colors.template_palettes = personalization.colors.template_palettes || {};
+    personalization.colors.template_palettes[selectedTemplate] = personalization.colors.template_palettes[selectedTemplate] || {};
+    personalization.colors.template_palettes[selectedTemplate].main = {
+      color1: theme.color1,
+      color2: theme.color2,
+      color3: theme.color3,
+    };
+    personalization.colors.selected_theme = {
+      color1: theme.color1,
+      color2: theme.color2,
+      color3: theme.color3,
+    };
   }
 
   const payload = {
@@ -346,6 +364,7 @@ function collectFormData() {
       cta_primary_url:  getf('ai-cta_primary_url'),
       cta_secondary:    getf('ai-cta_secondary'),
       cta_secondary_url: getf('ai-cta_secondary_url'),
+      url_slug:         aiCurrent.url_slug || '',
       about_paragraph:  getf('ai-about_paragraph'),
       about_story_left: getf('ai-about_story_left'),
       about_story_right: getf('ai-about_story_right'),
@@ -398,6 +417,7 @@ function collectFormData() {
       years_of_experience: toInt(getf('raw-years_of_experience')) || 0,
     },
     website_data:    currentData.website_data    || {},
+    personalization,
     theme,
     images:          collectImages(),
     reviews:         collectReviews(),

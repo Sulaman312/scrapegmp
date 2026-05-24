@@ -3,6 +3,7 @@ import io
 import json
 import logging
 import os
+import re
 import smtplib
 import shutil
 import subprocess
@@ -23,7 +24,7 @@ from functools import wraps
 import generate_site
 from scraper.scraper import scrape_place_by_url
 from scraper.re_scraper import re_scrape_business_data
-from enrichment import enrich
+from enrichment import enrich, enrich_with_ai
 
 # Load environment variables from .env file
 load_dotenv()
@@ -262,6 +263,68 @@ def has_ai_data(enriched_path):
         return False
 
 
+def slugify_public_url(value: str, max_len: int = 32) -> str:
+    text = str(value or "").strip().lower()
+    for sep in [" - ", " | ", " – ", " — "]:
+        if sep in text:
+            text = text.split(sep)[0].strip()
+            break
+    text = re.sub(r"\s*\([^)]*\)\s*$", "", text)
+    text = re.sub(r"[^a-z0-9]+", "-", text)
+    text = re.sub(r"-+", "-", text).strip("-")
+    if len(text) > max_len:
+        parts = text.split("-")
+        selected = []
+        for part in parts:
+            candidate = "-".join(selected + [part])
+            if len(candidate) <= max_len:
+                selected.append(part)
+            else:
+                break
+        text = "-".join(selected) or text[:max_len].strip("-")
+    return text or "business"
+
+
+def get_business_public_slug(business_name: str) -> str:
+    biz_dir = os.path.join(SCRAPE_DIR, business_name)
+    for filename in ("draft_data.json", "enriched_data.json"):
+        path = os.path.join(biz_dir, filename)
+        if not os.path.exists(path):
+            continue
+        try:
+            data = load_json(path)
+        except Exception:
+            continue
+        ai = data.get("ai", {}) if isinstance(data.get("ai"), dict) else {}
+        business = data.get("business", {}) if isinstance(data.get("business"), dict) else {}
+        slug = ai.get("url_slug") or business.get("url_slug")
+        if slug:
+            return slugify_public_url(slug)
+        short_name = ai.get("navbar_name") or ai.get("brand_short_name")
+        if short_name:
+            return slugify_public_url(short_name)
+    return slugify_public_url(business_name)
+
+
+def resolve_business_identifier(identifier: str) -> str | None:
+    ident = (identifier or "").strip()
+    if not ident or not os.path.exists(SCRAPE_DIR):
+        return None
+
+    exact_dir = os.path.join(SCRAPE_DIR, ident)
+    if os.path.isdir(exact_dir):
+        return ident
+
+    normalized = slugify_public_url(ident)
+    for business_folder in os.listdir(SCRAPE_DIR):
+        folder_path = os.path.join(SCRAPE_DIR, business_folder)
+        if not os.path.isdir(folder_path):
+            continue
+        if get_business_public_slug(business_folder) == normalized:
+            return business_folder
+    return None
+
+
 def get_subdomain_and_business():
     """
     Extract subdomain from the request and determine if it's admin or a business site.
@@ -302,17 +365,9 @@ def get_subdomain_and_business():
             subdomain = parts[0]
             if subdomain == 'admin':
                 return (subdomain, None, True)
-            # Try to match subdomain to actual business folder
-            if os.path.exists(SCRAPE_DIR):
-                for business_folder in os.listdir(SCRAPE_DIR):
-                    if not os.path.isdir(os.path.join(SCRAPE_DIR, business_folder)):
-                        continue
-                    # Generate subdomain from business folder name
-                    expected_subdomain = business_folder.lower().replace(' ', '-')
-                    expected_subdomain = re.sub(r'[^a-z0-9-]', '', expected_subdomain)
-                    expected_subdomain = re.sub(r'-+', '-', expected_subdomain).strip('-')
-                    if expected_subdomain == subdomain:
-                        return (subdomain, business_folder, False)
+            business_folder = resolve_business_identifier(subdomain)
+            if business_folder:
+                return (subdomain, business_folder, False)
             # Business doesn't exist
             return (subdomain, None, False)
 
@@ -331,17 +386,9 @@ def get_subdomain_and_business():
         if subdomain == 'admin':
             return (subdomain, None, True)
 
-        # Try to match subdomain to actual business folder
-        if os.path.exists(SCRAPE_DIR):
-            for business_folder in os.listdir(SCRAPE_DIR):
-                if not os.path.isdir(os.path.join(SCRAPE_DIR, business_folder)):
-                    continue
-                # Generate subdomain from business folder name
-                expected_subdomain = business_folder.lower().replace(' ', '-')
-                expected_subdomain = re.sub(r'[^a-z0-9-]', '', expected_subdomain)
-                expected_subdomain = re.sub(r'-+', '-', expected_subdomain).strip('-')
-                if expected_subdomain == subdomain:
-                    return (subdomain, business_folder, False)
+        business_folder = resolve_business_identifier(subdomain)
+        if business_folder:
+            return (subdomain, business_folder, False)
         # Business doesn't exist
         return (subdomain, None, False)
 
@@ -361,18 +408,12 @@ def get_business_url(business_name):
     base_domain = os.getenv('BASE_DOMAIN', None)
 
     if base_domain:
-        # Convert business name to subdomain format (lowercase, spaces to hyphens)
-        subdomain = business_name.lower().replace(' ', '-')
-        # Remove invalid characters (only allow a-z, 0-9, and hyphens)
-        import re
-        subdomain = re.sub(r'[^a-z0-9-]', '', subdomain)
-        # Remove consecutive hyphens and trim hyphens from start/end
-        subdomain = re.sub(r'-+', '-', subdomain).strip('-')
+        subdomain = get_business_public_slug(business_name)
         protocol = 'https' if os.getenv('USE_HTTPS', 'true').lower() == 'true' else 'http'
         return f"{protocol}://{subdomain}.{base_domain}"
     else:
         # Fallback to old /site/ format for local development
-        return f"/site/{business_name}/"
+        return f"/site/{get_business_public_slug(business_name)}/"
 
 
 # ──────────────────────────────────────────────────────────────
@@ -534,7 +575,14 @@ def list_templates():
     }])
 
 
-def _background_scrape_worker(job_id: str, url: str, language: str, api_key: str):
+def _background_scrape_worker(
+    job_id: str,
+    url: str,
+    language: str,
+    api_key: str,
+    website_url: str = "",
+    design_document_path: str = "",
+):
     """
     Background worker function that performs the actual scraping and enrichment.
     Updates the scrape_jobs dictionary with progress.
@@ -577,7 +625,13 @@ def _background_scrape_worker(job_id: str, url: str, language: str, api_key: str
 
         # Step 2: Enrich with AI
         logging.info(f"[Job {job_id}] Step 2/3: Starting AI enrichment...")
-        enriched_data = enrich(output_dir, api_key, language)
+        enriched_data = enrich(
+            output_dir,
+            api_key,
+            language,
+            website_url=website_url,
+            design_document_path=design_document_path,
+        )
 
         logging.info(f"[Job {job_id}] Step 2/3: AI enrichment complete for: {business_name}")
         update_job('completed', progress=100, business_name=business_name, output_dir=output_dir)
@@ -595,12 +649,13 @@ def scrape_and_enrich():
     Start a background scrape job and return immediately with a job ID.
     Client should poll /api/scrape-status/<job_id> for progress.
     """
-    data = request.get_json()
+    data = request.form if request.content_type and request.content_type.startswith("multipart/form-data") else (request.get_json(silent=True) or {})
     if not data or not data.get("url"):
         return jsonify({"success": False, "error": "No URL provided"}), 400
 
     url = data["url"]
     language = data.get("language", "fr")
+    website_url = (data.get("website_url") or "").strip()
 
     # OpenAI API key - must be set via environment variable
     api_key = os.environ.get("OPENAI_API_KEY", "")
@@ -612,6 +667,14 @@ def scrape_and_enrich():
 
     # Create a unique job ID
     job_id = str(uuid.uuid4())
+    design_document_path = ""
+    uploaded_doc = request.files.get("design_document") if request.files else None
+    if uploaded_doc and uploaded_doc.filename:
+        uploads_dir = os.path.join(SCRAPE_DIR, "_uploads")
+        os.makedirs(uploads_dir, exist_ok=True)
+        safe_name = secure_filename(uploaded_doc.filename) or "design_document"
+        design_document_path = os.path.join(uploads_dir, f"{job_id}_{safe_name}")
+        uploaded_doc.save(design_document_path)
 
     # Initialize job status
     with scrape_jobs_lock:
@@ -620,6 +683,8 @@ def scrape_and_enrich():
             'status': 'queued',
             'progress': 0,
             'url': url,
+            'website_url': website_url,
+            'design_document': os.path.basename(design_document_path) if design_document_path else "",
             'language': language,
             'created_at': datetime.now().isoformat(),
             'updated_at': datetime.now().isoformat()
@@ -628,7 +693,7 @@ def scrape_and_enrich():
     # Start background thread
     thread = threading.Thread(
         target=_background_scrape_worker,
-        args=(job_id, url, language, api_key),
+        args=(job_id, url, language, api_key, website_url, design_document_path),
         daemon=True
     )
     thread.start()
@@ -748,6 +813,10 @@ def get_business(name):
     if not os.path.exists(src_path):
         return jsonify({"error": "Not found"}), 404
     data = load_json(src_path)
+    personalization_path = os.path.join(biz_dir, "personalization.json")
+    data["_has_personalization"] = os.path.exists(personalization_path)
+    if os.path.exists(personalization_path):
+        data["personalization"] = load_json(personalization_path)
     # Fall back to reviews.csv when the JSON reviews array is empty
     if not data.get("reviews"):
         data["reviews"] = load_csv(os.path.join(biz_dir, "reviews.csv"))
@@ -791,8 +860,71 @@ def save_business(name):
     if enriched_data.get('reviews_translated'):
         data['reviews_translated'] = enriched_data['reviews_translated']
 
+    if isinstance(data.get("personalization"), dict):
+        save_json(os.path.join(biz_dir, "personalization.json"), data["personalization"])
+
     save_json(draft_path, data)
     return jsonify({"success": True})
+
+
+@app.route("/api/business/<name>/regenerate-content", methods=["POST"])
+@login_required
+def regenerate_business_content(name):
+    """Regenerate AI copy only, using the saved personalization JSON."""
+    if not has_business_access(name):
+        return jsonify({"error": "Access denied"}), 403
+
+    api_key = os.environ.get("OPENAI_API_KEY", "")
+    if not api_key:
+        return jsonify({"success": False, "error": "OPENAI_API_KEY environment variable is not set"}), 500
+
+    biz_dir = os.path.join(SCRAPE_DIR, name)
+    enriched_path = os.path.join(biz_dir, "enriched_data.json")
+    draft_path = os.path.join(biz_dir, "draft_data.json")
+    personalization_path = os.path.join(biz_dir, "personalization.json")
+
+    if not os.path.exists(enriched_path):
+        return jsonify({"success": False, "error": "Business data not found"}), 404
+    if not os.path.exists(personalization_path):
+        return jsonify({"success": False, "error": "No personalization.json found. Re-scrape this business to create it."}), 400
+
+    base_data = load_json(draft_path if os.path.exists(draft_path) else enriched_path)
+    personalization = load_json(personalization_path)
+    base_data["personalization"] = personalization
+
+    try:
+        ai_data = enrich_with_ai(
+            base_data.get("business", {}),
+            base_data.get("website_data", {}),
+            api_key,
+            base_data.get("language", "fr"),
+            personalization,
+            base_data.get("updates", []),
+        )
+        current_ai = base_data.get("ai", {}) if isinstance(base_data.get("ai"), dict) else {}
+        current_ai.update(ai_data)
+        base_data["ai"] = current_ai
+
+        theme = ai_data.get("theme") if isinstance(ai_data.get("theme"), dict) else {}
+        selected = (
+            personalization.get("colors", {})
+            .get("template_palettes", {})
+            .get(base_data.get("template", "default"), {})
+            .get("main", {})
+        ) or personalization.get("colors", {}).get("selected_theme", {})
+        base_data["theme"] = {
+            "color1": theme.get("color1") or selected.get("color1") or base_data.get("theme", {}).get("color1", "#2563EB"),
+            "color2": theme.get("color2") or selected.get("color2") or base_data.get("theme", {}).get("color2", "#0D9488"),
+            "color3": theme.get("color3") or selected.get("color3") or base_data.get("theme", {}).get("color3", "#F59E0B"),
+        }
+
+        save_json(draft_path, base_data)
+        save_json(enriched_path, base_data)
+        return jsonify({"success": True, "data": base_data})
+    except Exception as e:
+        logging.error(f"Regenerate content failed for {name}: {e}")
+        logging.error(traceback.format_exc())
+        return jsonify({"success": False, "error": str(e)}), 500
 
 
 @app.route("/api/business/<name>/re-scrape", methods=["POST"])
@@ -1327,6 +1459,9 @@ def serve_published_site(subpath):
     name = (parts[0] if parts else "").strip()
     if not name:
         return ("<h2>Invalid site path.</h2>", 404)
+    business_name = resolve_business_identifier(name)
+    if not business_name:
+        return ("<h2>Business site not found.</h2>", 404)
 
     # Canonicalize root URL to include trailing slash so relative links resolve correctly.
     if len(parts) == 1 and not request.path.endswith("/"):
@@ -1341,8 +1476,8 @@ def serve_published_site(subpath):
     if requested_rel.startswith("../") or requested_rel == "..":
         return ("<h2>Invalid site path.</h2>", 404)
 
-    print(f" [serve_published_site] name={name!r}", flush=True)
-    biz_dir = os.path.join(SCRAPE_DIR, name)
+    print(f" [serve_published_site] name={name!r} business={business_name!r}", flush=True)
+    biz_dir = os.path.join(SCRAPE_DIR, business_name)
     website_dir = os.path.join(biz_dir, "website")
     index_path = os.path.join(website_dir, "index.html")
     if not os.path.isfile(index_path):
@@ -1361,8 +1496,8 @@ def serve_published_site(subpath):
         if requested_rel.lower().endswith(".html"):
             with open(target_path, "r", encoding="utf-8") as f:
                 html = f.read()
-            html = html.replace('"../', f'"/media/{name}/')
-            html = html.replace("'../", f"'/media/{name}/")
+            html = html.replace('"../', f'"/media/{business_name}/')
+            html = html.replace("'../", f"'/media/{business_name}/")
             resp = make_response(html)
             resp.headers["Content-Type"] = "text/html; charset=utf-8"
             return resp
@@ -1370,7 +1505,7 @@ def serve_published_site(subpath):
         # Non-HTML assets under /website
         return send_from_directory(website_dir, requested_rel)
     except Exception as exc:
-        logging.warning(f"Failed to serve published site for '{name}/{requested_rel}': {exc}")
+        logging.warning(f"Failed to serve published site for '{business_name}/{requested_rel}': {exc}")
         return ("<h2>Error loading published site.</h2>", 500)
 
 

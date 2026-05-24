@@ -8,25 +8,44 @@
         <circle cx="6.5" cy="12.5" r="1.5" />
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.926 0 1.648-.746 1.648-1.667 0-.437-.18-.835-.437-1.125-.29-.289-.47-.692-.47-1.125A1.64 1.64 0 0114.389 16h1.962C19.55 16 22 13.55 22 10.389 22 5.74 17.523 2 12 2z" />
       </svg></div>
-      <h2>Design &amp; Colors</h2>
+      <h2>Personalization</h2>
     </div>
-    <p>Brand colors used throughout the website. <span class="si si-b">→ Gradients · CTA buttons · Feature cards · Accents</span></p>
+    <p>Editable brand and style context used for AI content generation. <span class="si si-b">→ Content style · Google posts · 3-color theme</span></p>
   </div>
 
   <div class="space-y-5">
+    <div class="card hidden" id="personalizationMissingCard">
+      <div class="sdiv">Personalization not available</div>
+      <p class="text-sm text-slate-400 leading-6">
+        This older business does not have a <code>personalization.json</code> file yet. Delete and re-scrape the business to generate personalization from Google Maps posts, the provided website, and the design document.
+      </p>
+    </div>
+
+    <div class="card" id="personalizationSummaryCard">
+      <div class="sdiv">Personalization Summary</div>
+      <textarea id="personalizationMarkdown" class="fi font-mono text-xs" rows="10" readonly></textarea>
+      <p class="text-xs text-slate-500 mt-2">This summary is generated from the structured personalization JSON below.</p>
+    </div>
+
+    <div class="card" id="personalizationJsonCard">
+      <div class="sdiv">Editable Personalization JSON</div>
+      <textarea id="personalizationJson" class="fi font-mono text-xs" rows="16" oninput="onPersonalizationJsonChange()"></textarea>
+      <div class="flex items-center gap-3 mt-3">
+        <button type="button" onclick="formatPersonalizationJson()" class="btn-dx text-slate-400 border-slate-700">Format JSON</button>
+        <button type="button" onclick="regenerateContentFromPersonalization()" class="btn-dx text-green-500 border-green-700">Regenerate AI Content</button>
+        <span id="personalizationDirtyNote" class="text-xs text-amber-400 hidden">Save, then regenerate AI content for edits to take effect.</span>
+      </div>
+    </div>
+
     <!-- Live preview -->
     <div class="card">
       <div class="sdiv">Live Preview</div>
       <div id="gradientPreview" class="grad-bar mb-3"></div>
-      <div class="flex items-center gap-3">
-        <span class="text-xs text-slate-500">CTA button:</span>
-        <div id="ctaBtnPreview" class="px-4 py-2 rounded-lg text-white text-sm font-semibold" style="background:#15803d">Book Now</div>
-      </div>
     </div>
 
     <!-- Brand Colors -->
     <div class="card">
-      <div class="sdiv">Brand Colors</div>
+      <div class="sdiv">Selected 3-Color Theme</div>
       <p class="text-xs text-slate-500 mb-3">Drive all gradients — tagline, feature cards, contact section and accents.</p>
       <div class="space-y-3">
         <div class="color-row">
@@ -71,32 +90,9 @@
       </div>
     </div>
 
-    <!-- CTA Button Color -->
-    <div class="card">
-      <div class="sdiv">CTA Button Color <span class="si si-b">→ All CTA buttons across the site</span></div>
-      <div class="color-row">
-        <div class="color-swatch"><input type="color" id="cp-cta" value="#15803d" oninput="onColorChange()" /></div>
-        <input type="text" id="ch-cta" class="color-hex" value="#4F46E5" maxlength="7" oninput="onHexInput('cta')" onfocus="this.select()" />
-        <span class="text-xs text-slate-400 flex-1">Button background</span>
-        <button onclick="resetCtaColor()" class="btn-dx text-slate-500 border-slate-700">Reset</button>
-      </div>
-      <p class="text-xs text-slate-500 mt-2">Save Draft to see in preview; Generate Website to publish.</p>
-    </div>
-
-    <!-- Hero Background Color -->
-    <div class="card">
-      <div class="sdiv">Hero Background Color <span class="si si-g">→ Hero section background</span></div>
-      <div class="color-row">
-        <div class="color-swatch"><input type="color" id="cp-hero_dark" value="#06060f" oninput="onColorChange()" /></div>
-        <input type="text" id="ch-hero_dark" class="color-hex" value="#06060F" maxlength="7" oninput="onHexInput('hero_dark')" onfocus="this.select()" />
-        <span class="text-xs text-slate-400 flex-1">Keep very dark for contrast</span>
-        <button onclick="resetHeroColor()" class="btn-dx text-slate-500 border-slate-700">Reset</button>
-      </div>
-    </div>
-
     <!-- Quick Presets -->
     <div class="card">
-      <div class="sdiv">Quick Presets</div>
+      <div class="sdiv">Suggested Color Presets</div>
       <div class="grid grid-cols-3 gap-2" id="presetsGrid"></div>
     </div>
   </div>

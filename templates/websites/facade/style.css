@@ -6,8 +6,6 @@
     --color-primary-rgb: {{ theme_color1_rgb }};
     --color-secondary-rgb: {{ theme_color2_rgb }};
     --color-accent-rgb: {{ theme_color3_rgb }};
-    --cta-color: {{ theme_cta_color }};
-    --hero-dark: {{ theme_hero_dark }};
 
     /* Fixed design colors */
     --text-dark: #2c3e50;
@@ -65,7 +63,7 @@ h3 {
 
 /* TOP HEADER - Centered */
 .top-header {
-    background: var(--hero-dark);
+    background: #06060f;
     color: var(--text-light);
     padding: 12px 0;
     font-size: 14px;
@@ -358,7 +356,7 @@ h3 {
 
 .btn-pill-primary {
     padding: 16px 42px;
-    background: var(--cta-color);
+    background: var(--color-primary);
     color: #fff;
     border: 2px solid transparent;
     border-radius: 50px;
@@ -392,7 +390,7 @@ h3 {
 
 .btn-primary {
     padding: 16px 36px;
-    background: var(--cta-color);
+    background: var(--color-primary);
     color: #fff;
     border-radius: 10px;
     border: none;
@@ -757,7 +755,7 @@ h3 {
 
 /* FOOTER */
 .footer {
-    background: var(--hero-dark);
+    background: #06060f;
     color: #fff;
     padding: 60px 0 30px;
 }
@@ -1239,7 +1237,7 @@ h3 {
     justify-content: center;
     width: 44px;
     height: 44px;
-    background: var(--cta-color);
+    background: var(--color-primary);
     color: #fff;
     border-radius: 50%;
     transition: var(--transition);

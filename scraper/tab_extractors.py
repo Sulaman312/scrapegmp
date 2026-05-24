@@ -765,89 +765,194 @@ def extract_qa(page: Page) -> list:
 def extract_updates(page: Page) -> list:
     """
     Scrape business posts/updates from a Google Maps place page.
-    Returns list of dicts: {date, body, image_urls}.
+    Returns list of dicts with post body, image, CTA/action URL, and share URL.
     """
     updates = []
     try:
-        found_tab = click_tab(page, "Updates")
-        if not found_tab:
-            click_tab(page, "Overview")
-            page.wait_for_timeout(1000)
-            for _ in range(6):
-                _scroll_place_panel(page, 1200)
-                page.wait_for_timeout(400)
-        else:
-            page.wait_for_timeout(2000)
-            for _ in range(5):
-                _scroll_place_panel(page, 1500)
-                page.wait_for_timeout(500)
+        def _extract_posts_from_dom() -> list:
+            return page.evaluate(r"""
+            () => {
+                function clean(value) {
+                    return (value || '').replace(/\s+/g, ' ').trim();
+                }
 
-        data = page.evaluate(r"""
-        () => {
-            const results = [];
-            const seen = new Set();
-
-            const postSelectors = [
-                'div[jsrenderer*="Post"]',
-                'div[data-post-id]',
-                'div[class*="post"]',
-                'div[class*="update"]',
-            ];
-
-            for (const sel of postSelectors) {
-                for (const post of document.querySelectorAll(sel)) {
-                    const texts = [];
-                    const imgUrls = [];
-                    for (const img of post.querySelectorAll('img[src*="googleusercontent"]')) {
-                        const src = img.src || '';
-                        const base = src.replace(/=.*$/, '');
-                        if (base) imgUrls.push(base + '=s800');
+                function normalizeImage(src) {
+                    if (!src) return '';
+                    if (src.includes('googleusercontent.com')) {
+                        if (src.includes('/geougc/') || /=/.test(src)) {
+                            return src.replace(/=.*$/, '') + '=s1200';
+                        }
                     }
-                    const walker = document.createTreeWalker(post, NodeFilter.SHOW_TEXT, null);
-                    while (walker.nextNode()) {
-                        const t = walker.currentNode.textContent.trim();
-                        if (t.length > 3) texts.push(t);
+                    return src;
+                }
+
+                function backgroundImageUrl(el) {
+                    const style = el ? window.getComputedStyle(el).backgroundImage || '' : '';
+                    const match = style.match(/url\(["']?(.+?)["']?\)/);
+                    return match ? match[1] : '';
+                }
+
+                function linkFromCard(card) {
+                    const cta = card.querySelector('.ABZ6xb, .dsrqad a');
+                    if (cta) {
+                        const dataLink = cta.getAttribute('data-link') || '';
+                        if (dataLink) return dataLink;
+                        const href = cta.href || cta.getAttribute('href') || '';
+                        if (href) return href;
+                        const tel = cta.getAttribute('data-tel') || '';
+                        if (tel) return tel;
                     }
-                    if (texts.length === 0) continue;
-                    const key = texts[0];
-                    if (seen.has(key)) continue;
-                    seen.add(key);
-                    const datePattern = /(\d+\s+\w+\s+\d{4}|\w+\s+\d+,?\s+\d{4}|\d+\s+(?:day|week|month|year)s?\s+ago)/i;
-                    const dateStr = texts.find(t => datePattern.test(t)) || '';
-                    const body = texts.filter(t => t !== dateStr).join(' ').slice(0, 2000);
-                    results.push({
-                        date: dateStr,
-                        body: body,
-                        image_urls: imgUrls.join('; '),
+                    const firstLink = card.querySelector('a[data-link], a[href], a[data-tel]');
+                    if (firstLink) {
+                        return firstLink.getAttribute('data-link') ||
+                               firstLink.href ||
+                               firstLink.getAttribute('data-tel') ||
+                               '';
+                    }
+                    return '';
+                }
+
+                const expandedCards = Array.from(document.querySelectorAll('.cKbrCd'));
+                const overviewCards = Array.from(document.querySelectorAll(
+                    '.S3NLN button, button[jsaction*="local-post.expand"], button[aria-label*="local posts" i]'
+                ));
+                const candidates = expandedCards.length ? expandedCards : overviewCards;
+                const cards = [];
+
+                for (const card of candidates) {
+                    const title = clean(card.querySelector('.kf0LHf')?.textContent) ||
+                                  clean(card.querySelector('.fontTitleSmall')?.textContent) ||
+                                  '';
+                    const date = clean(card.querySelector('.mgX1W')?.textContent) ||
+                                 clean(card.querySelector('.lqMB')?.textContent) ||
+                                 '';
+                    const body = clean(card.querySelector('.hfJtQe')?.textContent) ||
+                                 clean(card.querySelector('.VpMB0')?.textContent) ||
+                                 '';
+                    const ctaText = clean(card.querySelector('.ABZ6xb, .dsrqad a, a[data-tel], a[href]')?.textContent);
+                    const postImage = normalizeImage(
+                        card.querySelector('.tTCrvf')?.src ||
+                        backgroundImageUrl(card.querySelector('.EvLOsc')) ||
+                        card.querySelector('img[src*="geougc"], img[src*="googleusercontent"]')?.src ||
+                        ''
+                    );
+                    const authorImage = normalizeImage(card.querySelector('.jE1Ghf')?.src || '');
+                    const shareUrl = card.querySelector('[data-sharing-url]')?.getAttribute('data-sharing-url') || '';
+                    const reportUrl = card.querySelector('[data-report-post-url]')?.getAttribute('data-report-post-url') || '';
+                    const actionUrl = linkFromCard(card);
+
+                    if (!body && !postImage && !shareUrl) continue;
+
+                    cards.push({
+                        title,
+                        date,
+                        type: '',
+                        body,
+                        image_url: postImage,
+                        image_urls: postImage,
+                        author_image_url: authorImage,
+                        cta_text: ctaText,
+                        action_url: actionUrl,
+                        learn_more_url: ctaText.toLowerCase().includes('learn') ? actionUrl : '',
+                        share_url: shareUrl,
+                        report_url: reportUrl,
+                        source: expandedCards.length ? 'expanded' : 'overview',
                     });
                 }
-                if (results.length > 0) break;
+
+                const seen = new Set();
+                return cards.filter((post) => {
+                    const key = `${post.date}|${post.body}|${post.image_url}`;
+                    if (seen.has(key)) return false;
+                    seen.add(key);
+                    return true;
+                });
             }
+            """) or []
 
-            if (results.length === 0) {
-                let updSection = null;
-                for (const el of document.querySelectorAll('*')) {
-                    if (el.children.length === 0 &&
-                        (el.textContent.trim() === 'Updates' ||
-                         el.textContent.trim() === 'Mises à jour')) {
-                        updSection = el.closest('[jsrenderer]') || el.parentElement?.parentElement;
-                        break;
-                    }
+        def _find_owner_section() -> bool:
+            try:
+                return bool(page.evaluate("""
+                () => {
+                    const text = document.body ? document.body.innerText || '' : '';
+                    const needles = [
+                        'From the owner', 'Mises à jour', 'Mises a jour',
+                        'Du propriétaire', 'Du proprietaire', 'Latest Posts'
+                    ];
+                    return needles.some((needle) => text.includes(needle));
                 }
-                if (updSection) {
-                    const texts = (updSection.innerText || updSection.textContent || '')
-                        .split('\n').map(s => s.trim()).filter(s => s.length > 5);
-                    if (texts.length > 0) {
-                        results.push({ date: '', body: texts.join(' | ').slice(0,2000), image_urls: '' });
-                    }
+                """))
+            except Exception:
+                return False
+
+        def _click_local_posts() -> bool:
+            selectors = [
+                'button[aria-label="See local posts"]',
+                'button[aria-label*="local posts" i]',
+                'button[jsaction*="local-post.expand"]',
+                'button[jsaction*="localPost"][aria-label]',
+            ]
+            for selector in selectors:
+                try:
+                    loc = page.locator(selector)
+                    if loc.count() > 0:
+                        loc.first.click(force=True, timeout=5000)
+                        page.wait_for_timeout(2500)
+                        return True
+                except Exception:
+                    continue
+
+            try:
+                clicked = page.evaluate("""
+                () => {
+                    const candidates = Array.from(document.querySelectorAll('button'));
+                    const scored = candidates
+                        .map((el) => {
+                            const text = `${el.getAttribute('aria-label') || ''} ${el.textContent || ''}`;
+                            let score = 0;
+                            if (/local posts/i.test(text)) score += 10;
+                            if (/From the owner/i.test(el.closest('.S3NLN')?.textContent || '')) score += 6;
+                            if (/Call now|Learn more|En savoir|Appeler/i.test(text)) score += 2;
+                            if (el.querySelector('[style*="googleusercontent"]') ||
+                                el.querySelector('img[src*="googleusercontent"]')) score += 4;
+                            return { el, score };
+                        })
+                        .filter((item) => item.score > 0)
+                        .sort((a, b) => b.score - a.score);
+                    if (!scored.length) return false;
+                    scored[0].el.click();
+                    return true;
                 }
-            }
+                """)
+                if clicked:
+                    page.wait_for_timeout(2500)
+                    return True
+            except Exception:
+                pass
+            return False
 
-            return results;
-        }
-        """) or []
+        click_tab(page, "Overview")
+        page.wait_for_timeout(1000)
 
-        updates = data
+        found_owner = _find_owner_section()
+        for _ in range(12):
+            if found_owner:
+                break
+            _scroll_place_panel(page, 900)
+            page.wait_for_timeout(500)
+            found_owner = _find_owner_section()
+
+        preview_posts = _extract_posts_from_dom()
+
+        if _click_local_posts():
+            for _ in range(4):
+                _scroll_place_panel(page, 900)
+                page.wait_for_timeout(500)
+            expanded_posts = _extract_posts_from_dom()
+            updates = expanded_posts or preview_posts
+        else:
+            updates = preview_posts
+
         if updates:
             logging.info(f"✅ Updates/posts: {len(updates)} found")
         else:

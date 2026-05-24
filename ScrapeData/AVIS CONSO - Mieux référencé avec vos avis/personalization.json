@@ -1,0 +1,219 @@
+{
+  "brand": {
+    "business_name": "AVIS CONSO - Mieux référencé avec vos avis",
+    "business_type": "Internet marketing service",
+    "meta_description": "Mieux référencé avec vos avis. Nous gérons vos avis et votre présence web. Découvrez nos offres dès maintenant.",
+    "website_title": "AVIS CONSO - Mieux référencé avec vos avis"
+  },
+  "colors": {
+    "document_colors": [
+      "#F6D103",
+      "#222222",
+      "#000000",
+      "#FACC15",
+      "#64748B"
+    ],
+    "logo_colors": [],
+    "selected_theme": {
+      "color1": "#101010",
+      "color2": "#F8FAFC",
+      "color3": "#EEC900"
+    },
+    "suggested_color_presets": [
+      {
+        "color1": "#F6D103",
+        "color2": "#383838",
+        "color3": "#000000",
+        "name": "Brand Energy"
+      },
+      {
+        "color1": "#FFE719",
+        "color2": "#525252",
+        "color3": "#232323",
+        "name": "Bright Gradient"
+      },
+      {
+        "color1": "#222222",
+        "color2": "#E4BF00",
+        "color3": "#040404",
+        "name": "Bold Contrast"
+      }
+    ],
+    "template_palettes": {
+      "bernard": {
+        "main": {
+          "color1": "#101010",
+          "color2": "#F8FAFC",
+          "color3": "#EEC900"
+        },
+        "presets": [
+          {
+            "color1": "#101010",
+            "color2": "#F8FAFC",
+            "color3": "#EEC900",
+            "name": "Exécutif"
+          },
+          {
+            "color1": "#FFFFFF",
+            "color2": "#F6D103",
+            "color3": "#CCCCCC",
+            "name": "Lumière douce"
+          },
+          {
+            "color1": "#000000",
+            "color2": "#FFFFFF",
+            "color3": "#F6D103",
+            "name": "Professionnel"
+          }
+        ]
+      },
+      "default": {
+        "main": {
+          "color1": "#F6D103",
+          "color2": "#222222",
+          "color3": "#000000"
+        },
+        "presets": [
+          {
+            "color1": "#F6D103",
+            "color2": "#383838",
+            "color3": "#000000",
+            "name": "Énergie de la marque"
+          },
+          {
+            "color1": "#FFE719",
+            "color2": "#525252",
+            "color3": "#232323",
+            "name": "Gradient lumineux"
+          },
+          {
+            "color1": "#222222",
+            "color2": "#E4BF00",
+            "color3": "#040404",
+            "name": "Contraste audacieux"
+          }
+        ]
+      },
+      "facade": {
+        "main": {
+          "color1": "#222222",
+          "color2": "#F6D103",
+          "color3": "#000000"
+        },
+        "presets": [
+          {
+            "color1": "#0E0E0E",
+            "color2": "#F6D103",
+            "color3": "#141414",
+            "name": "Marque urbaine"
+          },
+          {
+            "color1": "#3C3C3C",
+            "color2": "#F8DF53",
+            "color3": "#000000",
+            "name": "Façade claire"
+          },
+          {
+            "color1": "#000000",
+            "color2": "#FFE113",
+            "color3": "#030303",
+            "name": "Fort contraste"
+          }
+        ]
+      }
+    },
+    "website_colors": [
+      "#FF0000",
+      "#00FF00",
+      "#FFD100",
+      "#FFFFFF",
+      "#DA291C",
+      "#009A44",
+      "#FF4537",
+      "#000000",
+      "#555555",
+      "#CCCCCC",
+      "#ABB8C3",
+      "#F78DA7"
+    ]
+  },
+  "google_posts": {
+    "count": 3,
+    "latest": [
+      {
+        "action_url": "tel:+41215027617",
+        "body": "Quand un client cherche un peintre, un électricien, un coiffeur, un restaurant ou une fiduciaire dans sa région, Google est souvent son premier réflexe. Une fiche Google complète affiche vos horaires, vos services, vos photos, vos avis, votre zone d’intervention et vos coordonnées. Une fiche négligée, au contraire, donne une impression d’abandon et laisse plus de place à vos concurrents. Avis-Conso crée ou optimise votre fiche Google de manière professionnelle : catégories stratégiques, descript",
+        "cta_text": "Call now",
+        "date": "5 days ago",
+        "image_url": "https://lh3.googleusercontent.com/geougc/AF1QipOx_NaC2oQ4rFmwbbEnWEKxx4yy7D0SMQ2CuJ-Y=s1200"
+      },
+      {
+        "action_url": "https://www.avis-conso.ch/qui-sommes-nous/",
+        "body": "💬 Et si vos avis clients devenaient votre meilleur atout commercial ? Le bouche-à-oreille traditionnel ne suffit plus. Aujourd'hui, ce sont les avis en ligne qui font la différence entre un client qui choisit votre commerce… ou celui d'à côté. Chez Avis Conso, nous aidons les commerçants et artisans suisses à : ⭐ Collecter et gérer leurs avis clients 📍 Optimiser leur référencement local sur Google 📲 Maintenir une présence web active et cohérente 💡 Mieux investir leur budget publicitaire Pas de j",
+        "cta_text": "Learn more",
+        "date": "6 days ago",
+        "image_url": "https://lh3.googleusercontent.com/geougc/AF1QipMeKUx11FYAYzJcWruSNHvAMCQ3I3BGH8T7VSix=s1200"
+      },
+      {
+        "action_url": "https://www.avis-conso.ch/",
+        "body": "🌟 Votre réputation en ligne, c'est notre métier !Vous êtes commerçant, artisan ou chef d'une petite entreprise en Suisse ? Vous n'avez pas le temps de gérer vos avis Google, vos réseaux sociaux ou votre fiche en ligne ?Avis Conso s'en charge pour vous ! 🇨🇭✅ Gestion de vos avis Google, Facebook & Instagram ✅ Mise à jour régulière de votre fiche : photos, actualités, services, produits ✅ Un seul interlocuteur, joignable par WhatsApp ou email ✅ Des tarifs adaptés aux petits commercesAujourd'hui, vo",
+        "cta_text": "Learn more",
+        "date": "6 days ago",
+        "image_url": "https://lh3.googleusercontent.com/geougc/AF1QipNBmm32Ms0M3KCqLzrlIMrXaiZMvHoIN2ddO4lY=s1200"
+      }
+    ]
+  },
+  "sources": {
+    "business_website": "http://avis-conso.ch/",
+    "color_source": "design_document",
+    "design_document": "248e8962-2632-47cf-b66c-3b143aa94c5a_avis-conso.pdf",
+    "google_maps": true,
+    "google_posts_count": 3,
+    "used_posts_in_ai_context": true
+  },
+  "style_notes": {
+    "document_excerpt": "Personalization Document — AVIS CONSO\nBrand Objective\nAVIS CONSO helps Swiss shop owners, tradespeople, and small businesses manage their web\npresence, customer reviews, and local visibility. The tone should remain simple, human,\nconcrete, and reassuring.\nThe communication should speak directly to small businesses that lack time to manage Google,\nFacebook, Instagram, photos, products, services, and updates.\nPositioning\nAVIS CONSO is a local partner for small businesses. The brand should communicate:\n· simplicity\n· trust\n· human support\n· local efficiency\n· pricing adapted to small businesses\n· improved web visibility\n· practical day-to-day management\nWriting Style\nUse clear, direct, and professional language. Avoid technical jargon. The message should give\nthe impression that AVIS CONSO is coming to help the business owner directly on-site, in a\npractical and concrete way.\nImportant expressions to reflect in the spirit of the content:\n· We manage your web presence and reviews\n· We help shop owners and small businesses\n· Management of Google, Facebook, and Instagram reviews\n· Regular updates\n· Products, services, reviews, photos, and information kept up to date\n· A single point of contact\n· A simple WhatsApp call or email is enough\n· A simple and low-cost approach\n· Let’s get to know each other directly at your business location\nBrand Colors\nMain colors to use as the basis for personalization:\n· Main yellow: #f6d103\n· Accent yellow: #f6d103\n· Black / dark gray: #222222\nThese colors should be used to generate palettes adapted to each template. Yellow should\nrepresent energy, visibility, and action. Black/dark gray should provide contrast, seriousness, and\nreadability.",
+    "font_note": "Do not change template font families; personalization only controls content and colors.",
+    "website_ctas": [
+      "contact@avis-conso.ch",
+      "Contact",
+      "En savoir +",
+      "Contactez-nous",
+      "En savoir plus",
+      "En savoir plus sur ces finalités"
+    ],
+    "website_headings": [
+      "Nous allons gérer votre présence web et vos avis",
+      "Découvrons-nous directement chez vous et entrons dans le concret !",
+      "Notre approche est simple et peu coûteuse !",
+      "Ils nous font confiance",
+      "Restez informé en tous temps !",
+      "Contactez-nous",
+      "Newsletter"
+    ],
+    "website_nav_labels": [
+      "+41 21 544 58 20",
+      "+41 58 510 87 80",
+      "contact@avis-conso.ch",
+      "Donnez votre avis",
+      "Accueil",
+      "Qui sommes-nous ?",
+      "Prendre RDV",
+      "Contact"
+    ],
+    "website_services": [
+      "Accueil",
+      "Qui sommes-nous ?",
+      "Prendre RDV",
+      "Contact",
+      "Aperçu rapide de votre commerce",
+      "Actualités régulières",
+      "Produits",
+      "Services",
+      "Photos",
+      "À propos"
+    ],
+    "writing_direction": "Use the uploaded design document first, then the provided website, then Google Maps business facts and posts. Keep the business's existing tone."
+  },
+  "version": 1
+}

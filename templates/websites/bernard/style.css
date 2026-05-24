@@ -3,8 +3,6 @@
     --color-primary: {{ theme_color1 }};
     --color-primary-light: {{ theme_color2 }};
     --color-accent: {{ theme_color3 }};
-    --cta-color: {{ theme_cta_color }};
-
     /* Fixed design colors */
     --bg-light: #ffffff;
     --bg-light-gray: #f8f9fa;

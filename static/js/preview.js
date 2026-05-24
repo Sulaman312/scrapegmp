@@ -30,7 +30,7 @@ const PV_LABELS = {
   contact:       'Contact',
   cta:           'CTA Banner',
   footer:        'Footer',
-  design:        'Design',
+  design:        'Personalization',
   seo:           'SEO',
   visibility:    'Sections',
   'our-services': 'Our Services',

@@ -279,7 +279,7 @@ function applyTemplateSections(templateId) {
 const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 const DAY_LBL = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-const DEF = { color1: '#4f7df5', color2: '#7c3aed', color3: '#06c9d4', hero_dark: '#06060f' };
+const DEF = { color1: '#4f7df5', color2: '#7c3aed', color3: '#06c9d4' };
 
 const PRESETS_DEFAULT = [
   { name: 'Emerald',    c: ['#10b981', '#059669', '#0d9488'] },
@@ -300,7 +300,7 @@ const PRESETS_BERNARD = [
 ];
 
 const PRESETS_FACADE = [
-  { name: 'Sky',        c: ['#0ea5e9', '#38bdf8', '#7dd3fc'], cta: '#000000' },
+  { name: 'Sky',        c: ['#0ea5e9', '#38bdf8', '#7dd3fc'] },
   { name: 'Ocean Blue', c: ['#4f7df5', '#7c3aed', '#06c9d4'] },
   { name: 'Emerald',    c: ['#10b981', '#059669', '#0d9488'] },
   { name: 'Sunset',     c: ['#f59e0b', '#ef4444', '#ec4899'] },

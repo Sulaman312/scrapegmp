@@ -211,6 +211,27 @@ async function generateWebsite() {
   }
 }
 
+async function regenerateContentFromPersonalization() {
+  if (!currentBusiness) return;
+  try {
+    await saveChanges();
+    showToast('Regenerating AI content from personalization…', 'info');
+    const res = await fetch(`/api/business/${encodeURIComponent(currentBusiness)}/regenerate-content`, {
+      method: 'POST'
+    });
+    const data = await res.json();
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Regeneration failed');
+    }
+    currentData = data.data;
+    populateForm(currentData);
+    if (typeof _pvOnSave === 'function') _pvOnSave();
+    showToast('AI content regenerated from personalization', 'success');
+  } catch (e) {
+    showToast('Regeneration failed: ' + e.message, 'error');
+  }
+}
+
 // Opens the PUBLISHED site only (last generated). Not the draft preview.
 function previewWebsite() {
   if (currentBusiness) {
@@ -254,6 +275,10 @@ function showAddBusinessModal() {
 
     modal.classList.remove('hidden');
     document.getElementById('businessUrlInput').value = '';
+    const websiteInput = document.getElementById('businessWebsiteInput');
+    const docInput = document.getElementById('designDocumentInput');
+    if (websiteInput) websiteInput.value = '';
+    if (docInput) docInput.value = '';
     document.getElementById('businessUrlInput').focus();
   }
 }
@@ -306,6 +331,8 @@ function updateModalProgress(step) {
 async function submitAddBusiness() {
   const urlInput = document.getElementById('businessUrlInput');
   const url = urlInput.value.trim();
+  const websiteUrl = (document.getElementById('businessWebsiteInput')?.value || '').trim();
+  const designDocument = document.getElementById('designDocumentInput')?.files?.[0] || null;
 
   if (!url) {
     showToast('Please enter a Google Maps URL', 'error');
@@ -327,10 +354,15 @@ async function submitAddBusiness() {
 
   try {
     // Step 1: Start the background job
+    const formData = new FormData();
+    formData.append('url', url);
+    formData.append('language', language);
+    if (websiteUrl) formData.append('website_url', websiteUrl);
+    if (designDocument) formData.append('design_document', designDocument);
+
     const startRes = await fetch('/api/scrape-and-enrich', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: url, language: language }),
+      body: formData,
     });
 
     if (!startRes.ok) {
@@ -464,10 +496,12 @@ function updateTemplateAndPreview() {
   if (typeof updatePresetsForTemplate === 'function') {
     updatePresetsForTemplate(selectedTemplate);
   }
-  // Apply the first preset of the template as default color scheme
-  if (typeof PRESETS !== 'undefined' && PRESETS.length > 0 && typeof applyPreset === 'function') {
+  // Apply the personalization main palette for the selected template.
+  if (typeof applyMainPaletteForTemplate === 'function' && applyMainPaletteForTemplate(selectedTemplate)) {
+    // Applied from personalization.json.
+  } else if (typeof PRESETS !== 'undefined' && PRESETS.length > 0 && typeof applyPreset === 'function') {
     const firstPreset = PRESETS[0];
-    applyPreset(...firstPreset.c, firstPreset.cta);
+    applyPreset(...firstPreset.c);
   }
   // Use updateLivePreview to send currentData with the new template via POST
   if (typeof updateLivePreview === 'function') {
