@@ -942,16 +942,62 @@ def extract_updates(page: Page) -> list:
             page.wait_for_timeout(500)
             found_owner = _find_owner_section()
 
+        def _collect_expanded_posts_with_scroll(max_rounds: int = 10) -> list:
+            best = _extract_posts_from_dom()
+            same_count_rounds = 0
+            for _ in range(max_rounds):
+                try:
+                    # Scroll expanded side panel first; fall back to place panel scroll helper.
+                    page.evaluate(
+                        """
+                        () => {
+                            const selectors = [
+                                '.m6QErb.DxyBCb.kA9KIf.dS8AEf',
+                                '.m6QErb.DxyBCb',
+                                '.m6QErb[role="main"]'
+                            ];
+                            for (const sel of selectors) {
+                                const el = document.querySelector(sel);
+                                if (el && el.scrollHeight > el.clientHeight) {
+                                    el.scrollTop += 1200;
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }
+                        """
+                    )
+                except Exception:
+                    _scroll_place_panel(page, 1000)
+                page.wait_for_timeout(650)
+
+                current = _extract_posts_from_dom()
+                if len(current) > len(best):
+                    best = current
+                    same_count_rounds = 0
+                else:
+                    same_count_rounds += 1
+                    if same_count_rounds >= 3:
+                        break
+            return best
+
         preview_posts = _extract_posts_from_dom()
 
         if _click_local_posts():
             for _ in range(4):
                 _scroll_place_panel(page, 900)
                 page.wait_for_timeout(500)
-            expanded_posts = _extract_posts_from_dom()
+            expanded_posts = _collect_expanded_posts_with_scroll(max_rounds=12)
             updates = expanded_posts or preview_posts
         else:
             updates = preview_posts
+
+        # Fallback: if we only got one card, retry expanded-feed collection once more.
+        if len(updates) <= 1 and _click_local_posts():
+            retried_posts = _collect_expanded_posts_with_scroll(max_rounds=14)
+            if len(retried_posts) > len(updates):
+                updates = retried_posts
+                logging.info(f"✅ Updates/posts fallback improved count to: {len(updates)}")
 
         if updates:
             logging.info(f"✅ Updates/posts: {len(updates)} found")

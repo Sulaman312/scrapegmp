@@ -133,14 +133,22 @@ def extract_weekly_hours(page: Page) -> dict:
 
     try:
         logging.info("🕐 Extracting opening hours...")
+        page.wait_for_timeout(2500)
         hours_button_selectors = [
             '//div[@class="OMl5r hH0dDd jBYmhd"][@role="button"]',
             '//button[contains(@aria-label, "Hours")]',
-            '//div[@role="button"][contains(@aria-label, "hours")]'
+            '//button[contains(@aria-label, "hours")]',
+            '//button[contains(@aria-label, "Opening hours")]',
+            '//div[@role="button"][contains(@aria-label, "hours")]',
+            '//div[@role="button"][contains(@aria-label, "Opening hours")]'
         ]
 
         button_clicked = False
         for selector in hours_button_selectors:
+            try:
+                page.locator(selector).first.wait_for(state="attached", timeout=5000)
+            except Exception:
+                pass
             if page.locator(selector).count() > 0:
                 try:
                     is_expanded = page.locator(selector).first.get_attribute('aria-expanded')
@@ -158,7 +166,11 @@ def extract_weekly_hours(page: Page) -> dict:
                                 pass
 
                         if button_clicked:
-                            page.wait_for_timeout(5000)
+                            page.wait_for_timeout(8000)
+                            try:
+                                page.wait_for_selector('//tr[@class="y0skZc"]', timeout=8000)
+                            except Exception:
+                                logging.warning("  ⚠ Hours table rows did not appear after opening; continuing with fallback extraction")
                             break
                 except Exception:
                     continue
@@ -203,6 +215,63 @@ def extract_weekly_hours(page: Page) -> dict:
         except Exception as e:
             logging.warning(f"  ⚠ Debug extraction failed: {e}")
 
+        def _extract_hours_from_labels() -> dict:
+            fallback = {}
+            try:
+                labels = page.evaluate(
+                    """
+                    () => {
+                        const out = [];
+                        const nodes = document.querySelectorAll('[aria-label], [role="row"], tr, div, span');
+                        const cap = Math.min(nodes.length, 2500);
+                        for (let i = 0; i < cap; i++) {
+                            const el = nodes[i];
+                            const aria = (el.getAttribute && el.getAttribute('aria-label')) || '';
+                            const txt = (el.textContent || '').trim();
+                            if (aria && aria.length < 700) out.push(aria);
+                            if (txt && txt.length >= 6 && txt.length < 700) out.push(txt);
+                        }
+                        return out;
+                    }
+                    """
+                ) or []
+            except Exception:
+                labels = []
+
+            if not isinstance(labels, list):
+                return fallback
+
+            day_patterns = {
+                "monday": r"(monday|montag|lundi|lunes|luned[ìi])",
+                "tuesday": r"(tuesday|dienstag|mardi|martes|marted[ìi])",
+                "wednesday": r"(wednesday|mittwoch|mercredi|mi[eé]rcoles|mercoled[ìi])",
+                "thursday": r"(thursday|donnerstag|jeudi|jueves|gioved[ìi])",
+                "friday": r"(friday|freitag|vendredi|viernes|venerd[ìi])",
+                "saturday": r"(saturday|samstag|samedi|s[áa]bado|sabato)",
+                "sunday": r"(sunday|sonntag|dimanche|domingo|domenica)",
+            }
+            hour_pattern = re.compile(
+                r"((?:\d{1,2}(?::\d{2})?\s?[AP]M|\d{1,2}[:h]\d{2})\s*[–-]\s*(?:\d{1,2}(?::\d{2})?\s?[AP]M|\d{1,2}[:h]\d{2})|closed|fermé|geschlossen|cerrado)",
+                re.I,
+            )
+
+            for raw in labels:
+                text = re.sub(r"\s+", " ", str(raw or "")).strip()
+                if len(text) < 8:
+                    continue
+                lower = text.lower()
+                hm = hour_pattern.search(text)
+                if not hm:
+                    continue
+                hours_txt = hm.group(1).strip()
+                for day_key, patt in day_patterns.items():
+                    if day_key in fallback:
+                        continue
+                    if re.search(rf"\b{patt}\b", lower, re.I):
+                        fallback[day_key] = hours_txt
+                        break
+            return fallback
+
         extracted_count = 0
         for day in days:
             day_found = False
@@ -224,6 +293,22 @@ def extract_weekly_hours(page: Page) -> dict:
             if not day_found:
                 weekly_hours[day.lower()] = "Not available"
                 logging.warning(f"  ⚠ {day}: no row found for any translation")
+
+        # Fallback only when primary row parsing is incomplete.
+        if extracted_count < 5:
+            label_hours = _extract_hours_from_labels()
+            if label_hours:
+                improved = 0
+                for day_key, hours_txt in label_hours.items():
+                    if weekly_hours.get(day_key, "Not available") in ["", "Not available"] and hours_txt:
+                        weekly_hours[day_key] = hours_txt
+                        improved += 1
+                if improved:
+                    extracted_count = sum(
+                        1 for v in weekly_hours.values()
+                        if v and v.lower() not in ["not available", ""]
+                    )
+                    logging.info(f"  ✅ Hours fallback filled {improved} extra day(s) from panel labels")
 
         logging.info(f"  ✅ Hours extracted: {extracted_count}/7 days with data")
         return weekly_hours
@@ -255,6 +340,48 @@ def extract_place(page: Page, google_maps_url: str = "", browser=None, extract_e
     place.phone_number = extract_text(page, phone_number_xpath)
     place.place_type = extract_text(page, place_type_xpath)
     place.introduction = extract_text(page, intro_xpath) or "None Found"
+
+    # Fallback for UI variants where class-based selectors are not stable.
+    if not place.name or not place.address or not place.phone_number or not place.website:
+        try:
+            fallback = page.evaluate(
+                """
+                () => {
+                    const clean = (v) => (v || '').replace(/\\s+/g, ' ').trim();
+                    const out = { name: '', address: '', phone: '', website: '', place_type: '' };
+
+                    const h1 = document.querySelector('h1');
+                    if (h1) out.name = clean(h1.textContent);
+
+                    const byItemId = (id) => document.querySelector(`[data-item-id="${id}"]`);
+                    const addrBtn = byItemId('address');
+                    if (addrBtn) out.address = clean(addrBtn.textContent);
+
+                    const phoneBtn = document.querySelector('[data-item-id^="phone:tel:"]');
+                    if (phoneBtn) out.phone = clean(phoneBtn.textContent);
+
+                    const websiteEl = byItemId('authority');
+                    if (websiteEl) out.website = clean(websiteEl.textContent);
+
+                    const typeBtn = document.querySelector('.LBgpqf button, button.DkEaL, button[jsaction*="pane.rating.category"]');
+                    if (typeBtn) out.place_type = clean(typeBtn.textContent);
+
+                    return out;
+                }
+                """
+            ) or {}
+            if not place.name:
+                place.name = str(fallback.get("name", "")).strip()
+            if not place.address:
+                place.address = str(fallback.get("address", "")).strip()
+            if not place.phone_number:
+                place.phone_number = str(fallback.get("phone", "")).strip()
+            if not place.website:
+                place.website = str(fallback.get("website", "")).strip()
+            if not place.place_type:
+                place.place_type = str(fallback.get("place_type", "")).strip()
+        except Exception:
+            pass
 
     place.google_maps_url = google_maps_url or page.url
 

@@ -18,9 +18,10 @@
 
         <!-- Cards Container (Below, then translated up) -->
         <div class="why-choose-us-cards-wrapper">
-            <div class="why-choose-us-cards" data-aos="fade-up" data-aos-delay="200">
-                {% for advantage in advantages %}
-                <div class="why-choose-us-card" data-aos="fade-up" data-aos-delay="{{ 200 + loop.index0 * 100 }}">
+            <div class="why-choose-us-cards" data-aos="fade-up" data-aos-delay="0" data-aos-anchor-placement="top-bottom" data-aos-offset="0">
+                {% set why_choose_items = why_choose_us_cards if why_choose_us_cards else advantages %}
+                {% for advantage in why_choose_items %}
+                <div class="why-choose-us-card" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 20 }}" data-aos-anchor-placement="top-bottom" data-aos-offset="0">
 
                     <span class="advantage-icon">
                         <span class="material-symbols-outlined">

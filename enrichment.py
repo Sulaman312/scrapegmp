@@ -16,13 +16,14 @@ import json
 import re
 import argparse
 import logging
+import time
 import zipfile
 import xml.etree.ElementTree as ET
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 from colorthief import ColorThief
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 from utils.review_translator import ensure_reviews_translated
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -172,6 +173,105 @@ def _read_design_document(path: str) -> dict:
         )
 
     result["colors"] = _extract_colors_from_text(result["text"])
+    return result
+
+
+def _response_output_text(response) -> str:
+    text = getattr(response, "output_text", "") or ""
+    if text:
+        return text
+
+    chunks = []
+    for item in getattr(response, "output", []) or []:
+        for content in getattr(item, "content", []) or []:
+            value = getattr(content, "text", "")
+            if value:
+                chunks.append(value)
+    return "\n".join(chunks).strip()
+
+
+def _domain_for_web_filter(url: str) -> str:
+    parsed = urlparse(url if re.match(r"^https?://", url or "", re.I) else f"https://{url}")
+    host = (parsed.netloc or "").lower().split("@")[-1].split(":")[0]
+    return host[4:] if host.startswith("www.") else host
+
+
+def _read_website_with_openai(client, website_url: str, language: str = "fr") -> dict:
+    """Ask OpenAI web search to read only the user-submitted website domain."""
+    result = {
+        "enabled": False,
+        "url": website_url or "",
+        "allowed_domain": "",
+        "summary": "",
+        "company_descriptions": [],
+        "services": [],
+        "products": [],
+        "offers": [],
+        "tone_and_style": [],
+        "colors_or_branding": [],
+        "contact_or_location_notes": [],
+        "sources": [],
+        "error": "",
+    }
+    if not website_url:
+        return result
+
+    allowed_domain = _domain_for_web_filter(website_url)
+    if not allowed_domain:
+        result["error"] = "No valid domain found in submitted website URL."
+        return result
+
+    result["enabled"] = True
+    result["allowed_domain"] = allowed_domain
+    model = os.environ.get("OPENAI_WEB_READER_MODEL", "o4-mini")
+    prompt = f"""Read only this business website and extract useful website-generation context: {website_url}
+
+Allowed source domain: {allowed_domain}
+Do not use Google Maps, third-party directories, social media, or unrelated search results.
+
+Return ONLY valid JSON with these keys:
+{{
+  "summary": "Short factual summary of what the company does",
+  "company_descriptions": ["Important company/about statements found on the website"],
+  "services": ["Specific services from the website"],
+  "products": ["Specific products from the website, if any"],
+  "offers": ["Specific offers, packages, prices, or CTAs, if any"],
+  "tone_and_style": ["Writing/design style notes from the website"],
+  "colors_or_branding": ["Brand colors, visual identity, or color hints if visible"],
+  "contact_or_location_notes": ["Locations, regions, contact details, or service areas mentioned"],
+  "sources": ["URLs from this domain that were useful"]
+}}
+
+Keep the extracted facts in their original language when useful. The final generated website content will still be written in the selected output language: {language}."""
+
+    try:
+        response = client.responses.create(
+            model=model,
+            tools=[
+                {
+                    "type": "web_search",
+                    "filters": {"allowed_domains": [allowed_domain]},
+                }
+            ],
+            tool_choice="auto",
+            include=["web_search_call.action.sources"],
+            input=prompt,
+        )
+        raw = _response_output_text(response)
+        raw = re.sub(r"^```(?:json)?\s*", "", raw.strip())
+        raw = re.sub(r"\s*```$", "", raw)
+        parsed = json.loads(raw)
+        if isinstance(parsed, dict):
+            for key in result:
+                if key in {"enabled", "url", "allowed_domain", "error"}:
+                    continue
+                if key in parsed:
+                    result[key] = parsed[key]
+            logging.info(f"🌐 OpenAI read submitted website domain: {allowed_domain}")
+    except Exception as e:
+        result["error"] = str(e)[:500]
+        logging.warning(f"⚠ OpenAI website read failed for {allowed_domain}: {e}")
+
     return result
 
 
@@ -364,6 +464,288 @@ def _normalize_template_color_palettes(ai_palettes: dict, fallback_palettes: dic
         normalized[template] = {"main": main, "presets": presets}
 
     return normalized
+
+
+def _short_text(value: str, limit: int = 180) -> str:
+    text = re.sub(r"\s+", " ", str(value or "")).strip()
+    if len(text) <= limit:
+        return text
+    return text[:limit].rsplit(" ", 1)[0].strip() + "..."
+
+
+def _service_title_from_text(value: str) -> str:
+    text = re.sub(r"\s+", " ", str(value or "")).strip(" -•\t\r\n")
+    if not text:
+        return ""
+    if ":" in text and len(text.split(":", 1)[0]) <= 70:
+        text = text.split(":", 1)[0]
+    if "." in text and len(text.split(".", 1)[0]) <= 70:
+        text = text.split(".", 1)[0]
+    words = text.split()
+    return " ".join(words[:7]).strip()
+
+
+def _extract_service_candidates_from_text(text: str) -> list[str]:
+    if not text:
+        return []
+    candidates = []
+    keywords = [
+        "avis", "google", "facebook", "instagram", "fiche", "actualités",
+        "produits", "services", "photos", "référencement", "visibilité",
+        "présence web", "whatsapp", "coordonnées", "plateformes",
+    ]
+    for raw_line in re.split(r"[\n\r]+|(?<=\.)\s+", text):
+        line = raw_line.strip(" -•\t")
+        if 12 <= len(line) <= 260 and any(k in line.lower() for k in keywords):
+            candidates.append(line)
+    return candidates
+
+
+def _extract_design_doc_services(document_excerpt: str) -> list[str]:
+    """Extract explicit service lines from a design doc excerpt, if present."""
+    if not document_excerpt:
+        return []
+
+    lines = [ln.strip(" \t-•") for ln in str(document_excerpt).splitlines()]
+    out: list[str] = []
+    in_services_block = False
+
+    def _looks_like_service_title(value: str) -> bool:
+        txt = re.sub(r"\s+", " ", value).strip(" -•")
+        low = txt.lower()
+        if not txt:
+            return False
+        if len(txt) > 90:
+            return False
+        if len(txt.split()) > 12:
+            return False
+        banned = [
+            "provides the following",
+            "main functionalities",
+            "fonctionnalit",
+            "writing style",
+            "brand colors",
+            "positioning",
+            "important expressions",
+            "tone should",
+            "the brand should communicate",
+        ]
+        if any(b in low for b in banned):
+            return False
+        if txt.endswith("."):
+            return False
+        return True
+
+    for raw in lines:
+        line = raw.strip()
+        if not line:
+            if in_services_block and out:
+                break
+            continue
+
+        low = line.lower()
+        if "services:" in low or low == "services":
+            in_services_block = True
+            after = line.split(":", 1)[1].strip() if ":" in line else ""
+            if after and _looks_like_service_title(after):
+                out.append(after)
+            continue
+
+        if in_services_block:
+            if any(
+                k in low
+                for k in ["writing style", "brand colors", "positioning", "important expressions", "tone"]
+            ):
+                break
+            if _looks_like_service_title(line):
+                out.append(line)
+
+    if not out:
+        return []
+
+    normalized = []
+    seen = set()
+    for item in out:
+        cleaned = re.sub(r"\s+", " ", item).strip(" -•")
+        key = cleaned.lower()
+        if cleaned and key not in seen:
+            seen.add(key)
+            normalized.append(cleaned)
+    return normalized
+
+
+def _service_description_from_title(title: str) -> str:
+    t = str(title or "").strip()
+    if not t:
+        return ""
+    return f"Service dédié: {t}. Mise en oeuvre concrète adaptée aux petites entreprises."
+
+
+def _build_advantage_anchors(
+    personalization: dict | None,
+    website: dict,
+    updates: list[dict] | None,
+    limit: int = 12,
+) -> list[str]:
+    anchors: list[str] = []
+    if personalization:
+        style_notes = personalization.get("style_notes", {}) if isinstance(personalization.get("style_notes"), dict) else {}
+        anchors.extend(_extract_design_doc_services(style_notes.get("document_excerpt", "")))
+        openai_read = personalization.get("openai_website_read", {})
+        if isinstance(openai_read, dict):
+            anchors.extend([str(s).strip() for s in (openai_read.get("services") or []) if str(s).strip()])
+    source_cards = _derive_service_cards_from_sources(website, personalization, updates, limit=limit * 2)
+    anchors.extend([str(c.get("title", "")).strip() for c in source_cards if isinstance(c, dict)])
+
+    seen = set()
+    result: list[str] = []
+    for item in anchors:
+        title = _service_title_from_text(item)
+        key = title.lower().strip()
+        if not title or key in seen:
+            continue
+        seen.add(key)
+        result.append(title)
+        if len(result) >= limit:
+            break
+    return result
+
+
+def _localize_advantage_titles(client, titles: list[str], language: str, output_language_name: str) -> list[str]:
+    clean_titles = [str(t or "").strip() for t in (titles or []) if str(t or "").strip()]
+    if not clean_titles:
+        return []
+
+    lang = (language or "fr").lower()
+    # For English output, keep original titles.
+    if lang == "en":
+        return clean_titles
+
+    try:
+        prompt = (
+            f"Translate and normalize these service/advantage titles into {output_language_name}. "
+            "Return ONLY JSON with key 'titles' as an array of same length and same order. "
+            "Do not add or remove items. Keep titles concise and professional.\n\n"
+            f"{json.dumps(clean_titles, ensure_ascii=False)}"
+        )
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.0,
+            max_tokens=700,
+            response_format={"type": "json_object"},
+        )
+        raw = (response.choices[0].message.content or "").strip()
+        raw = re.sub(r"^```(?:json)?\s*", "", raw)
+        raw = re.sub(r"\s*```$", "", raw)
+        data = json.loads(raw)
+        translated = data.get("titles", []) if isinstance(data, dict) else []
+        if isinstance(translated, list) and len(translated) == len(clean_titles):
+            out = []
+            for idx, item in enumerate(translated):
+                text = str(item or "").strip()
+                out.append(text if text else clean_titles[idx])
+            return out
+    except Exception as e:
+        logging.warning(f"⚠ Could not localize advantage titles dynamically: {e}")
+
+    return clean_titles
+
+
+def _services_to_feature_cards(services_cards: list[dict], limit: int = 10) -> list[dict]:
+    """Project service cards into generic feature card format for all templates."""
+    icon_cycle = [
+        "workspace_premium",
+        "verified",
+        "local_shipping",
+        "schedule",
+        "storefront",
+        "checklist",
+        "support_agent",
+        "photo",
+        "thumb_up",
+        "bolt",
+    ]
+    features = []
+    for idx, card in enumerate(services_cards or []):
+        if not isinstance(card, dict):
+            continue
+        title = str(card.get("title", "")).strip()
+        description = str(card.get("description", "")).strip()
+        if not title:
+            continue
+        features.append(
+            {
+                "icon": icon_cycle[idx % len(icon_cycle)],
+                "title": title,
+                "description": description or _service_description_from_title(title),
+            }
+        )
+        if len(features) >= limit:
+            break
+    return features
+
+
+def _derive_service_cards_from_sources(
+    website: dict,
+    personalization: dict | None,
+    updates: list[dict] | None,
+    limit: int,
+) -> list[dict]:
+    source_items: list[str] = []
+    design_services: list[str] = []
+
+    if personalization:
+        style_notes = personalization.get("style_notes", {}) if isinstance(personalization.get("style_notes"), dict) else {}
+        design_services = _extract_design_doc_services(style_notes.get("document_excerpt", ""))
+        source_items.extend(design_services)
+        source_items.extend([str(s) for s in (style_notes.get("website_services") or []) if str(s).strip()])
+        source_items.extend(_extract_service_candidates_from_text(style_notes.get("document_excerpt", "")))
+        openai_read = personalization.get("openai_website_read", {})
+        if isinstance(openai_read, dict):
+            for key in ("services", "products", "offers", "company_descriptions"):
+                values = openai_read.get(key, [])
+                if isinstance(values, list):
+                    source_items.extend([str(s) for s in values if str(s).strip()])
+                elif values:
+                    source_items.append(str(values))
+
+    source_items.extend([str(s) for s in (website.get("services") or []) if str(s).strip()])
+
+    for post in (updates or [])[:5]:
+        source_items.extend(_extract_service_candidates_from_text(post.get("body", "")))
+
+    seen = set()
+    cards = []
+    nav_noise = {
+        "accueil", "home", "contact", "qui sommes-nous", "about", "à propos",
+        "prendre rdv", "book now", "make an appointment", "donnez votre avis",
+        "newsletter", "products", "services", "photos",
+    }
+
+    for item in source_items:
+        title = _service_title_from_text(item)
+        if not title:
+            continue
+        if title.lower().strip() in nav_noise:
+            continue
+        key = title.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        if design_services and item in design_services:
+            description = _service_description_from_title(title)
+        else:
+            description = _short_text(item, 220)
+        cards.append({
+            "title": title,
+            "description": description,
+            "features": [],
+            "link": "#contact",
+        })
+        if len(cards) >= limit:
+            break
+    return cards
 
 
 def _find_images(images_dir: str) -> list[str]:
@@ -645,6 +1027,7 @@ def build_personalization(
     logo_colors: dict,
     design_document_path: str = "",
     preferred_website_url: str = "",
+    user_provided_website_url: str = "",
 ) -> dict:
     design_doc = _read_design_document(design_document_path)
     color_sources = []
@@ -675,9 +1058,11 @@ def build_personalization(
             "google_maps": True,
             "google_posts_count": posts_count,
             "business_website": preferred_website_url or place.get("website", ""),
+            "user_provided_website": user_provided_website_url,
             "design_document": design_doc.get("filename", ""),
             "color_source": color_sources[0],
             "used_posts_in_ai_context": posts_count > 0,
+            "openai_website_read": False,
         },
         "brand": {
             "business_name": place.get("name", ""),
@@ -735,6 +1120,8 @@ def enrich_with_ai(
     language: str = "fr",
     personalization: dict | None = None,
     updates: list[dict] | None = None,
+    openai_website_url: str = "",
+    debug_dump_dir: str = "",
 ) -> dict:
     """
     Call OpenAI to generate: tagline, subtitle, feature descriptions,
@@ -749,6 +1136,8 @@ def enrich_with_ai(
         "navbar_name": "",
         "url_slug": "",
         "features": [],
+        "services_cards": [],
+        "services_page_cards": [],
         "seo_title": "",
         "seo_description": "",
         "services_page_seo_title": "",
@@ -767,6 +1156,18 @@ def enrich_with_ai(
     except ImportError:
         logging.error("❌ openai package not installed. Run: pip install openai")
         return ai
+
+    openai_website_read = {}
+    if openai_website_url:
+        openai_website_read = _read_website_with_openai(client, openai_website_url, language)
+        if personalization is not None:
+            personalization["openai_website_read"] = openai_website_read
+            personalization.setdefault("sources", {})["openai_website_read"] = bool(
+                openai_website_read.get("summary")
+                or openai_website_read.get("services")
+                or openai_website_read.get("products")
+            )
+            personalization.setdefault("sources", {})["openai_website_read_url"] = openai_website_url
 
     # Build context for the AI
     context_parts = [
@@ -787,6 +1188,32 @@ def enrich_with_ai(
         context_parts.append(f"Services listed: {', '.join(website['services'][:10])}")
     if website.get("raw_text"):
         context_parts.append(f"Website content excerpt: {website['raw_text'][:800]}")
+    service_evidence = []
+    if website.get("services"):
+        service_evidence.extend([str(s) for s in website.get("services", [])[:20]])
+    if personalization:
+        style_notes = personalization.get("style_notes", {}) if isinstance(personalization.get("style_notes"), dict) else {}
+        service_evidence.extend([str(s) for s in style_notes.get("website_services", [])[:20]])
+        doc_excerpt = style_notes.get("document_excerpt", "")
+        if doc_excerpt:
+            service_evidence.append(f"Design document excerpt: {doc_excerpt[:1800]}")
+    if openai_website_read:
+        for key in ("company_descriptions", "services", "products", "offers"):
+            values = openai_website_read.get(key, [])
+            if isinstance(values, list):
+                service_evidence.extend([f"OpenAI website read {key}: {str(value)}" for value in values[:10]])
+            elif values:
+                service_evidence.append(f"OpenAI website read {key}: {values}")
+    if updates:
+        for post in updates[:5]:
+            body = (post.get("body", "") or "")[:500]
+            if body:
+                service_evidence.append(f"Google post: {body}")
+    if service_evidence:
+        context_parts.append(
+            "Service/offer evidence to use for service cards:\n" +
+            "\n".join(f"- {item}" for item in service_evidence[:30])
+        )
     if updates:
         post_lines = []
         for post in updates[:5]:
@@ -799,6 +1226,18 @@ def enrich_with_ai(
         context_parts.append(
             "Personalization context JSON:\n" +
             json.dumps(personalization, ensure_ascii=False)[:5000]
+        )
+    if openai_website_read:
+        context_parts.append(
+            "OpenAI website read from the user-submitted website only. Use this for useful details such as company descriptions, services, products, offers, tone, locations, and branding. Do not infer from Google Maps with this field:\n" +
+            json.dumps(openai_website_read, ensure_ascii=False)[:4000]
+        )
+
+    advantage_anchors = _build_advantage_anchors(personalization, website, updates, limit=12)
+    if advantage_anchors:
+        context_parts.append(
+            "Canonical advantage/service anchors (preferred titles across services/features/why-choose sections):\n" +
+            "\n".join(f"- {a}" for a in advantage_anchors)
         )
 
     context = "\n".join(context_parts)
@@ -818,20 +1257,43 @@ Here is everything we know about this business:
 {context}
 
 IMPORTANT: Generate ALL content in {output_language} language.
+When OpenAI website-read data is present, treat it as source evidence from the user-submitted website only. Use it to improve company descriptions, services, products/offers, tone, and branding. Do not use the OpenAI web tool for Google Maps data.
 
 Generate the following in JSON format (respond ONLY with valid JSON, no markdown, no explanation):
 {{
   "tagline": "A punchy 6-10 word headline capturing what this business does",
   "hero_subtitle": "1-2 sentence value proposition, compelling and specific",
   "about_paragraph": "2-3 sentence paragraph about the company, professional tone",
-  "navbar_name": "Shortened business name for navbar (max 20 chars, keep core brand name only, remove legal suffixes, location details, and overly descriptive parts. Examples: 'PISCIFLOR VAUD - Réparation et rénovation piscines, fontaines, jacuzzis' → 'PISCIFLOR', 'John Smith Law Firm LLC - Estate Planning Services' → 'John Smith Law')",
-  "url_slug": "Short lowercase URL slug for this website, 2-4 words max, ASCII letters/numbers/hyphens only. Use the core brand name, not the full Google title. Example: 'AVIS CONSO - Mieux référencé avec vos avis' → 'avis-conso'",
+  "navbar_name": "Shortened business name for navbar (max 20 chars, keep core brand name only, remove legal suffixes, location details, and overly descriptive parts. Example: 'Brand Name - Long descriptive service phrase' → 'Brand Name')",
+  "url_slug": "Short lowercase URL slug for this website, 2-4 words max, ASCII letters/numbers/hyphens only. Use the core brand name, not the full Google title. Example: 'Brand Name - Long descriptive service phrase' → 'brand-name'",
   "cta_primary": "Primary call-to-action button text (e.g. 'Get Started', 'Book Now', 'Contact Us')",
   "cta_secondary": "Secondary CTA text (e.g. 'Learn More', 'Our Services', 'View Menu')",
+  "services_small_text": "Small label above the home services section, grounded in the business offer",
+  "services_heading": "Home services section heading",
+  "services_cards": [
+    {{
+      "title": "Specific service/offer name from the source data",
+      "description": "1-2 sentence explanation using the design document, website, or posts as evidence",
+      "link": "#contact"
+    }},
+    ... (generate 4-6 grounded home service cards)
+  ],
   "seo_title": "SEO page title (50-60 chars)",
   "seo_description": "SEO meta description (120-155 chars)",
   "services_page_seo_title": "SEO page title for the services page (50-60 chars, service-focused)",
   "services_page_seo_description": "SEO meta description for the services page (120-155 chars, mention services/offers)",
+  "services_page_small_text": "Small label above the dedicated services page section",
+  "services_page_heading": "Dedicated services page heading",
+  "services_page_description": "Short intro paragraph for the services page",
+  "services_page_cards": [
+    {{
+      "title": "Specific service/offer name from the source data",
+      "description": "Clear explanation grounded in the source data",
+      "features": ["Specific included item or benefit", "Specific included item or benefit"],
+      "link": "#contact"
+    }},
+    ... (generate 6-8 grounded service page cards)
+  ],
   "contact_page_seo_title": "SEO page title for the contact page (50-60 chars, contact/location-focused)",
   "contact_page_seo_description": "SEO meta description for the contact page (120-155 chars, invite users to call, visit, or request information)",
   "theme": {{
@@ -887,6 +1349,16 @@ CRITICAL ICON RULES:
 Generate 8-10 features to ensure sufficient content for different page templates (some templates show 3 features, others show 6+ services).
 Make features diverse and specific to the business type.
 
+SERVICE CARD RULES:
+- services_cards and services_page_cards must be specific offerings from the design document, scraped website, Google posts, or explicit business text.
+- If the design document contains an explicit service list, use that list as the primary source of truth for service titles.
+- Use canonical advantage/service anchors when provided. Keep those titles stable and rewrite descriptions intelligently.
+- Do not use broad generic marketing/service titles unless that exact idea is supported by the source data.
+- Prefer source phrases and concrete nouns. For a reputation/local-presence business, use source-supported ideas like review management, business profile updates, regular posts/news, products, services, photos, local SEO, web presence, and client coordination.
+- Avoid generic cards like "Customer Support", "Online Advertising", "Email Marketing", "Business Consulting" unless those are explicitly present in the source.
+- If source data is thin, derive services conservatively from the business type and clearly stated posts/website language.
+- services_cards should be concise for the home page; services_page_cards can be more detailed and include 2-4 feature bullets.
+
 COLOR RULES:
 - Use colors found in the personalization context first.
 - Return exactly 3 colors for each template main palette and exactly 3 presets per template.
@@ -897,37 +1369,96 @@ COLOR RULES:
 - Default template can use stronger gradients and more vivid combinations.
 - Facade template works best with a confident primary, a related secondary, and a clean accent.
 - Bernard template works best with a dark/professional primary, a very light secondary/background-compatible color, and a warm/accent color.
-- If the source brand has yellow + dark gray, default should be yellow-forward, facade should be dark-forward with yellow support, and bernard should be dark primary + very light secondary + yellow accent.
+- If the source brand has a bright accent plus a dark neutral, default should be accent-forward, facade should be dark-forward with accent support, and bernard should be dark primary + very light secondary + warm/accent color.
 - Do not suggest font changes."""
+
+    # Persist full AI payload for debugging and reproducibility.
+    try:
+        dump_root = debug_dump_dir or "/tmp/scrapegmp_ai_payloads"
+        os.makedirs(dump_root, exist_ok=True)
+        stamp = time.strftime("%Y%m%d_%H%M%S")
+        dump_path = os.path.join(dump_root, f"ai_payload_{stamp}.json")
+        dump_obj = {
+            "timestamp": stamp,
+            "model_content_generation": "gpt-4o-mini",
+            "model_website_read": os.environ.get("OPENAI_WEB_READER_MODEL", "o4-mini"),
+            "language": language,
+            "openai_website_url": openai_website_url,
+            "place": place,
+            "website_data": website,
+            "updates": updates or [],
+            "personalization": personalization or {},
+            "openai_website_read": openai_website_read,
+            "context": context,
+            "prompt": prompt,
+        }
+        with open(dump_path, "w", encoding="utf-8") as f:
+            json.dump(dump_obj, f, ensure_ascii=False, indent=2)
+        logging.info(f"🧾 Saved AI payload dump → {dump_path}")
+    except Exception as e:
+        logging.warning(f"⚠ Could not save AI payload dump: {e}")
 
     try:
         logging.info("🤖 Calling OpenAI to generate website copy...")
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.7,
-            max_tokens=1800,
-            response_format={"type": "json_object"}
-        )
-        raw = response.choices[0].message.content.strip()
-        # Remove markdown code fences if present
-        raw = re.sub(r"^```(?:json)?\s*", "", raw)
-        raw = re.sub(r"\s*```$", "", raw)
+        raw = ""
+        parsed_ok = False
+        # First attempt: normal creativity. Second attempt: lower temp and larger budget.
+        generation_attempts = [
+            {"temperature": 0.7, "max_tokens": 3200},
+            {"temperature": 0.3, "max_tokens": 3600},
+        ]
 
-        try:
-            ai.update(json.loads(raw))
-            logging.info("✅ AI enrichment complete")
-        except json.JSONDecodeError as json_err:
-            logging.error(f"❌ JSON parsing failed: {json_err}")
-            logging.error(f"Raw OpenAI response:\n{raw[:500]}...")
-            # Try to salvage what we can with a more lenient parser
+        for idx, cfg in enumerate(generation_attempts, start=1):
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=cfg["temperature"],
+                max_tokens=cfg["max_tokens"],
+                response_format={"type": "json_object"}
+            )
+            raw = (response.choices[0].message.content or "").strip()
+            raw = re.sub(r"^```(?:json)?\s*", "", raw)
+            raw = re.sub(r"\s*```$", "", raw)
+
             try:
-                # Sometimes there are trailing commas or other issues - try to fix common problems
-                fixed_raw = raw.replace(",]", "]").replace(",}", "}")
-                ai.update(json.loads(fixed_raw))
-                logging.info("✅ AI enrichment complete (with JSON fixes)")
-            except:
-                logging.error("❌ Could not parse OpenAI response even after fixes")
+                ai.update(json.loads(raw))
+                parsed_ok = True
+                logging.info(f"✅ AI enrichment complete (attempt {idx})")
+                break
+            except json.JSONDecodeError as json_err:
+                logging.error(f"❌ JSON parsing failed on attempt {idx}: {json_err}")
+                logging.error(f"Raw OpenAI response:\n{raw[:700]}...")
+                try:
+                    fixed_raw = raw.replace(",]", "]").replace(",}", "}")
+                    ai.update(json.loads(fixed_raw))
+                    parsed_ok = True
+                    logging.info(f"✅ AI enrichment complete with JSON fixes (attempt {idx})")
+                    break
+                except Exception:
+                    continue
+
+        if not parsed_ok:
+            # Final recovery: ask model to repair malformed JSON into valid JSON object only.
+            try:
+                repair_prompt = (
+                    "Return ONLY valid JSON object. Repair this malformed JSON while preserving fields "
+                    "that are present. If data is missing, use safe defaults of the same type.\n\n"
+                    f"{raw}"
+                )
+                repaired = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "user", "content": repair_prompt}],
+                    temperature=0.0,
+                    max_tokens=3600,
+                    response_format={"type": "json_object"},
+                )
+                repaired_raw = (repaired.choices[0].message.content or "").strip()
+                repaired_raw = re.sub(r"^```(?:json)?\s*", "", repaired_raw)
+                repaired_raw = re.sub(r"\s*```$", "", repaired_raw)
+                ai.update(json.loads(repaired_raw))
+                logging.info("✅ AI enrichment recovered via JSON-repair pass")
+            except Exception:
+                logging.error("❌ Could not parse OpenAI response even after retries and repair")
     except Exception as e:
         logging.error(f"❌ OpenAI call failed: {e}")
 
@@ -961,6 +1492,148 @@ COLOR RULES:
             logging.info(f"📝 Generated fallback navbar_name: {ai['navbar_name']}")
 
     ai["url_slug"] = _slugify(ai.get("url_slug") or ai.get("navbar_name") or place.get("name", ""))
+
+    source_service_cards = _derive_service_cards_from_sources(website, personalization, updates, limit=14)
+    canonical_titles = _localize_advantage_titles(
+        client,
+        _build_advantage_anchors(personalization, website, updates, limit=12),
+        language,
+        output_language,
+    )
+    ai_services_cards = ai.get("services_cards") if isinstance(ai.get("services_cards"), list) else []
+    ai_services_page_cards = ai.get("services_page_cards") if isinstance(ai.get("services_page_cards"), list) else []
+
+    def _looks_generic_service_title(title: str) -> bool:
+        low = (title or "").strip().lower()
+        if not low:
+            return True
+        generic_tokens = [
+            "service", "services", "support", "consulting", "marketing",
+            "customer support", "online advertising", "email marketing",
+            "business consulting",
+        ]
+        return any(tok == low or tok in low for tok in generic_tokens)
+
+    ai_titles = [
+        str((card if isinstance(card, dict) else {}).get("title", "")).strip()
+        for card in ai_services_cards
+    ]
+    generic_ratio = (
+        sum(1 for t in ai_titles if _looks_generic_service_title(t)) / max(1, len(ai_titles))
+        if ai_titles else 1.0
+    )
+    needs_services_rewrite = (not ai_services_cards) or generic_ratio >= 0.65
+
+    # Keep GPT as primary writer: if services are weak/missing, ask GPT again with concise service-only task.
+    if source_service_cards and needs_services_rewrite:
+        try:
+            service_titles = canonical_titles or [
+                str((c if isinstance(c, dict) else {}).get("title", "")).strip()
+                for c in source_service_cards
+                if str((c if isinstance(c, dict) else {}).get("title", "")).strip()
+            ][:12]
+            rewrite_prompt = f"""Generate ONLY valid JSON in {output_language}.
+Use these canonical service titles and rewrite them intelligently for website usage.
+Never copy raw source lines verbatim. Keep titles clean and professional.
+
+Canonical service titles (use these exact titles in services_cards and services_page_cards, same order):
+{json.dumps(service_titles, ensure_ascii=False)}
+
+Return JSON:
+{{
+  "services_cards": [{{"title":"...","description":"...","link":"#contact"}}],
+  "services_page_cards": [{{"title":"...","description":"...","features":["...","..."],"link":"#contact"}}],
+  "features": [{{"icon":"material_symbol_name","title":"...","description":"..."}}]
+}}
+
+Rules:
+- services_cards: 5-8 items
+- services_page_cards: 8-12 items
+- features: 8-10 items
+- Preserve business intent and language; avoid generic filler titles.
+- Use the same service ideas across services/features/why_choose_us.
+"""
+            rewrite_resp = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": rewrite_prompt}],
+                temperature=0.5,
+                max_tokens=2200,
+                response_format={"type": "json_object"},
+            )
+            rewrite_raw = (rewrite_resp.choices[0].message.content or "").strip()
+            rewrite_raw = re.sub(r"^```(?:json)?\s*", "", rewrite_raw)
+            rewrite_raw = re.sub(r"\s*```$", "", rewrite_raw)
+            rewrite_data = json.loads(rewrite_raw)
+            if isinstance(rewrite_data, dict):
+                if isinstance(rewrite_data.get("services_cards"), list) and rewrite_data.get("services_cards"):
+                    ai["services_cards"] = rewrite_data["services_cards"]
+                if isinstance(rewrite_data.get("services_page_cards"), list) and rewrite_data.get("services_page_cards"):
+                    ai["services_page_cards"] = rewrite_data["services_page_cards"]
+                if isinstance(rewrite_data.get("features"), list) and rewrite_data.get("features"):
+                    ai["features"] = rewrite_data["features"]
+                logging.info("📝 Rewrote services/features via focused GPT pass (primary writer)")
+        except Exception as e:
+            logging.warning(f"⚠ Focused services rewrite failed: {e}")
+
+    # Enforce canonical titles while keeping GPT-written descriptions.
+    if canonical_titles:
+        anchored_home = []
+        for idx, title in enumerate(canonical_titles[:8]):
+            src = ai_services_cards[idx] if idx < len(ai_services_cards) and isinstance(ai_services_cards[idx], dict) else {}
+            anchored_home.append({
+                "title": title,
+                "description": str(src.get("description", "")).strip() or _service_description_from_title(title),
+                "link": str(src.get("link", "")).strip() or "#contact",
+            })
+        if anchored_home:
+            ai["services_cards"] = anchored_home
+
+        anchored_page = []
+        for idx, title in enumerate(canonical_titles[:12]):
+            src = ai_services_page_cards[idx] if idx < len(ai_services_page_cards) and isinstance(ai_services_page_cards[idx], dict) else {}
+            features_list = src.get("features", []) if isinstance(src.get("features", []), list) else []
+            if not features_list:
+                features_list = [f"Accompagnement concret sur {title.lower()}", "Suivi régulier et résultats mesurables"]
+            anchored_page.append({
+                "title": title,
+                "description": str(src.get("description", "")).strip() or _service_description_from_title(title),
+                "features": [str(f).strip() for f in features_list[:4] if str(f).strip()],
+                "link": str(src.get("link", "")).strip() or "#contact",
+            })
+        if anchored_page:
+            ai["services_page_cards"] = anchored_page
+
+        service_features = _services_to_feature_cards(ai.get("services_page_cards") or ai.get("services_cards") or [], limit=10)
+        if service_features:
+            ai["features"] = service_features
+            ai["why_choose_us_cards"] = [
+                {
+                    "icon": feature.get("icon", "verified"),
+                    "title": feature.get("title", ""),
+                    "description": feature.get("description", ""),
+                }
+                for feature in service_features[:6]
+            ]
+
+    # Last-resort fallback only when GPT produced no services at all.
+    if source_service_cards and not ai.get("services_cards"):
+        ai["services_cards"] = [
+            {k: v for k, v in card.items() if k != "features"}
+            for card in source_service_cards[:8]
+        ]
+        logging.info(f"📝 Applied non-verbatim fallback home services: {len(ai['services_cards'])}")
+    if source_service_cards and not ai.get("services_page_cards"):
+        ai["services_page_cards"] = source_service_cards[:12]
+        logging.info(f"📝 Applied non-verbatim fallback services-page cards: {len(ai['services_page_cards'])}")
+    if (not ai.get("features")) and (ai.get("services_page_cards") or ai.get("services_cards")):
+        service_seed_for_features = []
+        for card in (ai.get("services_page_cards") or ai.get("services_cards") or []):
+            if isinstance(card, dict):
+                service_seed_for_features.append(card)
+        service_features = _services_to_feature_cards(service_seed_for_features, limit=10)
+        if service_features:
+            ai["features"] = service_features
+            logging.info(f"📝 Applied fallback features from services: {len(service_features)}")
 
     business_name = place.get("name", "") or ai.get("navbar_name") or "Business"
     place_type = place.get("place_type", "") or "services"
@@ -1046,10 +1719,20 @@ def enrich(
         logo_colors=logo_colors,
         design_document_path=design_document_path,
         preferred_website_url=website_for_personalization,
+        user_provided_website_url=website_url,
     )
 
     # AI enrichment
-    ai_data = enrich_with_ai(place_data, website_data, api_key, language, personalization, updates)
+    ai_data = enrich_with_ai(
+        place_data,
+        website_data,
+        api_key,
+        language,
+        personalization,
+        updates,
+        openai_website_url=website_url,
+        debug_dump_dir="/tmp/scrapegmp_ai_payloads",
+    )
 
     theme_from_ai = ai_data.get("theme") if isinstance(ai_data.get("theme"), dict) else {}
     ai_palettes = ai_data.get("template_color_palettes") if isinstance(ai_data.get("template_color_palettes"), dict) else {}
@@ -1059,8 +1742,8 @@ def enrich(
             ai_palettes,
             fallback_palettes,
         )
-        with open(os.path.join(business_dir, "personalization.json"), "w", encoding="utf-8") as f:
-            json.dump(personalization, f, ensure_ascii=False, indent=2)
+    with open(os.path.join(business_dir, "personalization.json"), "w", encoding="utf-8") as f:
+        json.dump(personalization, f, ensure_ascii=False, indent=2)
     selected_theme = (
         personalization.get("colors", {})
         .get("template_palettes", {})

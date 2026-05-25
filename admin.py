@@ -886,7 +886,7 @@ def regenerate_business_content(name):
     if not os.path.exists(enriched_path):
         return jsonify({"success": False, "error": "Business data not found"}), 404
     if not os.path.exists(personalization_path):
-        return jsonify({"success": False, "error": "No personalization.json found. Re-scrape this business to create it."}), 400
+        return jsonify({"success": False, "error": "Personalization details are not available yet. Delete and re-scrape this business to create them."}), 400
 
     base_data = load_json(draft_path if os.path.exists(draft_path) else enriched_path)
     personalization = load_json(personalization_path)
@@ -900,6 +900,8 @@ def regenerate_business_content(name):
             base_data.get("language", "fr"),
             personalization,
             base_data.get("updates", []),
+            openai_website_url=personalization.get("sources", {}).get("user_provided_website", ""),
+            debug_dump_dir="/tmp/scrapegmp_ai_payloads",
         )
         current_ai = base_data.get("ai", {}) if isinstance(base_data.get("ai"), dict) else {}
         current_ai.update(ai_data)

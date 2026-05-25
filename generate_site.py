@@ -627,6 +627,13 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             "show_title": False  # For facade template
         })
 
+    # Default template should render either 3 or 6 feature cards max.
+    if template == "default":
+        if len(features) >= 6:
+            features = features[:6]
+        elif len(features) >= 3:
+            features = features[:3]
+
     # Prepare gallery images - use next unique photos
     gallery_images = []
     for idx in range(min(12, len(images) - photo_index)):
@@ -1044,11 +1051,30 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                     hours_summary = _format_time_for_24h_locale(time, lang_file_code)
                     break
 
-        # Split features into advantages/services, with dedicated Bernard data preferred
+        # Split features into Bernard sections using offset windows from one pool:
+        # features -> items 1-3, services -> 4-6 (up to 4 cards rendered), why choose -> 7-9.
+        # If there are not enough items, wrap around.
         why_choose_cards_raw = ai.get("why_choose_us_cards") or []
         services_cards_raw = ai.get("services_cards") or []
         services_page_cards_raw = ai.get("services_page_cards") or []
 
+        def _pick_with_wrap(items: list, start: int, count: int) -> list:
+            if not items:
+                return []
+            n = len(items)
+            return [items[(start + i) % n] for i in range(count)]
+
+        # Prefer service cards as the canonical Bernard pool, then fallback to features.
+        bernard_pool_raw = (
+            services_page_cards_raw
+            if isinstance(services_page_cards_raw, list) and services_page_cards_raw
+            else services_cards_raw
+            if isinstance(services_cards_raw, list) and services_cards_raw
+            else features
+        )
+        bernard_pool = [item for item in bernard_pool_raw if isinstance(item, dict)]
+
+        why_choose_us_cards = []
         if isinstance(why_choose_cards_raw, list) and why_choose_cards_raw:
             advantages = []
             for card in why_choose_cards_raw:
@@ -1063,11 +1089,45 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                     "title": card_obj.get("title", ""),
                     "description": card_obj.get("description", ""),
                 })
+            advantages = advantages[:3]
+            why_choose_us_cards = advantages[:]
         else:
-            advantages = features[:3] if len(features) >= 3 else features
+            if bernard_pool:
+                # features/advantages: 1-3
+                source_items = _pick_with_wrap(bernard_pool, 0, 3)
+                advantages = []
+                for item in source_items:
+                    icon = str(item.get("icon", "star")).strip() or "star"
+                    icon_type = item.get("icon_type")
+                    if icon_type not in ["material", "emoji"]:
+                        icon_type = "material" if re.match(r'^[a-z][a-z0-9_]{1,49}$', icon) else "emoji"
+                    advantages.append({
+                        "icon": icon,
+                        "icon_type": icon_type,
+                        "title": item.get("title", ""),
+                        "description": item.get("description", ""),
+                    })
+                # why-choose-us: 7-9
+                why_items = _pick_with_wrap(bernard_pool, 6, 3)
+                why_choose_us_cards = []
+                for item in why_items:
+                    icon = str(item.get("icon", "verified")).strip() or "verified"
+                    icon_type = item.get("icon_type")
+                    if icon_type not in ["material", "emoji"]:
+                        icon_type = "material" if re.match(r'^[a-z][a-z0-9_]{1,49}$', icon) else "emoji"
+                    why_choose_us_cards.append({
+                        "icon": icon,
+                        "icon_type": icon_type,
+                        "title": item.get("title", ""),
+                        "description": item.get("description", ""),
+                    })
+            else:
+                advantages = features[:3] if len(features) >= 3 else features
+                why_choose_us_cards = advantages[:3]
 
-        if isinstance(services_cards_raw, list) and services_cards_raw:
-            services_from_features = services_cards_raw
+        if bernard_pool:
+            # services: 4-7 (4 cards), wrap if needed
+            services_from_features = _pick_with_wrap(bernard_pool, 3, 4)
         else:
             services_from_features = features[3:7] if len(features) > 3 else []
 
@@ -1107,15 +1167,11 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             return prepared_cards
 
         # Prepare services with default images - only show real services
-        bernard_services = _build_service_cards_with_images(services_from_features)
+        bernard_services = _build_service_cards_with_images(services_from_features)[:4]
 
         # Don't pad with placeholders - only show actual services
 
-        services_page_source = (
-            services_page_cards_raw
-            if (isinstance(services_page_cards_raw, list) and services_page_cards_raw)
-            else features[3:]
-        )
+        services_page_source = _pick_with_wrap(bernard_pool, 3, 8) if bernard_pool else features[3:]
         bernard_services_page = _build_service_cards_with_images(services_page_source)
 
         # Prepare about bullets - check if AI data has bullet_points first
@@ -1221,6 +1277,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
             "form_button_text": ai.get("form_button_text", _tr(tr, "hero.form_button", "Je souhaite être rappelé")),
             "service_link_label": _tr(tr, "services.learn_more", "Learn more"),
             "advantages": advantages if show_features else [],
+            "why_choose_us_cards": why_choose_us_cards[:3] if show_why_choose_us else [],
             "why_choose_us_heading": ai.get("why_choose_us_heading") or _tr(tr, "why_choose.heading", "Why Choose Us?"),
             "why_choose_us_image": (
                 media_prefix + _theme.get("why_choose_us_image")

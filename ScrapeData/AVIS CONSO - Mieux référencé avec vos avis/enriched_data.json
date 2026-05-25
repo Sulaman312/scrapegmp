@@ -8,169 +8,291 @@
     "email": "",
     "website": "avis-conso.ch",
     "price_range": "",
-    "rating": null,
-    "reviews_count": null,
+    "rating": 4.4,
+    "reviews_count": 44,
     "address": "ZI Pré-Briand 14, 1510 Moudon, Switzerland",
     "description": "Mieux référencé avec vos avis. Nous gérons vos avis et votre présence web. Découvrez nos offres dès maintenant.",
     "latitude": "46.8435065",
     "longitude": "6.5081358",
-    "google_maps_url": "https://www.google.com/maps/place/Avis+Conso/@46.8435065,6.5081358,8z/data=!4m6!3m5!1s0x478dd59451ba97fb:0x2fa4cfdbb0f1d6b6!8m2!3d46.675839!4d6.8111239!16s%2Fg%2F11p6wn_y9x?entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D",
+    "google_maps_url": "https://www.google.com/maps/place/AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis/@46.8435065,6.5081358,8z/data=!4m16!1m9!3m8!1s0x478dd59451ba97fb:0x2fa4cfdbb0f1d6b6!2sAVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis!8m2!3d46.675839!4d6.8111239!11m1!2e1!16s%2Fg%2F11p6wn_y9x!3m5!1s0x478dd59451ba97fb:0x2fa4cfdbb0f1d6b6!8m2!3d46.675839!4d6.8111239!16s%2Fg%2F11p6wn_y9x?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D",
     "plus_code": "MRG6+8C Moudon, Switzerland",
     "hours": {
-      "monday": "Not available",
-      "tuesday": "Not available",
-      "wednesday": "Not available",
-      "thursday": "Not available",
-      "friday": "Not available",
-      "saturday": "Not available",
+      "monday": "8 AM–6 PM",
+      "tuesday": "8 AM–6 PM",
+      "wednesday": "8 AM–6 PM",
+      "thursday": "8 AM–6 PM",
+      "friday": "8 AM–6 PM",
+      "saturday": "Closed",
       "sunday": "Closed"
     }
   },
   "ai": {
     "brand_short_name": "AVIS CONSO - Mieux référencé avec vos avis",
-    "tagline": "Boostez votre visibilité avec vos avis",
-    "hero_subtitle": "AVIS CONSO gère votre présence en ligne et vos avis clients, pour un commerce florissant.",
+    "tagline": "Boostez votre visibilité avec vos avis clients",
+    "hero_subtitle": "Nous gérons votre présence en ligne et vos avis pour attirer plus de clients.",
     "cta_primary": "Contactez-nous",
     "cta_primary_url": "avis-conso.ch",
     "cta_secondary": "En savoir plus",
     "cta_secondary_url": "avis-conso.ch",
     "url_slug": "avis-conso",
-    "about_paragraph": "AVIS CONSO est votre partenaire de confiance pour la gestion de votre présence web. Nous aidons les commerçants et les petites entreprises à optimiser leur visibilité locale et à gérer efficacement leurs avis clients.",
-    "about_story_left": "AVIS CONSO est votre partenaire de confiance pour la gestion de votre présence web. Nous aidons les commerçants",
-    "about_story_right": "et les petites entreprises à optimiser leur visibilité locale et à gérer efficacement leurs avis clients.",
+    "about_paragraph": "AVIS CONSO accompagne les commerçants et petites entreprises suisses dans la gestion de leur visibilité en ligne. Avec une approche simple et personnalisée, nous vous aidons à optimiser votre présence sur Google, Facebook et Instagram.",
+    "about_story_left": "AVIS CONSO accompagne les commerçants et petites entreprises suisses dans la gestion de leur visibilité en ligne. Avec",
+    "about_story_right": "une approche simple et personnalisée, nous vous aidons à optimiser votre présence sur Google, Facebook et Instagram.",
     "seo_title": "AVIS CONSO - Mieux référencé avec vos avis",
-    "seo_description": "Optimisez votre présence web avec AVIS CONSO. Gestion des avis et référencement local pour commerçants et petites entreprises.",
+    "seo_description": "Découvrez comment AVIS CONSO peut améliorer votre visibilité en ligne et gérer vos avis clients.",
     "features": [
       {
+        "icon": "workspace_premium",
+        "title": "SEO local et visibilité",
+        "description": "Nous nous occupons de la collecte et de la gestion de vos avis sur toutes les plateformes importantes.",
+        "image": "",
+        "link": ""
+      },
+      {
         "icon": "verified",
-        "title": "Gestion des avis",
-        "description": "Nous gérons vos avis Google, Facebook et Instagram pour améliorer votre réputation en ligne.",
+        "title": "Gestion du profil Google My Business",
+        "description": "Améliorez votre classement sur Google et attirez plus de clients locaux.",
         "image": "",
         "link": ""
       },
       {
         "icon": "local_shipping",
-        "title": "Visibilité locale",
-        "description": "Optimisation de votre référencement local pour attirer plus de clients dans votre région.",
+        "title": "Gestion des avis (Google, Facebook, Instagram)",
+        "description": "Nous mettons à jour et optimisons votre profil Google Business pour maximiser votre visibilité.",
         "image": "",
         "link": ""
       },
       {
         "icon": "schedule",
-        "title": "Mises à jour régulières",
-        "description": "Nous assurons des mises à jour fréquentes de votre fiche en ligne pour des informations toujours à jour.",
+        "title": "Gestion du contenu et des mises à jour",
+        "description": "Nous offrons un support personnalisé pour toutes vos questions et besoins.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "storefront",
+        "title": "Support pour la liste des produits et services",
+        "description": "Nous gérons vos publications pour garder vos clients informés et engagés.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "checklist",
+        "title": "Gestion des photos et des médias",
+        "description": "Service dédié: Gestion des photos et des médias. Mise en oeuvre concrète adaptée aux petites entreprises.",
         "image": "",
         "link": ""
       },
       {
         "icon": "support_agent",
-        "title": "Assistance dédiée",
-        "description": "Un seul interlocuteur disponible par WhatsApp ou email pour répondre à toutes vos questions.",
+        "title": "Support pratique à un contact",
+        "description": "Service dédié: Support pratique à un contact. Mise en oeuvre concrète adaptée aux petites entreprises.",
         "image": "",
         "link": ""
       },
       {
-        "icon": "shopping_cart",
-        "title": "Gestion des produits",
-        "description": "Mise à jour de vos produits et services pour attirer l'attention de vos clients potentiels.",
+        "icon": "photo",
+        "title": "Conseils sur site adaptés aux petites entreprises",
+        "description": "Service dédié: Conseils sur site adaptés aux petites entreprises. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "thumb_up",
+        "title": "Gestion des avis sur Google, Facebook, Instagram",
+        "description": "Service dédié: Gestion des avis sur Google, Facebook, Instagram. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "",
+        "link": ""
+      },
+      {
+        "icon": "bolt",
+        "title": "Gestion continue du SEO pour augmenter",
+        "description": "Service dédié: Gestion continue du SEO pour augmenter. Mise en oeuvre concrète adaptée aux petites entreprises.",
         "image": "",
         "link": ""
       }
     ],
     "services_cards": [
       {
-        "title": "Assistance dédiée",
-        "description": "Un seul interlocuteur disponible par WhatsApp ou email pour répondre à toutes vos questions.",
+        "title": "SEO local et visibilité",
+        "description": "Nous gérons vos avis sur Google, Facebook et Instagram pour renforcer votre réputation en ligne.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Gestion des produits",
-        "description": "Mise à jour de vos produits et services pour attirer l'attention de vos clients potentiels.",
+        "title": "Gestion du profil Google My Business",
+        "description": "Optimisez votre visibilité locale grâce à notre gestion continue du référencement SEO.",
         "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
-        "title": "Photos professionnelles",
-        "description": "Nous ajoutons des photos attractives de votre commerce pour séduire vos futurs clients.",
+        "title": "Gestion des avis (Google, Facebook, Instagram)",
+        "description": "Nous vous aidons à maintenir votre profil Google Business à jour avec vos services et photos.",
         "image": "images/All/0003.webp",
         "link": "#contact"
       },
       {
-        "title": "Amélioration de la réputation",
-        "description": "Nous transformons vos avis clients en atout commercial, boostant ainsi votre crédibilité.",
+        "title": "Gestion du contenu et des mises à jour",
+        "description": "Bénéficiez d'un interlocuteur unique pour toutes vos questions concernant votre présence en ligne.",
         "image": "images/All/0004.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Support pour la liste des produits et services",
+        "description": "Restez à jour avec des posts réguliers sur vos services et produits.",
+        "image": "images/All/0005.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Gestion des photos et des médias",
+        "description": "Service dédié: Gestion des photos et des médias. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "images/All/0006.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Support pratique à un contact",
+        "description": "Service dédié: Support pratique à un contact. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Conseils sur site adaptés aux petites entreprises",
+        "description": "Service dédié: Conseils sur site adaptés aux petites entreprises. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "images/All/0002.webp",
         "link": "#contact"
       }
     ],
     "services_page_cards": [
       {
-        "title": "Assistance dédiée",
-        "description": "Un seul interlocuteur disponible par WhatsApp ou email pour répondre à toutes vos questions.",
+        "title": "SEO local et visibilité",
+        "description": "Nous nous occupons de la collecte et de la gestion de vos avis sur toutes les plateformes importantes.",
         "image": "images/All/0001.webp",
         "link": "#contact"
       },
       {
-        "title": "Gestion des produits",
-        "description": "Mise à jour de vos produits et services pour attirer l'attention de vos clients potentiels.",
+        "title": "Gestion du profil Google My Business",
+        "description": "Améliorez votre classement sur Google et attirez plus de clients locaux.",
         "image": "images/All/0002.webp",
         "link": "#contact"
       },
       {
-        "title": "Photos professionnelles",
-        "description": "Nous ajoutons des photos attractives de votre commerce pour séduire vos futurs clients.",
+        "title": "Gestion des avis (Google, Facebook, Instagram)",
+        "description": "Nous mettons à jour et optimisons votre profil Google Business pour maximiser votre visibilité.",
         "image": "images/All/0003.webp",
         "link": "#contact"
       },
       {
-        "title": "Amélioration de la réputation",
-        "description": "Nous transformons vos avis clients en atout commercial, boostant ainsi votre crédibilité.",
+        "title": "Gestion du contenu et des mises à jour",
+        "description": "Nous offrons un support personnalisé pour toutes vos questions et besoins.",
         "image": "images/All/0004.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Support pour la liste des produits et services",
+        "description": "Nous gérons vos publications pour garder vos clients informés et engagés.",
+        "image": "images/All/0005.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Gestion des photos et des médias",
+        "description": "Service dédié: Gestion des photos et des médias. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "images/All/0006.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Support pratique à un contact",
+        "description": "Service dédié: Support pratique à un contact. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "images/All/0001.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Conseils sur site adaptés aux petites entreprises",
+        "description": "Service dédié: Conseils sur site adaptés aux petites entreprises. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "images/All/0002.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Gestion des avis sur Google, Facebook, Instagram",
+        "description": "Service dédié: Gestion des avis sur Google, Facebook, Instagram. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "images/All/0003.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Gestion continue du SEO pour augmenter",
+        "description": "Service dédié: Gestion continue du SEO pour augmenter. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "images/All/0004.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Mise à jour et animation de vos",
+        "description": "Service dédié: Mise à jour et animation de vos. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "images/All/0005.webp",
+        "link": "#contact"
+      },
+      {
+        "title": "Arrêt des publicités abusives et optimisation du",
+        "description": "Service dédié: Arrêt des publicités abusives et optimisation du. Mise en oeuvre concrète adaptée aux petites entreprises.",
+        "image": "images/All/0006.webp",
         "link": "#contact"
       }
     ],
     "why_choose_us_cards": [
       {
+        "icon": "workspace_premium",
+        "title": "SEO local et visibilité",
+        "description": "Nous nous occupons de la collecte et de la gestion de vos avis sur toutes les plateformes importantes."
+      },
+      {
         "icon": "verified",
-        "title": "Gestion des avis",
-        "description": "Nous gérons vos avis Google, Facebook et Instagram pour améliorer votre réputation en ligne."
+        "title": "Gestion du profil Google My Business",
+        "description": "Améliorez votre classement sur Google et attirez plus de clients locaux."
       },
       {
         "icon": "local_shipping",
-        "title": "Visibilité locale",
-        "description": "Optimisation de votre référencement local pour attirer plus de clients dans votre région."
+        "title": "Gestion des avis (Google, Facebook, Instagram)",
+        "description": "Nous mettons à jour et optimisons votre profil Google Business pour maximiser votre visibilité."
       },
       {
         "icon": "schedule",
-        "title": "Mises à jour régulières",
-        "description": "Nous assurons des mises à jour fréquentes de votre fiche en ligne pour des informations toujours à jour."
+        "title": "Gestion du contenu et des mises à jour",
+        "description": "Nous offrons un support personnalisé pour toutes vos questions et besoins."
+      },
+      {
+        "icon": "storefront",
+        "title": "Support pour la liste des produits et services",
+        "description": "Nous gérons vos publications pour garder vos clients informés et engagés."
+      },
+      {
+        "icon": "checklist",
+        "title": "Gestion des photos et des médias",
+        "description": "Service dédié: Gestion des photos et des médias. Mise en oeuvre concrète adaptée aux petites entreprises."
       }
     ],
-    "services_small_text": "",
-    "services_heading": "",
+    "services_small_text": "Nos services adaptés aux petites entreprises",
+    "services_heading": "Découvrez nos services",
     "why_choose_us_heading": "",
-    "cta_heading": "Boostez votre visibilité avec vos avis",
-    "cta_subtitle": "AVIS CONSO gère votre présence en ligne et vos avis clients, pour un commerce florissant.",
+    "cta_heading": "Boostez votre visibilité avec vos avis clients",
+    "cta_subtitle": "Nous gérons votre présence en ligne et vos avis pour attirer plus de clients.",
     "cta_btn_label": "",
     "cta_link": "",
     "cta_banner_btn_label": "",
     "cta_banner_btn_link": "",
-    "footer_tagline": "AVIS CONSO est votre partenaire de confiance pour la gestion de votre présence web. Nous aidons les commerçants et les petites entreprises à optimiser leur visibilité locale et à gérer efficacement leurs avis clients.",
+    "footer_tagline": "AVIS CONSO accompagne les commerçants et petites entreprises suisses dans la gestion de leur visibilité en ligne. Avec une approche simple et personnalisée, nous vous aidons à optimiser votre présence sur Google, Facebook et Instagram.",
     "footer_copyright": "© 2026 AVIS CONSO - Mieux référencé avec vos avis. All rights reserved.",
     "values": [],
     "about_bullet_points": [],
-    "services_page_seo_title": "Nos services - AVIS CONSO",
-    "services_page_seo_description": "Découvrez comment AVIS CONSO peut booster votre visibilité en ligne. Services de gestion d'avis et optimisation web.",
+    "services_page_seo_title": "Nos services de gestion d'avis et visibilité",
+    "services_page_seo_description": "Explorez nos services de gestion d'avis, référencement local, et mise à jour de votre présence en ligne.",
     "services_page_hero_title": "",
     "services_page_hero_subtitle": "",
-    "services_page_small_text": "",
-    "services_page_heading": "",
-    "services_page_description": "",
+    "services_page_small_text": "Services dédiés pour votre succès en ligne",
+    "services_page_heading": "Nos services",
+    "services_page_description": "Nous proposons une gamme de services pour améliorer votre visibilité et gérer votre réputation en ligne.",
     "services_cta_heading": "",
     "services_cta_text": "",
     "services_cta_button": "",
     "contact_page_seo_title": "Contactez AVIS CONSO",
-    "contact_page_seo_description": "Besoin d'aide pour votre présence web? Contactez AVIS CONSO par téléphone ou par email.",
+    "contact_page_seo_description": "Contactez-nous pour en savoir plus sur nos services de gestion d'avis et de visibilité en ligne.",
     "contact_page_hero_title": "",
     "contact_page_hero_subtitle": "",
     "contact_page_small_text": "",
@@ -277,61 +399,68 @@
       "document_colors": [
         "#F6D103",
         "#222222",
+        "#FFF8D6",
+        "#3A3A3A",
+        "#FFFDF4",
+        "#D9B200",
+        "#111111",
         "#000000",
+        "#FFFFFF",
         "#FACC15",
-        "#64748B"
+        "#64748B",
+        "#D97706"
       ],
       "logo_colors": [],
       "selected_theme": {
-        "color1": "#101010",
-        "color2": "#F8FAFC",
-        "color3": "#EEC900"
+        "color1": "#222222",
+        "color2": "#FFF8D6",
+        "color3": "#D9B200"
       },
       "suggested_color_presets": [
         {
           "color1": "#F6D103",
           "color2": "#383838",
-          "color3": "#000000",
+          "color3": "#EDE6C4",
           "name": "Brand Energy"
         },
         {
           "color1": "#FFE719",
           "color2": "#525252",
-          "color3": "#232323",
+          "color3": "#FFFFF9",
           "name": "Bright Gradient"
         },
         {
           "color1": "#222222",
           "color2": "#E4BF00",
-          "color3": "#040404",
+          "color3": "#C3BEA4",
           "name": "Bold Contrast"
         }
       ],
       "template_palettes": {
         "bernard": {
           "main": {
-            "color1": "#101010",
-            "color2": "#F8FAFC",
-            "color3": "#EEC900"
+            "color1": "#222222",
+            "color2": "#FFF8D6",
+            "color3": "#D9B200"
           },
           "presets": [
             {
-              "color1": "#101010",
-              "color2": "#F8FAFC",
-              "color3": "#EEC900",
-              "name": "Exécutif"
-            },
-            {
-              "color1": "#FFFFFF",
-              "color2": "#F6D103",
-              "color3": "#CCCCCC",
-              "name": "Lumière douce"
-            },
-            {
-              "color1": "#000000",
-              "color2": "#FFFFFF",
+              "color1": "#222222",
+              "color2": "#FFFDF4",
               "color3": "#F6D103",
-              "name": "Professionnel"
+              "name": "Palette Professionnelle"
+            },
+            {
+              "color1": "#FFF8D6",
+              "color2": "#D9B200",
+              "color3": "#F6D103",
+              "name": "Palette Lumineuse"
+            },
+            {
+              "color1": "#111111",
+              "color2": "#FFFDF4",
+              "color3": "#FFD100",
+              "name": "Palette Accueillante"
             }
           ]
         },
@@ -339,26 +468,26 @@
           "main": {
             "color1": "#F6D103",
             "color2": "#222222",
-            "color3": "#000000"
+            "color3": "#FFF8D6"
           },
           "presets": [
             {
               "color1": "#F6D103",
               "color2": "#383838",
-              "color3": "#000000",
-              "name": "Énergie de la marque"
+              "color3": "#EDE6C4",
+              "name": "Palette Énergique"
             },
             {
-              "color1": "#FFE719",
-              "color2": "#525252",
-              "color3": "#232323",
-              "name": "Gradient lumineux"
+              "color1": "#FFD100",
+              "color2": "#3A3A3A",
+              "color3": "#FFFDF4",
+              "name": "Forte Visibilité"
             },
             {
-              "color1": "#222222",
-              "color2": "#E4BF00",
-              "color3": "#040404",
-              "name": "Contraste audacieux"
+              "color1": "#F6D103",
+              "color2": "#111111",
+              "color3": "#D9B200",
+              "name": "Contraste Énergique"
             }
           ]
         },
@@ -366,26 +495,26 @@
           "main": {
             "color1": "#222222",
             "color2": "#F6D103",
-            "color3": "#000000"
+            "color3": "#FFF8D6"
           },
           "presets": [
             {
-              "color1": "#0E0E0E",
-              "color2": "#F6D103",
-              "color3": "#141414",
-              "name": "Marque urbaine"
+              "color1": "#222222",
+              "color2": "#E4BF00",
+              "color3": "#C3BEA4",
+              "name": "Palette Sombre"
             },
             {
-              "color1": "#3C3C3C",
-              "color2": "#F8DF53",
-              "color3": "#000000",
-              "name": "Façade claire"
+              "color1": "#3A3A3A",
+              "color2": "#FFD100",
+              "color3": "#FFFDF4",
+              "name": "Palette Équilibrée"
             },
             {
-              "color1": "#000000",
-              "color2": "#FFE113",
-              "color3": "#030303",
-              "name": "Fort contraste"
+              "color1": "#111111",
+              "color2": "#FFF8D6",
+              "color3": "#D9B200",
+              "name": "Palette Classique"
             }
           ]
         }
@@ -406,41 +535,105 @@
       ]
     },
     "google_posts": {
-      "count": 3,
+      "count": 4,
       "latest": [
+        {
+          "action_url": "tel:+41215027617",
+          "body": "Vos futurs clients vous cherchent sur Google. La vraie question est simple : trouvent-ils une entreprise claire, professionnelle et facile à contacter ? Avis-Conso accompagne les artisans, commerçants, indépendants et PME de Suisse romande dans la mise en place d’une présence Google complète : fiche Google optimisée, site internet synchronisé, photos, services, horaires, coordonnées et contenus adaptés à votre activité. Notre solution est pensée pour les petites structures qui veulent être visib",
+          "cta_text": "Call now",
+          "date": "14 hours ago",
+          "image_url": "https://lh3.googleusercontent.com/geougc/AF1QipO4atZ_3-bYfHgShthmtwzA8qAOefrpsg1BBRDj=s1200"
+        },
         {
           "action_url": "tel:+41215027617",
           "body": "Quand un client cherche un peintre, un électricien, un coiffeur, un restaurant ou une fiduciaire dans sa région, Google est souvent son premier réflexe. Une fiche Google complète affiche vos horaires, vos services, vos photos, vos avis, votre zone d’intervention et vos coordonnées. Une fiche négligée, au contraire, donne une impression d’abandon et laisse plus de place à vos concurrents. Avis-Conso crée ou optimise votre fiche Google de manière professionnelle : catégories stratégiques, descript",
           "cta_text": "Call now",
-          "date": "5 days ago",
+          "date": "7 days ago",
           "image_url": "https://lh3.googleusercontent.com/geougc/AF1QipOx_NaC2oQ4rFmwbbEnWEKxx4yy7D0SMQ2CuJ-Y=s1200"
         },
         {
           "action_url": "https://www.avis-conso.ch/qui-sommes-nous/",
           "body": "💬 Et si vos avis clients devenaient votre meilleur atout commercial ? Le bouche-à-oreille traditionnel ne suffit plus. Aujourd'hui, ce sont les avis en ligne qui font la différence entre un client qui choisit votre commerce… ou celui d'à côté. Chez Avis Conso, nous aidons les commerçants et artisans suisses à : ⭐ Collecter et gérer leurs avis clients 📍 Optimiser leur référencement local sur Google 📲 Maintenir une présence web active et cohérente 💡 Mieux investir leur budget publicitaire Pas de j",
           "cta_text": "Learn more",
-          "date": "6 days ago",
+          "date": "May 18, 2026",
           "image_url": "https://lh3.googleusercontent.com/geougc/AF1QipMeKUx11FYAYzJcWruSNHvAMCQ3I3BGH8T7VSix=s1200"
         },
         {
           "action_url": "https://www.avis-conso.ch/",
           "body": "🌟 Votre réputation en ligne, c'est notre métier !Vous êtes commerçant, artisan ou chef d'une petite entreprise en Suisse ? Vous n'avez pas le temps de gérer vos avis Google, vos réseaux sociaux ou votre fiche en ligne ?Avis Conso s'en charge pour vous ! 🇨🇭✅ Gestion de vos avis Google, Facebook & Instagram ✅ Mise à jour régulière de votre fiche : photos, actualités, services, produits ✅ Un seul interlocuteur, joignable par WhatsApp ou email ✅ Des tarifs adaptés aux petits commercesAujourd'hui, vo",
           "cta_text": "Learn more",
-          "date": "6 days ago",
+          "date": "May 18, 2026",
           "image_url": "https://lh3.googleusercontent.com/geougc/AF1QipNBmm32Ms0M3KCqLzrlIMrXaiZMvHoIN2ddO4lY=s1200"
         }
       ]
     },
+    "openai_website_read": {
+      "allowed_domain": "avis-conso.ch",
+      "colors_or_branding": [
+        "Fond majoritairement blanc avec textes gris foncé",
+        "Boutons d’appel à l’action en nuance cyan/bleu clair",
+        "Étoiles de notation visuellement jaunes",
+        "Logo et éléments graphiques déclinés en bleu/turquoise"
+      ],
+      "company_descriptions": [
+        "AVIS CONSO aide les commerçants et les petites entreprises dans la gestion journalière du web avec des tarifs adaptés à leur commerce.",
+        "AVIS CONSO réconcilie les générations et gère vos plateformes web, vous aide afin d’augmenter votre visibilité et augmenter le passage dans votre commerce.",
+        "AVIS CONSO est le partenaire des petits commerces et des petites entreprises à qui on demande toujours plus avec moins.",
+        "Nous sommes passionnés par notre métier et nous aimons avant tout les commerçants et les petites entreprises.",
+        "« Nous ne souhaitons pas la multiplication de grandes enseignes. Nos valeurs sont ancrées dans la réalité de tous les jours et l’héritage que nous laissons à nos enfants. Nous aidons les jeunes et rapprochons les générations… »",
+        "GÉNÉRATION EMPATHIQUE : Grâce à une équipe de plus de 30 personnes, nous vous aidons à développer votre commerce sur le web.",
+        "ECO RESPONSABLE : Ça peut paraitre idiot… mais nous venons vous voir à pieds, à vélo, en trott’…"
+      ],
+      "contact_or_location_notes": [
+        "Téléphones : +41 21 544 58 20 et +41 58 510 87 80",
+        "Email : contact@avis-conso.ch",
+        "Siège : ZI Pré-Briand 14 – 1510 Moudon (Suisse)",
+        "Admin : Route du Jorat 39 – 1000 Lausanne 27 (Suisse)",
+        "Clientèle cible : artisans, commerçants et petites entreprises en Suisse"
+      ],
+      "enabled": true,
+      "error": "",
+      "offers": [
+        "Boutons CTA : En savoir +, Prendre RDV, Contactez-nous",
+        "Newsletter – inscription pour recevoir nouveautés et offres du moment",
+        "Lien « Donnez votre avis » redirigeant vers la page Google",
+        "Première rencontre de présentation d’un exemple concret client"
+      ],
+      "products": [],
+      "services": [
+        "Gestion des avis sur Google, Facebook, Instagram et autres plateformes",
+        "Gestion continue du référencement (SEO) pour augmenter la visibilité",
+        "Mise à jour et animation de vos plateformes web – Aperçu rapide, Actualités régulières, Produits, Services, Avis, Photos, À propos",
+        "Arrêt des publicités abusives et optimisation du retour sur investissement",
+        "Interlocuteur unique avec coordination par WhatsApp ou e-mail"
+      ],
+      "sources": [
+        "https://www.avis-conso.ch/",
+        "https://www.avis-conso.ch/qui-sommes-nous/"
+      ],
+      "summary": "AVIS CONSO aide les commerçants et les petites entreprises dans la gestion quotidienne de leur présence web et de leurs avis (Google, Facebook, Instagram), avec des tarifs adaptés.",
+      "tone_and_style": [
+        "Langage professionnel, direct et rassurant",
+        "Titres hiérarchisés (H1, H2, H3) et sections claires",
+        "Listes à puces pour détailler les services",
+        "Ton empathique et orienté « petits commerces »",
+        "Mise en avant d’images et icônes simples pour illustrer chaque section"
+      ],
+      "url": "https://www.avis-conso.ch/"
+    },
     "sources": {
-      "business_website": "http://avis-conso.ch/",
+      "business_website": "https://www.avis-conso.ch/",
       "color_source": "design_document",
-      "design_document": "248e8962-2632-47cf-b66c-3b143aa94c5a_avis-conso.pdf",
+      "design_document": "3e4d7452-d67a-4f67-8d5c-ca4fe610f165_avis-conso.docx",
       "google_maps": true,
-      "google_posts_count": 3,
-      "used_posts_in_ai_context": true
+      "google_posts_count": 4,
+      "openai_website_read": true,
+      "openai_website_read_url": "https://www.avis-conso.ch/",
+      "used_posts_in_ai_context": true,
+      "user_provided_website": "https://www.avis-conso.ch/"
     },
     "style_notes": {
-      "document_excerpt": "Personalization Document — AVIS CONSO\nBrand Objective\nAVIS CONSO helps Swiss shop owners, tradespeople, and small businesses manage their web\npresence, customer reviews, and local visibility. The tone should remain simple, human,\nconcrete, and reassuring.\nThe communication should speak directly to small businesses that lack time to manage Google,\nFacebook, Instagram, photos, products, services, and updates.\nPositioning\nAVIS CONSO is a local partner for small businesses. The brand should communicate:\n· simplicity\n· trust\n· human support\n· local efficiency\n· pricing adapted to small businesses\n· improved web visibility\n· practical day-to-day management\nWriting Style\nUse clear, direct, and professional language. Avoid technical jargon. The message should give\nthe impression that AVIS CONSO is coming to help the business owner directly on-site, in a\npractical and concrete way.\nImportant expressions to reflect in the spirit of the content:\n· We manage your web presence and reviews\n· We help shop owners and small businesses\n· Management of Google, Facebook, and Instagram reviews\n· Regular updates\n· Products, services, reviews, photos, and information kept up to date\n· A single point of contact\n· A simple WhatsApp call or email is enough\n· A simple and low-cost approach\n· Let’s get to know each other directly at your business location\nBrand Colors\nMain colors to use as the basis for personalization:\n· Main yellow: #f6d103\n· Accent yellow: #f6d103\n· Black / dark gray: #222222\nThese colors should be used to generate palettes adapted to each template. Yellow should\nrepresent energy, visibility, and action. Black/dark gray should provide contrast, seriousness, and\nreadability.",
+      "document_excerpt": "Personalization Document — AVIS CONSO\nBrand Objective\nAVIS CONSO helps Swiss shop owners, tradespeople, and small businesses manage their web presence, customer reviews, and local visibility. The tone should remain simple, human, concrete, and reassuring.\nThe communication should speak directly to small businesses that lack time to manage Google, Facebook, Instagram, photos, products, services, and updates.\nPositioning\nAVIS CONSO is a local partner for small businesses. The brand should communicate:\nsimplicity\ntrust\nhuman support\nlocal efficiency\npricing adapted to small businesses\nimproved web visibility\npractical day-to-day management\nServices:Avis Conso provides the following main functionalities:\n- Local SEO and Visibility\n- Google Business Profile Management\n- Review Management (Google, Facebook, Instagram)\n- Content and Updates Management\n- Products and Services Listing Support\n- Photo and Media Management\n- Practical One-Contact Support\n- On-site, Small-Business-Friendly Guidance\nWriting Style\nUse clear, direct, and professional language. Avoid technical jargon. The message should give the impression that AVIS CONSO is coming to help the business owner directly on-site, in a practical and concrete way.\nImportant expressions to reflect in the spirit of the content:\nWe manage your web presence and reviews\nWe help shop owners and small businesses\nManagement of Google, Facebook, and Instagram reviews\nRegular updates\nProducts, services, reviews, photos, and information kept up to date\nA single point of contact\nA simple WhatsApp call or email is enough\nA simple and low-cost approach\nLet’s get to know each other directly at your business location\nBrand Colors\nMain colors to use as the basis for personalization:\nMain yellow: #f6d103\nAccent yellow: #f6d103\nBlack / dark gray: #222222\nSoft ivory : #FFF8D6\nCharcoal gray : #3A3A3A\nWarm white : #FFFDF4\nMuted gold : #D9B200-\nDeep neutral : #111111\nThese colors should be used to generate palettes adapted to each template. Yellow should represent energy, visibility, and action. Black/dark gray should provide contrast, seriousness, and readability.",
       "font_note": "Do not change template font families; personalization only controls content and colors.",
       "website_ctas": [
         "contact@avis-conso.ch",
@@ -486,9 +679,9 @@
     "version": 1
   },
   "theme": {
-    "color1": "#101010",
-    "color2": "#F8FAFC",
-    "color3": "#EEC900",
+    "color1": "#222222",
+    "color2": "#FFF8D6",
+    "color3": "#D9B200",
     "hero_image": "images/All/0001.webp",
     "why_choose_us_image": "images/All/0003.webp",
     "values_image": "images/All/0001.webp",
@@ -505,13 +698,6 @@
   ],
   "reviews": [],
   "review_keywords": [
-    "Restaurants",
-    "Hotels",
-    "Things to do",
-    "Transit",
-    "Parking",
-    "Pharmacies",
-    "ATMs",
     "See photos",
     "Internet marketing service",
     "Directions",
@@ -531,13 +717,28 @@
     {
       "action_url": "tel:+41215027617",
       "author_image_url": "https://lh4.googleusercontent.com/-9Nsvf4Ws6dA/AAAAAAAAAAI/AAAAAAAAAAA/aJIMJ4iza1c/s40-c-k-mo/photo.jpg",
+      "body": "Vos futurs clients vous cherchent sur Google. La vraie question est simple : trouvent-ils une entreprise claire, professionnelle et facile à contacter ? Avis-Conso accompagne les artisans, commerçants, indépendants et PME de Suisse romande dans la mise en place d’une présence Google complète : fiche Google optimisée, site internet synchronisé, photos, services, horaires, coordonnées et contenus adaptés à votre activité. Notre solution est pensée pour les petites structures qui veulent être visibles sans se perdre dans la technique. Vous disposez d’une fiche Google professionnelle et d’un site internet clair, reliés entre eux pour éviter les doubles saisies et les informations obsolètes. Nous intervenons dans toute la Suisse romande, notamment à Lausanne, Genève, Morges, Nyon, Yverdon, Montreux, Vevey, Fribourg et Moudon. Le premier échange est gratuit et sans engagement.",
+      "cta_text": "Call now",
+      "date": "14 hours ago",
+      "image_url": "https://lh3.googleusercontent.com/geougc/AF1QipO4atZ_3-bYfHgShthmtwzA8qAOefrpsg1BBRDj=s1200",
+      "image_urls": "https://lh3.googleusercontent.com/geougc/AF1QipO4atZ_3-bYfHgShthmtwzA8qAOefrpsg1BBRDj=s1200",
+      "learn_more_url": "",
+      "report_url": "https://www.google.com/search?sca_esv=0f8fcae09bab6450&authuser=0&hl=en&output=search&q=AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis&ludocid=3433097358436587190&lpsid=CIHM0ogKEKyPwe2BjfvS3QE&ibp=gwp;0,10#lpstate=pid:CIHM0ogKEKyPwe2BjfvS3QE,ar",
+      "share_url": "https://search.google.com/local/posts?q=AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis&ludocid=3433097358436587190&lpsid=CIHM0ogKEKyPwe2BjfvS3QE&source=sh/x/loc/post&lsig=AB86z5UOK5wfZtUP46xdDsNkfKY7",
+      "source": "expanded",
+      "title": "AVIS CONSO - Mieux référencé avec vos avis",
+      "type": ""
+    },
+    {
+      "action_url": "tel:+41215027617",
+      "author_image_url": "https://lh4.googleusercontent.com/-9Nsvf4Ws6dA/AAAAAAAAAAI/AAAAAAAAAAA/aJIMJ4iza1c/s40-c-k-mo/photo.jpg",
       "body": "Quand un client cherche un peintre, un électricien, un coiffeur, un restaurant ou une fiduciaire dans sa région, Google est souvent son premier réflexe. Une fiche Google complète affiche vos horaires, vos services, vos photos, vos avis, votre zone d’intervention et vos coordonnées. Une fiche négligée, au contraire, donne une impression d’abandon et laisse plus de place à vos concurrents. Avis-Conso crée ou optimise votre fiche Google de manière professionnelle : catégories stratégiques, description claire, services détaillés, photos pertinentes, horaires à jour et informations cohérentes avec votre activité. Cette base est essentielle pour inspirer confiance et faciliter la prise de contact. Nous vous aidons à construire une fiche simple, complète et adaptée à votre métier en Suisse romande.",
       "cta_text": "Call now",
-      "date": "5 days ago",
+      "date": "7 days ago",
       "image_url": "https://lh3.googleusercontent.com/geougc/AF1QipOx_NaC2oQ4rFmwbbEnWEKxx4yy7D0SMQ2CuJ-Y=s1200",
       "image_urls": "https://lh3.googleusercontent.com/geougc/AF1QipOx_NaC2oQ4rFmwbbEnWEKxx4yy7D0SMQ2CuJ-Y=s1200",
       "learn_more_url": "",
-      "report_url": "https://www.google.com/search?sca_esv=f0c72423257adc39&authuser=0&hl=en&output=search&q=AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis&ludocid=3433097358436587190&lpsid=CIHM0ogKEPmB2pSLnIDIJw&ibp=gwp;0,10#lpstate=pid:CIHM0ogKEPmB2pSLnIDIJw,ar",
+      "report_url": "https://www.google.com/search?sca_esv=b2b993d37e60064d&authuser=0&hl=en&output=search&q=AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis&ludocid=3433097358436587190&lpsid=CIHM0ogKEPmB2pSLnIDIJw&ibp=gwp;0,10#lpstate=pid:CIHM0ogKEPmB2pSLnIDIJw,ar",
       "share_url": "https://search.google.com/local/posts?q=AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis&ludocid=3433097358436587190&lpsid=CIHM0ogKEPmB2pSLnIDIJw&source=sh/x/loc/post&lsig=AB86z5UOK5wfZtUP46xdDsNkfKY7",
       "source": "expanded",
       "title": "AVIS CONSO - Mieux référencé avec vos avis",
@@ -548,11 +749,11 @@
       "author_image_url": "https://lh4.googleusercontent.com/-9Nsvf4Ws6dA/AAAAAAAAAAI/AAAAAAAAAAA/aJIMJ4iza1c/s40-c-k-mo/photo.jpg",
       "body": "💬 Et si vos avis clients devenaient votre meilleur atout commercial ? Le bouche-à-oreille traditionnel ne suffit plus. Aujourd'hui, ce sont les avis en ligne qui font la différence entre un client qui choisit votre commerce… ou celui d'à côté. Chez Avis Conso, nous aidons les commerçants et artisans suisses à : ⭐ Collecter et gérer leurs avis clients 📍 Optimiser leur référencement local sur Google 📲 Maintenir une présence web active et cohérente 💡 Mieux investir leur budget publicitaire Pas de jargon, pas de contrat compliqué. Juste une approche simple, humaine et efficace — avec une première rencontre directement dans votre commerce. 📩 contact@avis-conso.ch 📞 +41 58 510 87 80 (aussi sur WhatsApp) 👉 Découvrez nos offres sur http://www.avis-conso.ch",
       "cta_text": "Learn more",
-      "date": "6 days ago",
+      "date": "May 18, 2026",
       "image_url": "https://lh3.googleusercontent.com/geougc/AF1QipMeKUx11FYAYzJcWruSNHvAMCQ3I3BGH8T7VSix=s1200",
       "image_urls": "https://lh3.googleusercontent.com/geougc/AF1QipMeKUx11FYAYzJcWruSNHvAMCQ3I3BGH8T7VSix=s1200",
       "learn_more_url": "https://www.avis-conso.ch/qui-sommes-nous/",
-      "report_url": "https://www.google.com/search?sca_esv=f0c72423257adc39&authuser=0&hl=en&output=search&q=AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis&ludocid=3433097358436587190&lpsid=CIHM0ogKEOjctbnRpMrn9wE&ibp=gwp;0,10#lpstate=pid:CIHM0ogKEOjctbnRpMrn9wE,ar",
+      "report_url": "https://www.google.com/search?sca_esv=b2b993d37e60064d&authuser=0&hl=en&output=search&q=AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis&ludocid=3433097358436587190&lpsid=CIHM0ogKEOjctbnRpMrn9wE&ibp=gwp;0,10#lpstate=pid:CIHM0ogKEOjctbnRpMrn9wE,ar",
       "share_url": "https://search.google.com/local/posts?q=AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis&ludocid=3433097358436587190&lpsid=CIHM0ogKEOjctbnRpMrn9wE&source=sh/x/loc/post&lsig=AB86z5UOK5wfZtUP46xdDsNkfKY7",
       "source": "expanded",
       "title": "AVIS CONSO - Mieux référencé avec vos avis",
@@ -563,11 +764,11 @@
       "author_image_url": "https://lh4.googleusercontent.com/-9Nsvf4Ws6dA/AAAAAAAAAAI/AAAAAAAAAAA/aJIMJ4iza1c/s40-c-k-mo/photo.jpg",
       "body": "🌟 Votre réputation en ligne, c'est notre métier !Vous êtes commerçant, artisan ou chef d'une petite entreprise en Suisse ? Vous n'avez pas le temps de gérer vos avis Google, vos réseaux sociaux ou votre fiche en ligne ?Avis Conso s'en charge pour vous ! 🇨🇭✅ Gestion de vos avis Google, Facebook & Instagram ✅ Mise à jour régulière de votre fiche : photos, actualités, services, produits ✅ Un seul interlocuteur, joignable par WhatsApp ou email ✅ Des tarifs adaptés aux petits commercesAujourd'hui, vos clients vous cherchent sur leur mobile avant même de pousser votre porte. Ne laissez pas votre visibilité au hasard.📞 +41 21 544 58 20 🌐 http://www.avis-conso.ch👉 Prenez rendez-vous gratuitement — on vient chez vous !",
       "cta_text": "Learn more",
-      "date": "6 days ago",
+      "date": "May 18, 2026",
       "image_url": "https://lh3.googleusercontent.com/geougc/AF1QipNBmm32Ms0M3KCqLzrlIMrXaiZMvHoIN2ddO4lY=s1200",
       "image_urls": "https://lh3.googleusercontent.com/geougc/AF1QipNBmm32Ms0M3KCqLzrlIMrXaiZMvHoIN2ddO4lY=s1200",
       "learn_more_url": "https://www.avis-conso.ch/",
-      "report_url": "https://www.google.com/search?sca_esv=f0c72423257adc39&authuser=0&hl=en&output=search&q=AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis&ludocid=3433097358436587190&lpsid=CIHM0ogKEMaj7_jP9Y388wE&ibp=gwp;0,10#lpstate=pid:CIHM0ogKEMaj7_jP9Y388wE,ar",
+      "report_url": "https://www.google.com/search?sca_esv=b2b993d37e60064d&authuser=0&hl=en&output=search&q=AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis&ludocid=3433097358436587190&lpsid=CIHM0ogKEMaj7_jP9Y388wE&ibp=gwp;0,10#lpstate=pid:CIHM0ogKEMaj7_jP9Y388wE,ar",
       "share_url": "https://search.google.com/local/posts?q=AVIS+CONSO+-+Mieux+r%C3%A9f%C3%A9renc%C3%A9+avec+vos+avis&ludocid=3433097358436587190&lpsid=CIHM0ogKEMaj7_jP9Y388wE&source=sh/x/loc/post&lsig=AB86z5UOK5wfZtUP46xdDsNkfKY7",
       "source": "expanded",
       "title": "AVIS CONSO - Mieux référencé avec vos avis",

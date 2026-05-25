@@ -251,6 +251,6 @@ function formatPersonalizationJson() {
     const markdown = document.getElementById('personalizationMarkdown');
     if (markdown) markdown.value = personalizationToMarkdown(parsed);
   } catch (e) {
-    showToast('Personalization JSON is invalid: ' + e.message, 'error');
+    showToast('Personalization details could not be read: ' + e.message, 'error');
   }
 }
