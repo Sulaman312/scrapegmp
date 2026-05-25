@@ -1372,31 +1372,32 @@ COLOR RULES:
 - If the source brand has a bright accent plus a dark neutral, default should be accent-forward, facade should be dark-forward with accent support, and bernard should be dark primary + very light secondary + warm/accent color.
 - Do not suggest font changes."""
 
-    # Persist full AI payload for debugging and reproducibility.
-    try:
-        dump_root = debug_dump_dir or "/tmp/scrapegmp_ai_payloads"
-        os.makedirs(dump_root, exist_ok=True)
-        stamp = time.strftime("%Y%m%d_%H%M%S")
-        dump_path = os.path.join(dump_root, f"ai_payload_{stamp}.json")
-        dump_obj = {
-            "timestamp": stamp,
-            "model_content_generation": "gpt-4o-mini",
-            "model_website_read": os.environ.get("OPENAI_WEB_READER_MODEL", "o4-mini"),
-            "language": language,
-            "openai_website_url": openai_website_url,
-            "place": place,
-            "website_data": website,
-            "updates": updates or [],
-            "personalization": personalization or {},
-            "openai_website_read": openai_website_read,
-            "context": context,
-            "prompt": prompt,
-        }
-        with open(dump_path, "w", encoding="utf-8") as f:
-            json.dump(dump_obj, f, ensure_ascii=False, indent=2)
-        logging.info(f"🧾 Saved AI payload dump → {dump_path}")
-    except Exception as e:
-        logging.warning(f"⚠ Could not save AI payload dump: {e}")
+    # Persist full AI payload only when an explicit debug path is provided.
+    if debug_dump_dir:
+        try:
+            dump_root = debug_dump_dir
+            os.makedirs(dump_root, exist_ok=True)
+            stamp = time.strftime("%Y%m%d_%H%M%S")
+            dump_path = os.path.join(dump_root, f"ai_payload_{stamp}.json")
+            dump_obj = {
+                "timestamp": stamp,
+                "model_content_generation": "gpt-4o-mini",
+                "model_website_read": os.environ.get("OPENAI_WEB_READER_MODEL", "o4-mini"),
+                "language": language,
+                "openai_website_url": openai_website_url,
+                "place": place,
+                "website_data": website,
+                "updates": updates or [],
+                "personalization": personalization or {},
+                "openai_website_read": openai_website_read,
+                "context": context,
+                "prompt": prompt,
+            }
+            with open(dump_path, "w", encoding="utf-8") as f:
+                json.dump(dump_obj, f, ensure_ascii=False, indent=2)
+            logging.info(f"🧾 Saved AI payload dump → {dump_path}")
+        except Exception as e:
+            logging.warning(f"⚠ Could not save AI payload dump: {e}")
 
     try:
         logging.info("🤖 Calling OpenAI to generate website copy...")
@@ -1731,7 +1732,6 @@ def enrich(
         personalization,
         updates,
         openai_website_url=website_url,
-        debug_dump_dir="/tmp/scrapegmp_ai_payloads",
     )
 
     theme_from_ai = ai_data.get("theme") if isinstance(ai_data.get("theme"), dict) else {}

@@ -901,7 +901,6 @@ def regenerate_business_content(name):
             personalization,
             base_data.get("updates", []),
             openai_website_url=personalization.get("sources", {}).get("user_provided_website", ""),
-            debug_dump_dir="/tmp/scrapegmp_ai_payloads",
         )
         current_ai = base_data.get("ai", {}) if isinstance(base_data.get("ai"), dict) else {}
         current_ai.update(ai_data)
