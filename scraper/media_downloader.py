@@ -115,33 +115,70 @@ def _click_all_carousel_button(page: Page) -> bool:
     return False
 
 
+def _is_photo_upload_control(label: str) -> bool:
+    label = (label or "").strip().lower()
+    blocked = [
+        "add a photo",
+        "add photo",
+        "add photos",
+        "add photos & videos",
+        "upload",
+        "media upload",
+    ]
+    return any(text in label for text in blocked)
+
+
+def _click_first_safe_photo_control(page: Page, selectors: list[str], wait_ms: int = 3000) -> tuple[bool, str]:
+    for sel in selectors:
+        try:
+            loc = page.locator(sel)
+            count = loc.count()
+            if count <= 0:
+                continue
+            logging.info(f"  Found {count} photo control(s) with selector: {sel[:80]}...")
+            for idx in range(count):
+                candidate = loc.nth(idx)
+                try:
+                    label = (
+                        candidate.get_attribute("aria-label")
+                        or candidate.inner_text(timeout=1000)
+                        or ""
+                    ).strip()
+                except Exception:
+                    label = ""
+                if _is_photo_upload_control(label):
+                    logging.info(f"  🚫 Skipping photo upload control: {label[:80]}")
+                    continue
+                try:
+                    candidate.click(force=True, timeout=5000)
+                except Exception:
+                    candidate.evaluate("el => el.click()")
+                page.wait_for_timeout(wait_ms)
+                return True, sel
+        except Exception as e:
+            logging.debug(f"  Photo control selector failed: {sel[:80]}... - {e}")
+            continue
+    return False, ""
+
+
 def _open_full_photos_gallery(page: Page) -> bool:
     """Try to open the dedicated photos gallery view (not the single-photo preview)."""
     selectors = [
         'button:has-text("See photos")',
         'button:has-text("All photos")',
-        'button:has-text("Photos")',
         'a:has-text("See photos")',
         'a:has-text("All photos")',
         '//button[contains(., "See photos")]',
         '//button[contains(., "All photos")]',
-        '//button[contains(., "Photos")]',
         '//a[contains(., "See photos")]',
         '//a[contains(., "All photos")]',
         '//button[contains(@aria-label, "See photos")]',
         '//button[contains(@aria-label, "All photos")]',
-        '//button[contains(@aria-label, "photos")]',
     ]
 
-    for sel in selectors:
-        try:
-            loc = page.locator(sel)
-            if loc.count() > 0:
-                loc.first.click(force=True)
-                page.wait_for_timeout(3000)
-                return True
-        except Exception:
-            continue
+    clicked, _ = _click_first_safe_photo_control(page, selectors, wait_ms=3000)
+    if clicked:
+        return True
 
     # Last resort: if this is a place page, try direct /photos URL.
     try:
@@ -186,7 +223,7 @@ def _download_one_image(base_url: str, dest_path: str) -> bool:
     return False
 
 
-def _dom_scan_images(page, seen: set, category: str, category_urls: dict) -> int:
+def _dom_scan_images(page, seen: set, category: str, category_urls: dict, allow_gps_cs: bool = False) -> int:
     """
     Scan the current DOM for all googleusercontent images not yet captured.
     Returns the number of new URLs added.
@@ -216,8 +253,12 @@ def _dom_scan_images(page, seen: set, category: str, category_urls: dict) -> int
         if '/a-/' in src or '/a/AC' in src or '/a/AF' in src:
             continue
 
-        # Filter out suggested business thumbnails (small images like =s408, =s640, etc)
-        if re.search(r'=s[0-9]{2,3}(-|$)', src):
+        if '/gps-cs-s/' in src and not allow_gps_cs:
+            continue
+
+        # Filter out tiny square icons while allowing Maps gallery thumbnails
+        # such as =w203-h152; the downloader upgrades them by base URL.
+        if re.search(r'=s[0-9]{1,2}(-|$)', src):
             continue
 
         # Only capture from Google's photo CDN (lh3-lh7)
@@ -264,14 +305,13 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
                     logging.info(f"  🚫 Filtered profile pic: {url[:120]}")
                     return
 
-                # Filter out "People also search for" thumbnails (contain /gps-cs-s/)
-                if '/gps-cs-s/' in url:
-                    logging.info(f"  🚫 Filtered 'People also search for' thumbnail: {url[:120]}")
+                if '/gps-cs-s/' in url and not photos_opened:
+                    logging.info(f"  🚫 Filtered overview thumbnail: {url[:120]}")
                     return
 
-                # Filter out suggested business thumbnails (small images like =s408, =s640, etc)
-                # These appear in "related places" cards. Legitimate photos are usually =w or larger
-                if re.search(r'=s[0-9]{2,3}(-|$)', url):
+                # Filter out tiny square icons while allowing Maps gallery thumbnails
+                # such as =w203-h152; the downloader upgrades them by base URL.
+                if re.search(r'=s[0-9]{1,2}(-|$)', url):
                     logging.info(f"  🚫 Filtered suggested business thumbnail: {url[:120]}")
                     return
 
@@ -310,20 +350,26 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
 
         photos_opened = False
         logging.info("🔍 Attempting to open Photos panel...")
-        for label in ["Photos", "Photo", "All photos", "See photos",
-                       "Fotos", "Foto", "Alle Fotos", "Photos & vidéos", "Galerie"]:
-            logging.info(f"  Trying label: '{label}'")
-            if click_tab(page, label):
-                logging.info(f"  ✅ Photos panel opened with label: '{label}'")
-                photos_opened = True
-                break
+        photo_open_selectors = [
+            '//button[contains(@aria-label, "See photos") or contains(@aria-label, "All photos")]',
+            '//button[contains(normalize-space(.), "See photos") or contains(normalize-space(.), "All photos")]',
+            '//a[contains(@aria-label, "See photos") or contains(@aria-label, "All photos")]',
+            '//a[contains(normalize-space(.), "See photos") or contains(normalize-space(.), "All photos")]',
+            '//button[contains(@aria-label, "Photos") and not(contains(@aria-label, "Add"))]',
+            '//button[contains(@aria-label, "photos") and not(contains(@aria-label, "Add"))]',
+            '//button[contains(@aria-label, "Fotos") and not(contains(@aria-label, "Add"))]',
+        ]
+        clicked, used_selector = _click_first_safe_photo_control(page, photo_open_selectors, wait_ms=3500)
+        if clicked:
+            logging.info(f"  ✅ Photos panel opened with selector: '{used_selector[:80]}...'")
+            photos_opened = True
 
         if not photos_opened:
             logging.info("  Labels failed, trying XPath selectors...")
             for sel in [
-                '//button[contains(@aria-label, "photo")]',
-                '//button[contains(@aria-label, "Photo")]',
-                '//button[contains(@aria-label, "Foto")]',
+                '//button[contains(@aria-label, "photo") and not(contains(@aria-label, "Add"))]',
+                '//button[contains(@aria-label, "Photo") and not(contains(@aria-label, "Add"))]',
+                '//button[contains(@aria-label, "Foto") and not(contains(@aria-label, "Add"))]',
                 '//a[contains(@aria-label, "photo")]',
                 '//div[@class="RZ66Rb YU2qld"]',
             ]:
@@ -331,11 +377,11 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
                     count = page.locator(sel).count()
                     logging.info(f"  Selector '{sel[:50]}...' found {count} elements")
                     if count > 0:
-                        page.locator(sel).first.click(force=True)
-                        page.wait_for_timeout(3000)
-                        logging.info(f"  ✅ Photos panel opened with selector: '{sel[:50]}...'")
-                        photos_opened = True
-                        break
+                        clicked, _ = _click_first_safe_photo_control(page, [sel], wait_ms=3000)
+                        if clicked:
+                            logging.info(f"  ✅ Photos panel opened with selector: '{sel[:50]}...'")
+                            photos_opened = True
+                            break
                 except Exception as e:
                     logging.debug(f"  ⚠ Selector '{sel[:50]}...' failed: {e}")
                     continue
@@ -480,7 +526,7 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
                 page.wait_for_timeout(2500)
                 scrolls += 1
 
-                _dom_scan_images(page, seen_base_urls, category, category_urls)
+                _dom_scan_images(page, seen_base_urls, category, category_urls, allow_gps_cs=photos_opened)
 
                 cur_count = sum(len(v) for v in category_urls.values())
                 if cur_count > prev_count:
@@ -497,7 +543,7 @@ def collect_and_download_images(page: Page, images_dir: str) -> int:
             if scrolls >= max_category_scrolls:
                 logging.info(f"    ℹ Reached max category scrolls ({max_category_scrolls}) for '{category}'")
 
-            _dom_scan_images(page, seen_base_urls, category, category_urls)
+            _dom_scan_images(page, seen_base_urls, category, category_urls, allow_gps_cs=photos_opened)
             cat_count = len(category_urls.get(category, []))
             logging.info(f"  ✅ '{category}': {cat_count} photo URLs found")
 

@@ -169,88 +169,218 @@ function personalizationToMarkdown(personalization) {
   if (!personalization || typeof personalization !== 'object') return '';
   const sources = personalization.sources || {};
   const brand = personalization.brand || {};
-  const colors = personalization.colors || {};
-  const selected = colors.selected_theme || {};
-  const templatePalettes = colors.template_palettes || {};
   const notes = personalization.style_notes || {};
   const posts = personalization.google_posts || {};
+  const websiteRead = personalization.openai_website_read || {};
+
+  if (notes.user_editable_markdown) return notes.user_editable_markdown;
+
+  const uniqueText = (values, limit = 12) => {
+    const seen = new Set();
+    return (Array.isArray(values) ? values : [])
+      .map(value => String(value || '').trim())
+      .filter(value => {
+        const key = value.toLowerCase();
+        if (!value || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .slice(0, limit);
+  };
+  const list = (values, emptyText = 'none found', limit = 12) => {
+    const items = uniqueText(values, limit);
+    return items.length ? items.map(value => `- ${value}`).join('\n') : `- ${emptyText}`;
+  };
+  const websiteSignals = uniqueText([
+    ...(notes.website_headings || []),
+    ...(notes.website_services || []),
+    ...(notes.website_ctas || []),
+    ...(notes.website_nav_labels || []),
+  ], 30);
+  const latestPosts = (Array.isArray(posts.latest) ? posts.latest : [])
+    .slice(0, 4)
+    .map(post => {
+      const date = String(post?.date || 'Recent post').trim();
+      const body = String(post?.body || '').replace(/\s+/g, ' ').trim();
+      return body ? `${date}: ${body.slice(0, 320)}${body.length > 320 ? '...' : ''}` : date;
+    });
+  const documentExcerpt = String(notes.document_excerpt || '')
+    .split(/\r?\n/)
+    .filter(line => !/#[0-9a-f]{6}\b/i.test(line) && !/\b(colou?rs?|palette)\b/i.test(line))
+    .join('\n')
+    .trim();
 
   return [
-    `# Personalization`,
+    `# ${brand.business_name || 'Business'} Personalization`,
     ``,
-    `## Sources`,
-    `- Google Maps: ${sources.google_maps ? 'yes' : 'no'}`,
-    `- Google posts scraped: ${sources.google_posts_count || posts.count || 0}`,
-    `- Website: ${sources.business_website || 'not provided'}`,
-    `- Design document: ${sources.design_document || 'not provided'}`,
-    `- Color source: ${sources.color_source || 'unknown'}`,
-    ``,
-    `## Brand`,
+    `## Brand Profile`,
     `- Name: ${brand.business_name || ''}`,
     `- Type: ${brand.business_type || ''}`,
     `- Website title: ${brand.website_title || ''}`,
+    `- Website description: ${brand.meta_description || ''}`,
     ``,
-    `## Selected Theme`,
-    `- Color 1: ${selected.color1 || ''}`,
-    `- Color 2: ${selected.color2 || ''}`,
-    `- Color 3: ${selected.color3 || ''}`,
-    ``,
-    `## Template Palettes`,
-    `${Object.entries(templatePalettes).map(([name, palette]) => `- ${name}: ${palette?.main?.color1 || ''}, ${palette?.main?.color2 || ''}, ${palette?.main?.color3 || ''} + ${(palette?.presets || []).length} presets`).join('\n') || '- none'}`,
-    ``,
-    `## Website Signals`,
-    `${(notes.website_headings || []).slice(0, 8).map(h => `- ${h}`).join('\n') || '- none'}`,
+    `## Content Sources`,
+    `- Google Maps business profile: ${sources.google_maps ? 'available' : 'not available'}`,
+    `- Google posts collected: ${sources.google_posts_count || posts.count || 0}`,
+    `- Business website: ${sources.business_website || 'not provided'}`,
+    `- Design document: ${sources.design_document || 'not provided'}`,
     ``,
     `## Writing Direction`,
-    `${notes.writing_direction || ''}`,
+    `${notes.writing_direction || 'Use the available business sources to write clear, specific website content.'}`,
+    ``,
+    `## Website Signals`,
+    `${list(websiteSignals, 'none found', 30)}`,
+    ``,
+    `## Website Understanding`,
+    `${websiteRead.summary || 'No additional website summary was found.'}`,
+    `${list(websiteRead.company_descriptions, 'no company descriptions found', 8)}`,
+    ``,
+    `## Identified Services and Offers`,
+    `${list([
+      ...(websiteRead.services || []),
+      ...(websiteRead.products || []),
+      ...(websiteRead.offers || []),
+    ], 'none found', 20)}`,
+    ``,
+    `## Tone and Style Signals`,
+    `${list(websiteRead.tone_and_style, 'none found', 10)}`,
+    ``,
+    `## Contact and Location Signals`,
+    `${list(websiteRead.contact_or_location_notes, 'none found', 12)}`,
+    ``,
+    `## Recent Google Posts`,
+    `${list(latestPosts, 'none found', 4)}`,
+    ``,
+    `## Uploaded Design Notes`,
+    `${documentExcerpt ? documentExcerpt.slice(0, 4000) : 'No design notes were provided.'}`,
   ].join('\n');
+}
+
+function escapePersonalizationHtml(value) {
+  return String(value || '').replace(/[&<>"']/g, ch => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;',
+  }[ch]));
+}
+
+function renderPersonalizationMarkdown(markdown) {
+  const lines = String(markdown || '').split(/\r?\n/);
+  const html = [];
+  let listOpen = false;
+  const closeList = () => {
+    if (listOpen) html.push('</ul>');
+    listOpen = false;
+  };
+
+  lines.forEach(raw => {
+    const line = raw.trim();
+    if (!line) {
+      closeList();
+      return;
+    }
+    if (line.startsWith('## ')) {
+      closeList();
+      html.push(`<h3>${escapePersonalizationHtml(line.slice(3))}</h3>`);
+      return;
+    }
+    if (line.startsWith('# ')) {
+      closeList();
+      html.push(`<h2>${escapePersonalizationHtml(line.slice(2))}</h2>`);
+      return;
+    }
+    if (line.startsWith('- ')) {
+      if (!listOpen) {
+        html.push('<ul>');
+        listOpen = true;
+      }
+      html.push(`<li>${escapePersonalizationHtml(line.slice(2))}</li>`);
+      return;
+    }
+    closeList();
+    html.push(`<p>${escapePersonalizationHtml(line)}</p>`);
+  });
+  closeList();
+  return html.join('');
+}
+
+function renderPersonalizationStats(personalization) {
+  const sources = personalization?.sources || {};
+  const posts = personalization?.google_posts || {};
+  const items = [
+    ['Google Maps', sources.google_maps ? 'Connected' : 'Not available'],
+    ['Google posts', String(sources.google_posts_count || posts.count || 0)],
+    ['Website', sources.business_website ? 'Included' : 'Not provided'],
+    ['Design document', sources.design_document ? 'Included' : 'Not provided'],
+  ];
+  return items.map(([label, value]) => `
+    <div class="personalization-stat">
+      <span>${escapePersonalizationHtml(label)}</span>
+      <strong>${escapePersonalizationHtml(value)}</strong>
+    </div>
+  `).join('');
 }
 
 function populatePersonalization(personalization, hasPersonalization) {
   const missing = document.getElementById('personalizationMissingCard');
   const summaryCard = document.getElementById('personalizationSummaryCard');
-  const jsonCard = document.getElementById('personalizationJsonCard');
   const markdown = document.getElementById('personalizationMarkdown');
-  const jsonEl = document.getElementById('personalizationJson');
+  const preview = document.getElementById('personalizationMarkdownPreview');
+  const stats = document.getElementById('personalizationSourceStats');
 
   if (!hasPersonalization || !personalization || typeof personalization !== 'object') {
     if (missing) missing.classList.remove('hidden');
     if (summaryCard) summaryCard.classList.add('hidden');
-    if (jsonCard) jsonCard.classList.add('hidden');
     return;
   }
 
   if (missing) missing.classList.add('hidden');
   if (summaryCard) summaryCard.classList.remove('hidden');
-  if (jsonCard) jsonCard.classList.remove('hidden');
-  if (markdown) markdown.value = personalizationToMarkdown(personalization);
-  if (jsonEl) jsonEl.value = JSON.stringify(personalization, null, 2);
+  const value = personalizationToMarkdown(personalization);
+  if (markdown) {
+    markdown.value = value;
+    markdown.classList.add('hidden');
+  }
+  if (preview) {
+    preview.innerHTML = renderPersonalizationMarkdown(value);
+    preview.classList.remove('hidden');
+  }
+  if (stats) stats.innerHTML = renderPersonalizationStats(personalization);
+  const editBtn = document.getElementById('personalizationEditBtn');
+  if (editBtn) editBtn.textContent = 'Edit Content Notes';
   document.getElementById('personalizationDirtyNote')?.classList.add('hidden');
 }
 
 function collectPersonalization() {
-  const jsonEl = document.getElementById('personalizationJson');
-  if (!jsonEl || !jsonEl.value.trim()) return (currentData || {}).personalization || {};
-  try {
-    return JSON.parse(jsonEl.value);
-  } catch {
-    return (currentData || {}).personalization || {};
+  const personalization = (currentData || {}).personalization || {};
+  const markdown = document.getElementById('personalizationMarkdown');
+  if (markdown && markdown.value.trim()) {
+    personalization.style_notes = personalization.style_notes || {};
+    personalization.style_notes.user_editable_markdown = markdown.value.trim();
   }
+  return personalization;
 }
 
-function onPersonalizationJsonChange() {
+function onPersonalizationMarkdownChange() {
+  const markdown = document.getElementById('personalizationMarkdown');
+  const preview = document.getElementById('personalizationMarkdownPreview');
+  if (markdown && preview) preview.innerHTML = renderPersonalizationMarkdown(markdown.value);
   document.getElementById('personalizationDirtyNote')?.classList.remove('hidden');
 }
 
-function formatPersonalizationJson() {
-  const jsonEl = document.getElementById('personalizationJson');
-  if (!jsonEl) return;
-  try {
-    const parsed = JSON.parse(jsonEl.value || '{}');
-    jsonEl.value = JSON.stringify(parsed, null, 2);
-    const markdown = document.getElementById('personalizationMarkdown');
-    if (markdown) markdown.value = personalizationToMarkdown(parsed);
-  } catch (e) {
-    showToast('Personalization details could not be read: ' + e.message, 'error');
+function togglePersonalizationEdit() {
+  const markdown = document.getElementById('personalizationMarkdown');
+  const preview = document.getElementById('personalizationMarkdownPreview');
+  const editBtn = document.getElementById('personalizationEditBtn');
+  if (!markdown || !preview || !editBtn) return;
+  const editing = markdown.classList.contains('hidden');
+  markdown.classList.toggle('hidden', !editing);
+  preview.classList.toggle('hidden', editing);
+  editBtn.textContent = editing ? 'Preview Notes' : 'Edit Content Notes';
+  if (editing) markdown.focus();
+  if (!editing) {
+    preview.innerHTML = renderPersonalizationMarkdown(markdown.value);
   }
 }

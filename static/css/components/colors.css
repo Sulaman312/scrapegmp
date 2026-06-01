@@ -39,3 +39,65 @@
 .color-hex:focus {
   border-color: #16a34a
 }
+
+.personalization-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: .625rem;
+  margin-bottom: 1.25rem
+}
+
+.personalization-stat {
+  background: #112036;
+  border: 1px solid #1e3350;
+  border-radius: .5rem;
+  padding: .75rem
+}
+
+.personalization-stat span {
+  display: block;
+  color: #64748b;
+  font-size: .7rem;
+  margin-bottom: .2rem
+}
+
+.personalization-stat strong {
+  color: #e2e8f0;
+  font-size: .8rem;
+  font-weight: 600
+}
+
+.personalization-markdown {
+  background: #112036;
+  border: 1px solid #1e3350;
+  border-radius: .5rem;
+  padding: 1rem 1.125rem;
+  color: #cbd5e1;
+  font-size: .82rem;
+  line-height: 1.65
+}
+
+.personalization-markdown h2 {
+  color: #f1f5f9;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: .8rem
+}
+
+.personalization-markdown h3 {
+  color: #86efac;
+  font-size: .8rem;
+  font-weight: 700;
+  margin: 1rem 0 .35rem;
+  text-transform: uppercase
+}
+
+.personalization-markdown ul {
+  list-style: disc;
+  margin-left: 1.15rem
+}
+
+.personalization-markdown p,
+.personalization-markdown li {
+  margin: .22rem 0
+}

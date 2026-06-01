@@ -1197,6 +1197,9 @@ def enrich_with_ai(
         doc_excerpt = style_notes.get("document_excerpt", "")
         if doc_excerpt:
             service_evidence.append(f"Design document excerpt: {doc_excerpt[:1800]}")
+        user_markdown = style_notes.get("user_editable_markdown", "")
+        if user_markdown:
+            service_evidence.append(f"User-edited personalization notes: {user_markdown[:2400]}")
     if openai_website_read:
         for key in ("company_descriptions", "services", "products", "offers"):
             values = openai_website_read.get(key, [])
@@ -1227,6 +1230,13 @@ def enrich_with_ai(
             "Personalization context JSON:\n" +
             json.dumps(personalization, ensure_ascii=False)[:5000]
         )
+        style_notes = personalization.get("style_notes", {}) if isinstance(personalization.get("style_notes"), dict) else {}
+        user_markdown = style_notes.get("user_editable_markdown", "")
+        if user_markdown:
+            context_parts.append(
+                "User-edited personalization notes. Treat these as high-priority content guidance:\n" +
+                user_markdown[:4000]
+            )
     if openai_website_read:
         context_parts.append(
             "OpenAI website read from the user-submitted website only. Use this for useful details such as company descriptions, services, products, offers, tone, locations, and branding. Do not infer from Google Maps with this field:\n" +

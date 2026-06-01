@@ -198,6 +198,22 @@ body.light .card {
   box-shadow: 0 1px 4px rgba(0, 0, 0, .07), 0 0 0 1px rgba(0, 0, 0, .04) !important
 }
 
+body.light .personalization-stat,
+body.light .personalization-markdown {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important
+}
+
+body.light .personalization-stat strong,
+body.light .personalization-markdown,
+body.light .personalization-markdown h2 {
+  color: #0f172a !important
+}
+
+body.light .personalization-markdown h3 {
+  color: #15803d !important
+}
+
 /* Form inputs */
 body.light .fi {
   background: #fff !important;

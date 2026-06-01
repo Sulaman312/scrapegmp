@@ -135,6 +135,9 @@ def extract_weekly_hours(page: Page) -> dict:
         logging.info("🕐 Extracting opening hours...")
         page.wait_for_timeout(2500)
         hours_button_selectors = [
+            '//button[contains(@aria-label, "Show open hours for the week")]',
+            '//div[@role="button"][contains(@aria-label, "Show open hours for the week")]',
+            '//*[@aria-label="Hours"]/ancestor::*[@role="button"][1]',
             '//div[@class="OMl5r hH0dDd jBYmhd"][@role="button"]',
             '//button[contains(@aria-label, "Hours")]',
             '//button[contains(@aria-label, "hours")]',
@@ -215,6 +218,47 @@ def extract_weekly_hours(page: Page) -> dict:
         except Exception as e:
             logging.warning(f"  ⚠ Debug extraction failed: {e}")
 
+        def _extract_hours_from_copy_buttons() -> dict:
+            fallback = {}
+            try:
+                values = page.evaluate(
+                    """
+                    () => Array.from(document.querySelectorAll('button[data-value], button[aria-label*="Copy open hours"]'))
+                        .map((el) => el.getAttribute('data-value') || el.getAttribute('aria-label') || '')
+                        .filter(Boolean)
+                    """
+                ) or []
+            except Exception:
+                values = []
+
+            day_patterns = {
+                "monday": r"monday|montag|lundi|lunes|luned[ìi]",
+                "tuesday": r"tuesday|dienstag|mardi|martes|marted[ìi]",
+                "wednesday": r"wednesday|mittwoch|mercredi|mi[eé]rcoles|mercoled[ìi]",
+                "thursday": r"thursday|donnerstag|jeudi|jueves|gioved[ìi]",
+                "friday": r"friday|freitag|vendredi|viernes|venerd[ìi]",
+                "saturday": r"saturday|samstag|samedi|s[áa]bado|sabato",
+                "sunday": r"sunday|sonntag|dimanche|domingo|domenica",
+            }
+            hour_pattern = re.compile(
+                r"(open 24 hours|24 hours|(?:\d{1,2}(?::\d{2})?\s?[AP]M|\d{1,2}[:h]\d{2})\s*[–-]\s*(?:\d{1,2}(?::\d{2})?\s?[AP]M|\d{1,2}[:h]\d{2})|closed|fermé|geschlossen|cerrado)",
+                re.I,
+            )
+            for raw in values:
+                text = re.sub(r"\s+", " ", str(raw or "")).strip()
+                if not text:
+                    continue
+                hm = hour_pattern.search(text)
+                if not hm:
+                    continue
+                for day_key, pattern in day_patterns.items():
+                    if day_key in fallback:
+                        continue
+                    if re.search(rf"\b({pattern})\b", text, re.I):
+                        fallback[day_key] = hm.group(1).strip()
+                        break
+            return fallback
+
         def _extract_hours_from_labels() -> dict:
             fallback = {}
             try:
@@ -272,9 +316,15 @@ def extract_weekly_hours(page: Page) -> dict:
                         break
             return fallback
 
+        copy_button_hours = _extract_hours_from_copy_buttons()
         extracted_count = 0
         for day in days:
             day_found = False
+            day_key = day.lower()
+            if copy_button_hours.get(day_key):
+                weekly_hours[day_key] = copy_button_hours[day_key]
+                extracted_count += 1
+                continue
             for translated_day in day_translations.get(day, [day]):
                 day_row_xpath = f'//tr[@class="y0skZc"]//td[contains(@class, "ylH6lf")]//div[text()="{translated_day}"]/ancestor::tr'
 
@@ -446,6 +496,42 @@ def extract_place(page: Page, google_maps_url: str = "", browser=None, extract_e
                 place.opens_at = opens_at2_raw.replace("\u202f", "")
 
     weekly_hours = extract_weekly_hours(page)
+    extracted_hours_count = sum(
+        1 for value in weekly_hours.values()
+        if value and value.lower() not in ["not available", ""]
+    )
+    if extracted_hours_count < 7:
+        logging.info(
+            f"  🔄 Hours incomplete ({extracted_hours_count}/7); "
+            "reloading place page and retrying once..."
+        )
+        try:
+            page.reload(timeout=70000, wait_until="domcontentloaded")
+            page.wait_for_timeout(5000)
+            try:
+                page.wait_for_selector("h1.DUwDvf", timeout=25000)
+            except Exception:
+                logging.warning("  ⚠ Place header not found after hours reload; continuing with retry")
+
+            retried_hours = extract_weekly_hours(page)
+            retried_hours_count = sum(
+                1 for value in retried_hours.values()
+                if value and value.lower() not in ["not available", ""]
+            )
+            if retried_hours_count > extracted_hours_count:
+                weekly_hours = retried_hours
+                logging.info(
+                    f"  ✅ Hours reload retry improved coverage: "
+                    f"{extracted_hours_count}/7 → {retried_hours_count}/7"
+                )
+            else:
+                logging.info(
+                    f"  ℹ Hours reload retry did not improve coverage "
+                    f"({retried_hours_count}/7); keeping initial result"
+                )
+        except Exception as e:
+            logging.warning(f"  ⚠ Hours reload retry failed; keeping initial result: {e}")
+
     place.monday = weekly_hours['monday']
     place.tuesday = weekly_hours['tuesday']
     place.wednesday = weekly_hours['wednesday']

@@ -22,16 +22,12 @@
     </div>
 
     <div class="card" id="personalizationSummaryCard">
-      <div class="sdiv">Personalization Summary</div>
-      <textarea id="personalizationMarkdown" class="fi font-mono text-xs" rows="10" readonly></textarea>
-      <p class="text-xs text-slate-500 mt-2">This summary is generated from the editable personalization details below.</p>
-    </div>
-
-    <div class="card" id="personalizationJsonCard">
-      <div class="sdiv">Editable Personalization Details</div>
-      <textarea id="personalizationJson" class="fi font-mono text-xs" rows="16" oninput="onPersonalizationJsonChange()"></textarea>
-      <div class="flex items-center gap-3 mt-3">
-        <button type="button" onclick="formatPersonalizationJson()" class="btn-dx text-slate-400 border-slate-700">Format Details</button>
+      <div class="sdiv">Content Personalization</div>
+      <div id="personalizationSourceStats" class="personalization-stats"></div>
+      <div id="personalizationMarkdownPreview" class="personalization-markdown"></div>
+      <textarea id="personalizationMarkdown" class="fi font-mono text-xs hidden mt-4" rows="20" oninput="onPersonalizationMarkdownChange()"></textarea>
+      <div class="flex items-center gap-3 mt-4 flex-wrap">
+        <button type="button" id="personalizationEditBtn" onclick="togglePersonalizationEdit()" class="btn-dx text-slate-300 border-slate-700">Edit Content Notes</button>
         <button type="button" onclick="regenerateContentFromPersonalization()" class="btn-dx text-green-500 border-green-700">Regenerate AI Content</button>
         <span id="personalizationDirtyNote" class="text-xs text-amber-400 hidden">Save, then regenerate AI content for edits to take effect.</span>
       </div>

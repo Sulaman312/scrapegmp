@@ -63,6 +63,7 @@ Thumbs.db
 
 # Playwright
 .playwright/
+tests/scraper_debug/output/
 
 # Coverage reports
 htmlcov/
