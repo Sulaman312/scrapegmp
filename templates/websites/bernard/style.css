@@ -3,6 +3,8 @@
     --color-primary: {{ theme_color1 }};
     --color-primary-light: {{ theme_color2 }};
     --color-accent: {{ theme_color3 }};
+    --primary-button-text: {{ theme_color1_text }};
+    --accent-button-text: {{ theme_color3_text }};
     --cta-color: {{ theme_cta_color }};
 
     /* Fixed design colors */
@@ -368,7 +370,7 @@ h3 {
 
 .btn-primary {
     background: var(--color-primary);
-    color: var(--text-light);
+    color: var(--primary-button-text);
 }
 
 .btn-primary:hover {
@@ -378,7 +380,7 @@ h3 {
 
 .btn-accent {
     background: var(--color-accent);
-    color: var(--text-light);
+    color: var(--accent-button-text);
 }
 
 .btn-accent:hover {
@@ -1675,6 +1677,11 @@ h3 {
     color: var(--text-dark);
     transition: var(--transition);
 }
+.contact-form .form-group input,
+.contact-form .form-group textarea {
+    border-color: var(--color-primary);
+}
+
 
 .form-group input:focus,
 .form-group textarea:focus {
@@ -1828,5 +1835,29 @@ h3 {
 
     .contact-info-card {
         padding: 20px;
+    }
+}
+
+.hero-form .form-group input:not([type="hidden"]) {
+    border-color: var(--color-primary);
+}
+
+@media (min-width: 768px) {
+    .section-contact-detail .contact-form .form-group input,
+    .section-contact-detail .contact-form .form-group textarea {
+        padding: 11px 14px;
+    }
+
+    .section-contact-detail .contact-form {
+        gap: 16px;
+    }
+
+    .section-contact-detail .contact-info-cards {
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .section-contact-detail .contact-info-card {
+        padding: 18px 20px;
     }
 }

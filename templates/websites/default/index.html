@@ -25,7 +25,7 @@
     /* Gradient text */
     .gt{background:linear-gradient(135deg, {{ theme_color1 }} 0%, {{ theme_color2 }} 50%, {{ theme_color3 }} 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
     /* CTA button — !important so Tailwind/utilities cannot override */
-    a.cta-btn,.cta-btn{background:linear-gradient(135deg, {{ theme_color1 }}, {{ theme_color2 }})!important;transition:transform .2s,box-shadow .3s;border:none;}
+    a.cta-btn,.cta-btn{background:{{ theme_default_cta_overlay }}linear-gradient(135deg, {{ theme_color1 }}, {{ theme_color2 }})!important;color:{{ theme_default_cta_text }}!important;transition:transform .2s,box-shadow .3s;border:none;}
     a.cta-btn:hover,.cta-btn:hover{transform:translateY(-2px);box-shadow:0 20px 60px color-mix(in srgb,{{ theme_color1 }} 50%,transparent);}
     /* Outline button */
     .btn-outline{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);transition:background .2s,border-color .2s;}
