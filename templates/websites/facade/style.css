@@ -3,6 +3,7 @@
     --color-primary: {{ theme_color1 }};
     --color-secondary: {{ theme_color2 }};
     --color-accent: {{ theme_color3 }};
+    --cta-text-color: {{ theme_cta_text }};
     --color-primary-rgb: {{ theme_color1_rgb }};
     --color-secondary-rgb: {{ theme_color2_rgb }};
     --color-accent-rgb: {{ theme_color3_rgb }};
@@ -357,7 +358,7 @@ h3 {
 .btn-pill-primary {
     padding: 16px 42px;
     background: var(--color-primary);
-    color: #fff;
+    color: var(--cta-text-color);
     border: 2px solid transparent;
     border-radius: 50px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.15);
@@ -391,7 +392,7 @@ h3 {
 .btn-primary {
     padding: 16px 36px;
     background: var(--color-primary);
-    color: #fff;
+    color: var(--cta-text-color);
     border-radius: 10px;
     border: none;
     font-weight: 600;
@@ -1345,7 +1346,7 @@ h3 {
 .form-group-facade input,
 .form-group-facade textarea {
     padding: 14px 16px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--color-primary);
     border-radius: 8px;
     font-family: 'Poppins', sans-serif;
     font-size: 15px;
@@ -2050,5 +2051,24 @@ img[loading="lazy"].loaded {
     .btn-glow:hover::before {
         width: 200px;
         height: 200px;
+    }
+}
+
+@media (min-width: 768px) {
+    .section-contact-detail-facade .form-group-facade input,
+    .section-contact-detail-facade .form-group-facade textarea {
+        padding: 11px 14px;
+    }
+
+    .section-contact-detail-facade .contact-form-facade {
+        gap: 16px;
+    }
+
+    .section-contact-detail-facade .contact-info-cards-facade {
+        gap: 14px;
+    }
+
+    .section-contact-detail-facade .contact-info-card-facade {
+        padding: 18px 20px;
     }
 }

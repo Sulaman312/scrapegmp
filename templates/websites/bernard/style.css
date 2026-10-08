@@ -3,6 +3,8 @@
     --color-primary: {{ theme_color1 }};
     --color-primary-light: {{ theme_color2 }};
     --color-accent: {{ theme_color3 }};
+    --primary-button-text: {{ theme_color1_text }};
+    --accent-button-text: {{ theme_color3_text }};
     /* Fixed design colors */
     --bg-light: #ffffff;
     --bg-light-gray: #f8f9fa;
@@ -366,7 +368,7 @@ h3 {
 
 .btn-primary {
     background: var(--color-primary);
-    color: var(--text-light);
+    color: var(--primary-button-text);
 }
 
 .btn-primary:hover {
@@ -376,7 +378,7 @@ h3 {
 
 .btn-accent {
     background: var(--color-accent);
-    color: var(--text-light);
+    color: var(--accent-button-text);
 }
 
 .btn-accent:hover {
@@ -959,7 +961,7 @@ h3 {
 
 .section-testimonials {
     padding-top: 200px;
-    padding-bottom: 100px ;
+    padding-bottom: 36px;
     margin: 0 !important;
     background: var(--bg-light);
 }
@@ -1001,7 +1003,7 @@ h3 {
 
 .testimonials-carousel {
     position: relative;
-    min-height: 250px;
+    min-height: 218px;
 }
 
 .testimonial-card {
@@ -1030,7 +1032,7 @@ h3 {
 .testimonial-rating {
     display: flex;
     gap: 6px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     justify-content: center;
 }
 
@@ -1047,19 +1049,19 @@ h3 {
 
 .testimonial-rating .star-filled::before,
 .testimonial-rating .star-empty::before {
-    font-size: 32px;
-    line-height: 1;
-}
-
-.testimonial-rating .star-filled::before {
-    content: '★';
-    color: #f59e0b;
-    filter: drop-shadow(0 1px 2px rgba(245, 158, 11, 0.3));
+    content: "";
+    display: block;
+    width: 29px;
+    height: 29px;
+    background-color: #f59e0b;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M%2011.434%203.214%20Q%2012.000%202.100%2012.566%203.214%20L%2014.874%207.758%20Q%2015.200%208.400%2015.911%208.515%20L%2020.766%209.300%20Q%2022.000%209.500%2021.116%2010.384%20L%2017.609%2013.891%20Q%2017.100%2014.400%2017.210%2015.112%20L%2018.009%2020.265%20Q%2018.200%2021.500%2017.097%2020.913%20L%2012.636%2018.538%20Q%2012.000%2018.200%2011.364%2018.538%20L%206.903%2020.913%20Q%205.800%2021.500%205.991%2020.265%20L%206.790%2015.112%20Q%206.900%2014.400%206.391%2013.891%20L%202.884%2010.384%20Q%202.000%209.500%203.234%209.300%20L%208.089%208.515%20Q%208.800%208.400%209.126%207.758%20L%2011.434%203.214%20Z%22%20fill%3D%22black%22%20stroke%3D%22black%22%20stroke-width%3D%221.2%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M%2011.434%203.214%20Q%2012.000%202.100%2012.566%203.214%20L%2014.874%207.758%20Q%2015.200%208.400%2015.911%208.515%20L%2020.766%209.300%20Q%2022.000%209.500%2021.116%2010.384%20L%2017.609%2013.891%20Q%2017.100%2014.400%2017.210%2015.112%20L%2018.009%2020.265%20Q%2018.200%2021.500%2017.097%2020.913%20L%2012.636%2018.538%20Q%2012.000%2018.200%2011.364%2018.538%20L%206.903%2020.913%20Q%205.800%2021.500%205.991%2020.265%20L%206.790%2015.112%20Q%206.900%2014.400%206.391%2013.891%20L%202.884%2010.384%20Q%202.000%209.500%203.234%209.300%20L%208.089%208.515%20Q%208.800%208.400%209.126%207.758%20L%2011.434%203.214%20Z%22%20fill%3D%22black%22%20stroke%3D%22black%22%20stroke-width%3D%221.2%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat;
 }
 
 .testimonial-rating .star-empty::before {
-    content: '☆';
-    color: #d1d5db;
+    background-color: #d1d5db;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M%2011.434%203.214%20Q%2012.000%202.100%2012.566%203.214%20L%2014.874%207.758%20Q%2015.200%208.400%2015.911%208.515%20L%2020.766%209.300%20Q%2022.000%209.500%2021.116%2010.384%20L%2017.609%2013.891%20Q%2017.100%2014.400%2017.210%2015.112%20L%2018.009%2020.265%20Q%2018.200%2021.500%2017.097%2020.913%20L%2012.636%2018.538%20Q%2012.000%2018.200%2011.364%2018.538%20L%206.903%2020.913%20Q%205.800%2021.500%205.991%2020.265%20L%206.790%2015.112%20Q%206.900%2014.400%206.391%2013.891%20L%202.884%2010.384%20Q%202.000%209.500%203.234%209.300%20L%208.089%208.515%20Q%208.800%208.400%209.126%207.758%20L%2011.434%203.214%20Z%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222.0%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M%2011.434%203.214%20Q%2012.000%202.100%2012.566%203.214%20L%2014.874%207.758%20Q%2015.200%208.400%2015.911%208.515%20L%2020.766%209.300%20Q%2022.000%209.500%2021.116%2010.384%20L%2017.609%2013.891%20Q%2017.100%2014.400%2017.210%2015.112%20L%2018.009%2020.265%20Q%2018.200%2021.500%2017.097%2020.913%20L%2012.636%2018.538%20Q%2012.000%2018.200%2011.364%2018.538%20L%206.903%2020.913%20Q%205.800%2021.500%205.991%2020.265%20L%206.790%2015.112%20Q%206.900%2014.400%206.391%2013.891%20L%202.884%2010.384%20Q%202.000%209.500%203.234%209.300%20L%208.089%208.515%20Q%208.800%208.400%209.126%207.758%20L%2011.434%203.214%20Z%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222.0%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E");
 }
 
 .testimonial-author {
@@ -1072,7 +1074,7 @@ h3 {
     display: flex;
     justify-content: center;
     gap: 16px;
-    margin-top: 32px;
+    margin-top: 24px;
 }
 
 .testimonial-nav-btn {
@@ -1674,6 +1676,11 @@ h3 {
     color: var(--text-dark);
     transition: var(--transition);
 }
+.contact-form .form-group input,
+.contact-form .form-group textarea {
+    border-color: var(--color-primary);
+}
+
 
 .form-group input:focus,
 .form-group textarea:focus {
@@ -1827,5 +1834,29 @@ h3 {
 
     .contact-info-card {
         padding: 20px;
+    }
+}
+
+.hero-form .form-group input:not([type="hidden"]) {
+    border-color: var(--color-primary);
+}
+
+@media (min-width: 768px) {
+    .section-contact-detail .contact-form .form-group input,
+    .section-contact-detail .contact-form .form-group textarea {
+        padding: 11px 14px;
+    }
+
+    .section-contact-detail .contact-form {
+        gap: 16px;
+    }
+
+    .section-contact-detail .contact-info-cards {
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .section-contact-detail .contact-info-card {
+        padding: 18px 20px;
     }
 }

@@ -206,6 +206,68 @@ def _load_csv(path):
         return []
 
 
+def _gmp_button_text_color(*background_hexes):
+    def luminance(hex_color):
+        raw = hex_color.strip().lstrip("#")
+        if len(raw) != 6 or any(c not in "0123456789abcdefABCDEF" for c in raw):
+            return None
+        channels = [int(raw[i:i+2], 16) / 255 for i in (0, 2, 4)]
+        linear = [c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4 for c in channels]
+        return sum(a * b for a, b in zip(linear, (0.2126, 0.7152, 0.0722)))
+
+    levels = [luminance(value) for value in background_hexes]
+    if not levels or any(level is None for level in levels):
+        return "#1a1a1a"
+    white_min = min(1.05 / (level + 0.05) for level in levels)
+    dark_min = min((level + 0.05) / 0.05 for level in levels)
+    return "#ffffff" if white_min >= dark_min else "#000000"
+
+
+def _gmp_default_cta_overlay(color1, color2):
+    def parse(value):
+        if not isinstance(value, str):
+            return None
+        raw = value.strip().lstrip("#")
+        if len(raw) != 6 or any(c not in "0123456789abcdefABCDEF" for c in raw):
+            return None
+        return tuple(int(raw[i:i+2], 16) for i in (0, 2, 4))
+
+    first, second = parse(color1), parse(color2)
+    if first is None or second is None:
+        return ""
+    foreground = _gmp_button_text_color(color1, color2)
+    white_text = foreground == "#ffffff"
+    target = 0 if white_text else 255
+
+    def minimum_contrast(alpha):
+        smallest = 21.0
+        for step in range(101):
+            fraction = step / 100
+            rgb = [(1 - alpha) * (a * (1 - fraction) + b * fraction) + alpha * target
+                   for a, b in zip(first, second)]
+            channels = [c / 255 for c in rgb]
+            linear = [c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+                      for c in channels]
+            level = sum(a * b for a, b in zip(linear, (0.2126, 0.7152, 0.0722)))
+            contrast = 1.05 / (level + 0.05) if white_text else (level + 0.05) / 0.05
+            smallest = min(smallest, contrast)
+        return smallest
+
+    if minimum_contrast(0) >= 4.5:
+        return ""
+    low, high = 0.0, 1.0
+    for _ in range(26):
+        midpoint = (low + high) / 2
+        if minimum_contrast(midpoint) >= 4.5:
+            high = midpoint
+        else:
+            low = midpoint
+    alpha = min(1.0, high + 0.005)
+    rgb = "0, 0, 0" if white_text else "255, 255, 255"
+    shade = f"rgba({rgb}, {alpha:.3f})"
+    return f"linear-gradient({shade}, {shade}), "
+
+
 def _extract_brand_colors(image_rel_paths: list, business_dir: str):
     """
     Analyse scraped images and return a list of up to 3 vivid hex brand colors.
@@ -775,6 +837,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 facade_css = facade_css.replace("{{ theme_color1_rgb }}", _hex_to_rgb_triplet(theme_color1))
                 facade_css = facade_css.replace("{{ theme_color2_rgb }}", _hex_to_rgb_triplet(theme_color2, "5, 150, 105"))
                 facade_css = facade_css.replace("{{ theme_color3_rgb }}", _hex_to_rgb_triplet(theme_color3, "13, 148, 136"))
+                facade_css = facade_css.replace("{{ theme_cta_text }}", _gmp_button_text_color(theme_color1))
 
     elif template == "bernard":
         css_file = os.path.join(os.path.dirname(__file__), "templates", "websites", template, "style.css")
@@ -787,6 +850,8 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 bernard_css = bernard_css.replace("{{ theme_color1 }}", theme_color1)
                 bernard_css = bernard_css.replace("{{ theme_color2 }}", theme_color2)
                 bernard_css = bernard_css.replace("{{ theme_color3 }}", theme_color3)
+                bernard_css = bernard_css.replace("{{ theme_color1_text }}", _gmp_button_text_color(theme_color1))
+                bernard_css = bernard_css.replace("{{ theme_color3_text }}", _gmp_button_text_color(theme_color3))
 
     # Default template color processing
     default_theme_color1 = _theme.get("color1", "#10B981")
@@ -1353,6 +1418,8 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         context["theme_color1"] = default_theme_color1
         context["theme_color2"] = default_theme_color2
         context["theme_color3"] = default_theme_color3
+        context["theme_default_cta_text"] = _gmp_button_text_color(default_theme_color1, default_theme_color2)
+        context["theme_default_cta_overlay"] = _gmp_default_cta_overlay(default_theme_color1, default_theme_color2)
 
     # Setup Jinja2 environment
     templates_dir = os.path.join(os.path.dirname(__file__), "templates")
