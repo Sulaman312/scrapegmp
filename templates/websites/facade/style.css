@@ -2072,3 +2072,26 @@ img[loading="lazy"].loaded {
         padding: 18px 20px;
     }
 }
+
+@media (min-width: 1024px) {
+    .section-contact-detail-facade > .container {
+        padding-inline: clamp(28px, 3vw, 48px);
+    }
+
+    .section-contact-detail-facade .contact-detail-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+        gap: clamp(32px, 4vw, 60px);
+    }
+
+    .section-contact-detail-facade .contact-info-wrapper-facade {
+        grid-column: 1;
+        grid-row: 1;
+        min-width: 0;
+    }
+
+    .section-contact-detail-facade .contact-form-wrapper-facade {
+        grid-column: 2;
+        grid-row: 1;
+        min-width: 0;
+    }
+}

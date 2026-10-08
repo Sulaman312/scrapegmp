@@ -223,6 +223,22 @@ def _gmp_button_text_color(*background_hexes):
     return "#ffffff" if white_min >= dark_min else "#000000"
 
 
+def _gmp_green_primary_button_text(color):
+    raw = str(color or '').strip().lstrip('#')
+    if len(raw) == 6 and all(ch in '0123456789abcdefABCDEF' for ch in raw):
+        red, green, blue = (int(raw[i:i+2], 16) for i in (0, 2, 4))
+        if 75 <= green <= 175 and red <= 150 and blue <= 120 and green > red * 1.18 and green > blue * 1.3:
+            return '#ffffff'
+    return _gmp_button_text_color(color)
+
+
+def _gmp_green_gradient_button_text(color1, color2):
+    if (_gmp_green_primary_button_text(color1) == '#ffffff'
+            and _gmp_green_primary_button_text(color2) == '#ffffff'):
+        return '#ffffff'
+    return _gmp_button_text_color(color1, color2)
+
+
 def _gmp_default_cta_overlay(color1, color2):
     def parse(value):
         if not isinstance(value, str):
@@ -837,7 +853,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 facade_css = facade_css.replace("{{ theme_color1_rgb }}", _hex_to_rgb_triplet(theme_color1))
                 facade_css = facade_css.replace("{{ theme_color2_rgb }}", _hex_to_rgb_triplet(theme_color2, "5, 150, 105"))
                 facade_css = facade_css.replace("{{ theme_color3_rgb }}", _hex_to_rgb_triplet(theme_color3, "13, 148, 136"))
-                facade_css = facade_css.replace("{{ theme_cta_text }}", _gmp_button_text_color(theme_color1))
+                facade_css = facade_css.replace("{{ theme_cta_text }}", _gmp_green_primary_button_text(theme_color1))
 
     elif template == "bernard":
         css_file = os.path.join(os.path.dirname(__file__), "templates", "websites", template, "style.css")
@@ -850,7 +866,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
                 bernard_css = bernard_css.replace("{{ theme_color1 }}", theme_color1)
                 bernard_css = bernard_css.replace("{{ theme_color2 }}", theme_color2)
                 bernard_css = bernard_css.replace("{{ theme_color3 }}", theme_color3)
-                bernard_css = bernard_css.replace("{{ theme_color1_text }}", _gmp_button_text_color(theme_color1))
+                bernard_css = bernard_css.replace("{{ theme_color1_text }}", _gmp_green_primary_button_text(theme_color1))
                 bernard_css = bernard_css.replace("{{ theme_color3_text }}", _gmp_button_text_color(theme_color3))
 
     # Default template color processing
@@ -1418,7 +1434,7 @@ def _render_jinja2_template(business_dir: str, template: str, use_draft: bool = 
         context["theme_color1"] = default_theme_color1
         context["theme_color2"] = default_theme_color2
         context["theme_color3"] = default_theme_color3
-        context["theme_default_cta_text"] = _gmp_button_text_color(default_theme_color1, default_theme_color2)
+        context["theme_default_cta_text"] = _gmp_green_gradient_button_text(default_theme_color1, default_theme_color2)
         context["theme_default_cta_overlay"] = _gmp_default_cta_overlay(default_theme_color1, default_theme_color2)
 
     # Setup Jinja2 environment

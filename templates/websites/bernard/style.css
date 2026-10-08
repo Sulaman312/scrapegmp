@@ -1860,3 +1860,25 @@ h3 {
         padding: 18px 20px;
     }
 }
+
+@media (min-width: 1024px) {
+    .section-contact-detail .container-wide {
+        padding-inline: clamp(28px, 4vw, 64px);
+    }
+
+    .section-contact-detail .contact-grid {
+        gap: clamp(36px, 4vw, 64px);
+    }
+
+    .section-contact-detail .contact-info-container {
+        grid-column: 1;
+        grid-row: 1;
+        min-width: 0;
+    }
+
+    .section-contact-detail .contact-form-container {
+        grid-column: 2;
+        grid-row: 1;
+        min-width: 0;
+    }
+}
